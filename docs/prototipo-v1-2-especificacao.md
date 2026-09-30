@@ -1,6 +1,6 @@
 # Memora — Especificação visual do protótipo V1.2
 
-**Atualização:** 25/09/2026  
+**Atualização:** 30/09/2026  
 **Figma:** https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=92-2
 
 Este documento consolida a especificação visual mais recente do **Memora**, nova identidade do projeto de aprimoramento do simulador educacional de memória cache, após revisão do sistema legado, questionário com usuários, inspeção heurística de Nielsen e refinamentos sucessivos no Figma.
@@ -249,7 +249,15 @@ A especificação visual se relaciona diretamente com:
 
 ## 8. Status
 
-A V1.2 está consolidada como **especificação visual do Memora para validação com orientação e estudantes antes da implementação**.
+A V1.2 é a **referência visual provisória do Memora para implementação em paralelo à avaliação com orientadora, coorientadora e estudantes**.
+
+### Atualização do planejamento — 30/09/2026
+
+Conforme informado pelo autor, a elaboração inicial do protótipo foi concluída em **23/09/2026**, após demandar mais tempo do que o previsto para 15/09. Os registros de revisões e decisões de 24–25/09 permanecem como refinamentos posteriores.
+
+Enquanto a avaliação externa é aguardada na [issue #33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33), foi decidido iniciar o código em paralelo. O feedback poderá gerar ajustes no protótipo e na implementação, registrados nas issues e nos pull requests correspondentes. A conclusão da prototipação não equivale à aprovação externa, ao congelamento definitivo da interface ou à conclusão do código.
+
+O cronograma revisto e o impacto sobre os marcos técnicos estão registrados na [issue #22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22).
 
 Ainda dependem de código e testes:
 
