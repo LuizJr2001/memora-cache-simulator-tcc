@@ -29,9 +29,9 @@ As principais frentes previstas são:
 - oferecer estatísticas, exportação de resultados e comparação entre configurações, conforme a viabilidade técnica;
 - avaliar a usabilidade e a experiência de uso por inspeção heurística e levantamento de requisitos com estudantes.
 
-## Funcionalidades atuais
+## Funcionalidades do legado disponível
 
-O Memora permite configurar e acompanhar, em tempo real ou passo a passo:
+A aplicação legada Beto, ainda disponível em `docs/`, permite configurar e acompanhar, em tempo real ou passo a passo:
 
 - mapeamento direto, totalmente associativo e associativo por conjunto;
 - políticas de substituição FIFO, LRU e aleatória;
@@ -46,13 +46,31 @@ O Memora permite configurar e acompanhar, em tempo real ou passo a passo:
 - CSS3
 - JavaScript
 
-O simulador não exige instalação: abra [`docs/index.html`](docs/index.html) em um navegador ou acesse a versão publicada pelo GitHub Pages deste repositório.
+A aplicação legada não exige instalação: abra [`docs/index.html`](docs/index.html) em um navegador ou acesse a versão publicada pelo GitHub Pages deste repositório.
+
+## Implementação do pacote Memora
+
+A nova interface será desenvolvida no pacote privado `@memora/simulator`, em `packages/memora`, dentro deste mesmo repositório. O motor do Beto será extraído e adaptado gradualmente, com testes; `docs/` permanece como referência executável para comparação.
+
+A base inicial contém apenas a página de desenvolvimento e ferramentas locais. As telas e regras da V1.2 ainda dependem de implementação nas issues #25–#28, #30, #31 e #35.
+
+Requer Node.js 22 ou superior e npm. Na raiz:
+
+```bash
+npm ci
+npm run dev
+```
+
+Abra http://127.0.0.1:5173/ para o pacote Memora ou http://127.0.0.1:5173/legado/ para o Beto. A verificação inicial de sintaxe usa `npm run check`; os testes de simulação serão adicionados junto das regras.
+
+Consulte o [guia do pacote](packages/memora/README.md) e a [decisão de arquitetura](docs/decisoes/003-pacote-memora.md). Esta base não altera a publicação pelo GitHub Pages.
 
 ## Estrutura do repositório
 
 ```text
 .
-├── docs/               # aplicação web publicada pelo GitHub Pages
+├── packages/memora/    # novo pacote; interface e motor em desenvolvimento
+├── docs/               # aplicação legada publicada e documentação
 ├── tcc/                # material acadêmico do Trabalho de Conclusão de Curso
 ├── CONTRIBUTING.md     # convenções de branches, commits e contribuição
 ├── WORKFLOW.md         # metodologia, Kanban, issues e rastreabilidade
@@ -106,3 +124,4 @@ O **Beto**, sistema legado que deu origem ao Memora, foi originalmente desenvolv
 A adoção do nome Memora não altera a atribuição da ferramenta original nem a rastreabilidade acadêmica das evidências coletadas durante o TCC.
 
 Este projeto é distribuído sob a licença [MIT](LICENSE).
+
