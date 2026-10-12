@@ -1,10 +1,11 @@
 # Memora — Especificação visual do protótipo v2
 
-**Consolidação documental:** 11/10/2026  
+**Consolidação documental:** 12/10/2026
+
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
 
-A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, e as revisões de espaçamento, tipografia e textos de ajuda em 11/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
+A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, as revisões de espaçamento, tipografia e textos de ajuda em 11/10 e a padronização das cores informativas em 12/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
 
 A entrega no Figma contém telas estáticas. A aparência de abas, botões e side sheets especifica a interface; a navegação, a execução real e a operação por teclado serão implementadas em código. A avaliação externa segue na #33. As revisões visuais não representam aprovação dos participantes ou conclusão da implementação.
 
@@ -41,7 +42,29 @@ O projeto mantém o **Simple Design System (SDS)** e a família **Inter**. As ad
 
 Os botões compartilham cor e forma em todas as etapas. A aba atual é reconhecida também pela forma e pela ligação ao conteúdo. A interface dispensa a instrução Clique nas abas para trocar de tela.
 
-A codificação didática do Figma permanece: Tag violeta, Conjunto ciano, Deslocamento teal, LENDO azul, ACERTO verde, FALTA âmbar e erros de entrada/configuração em vermelho. A cor deve acompanhar rótulos e símbolos; a implementação ainda deve verificar contraste, foco e estados de interação.
+### Cores semânticas — revisão em 12/10/2026
+
+A cor identifica a função do conteúdo. A divisão anterior de Tag em violeta, Conjunto em ciano e Deslocamento em teal foi retirada das telas e variantes das três etapas na v2. Esses dados são informações derivadas, reconhecidas pelos rótulos e pela posição, e compartilham o azul claro dos side sheets.
+
+| Função | Cor vigente | Uso e significado |
+|---|---|---|
+| Informação e explicação | Azul claro `#F1F6FD`, texto `#1E1E1E` | Endereço, Tag, Conjunto/Linha e Deslocamento; resumo da configuração; nota didática; quatro passos explicativos e caixas Sai/Entra |
+| Conjunto em consulta | Azul SDS `#224A8A` | Mesmo destaque nos badges Conjunto consultado/atual, indicadores laterais e bordas das linhas do conjunto atual |
+| Leitura em andamento | Família azul e rótulo LENDO | Acesso em processamento, distinto de um resultado final |
+| Resultado/condição positiva | Família verde e rótulo correspondente | ACERTO e validações bem-sucedidas; nas tabelas, os destaques de recência/manutenção/inserção permanecem nesta revisão |
+| Falta ou substituição pendente | Família âmbar e rótulo correspondente | FALTA, Candidata e substituição pendente; não significam entrada inválida |
+| Entrada/configuração inválida | Família vermelha e mensagem próxima do campo | Situação que exige corrigir dados antes de executar |
+| Ação | Carvão `#2C2C2C`, texto `#F5F5F5` | Identidade compartilhada dos botões; negrito, forma e rótulo indicam a ação |
+
+Os balões das telas usam o novo alias **`Background/Informação`**, e os side sheets mantêm **`Background/Ajuda`**: ambos apontam para o mesmo `Blue/100` do SDS. O destaque de consulta usa **`Accent/Consulta` → `Blue/800`**. Os nomes CSS previstos são `--memora-info-background` e `--memora-current-set-accent`; os tokens e os comportamentos serão reproduzidos na #35. A borda neutra reutiliza `Border/Default/Default`.
+
+**Conferência:** 121 caixas de dados, 28 cartões de passos, 14 caixas Sai/Entra e 32 resumos/notas receberam a identidade informativa; 36 badges e 25 indicadores/bordas de conjunto receberam a identidade de consulta. Não restaram caixas de decomposição com as antigas cores nas três seções de etapas. As três telas principais e uma variante binária com side sheet foram revisadas visualmente. Textos, fonte Inter, pesos e geometria foram preservados. O contraste é de **15,32:1** para texto neutro sobre azul claro e **8,00:1** para texto de consulta sobre esse fundo; esses resultados não representam uma auditoria completa da interface.
+
+**Proposta para avaliar:** usar laranja escuro sobre fundo claro para FALTA, em vez de âmbar, distinguindo a necessidade de buscar um bloco do erro de preenchimento. A falta é um resultado normal da cache. O âmbar permanece aplicado; a troca para laranja é uma opção local a comparar com os participantes, não uma exigência de acessibilidade. Também convém avaliar tons neutros para recência/Mantida/Inserida nas tabelas, reservando o verde dos resultados para ACERTO. Os nomes de coluna, rótulos e posição devem explicar recência e substituição.
+
+A regra se apoia no [princípio de semelhança da Gestalt](https://www.nngroup.com/articles/gestalt-similarity/) e na [heurística de consistência e padrões](https://www.nngroup.com/articles/consistency-and-standards/): funções relacionadas compartilham sinais visuais. O [Carbon — Status indicators](https://www.carbondesignsystem.com/building-blocks/core/patterns/status-indicators) oferece convenções de estados como referência teórica; a base de componentes do Memora continua sendo SDS. Essas convenções não impõem uma cor específica para falta na cache.
+
+Pelas [WCAG 2.2 — Uso de cor](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html), cor deve acompanhar texto, símbolo ou outro sinal visual. ACERTO/FALTA, os símbolos e os rótulos de conjunto continuam necessários. O [contraste mínimo de texto](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) deve ser verificado na implementação: 4,5:1 para texto normal e 3:1 para texto grande.
 
 ### Tipografia — revisão em 11/10/2026
 
@@ -162,13 +185,14 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 08/10 | Página v2, blocos, setas e pontuação | #37 |
 | 09/10 | Abas, identidade dos controles, microcopy e simplificação dos side sheets | #37 |
 | 11/10 | Espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade, revisão dos textos de ajuda e sincronização documental | #37 e revisão desta especificação |
+| 12/10 | Azul informativo compartilhado com os side sheets e indicadores de consulta com a mesma identidade; pesquisa e proposta de cor para FALTA | #37 e decisão 002 |
 
 ## Implementação e avaliação
 
 - #22 — calendário, metas e replanejamento
 - #29 — elaboração e consolidação do protótipo
 - #33 — avaliação com orientação e estudantes
-- #34 — base do pacote `packages/memora`; proposta disponível no PR #36, ainda draft
+- #34 — base do pacote `packages/memora`, integrada à main pelo PR #36 em 12/10; núcleo de configuração/endereços acrescentado no PR #41
 - #35 — implementação funcional das telas e dos side sheets desta v2
 - #37 — decisões e refinamentos de UX após a reunião
 - #25–#28, #30 e #31 — regras, correções, LRU e regressão
@@ -176,4 +200,4 @@ As associações registram decisões do redesign. A inspeção formal com severi
 
 A implementação consumirá o motor em `src/core`, mantendo interface e interação em `src/ui`. Trocar de aba ou formato numérico deve preservar o estado; as ajudas devem abrir/fechar por teclado e restaurar o foco. Cada entrega visual deve registrar referência, screenshots e verificações dos estados envolvidos.
 
-A avaliação do protótipo continua com telas/imagens estáticas, da Tela 1 para a Tela 3, da esquerda para a direita. O Figma é apoio opcional para consultar detalhes; a avaliação da versão funcional pertence à etapa seguinte (#23). O código, a regressão, a consolidação da avaliação e a atualização do artigo permanecem pendentes nas respectivas issues.
+A avaliação do protótipo continua com telas/imagens estáticas, da Tela 1 para a Tela 3, da esquerda para a direita. O Figma é apoio opcional para consultar detalhes; a avaliação da versão funcional pertence à etapa seguinte (#23). A interface funcional, a execução da cache, a regressão completa, a consolidação da avaliação e a atualização do artigo permanecem pendentes nas respectivas issues. A base do pacote e o núcleo de configuração/endereços já estão integrados.
