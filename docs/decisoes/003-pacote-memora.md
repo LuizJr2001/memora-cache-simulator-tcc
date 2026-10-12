@@ -64,6 +64,18 @@ Não aguardar #33 para começar. Incorporar o feedback do protótipo por ajustes
 rastreáveis. Load/store, políticas de escrita e dirty bit (#32) continuam fora
 do escopo essencial.
 
+## Progresso — 12/10/2026
+
+A base foi integrada pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36).
+O [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41) introduz configuração, decomposição, validação/geração de
+endereços e preparação de entrada, com 28 testes automatizados e sem DOM.
+As [APIs do núcleo](../../packages/memora/src/core/README.md) documentam o
+contrato e os limites de 1000 endereços e 18000 caracteres.
+
+A integração com a Tela 1 permanece na #35. Execução, snapshots anteriores,
+políticas e controles serão extraídos nas entregas seguintes; esta etapa não
+completa a regressão da simulação da #31.
+
 ## Como trabalhar
 
 Seguir `CONTRIBUTING.md` e `WORKFLOW.md`: uma ou duas issues em andamento,
