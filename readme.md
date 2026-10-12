@@ -61,7 +61,7 @@ Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegad
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
 | Implementação | Núcleo de configuração e entradas com 28 testes no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); ligação com a Tela 1, execução, controles, LRU e snapshots seguem em #25–#28, #30, #31 e [#35](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/35) |
 
-A revisão de 08–11/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets e espaçamento da Ajuda rápida. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens e as adaptações locais.
+A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
 
 A elaboração inicial terminou em 23/09, após demandar mais tempo que o previsto. O desenvolvimento segue em paralelo à avaliação, conforme a [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22). A implementação, a avaliação completa e a atualização do artigo permanecem como entregas a concluir.
 
