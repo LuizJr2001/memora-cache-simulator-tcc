@@ -85,5 +85,12 @@ npm run dev
 
 Memora: http://127.0.0.1:5173/ — Beto: http://127.0.0.1:5173/legado/.
 
-Antes do PR, execute `npm run check`. Nesta base isso verifica apenas a sintaxe do servidor; não substitui regressão da simulação. Os testes de regras e controles serão adicionados nas entregas relacionadas à #31. Entregas parciais devem usar `Refs #N`, reservando `Closes #N` para todos os critérios atendidos.
+Antes do PR, execute:
+
+```bash
+npm run check
+npm test
+```
+
+`check` verifica a sintaxe dos arquivos JavaScript do pacote; `test` executa os testes do núcleo com o runner nativo do Node. A primeira suíte contém 28 testes de configuração, endereçamento, sequências e limites. A regressão da execução da cache, das políticas e dos controles será ampliada na #31. As [APIs e limites](packages/memora/src/core/README.md) orientam a integração com a interface. Entregas parciais devem usar `Refs #N`, reservando `Closes #N` para todos os critérios atendidos.
 

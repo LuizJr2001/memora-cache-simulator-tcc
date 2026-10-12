@@ -58,8 +58,8 @@ Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegad
 | UX | Abas de navegador, botões em pílula, campos de cantos retos, balões azuis, linguagem direta e textos reduzidos; revisão na [#37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37) |
 | Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
 | Avaliação | Retorno da orientação e dos estudantes em consolidação na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); imagens estáticas e Figma como apoio |
-| Base do código | Novo pacote proposto no [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36), ainda draft; estrutura `src/core` / `src/ui`, sem as telas e o motor migrado |
-| Implementação | Telas, controles reais, validações, LRU, snapshots e testes acompanhados em #25–#28, #30, #31 e [#35](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/35) |
+| Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
+| Implementação | Núcleo de configuração e entradas com 28 testes no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); ligação com a Tela 1, execução, controles, LRU e snapshots seguem em #25–#28, #30, #31 e [#35](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/35) |
 
 A revisão de 08–11/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets e espaçamento da Ajuda rápida. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens e as adaptações locais.
 
@@ -67,26 +67,27 @@ A elaboração inicial terminou em 23/09, após demandar mais tempo que o previs
 
 ## Base de desenvolvimento do pacote
 
-O pacote privado `@memora/simulator` foi proposto em `packages/memora`, no mesmo repositório. O Beto permanece como referência de comparação; o motor será extraído e adaptado gradualmente com regressão. A base ainda está na branch `chore/34-base-pacote-memora`, no PR #36, e contém página inicial e servidor local.
+O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. As telas e a execução da cache serão conectadas gradualmente, com testes, seguindo a #35.
 
-Para experimentar essa branch, use Node.js 22 ou superior e npm:
+Use Node.js 22 ou superior e npm:
 
 ```bash
 git fetch origin
-git switch chore/34-base-pacote-memora
+git switch main
 npm ci
 npm run dev
 ```
 
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
-`npm run check` verifica a sintaxe do servidor nessa base; a regressão dos mapeamentos e políticas será desenvolvida junto do motor, na #31. A especificação v2 orienta a interface funcional da #35.
+`npm run check` verifica a sintaxe dos arquivos JavaScript do pacote. `npm test` executa os 28 testes do núcleo; a regressão da execução da cache e das políticas será ampliada na #31. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
 
 ## Estrutura do repositório
 
 ```text
 .
 ├── docs/               # aplicação legada, especificações e decisões
+├── packages/memora/    # pacote privado, núcleo, interface e testes
 ├── research/           # dados anonimizados do levantamento
 ├── tcc/                # material acadêmico do Trabalho de Conclusão de Curso
 ├── CONTRIBUTING.md     # convenções de branches, commits e contribuição

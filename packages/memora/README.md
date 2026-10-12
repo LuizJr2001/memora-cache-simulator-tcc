@@ -1,8 +1,9 @@
 # Pacote Memora
 
 Pacote npm privado `@memora/simulator`, dentro do mesmo repositório do TCC.
-Esta entrega configura apenas a base de desenvolvimento. As telas do Figma e
-o motor migrado ainda serão implementados.
+A base de desenvolvimento e o núcleo de configuração/endereços estão implementados.
+As APIs validam parâmetros e sequências antes de fornecer dados para execução.
+A interface do Figma e a execução da cache seguem nas próximas entregas.
 
 ## Executar
 
@@ -24,18 +25,26 @@ Não há dependências externas nesta base. Não é um servidor de produção.
 
 ```bash
 npm run check
+npm test
 ```
 
-Nesta entrega, `check` verifica a sintaxe do servidor. Não constitui teste de
-simulação, de usabilidade ou de fidelidade ao Figma. Os testes de comportamento
-serão incluídos com a extração do motor, seguindo a issue #31.
+`check` verifica a sintaxe dos módulos em `scripts`, `src` e `tests`. `test`
+executa os 28 testes do núcleo com o runner nativo do Node: configurações,
+decomposição, sequências, limites e geração controlada. A regressão da execução
+da cache e dos controles será acrescentada na #31.
 
 ## Organização
 
-- `src/core/`: regras e estado da simulação, sem DOM; migração pendente.
+- `src/core/`: configuração, endereçamento e preparação de entrada sem DOM;
+  execução, políticas, estatísticas e snapshots em migração.
 - `src/ui/`: telas, componentes, controles e formatação; implementação pendente.
 - `src/styles/`: estilos da página inicial; tokens do design serão implementados com as telas.
 - `scripts/`: ferramentas de desenvolvimento.
+- `tests/`: testes de comportamento do núcleo.
+
+APIs, regras e limites: [src/core/README.md](src/core/README.md).
+A sequência está limitada a 1000 endereços e 18000 caracteres; a interface deve
+consumir esses limites e apresentar os erros próximos aos campos.
 
 Decisão e sequência de implementação:
 [003-pacote-memora.md](../../docs/decisoes/003-pacote-memora.md).
