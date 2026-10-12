@@ -4,7 +4,7 @@
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
 
-A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, e os ajustes de espaçamento da Ajuda rápida e de tipografia em 11/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
+A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, e as revisões de espaçamento, tipografia e textos de ajuda em 11/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
 
 A entrega no Figma contém telas estáticas. A aparência de abas, botões e side sheets especifica a interface; a navegação, a execução real e a operação por teclado serão implementadas em código. A avaliação externa segue na #33. As revisões visuais não representam aprovação dos participantes ou conclusão da implementação.
 
@@ -21,6 +21,8 @@ A entrega no Figma contém telas estáticas. A aparência de abas, botões e sid
 | 1 · Configurar | [Tela 1](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14) | Memória principal, bloco, cache, três mapeamentos, vias condicionais, sequência, exemplo pronto, validações inline e bloqueio da execução |
 | 2 · Simular | [Tela 2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-1720) | Antes de iniciar, controles, velocidade, microetapas, conjunto atual, cache com scroll, validade/tag/bloco/LRU, histórico e conclusão |
 | 3 · Analisar | [Tela 3](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473) | Acesso selecionado, snapshots antes/depois, bloco removido/inserido, recência e quatro passos didáticos |
+
+O controle de ritmo da Tela 2 usa o rótulo **Velocidade**, junto à barra de ajuste, em todas as 14 variantes da simulação. A interface não exibe o texto técnico `5 etapas/s`; a reprodução funcional do ajuste segue na #35.
 
 Decimal/Binário altera apenas a apresentação de endereços, tags e blocos. A escolha deve ser preservada ao trocar de tela. A cache usa scroll local; o antigo botão Ver cache completa permanece removido.
 
@@ -100,6 +102,26 @@ Um único Card reúne Configurar, Simular e Analisar. A orientação contextual 
 - Pontos finais retirados do encerramento dos textos/linhas; pontuação interna, abreviações e separadores numéricos preservados
 - Fórmulas, regras dos mapeamentos e exemplos didáticos preservados nas ajudas pertinentes
 
+### Revisão de redundância — 11/10/2026
+
+Foram lidos os 18 side sheets. Dezesseis tiveram a redação ajustada: 31 textos de Descrição/Exemplo didático passaram de 1.283 para 715 palavras (redução de aproximadamente 44% nesses trechos). Glossário e Ajuda rápida foram preservados por já cumprirem funções distintas e concisas.
+
+A Descrição explica o componente e suas regras; o Exemplo didático demonstra essas regras com dados do cenário de referência. Foram retiradas introduções que repetiam o título, instruções genéricas de acompanhamento e explicações repetidas dentro de um mesmo painel. A informação necessária para consultar uma ajuda isoladamente permanece disponível.
+
+| Ajuda | Foco da revisão |
+|---|---|
+| Bytes por célula | Unidade e inteiro positivo; exemplo de capacidade: 4096 células × 1 byte = 4 KiB |
+| Número de linhas | Quantidade de blocos armazenáveis; exemplo de 512 células de dados, sem repetir o exemplo de vias/conjuntos |
+| Mapeamento e Vias por conjunto | Posições permitidas e quantidade de vias; explicação da política permanece em Substituição |
+| Estado LRU | Significado de Mais recente e Próxima substituição; critério da escolha detalhado em LRU na decisão |
+| Memória cache | Leitura das colunas Válido, Tag, Bloco armazenado e LRU |
+| Histórico de acessos | Ordem, resultado e revisão do acesso; exemplo concreto de ACERTO no endereço 2018 |
+| Decisão e Estado antes × depois | Escolha da vítima e comparação dos blocos 992–1007 e 3040–3055, com tags 3 e 11 |
+| Decomposição do endereço | Função de cada parte e exemplo `2018 = 0111 \| 1110 \| 0010` (tag 7, conjunto 14, deslocamento 2) |
+| Como funciona? | Busca, acerto e falta; a orientação sobre o fluxo permanece na Ajuda rápida |
+
+A estrutura permanece em **18 side sheets e 34 Cards**, com os estilos SDS, Inter, cores e espaçamentos anteriores. A conferência dos textos não encontrou conteúdo fora dos painéis; a Tela 2, Estado LRU, Decomposição do endereço e Como funciona? passaram pela revisão visual. Os exemplos são estáticos e não usam os dados do acesso selecionado.
+
 ## Cenário didático de referência
 
 O cenário de comparação continua o da V1.2: 4096 células de 1 byte, blocos de 16 células, 32 linhas, mapeamento associativo por conjunto, 2 vias e LRU. São 12 bits de endereço: 4 de tag, 4 de conjunto e 4 de deslocamento.
@@ -139,7 +161,7 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 02/10 | Reunião de UX com Glívia | #37 |
 | 08/10 | Página v2, blocos, setas e pontuação | #37 |
 | 09/10 | Abas, identidade dos controles, microcopy e simplificação dos side sheets | #37 |
-| 11/10 | Mais espaçamento na Ajuda rápida e sincronização documental | #37 e revisão desta especificação |
+| 11/10 | Espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade, revisão dos textos de ajuda e sincronização documental | #37 e revisão desta especificação |
 
 ## Implementação e avaliação
 
