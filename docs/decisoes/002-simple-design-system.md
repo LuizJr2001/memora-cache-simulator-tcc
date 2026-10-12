@@ -48,7 +48,7 @@ A adoção vale para as três etapas principais:
 
 ### Controles
 
-- botões de ação com a mesma cor e forma: carvão `#2C2C2C`, texto `#F5F5F5` e pílula `Radius/Full`;
+- botões de ação com a mesma cor e forma: carvão `#2C2C2C`, texto `#F5F5F5` em Inter Bold (700) e pílula `Radius/Full`;
 - ajuda e fechar side sheet circulares, com a mesma identidade;
 - campos e seletores com cantos retos, raio zero (`Radius/Campo`), branco e borda cinza;
 - estado desabilitado distinguível por menor opacidade, com verificação de contraste ainda necessária;
@@ -68,6 +68,16 @@ A base neutra do SDS não substitui a codificação pedagógica do Memora:
 - ACERTO — verde;
 - FALTA — âmbar;
 - ERRO — vermelho.
+
+### Tipografia
+
+- Inter como única família para todos os textos editáveis da v2, inclusive valores técnicos, Decimal/Binário, variantes, side sheets e exemplos de componentes;
+- rótulos de botões, ajuda/fechar, links de ação, seletores de formato e todas as abas em Bold (700), inclusive nos estados selecionado e desabilitado;
+- títulos, corpo, campos e dados preservam seus pesos conforme a hierarquia de cada função;
+- estilos compartilhados `Memora/SDS/Ações/{12,13,14,16} Bold`, `Memora/SDS/Abas/16 Bold` e `Memora/SDS/Entradas/13 Regular`;
+- tamanhos, entrelinhas e alinhamentos preservados; a diferenciação da aba atual continua pela forma, cor e ligação ao conteúdo.
+
+O negrito uniforme dos controles é uma adaptação local do Memora sobre o SDS. A revisão de 11/10/2026 verificou 4.833 nós de texto em Inter e 681 rótulos de ações/abas em Bold (700), sem divergências de família/peso, cortes nos controles ou descentralização. A regra deve ser reproduzida na implementação #35.
 
 ### Side sheets
 

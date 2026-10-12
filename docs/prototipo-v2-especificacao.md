@@ -4,7 +4,7 @@
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
 
-A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, e o ajuste de espaçamento da Ajuda rápida em 11/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
+A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, e os ajustes de espaçamento da Ajuda rápida e de tipografia em 11/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
 
 A entrega no Figma contém telas estáticas. A aparência de abas, botões e side sheets especifica a interface; a navegação, a execução real e a operação por teclado serão implementadas em código. A avaliação externa segue na #33. As revisões visuais não representam aprovação dos participantes ou conclusão da implementação.
 
@@ -30,16 +30,28 @@ O projeto mantém o **Simple Design System (SDS)** e a família **Inter**. As ad
 
 | Família | Forma e estado vigente | Tokens e aparência |
 |---|---|---|
-| Botões de ação | Pílula; texto centralizado; estado desabilitado distinguível | `Radius/Full`, `Background/Brand/Default`, `Text/Brand/On Brand`; carvão `#2C2C2C` e texto `#F5F5F5` |
-| Ajuda e fechar side sheet | Circular, com `?` ou `×` centralizado | Mesma identidade dos botões |
+| Botões de ação | Pílula; texto Inter Bold (700), centralizado; estado desabilitado distinguível | `Radius/Full`, `Background/Brand/Default`, `Text/Brand/On Brand`; carvão `#2C2C2C` e texto `#F5F5F5` |
+| Ajuda e fechar side sheet | Circular, com `?` ou `×` em Inter Bold (700), centralizado | Mesma identidade dos botões |
 | Campos e seletores | Cantos retos, raio zero | `Radius/Campo` da coleção Memora · Extensões do SDS; branco com borda cinza e sinais de erro |
-| Abas | Cantos arredondados no topo; aba atual elevada, destacada e ligada ao conteúdo | Base Tab do SDS; componente `Memora/Navegação/Abas`, com três estados de seleção |
+| Abas | Todos os rótulos em Inter Bold (700); cantos arredondados no topo; aba atual elevada, destacada e ligada ao conteúdo | Base Tab do SDS; componente `Memora/Navegação/Abas`, com três estados de seleção |
 | Decimal/Binário | Mesma base dos botões; exatamente uma opção marcada | Símbolo `✓` junto ao rótulo atual |
 | Balões de ajuda | Card SDS, raio de 16 px, sem borda | `Background/Ajuda` → `Blue/100`, `#F1F6FD`; texto `#1E1E1E`; `Radius/400` |
 
 Os botões compartilham cor e forma em todas as etapas. A aba atual é reconhecida também pela forma e pela ligação ao conteúdo. A interface dispensa a instrução Clique nas abas para trocar de tela.
 
 A codificação didática do Figma permanece: Tag violeta, Conjunto ciano, Deslocamento teal, LENDO azul, ACERTO verde, FALTA âmbar e erros de entrada/configuração em vermelho. A cor deve acompanhar rótulos e símbolos; a implementação ainda deve verificar contraste, foco e estados de interação.
+
+### Tipografia — revisão em 11/10/2026
+
+- **Inter é a única família** de todos os textos editáveis da v2: telas, variantes, side sheets, exemplos de componentes e valores técnicos, incluindo Decimal/Binário
+- **Rótulos de botões e abas sempre em Bold (700)**, incluindo ações globais, controles da simulação, ajuda/fechar, links de ação e seleção do formato numérico; o peso é mantido nos estados selecionado e desabilitado
+- Títulos, corpo, campos e dados mantêm a hierarquia de pesos definida para cada função; o negrito dos controles não se estende a todos os textos
+- Estilos compartilhados: `Memora/SDS/Ações/12 Bold`, `13 Bold`, `14 Bold` e `16 Bold`; `Memora/SDS/Abas/16 Bold`, com entrelinha de 140%; entradas com `Memora/SDS/Entradas/13 Regular`
+- Tamanhos, entrelinhas, cores e espaçamentos existentes foram preservados, assim como os textos e a centralização dos controles
+
+**Conferência no Figma:** 4.833 nós de texto em Inter e 681 rótulos de ações/abas em Bold (700), sem divergência de família ou peso nesse escopo. A verificação não encontrou textos fora dos controles nem contêineres de ação descentralizados. Foram conferidas visualmente as três telas principais e a variante Decimal/Binário.
+
+A implementação #35 deve carregar Inter e aplicar `font-weight: 700` aos rótulos de ações e abas. Esta revisão especifica o Figma; a aplicação no código e a validação responsiva continuam pendentes.
 
 ## Ajuda contextual e microcopy
 
