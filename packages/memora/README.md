@@ -40,6 +40,12 @@ serão incluídos com a extração do motor, seguindo a issue #31.
 Decisão e sequência de implementação:
 [003-pacote-memora.md](../../docs/decisoes/003-pacote-memora.md).
 
+## Referência visual
+
+A [especificação v2](../../docs/prototipo-v2-especificacao.md) e a issue #37
+registram a referência vigente para #35: abas, controles e ajuda contextual.
+A avaliação #33 permanece em paralelo; esta base ainda não implementa essas telas.
+
 ## Origem
 
 O simulador original é o [Beto, de Leandro Gabriel e colaboradores](https://github.com/leo150250/simuladorCache).

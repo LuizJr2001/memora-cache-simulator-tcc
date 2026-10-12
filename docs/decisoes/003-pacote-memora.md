@@ -6,9 +6,10 @@ Issues: #34 (base), #35 (interface), #25–#28, #30 e #31 (regras e testes).
 ## Contexto
 
 O código executável atual fica em `docs/index.html`, `docs/scripts.js` e
-`docs/style.css`. Não existe pacote npm, framework ou suíte automatizada.
+`docs/style.css`. Na base do Beto não havia pacote npm, framework ou suíte automatizada.
 `scripts.js` mistura regras da cache, estado global, temporizadores e criação de
-elementos HTML. O protótipo V1.2 descreve uma interface nova, ainda em avaliação.
+elementos HTML. A especificação v2 descreve a nova interface, ainda em avaliação.
+Referência: [protótipo v2](../prototipo-v2-especificacao.md), #35 e #37.
 
 ## Decisão
 
