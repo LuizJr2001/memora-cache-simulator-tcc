@@ -1,9 +1,11 @@
-# Memora — Especificação visual do protótipo V1.2
+# Memora — Histórico da especificação visual V1.2
 
 **Atualização:** 30/09/2026  
 **Figma:** https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=92-2
 
-Este documento consolida a especificação visual mais recente do **Memora**, nova identidade do projeto de aprimoramento do simulador educacional de memória cache, após revisão do sistema legado, questionário com usuários, inspeção heurística de Nielsen e refinamentos sucessivos no Figma.
+**Referência vigente:** [especificação v2](prototipo-v2-especificacao.md) e [página v2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2). Este documento preserva as decisões e o cenário da V1.2; as regras visuais revisadas em outubro estão na v2.
+
+Este documento consolida a especificação visual da V1.2 do **Memora**, nova identidade do projeto de aprimoramento do simulador educacional de memória cache, após revisão do sistema legado, questionário com usuários, inspeção heurística de Nielsen e refinamentos sucessivos no Figma.
 
 > Importante: este documento descreve a **especificação de interface e comportamento esperado**. Não significa que todos os itens já estejam implementados no código.
 
@@ -249,7 +251,7 @@ A especificação visual se relaciona diretamente com:
 
 ## 8. Status
 
-A V1.2 é a **referência visual provisória do Memora para implementação em paralelo à avaliação com orientadora, coorientadora e estudantes**.
+A V1.2 permanece como **referência histórica**. A implementação e a avaliação devem consultar a [especificação v2](prototipo-v2-especificacao.md), que consolida os refinamentos posteriores.
 
 ### Atualização do planejamento — 30/09/2026
 
