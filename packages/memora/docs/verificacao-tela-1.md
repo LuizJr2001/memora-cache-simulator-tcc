@@ -27,8 +27,18 @@ Tela 1, e editar dados invalida a entrada preparada. As etapas Simular e Analisa
 aparecem sem navegação ativa. Esta entrega não executa cache ou políticas.
 
 Adaptações para funcionamento: sequência inicialmente vazia; diálogo de geração
-com quantidade; altura fluida para mensagens; resumo de erros abaixo do cabeçalho
-para preservar o acesso ao exemplo didático; painéis empilhados em telas menores.
+com quantidade; resumo de erros sob o título, substituindo a descrição enquanto
+houver erros; painéis empilhados em telas menores.
+
+Na revisão de 12/10, os três campos de memória principal passaram a ocupar uma
+linha, o cabeçalho ficou com 52 px e foram reduzidos os intervalos entre os grupos.
+A Tela 1, suas variantes SDS e as telas de fundo das ajudas no Figma usam
+1280 × 720. Os 40 cabeçalhos da v2 oferecem apenas Glossário e Ajuda rápida;
+Abrir GitHub permanece na ajuda. A V1.2 foi preservada.
+
+O código adapta os intervalos à altura disponível. Validações usam espaço mais
+compacto sem reduzir a fonte. Mensagens extensas da sequência têm rolagem local
+com foco e PageDown, preservando o texto completo e as ações visíveis.
 
 ## Resultados
 
@@ -39,7 +49,7 @@ Ambiente: Node.js 24.19.0, Playwright 1.64.0 e Chromium 153.0.8010.0, Linux.
 | `npm ci` | Instalação pelo lockfile concluída |
 | `npm run check` | 16 arquivos JavaScript com sintaxe válida |
 | `npm test` | 37 testes passaram: 28 existentes + 9 do controlador |
-| `npm run test:ui --workspace @memora/simulator` | 13 cenários passaram no Chromium |
+| `npm run test:ui --workspace @memora/simulator` | 18 cenários passaram no Chromium |
 | `git diff --check` | Sem problemas de whitespace |
 | Diff dos três arquivos do Beto e de `src/core` | Sem alterações |
 
@@ -47,8 +57,13 @@ Os cenários de navegador cobrem exemplo, três mapeamentos, alteração das via
 troca de política, geração após editar memória, mensagens e bloqueio, preparação,
 zero bits, entradas coladas acima dos limites, conteúdo seguro, operação por
 teclado, as 11 ajudas, contenção/restauração de foco e fechamento por Escape,
-botão e scrim. Foram verificados layouts de 1280, 768, 390 e 320 px, sem scroll
-horizontal ou sobreposição entre os painéis. Inter local, peso 700 em ações/abas,
+botão e scrim. A página inteira foi verificada sem rolagem em 1280 × 720,
+1366 × 768, 1480 × 742 e 1536 × 864: estado inicial, exemplo, três mapeamentos,
+erros simultâneos, quatro parâmetros vazios e mensagens extensas. Os testes
+medem os limites dos controles e a altura real do documento, sem ocultar o
+overflow da página. O link GitHub foi conferido apenas na Ajuda rápida.
+Foram verificados layouts de 768, 390 e 320 px, sem scroll horizontal ou
+sobreposição entre os painéis. Inter local, peso 700 em ações/abas,
 cantos retos dos campos e assets carregados também têm verificação no navegador.
 
 Os assets locais correspondem aos slots do Figma: marca de 30 × 30 px e aros

@@ -18,7 +18,6 @@
       <nav class="global-actions" aria-label="Ajuda e referências">
         <button type="button" data-help="glossary">Glossário</button>
         <button type="button" data-help="quick">Ajuda rápida</button>
-        <a class="button" href="https://github.com/LuizJr2001/memora-cache-simulator-tcc" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> — abre em nova aba</span></a>
       </nav>
     </header>
     <main id="configurar" tabindex="-1">
@@ -28,17 +27,16 @@
         <li class="stage-tab" aria-disabled="true" title="Etapa ainda indisponível">3 Analisar</li>
       </ol>
       <div class="intro">
-        <div><h1>Configure a memória cache</h1><p>Defina a arquitetura ou carregue um exemplo pronto para começar</p></div>
+        <div><h1>Configure a memória cache</h1><p id="intro-description">Defina a arquitetura ou carregue um exemplo pronto para começar</p><div id="error-summary" class="error-summary" role="status" aria-live="polite" hidden></div></div>
         <button type="button" id="load-example">Carregar exemplo didático</button>
       </div>
-      <div id="error-summary" class="error-summary" role="status" aria-live="polite" hidden></div>
       <form id="configure-form" class="configuration-grid" novalidate>
         <section class="panel parameters-panel" aria-labelledby="parameters-heading">
           <div class="panel-heading">
             <div><h2 id="parameters-heading">Parâmetros</h2><p>Use valores em potência de 2</p></div>
             <button class="compact" type="button" data-help="how">Como funciona?</button>
           </div>
-          <fieldset class="parameter-group">
+          <fieldset class="parameter-group memory-group">
             <legend>MEMÓRIA PRINCIPAL</legend>
             <div class="fields-grid">
               <div class="field">

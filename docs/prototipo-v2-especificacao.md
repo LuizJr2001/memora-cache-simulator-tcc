@@ -27,6 +27,26 @@ O controle de ritmo da Tela 2 usa o rótulo **Velocidade**, junto à barra de aj
 
 Decimal/Binário altera apenas a apresentação de endereços, tags e blocos. A escolha deve ser preservada ao trocar de tela. A cache usa scroll local; o antigo botão Ver cache completa permanece removido.
 
+### Tela 1 inteira no desktop — revisão em 12/10/2026
+
+A referência principal de Configurar, suas variantes SDS e as telas de fundo
+das ajudas usam **1280 × 720**, com cabeçalho de 52 px. Bytes por célula,
+Total de células e Células por bloco ocupam uma linha; cache e sequência
+permanecem em painéis lado a lado. Os intervalos foram reduzidos, preservando
+Inter, os tamanhos legíveis, os tokens e a aparência das abas. Nos casos
+inválidos, o resumo de erros fica sob o título, com o exemplo didático acessível.
+
+Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida. O botão
+GitHub foi removido por duplicar Abrir GitHub, que permanece na Ajuda rápida.
+A V1.2 mantém sua organização histórica.
+
+A implementação no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
+adapta o espaço à altura disponível. Em 1280 × 720, 1366 × 768, 1480 × 742
+e 1536 × 864, os controles permanecem dentro da área visível nos três
+mapeamentos e com erros simultâneos. Mensagens extensas da sequência podem
+ser percorridas localmente por teclado. Em telas menores, os painéis são
+empilhados para preservar a leitura.
+
 ## Sistema visual e componentes
 
 O projeto mantém o **Simple Design System (SDS)** e a família **Inter**. As adaptações locais são registradas na [decisão 002](decisoes/002-simple-design-system.md). Forma, cor, texto e símbolos trabalham juntos para distinguir ação, preenchimento, informação e estado.
@@ -186,6 +206,7 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 09/10 | Abas, identidade dos controles, microcopy e simplificação dos side sheets | #37 |
 | 11/10 | Espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade, revisão dos textos de ajuda e sincronização documental | #37 e revisão desta especificação |
 | 12/10 | Azul informativo compartilhado com os side sheets e indicadores de consulta com a mesma identidade; pesquisa e proposta de cor para FALTA | #37 e decisão 002 |
+| 12/10 | Configurar em 1280 × 720; memória principal em uma linha; GitHub apenas na Ajuda rápida; conferência no Figma e no código | #35, #37 e PR #43 |
 
 ## Implementação e avaliação
 

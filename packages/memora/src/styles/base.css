@@ -102,7 +102,7 @@ h1 { font-size: 28px; font-weight: 600; line-height: 34px; }
 .intro p { font-size: 14px; line-height: 18px; margin-top: 2px; color: var(--memora-text-on-page-secondary); }
 .intro button { min-width: 248px; }
 .configuration-grid { display: grid; grid-template-columns: minmax(0, 520fr) minmax(0, 648fr); gap: 32px; align-items: stretch; }
-.panel { min-width: 0; min-height: 640px; padding: 24px; background: white; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); }
+.panel { min-width: 0; min-height: 0; padding: 24px; background: white; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); }
 .panel-heading { display: flex; justify-content: space-between; align-items: start; gap: 12px; min-height: 44px; }
 h2 { font-size: 18px; line-height: 22px; font-weight: 600; }
 .panel-heading p { font-size: 13px; line-height: 18px; margin-top: 4px; color: var(--sds-color-text-default-secondary); }
@@ -143,7 +143,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .information-note p { font-size: 12px; line-height: 17px; }
 .ring-symbol { flex-shrink: 0; width: 20px; height: 20px; display: inline-grid; place-items: center; position: relative; color: var(--memora-current-set-accent); font-size: 12px; font-weight: 600; }
 .ring-symbol img { position: absolute; inset: 0; }
-.error-summary { padding: 12px 16px; margin: 0 0 20px; border: 1px solid #f4b3b3; border-radius: 16px; background: var(--memora-error-background); color: var(--memora-error); font-size: 13px; line-height: 18px; }
+.error-summary { margin-top: 2px; color: var(--memora-error); font-size: 13px; line-height: 18px; }
 .attribution { font-size: 11px; line-height: 17px; margin-top: 16px; color: var(--memora-text-on-page-secondary); }
 .side-sheet { position: fixed; inset: 0; margin: 0 0 0 auto; padding: 28px; width: min(430px, 100%); max-width: 100%; height: 100dvh; max-height: 100dvh; border: 1px solid var(--sds-color-border-default-default); border-radius: 0; color: var(--sds-color-text-default-default); background: white; box-shadow: -4px 0 8px #0000001a; overflow: hidden; }
 .side-sheet.wide { width: min(500px, 100%); }
@@ -193,7 +193,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   main { padding: 16px; }
   .topbar { padding: 12px 16px; }
   .global-actions { width: 100%; }
-  .global-actions button, .global-actions .button { flex: 1; min-width: 0; padding-inline: 10px; }
+  .global-actions button { flex: 1; min-width: 0; padding-inline: 10px; }
   .stage-tab { flex: 1; min-width: 0; width: auto; padding-inline: 4px; font-size: 13px; }
   h1 { font-size: 24px; line-height: 30px; }
   .intro button { width: 100%; }
@@ -204,4 +204,71 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .information-card span { font-size: 11px; }
   .sequence-actions { grid-template-columns: 1fr; gap: 12px; }
   .side-sheet { padding: 24px 20px; }
+}
+
+/* Configurar: os três campos de memória ocupam uma linha no desktop */
+@media (min-width: 801px) {
+  .topbar { min-height: 52px; padding-block: 6px; }
+  main { padding-top: 10px; padding-bottom: 12px; }
+  .stage-tabs { margin-bottom: 10px; }
+  .intro { margin-bottom: 12px; }
+  h1 { font-size: 24px; line-height: 29px; }
+  .intro button { min-height: 36px; padding-block: 8px; }
+  .memory-group .fields-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+  .panel { padding: 16px; }
+  .parameter-group { margin-top: 16px; }
+  .fields-grid { column-gap: 16px; row-gap: 10px; margin-top: 10px; }
+  .cache-group { margin-top: 12px; padding-top: 12px; }
+  .cache-group legend { margin-bottom: 10px; }
+  .full-width { margin-top: 10px; }
+  .sequence-field { margin-top: 12px; }
+  .sequence-field .field-heading { margin-bottom: 4px; }
+  .sequence-field .field-feedback { margin-top: 6px; }
+  .configuration-summary { margin-top: 12px; padding: 10px 16px; min-height: 60px; }
+  .configuration-summary p { margin-top: 4px; }
+  .decomposition { margin-top: 20px; }
+  .decomposition-grid { margin-top: 8px; }
+  .information-card { min-height: 64px; padding-block: 8px; gap: 8px; }
+  .sequence-actions { margin-top: 20px; }
+  .sequence-actions + .information-note { margin-top: 16px; }
+  .information-note { min-height: 40px; padding-block: 8px; }
+  .attribution { margin-top: 8px; }
+  textarea { min-height: 72px; height: 72px; max-height: 120px; }
+}
+
+/* Altura útil de notebooks e de desktops com escala do Windows em 125% */
+@media (min-width: 801px) and (max-height: 800px) {
+  .configuration-grid { gap: 24px; }
+  #configure-form input, #configure-form select { height: 36px; padding-block: 7px; }
+  #validate-parameters, .sequence-actions button { min-height: 36px; padding-block: 8px; }
+  .parameter-group { margin-top: 12px; }
+  .fields-grid { row-gap: 8px; margin-top: 8px; }
+  .cache-group { margin-top: 8px; padding-top: 8px; }
+  .cache-group legend { margin-bottom: 8px; }
+  .decomposition { margin-top: 12px; }
+  .sequence-actions { margin-top: 16px; }
+  #sequence { min-height: 64px; height: 64px; max-height: 96px; }
+}
+
+/* Reserva espaço para validações sem reduzir o tamanho dos textos */
+@media (min-width: 801px) {
+  .has-errors .parameter-group { margin-top: 8px; }
+  .has-errors .memory-group .fields-grid { margin-top: 4px; }
+  .has-errors .cache-group { margin-top: 4px; padding-top: 4px; }
+  .has-errors .cache-group legend { margin-bottom: 4px; }
+  .has-errors .fields-grid { row-gap: 4px; }
+  .has-errors .full-width { margin-top: 6px; }
+  .has-errors .panel { padding: 12px; }
+  .has-errors .field-heading { margin-bottom: 2px; }
+  .has-errors .sequence-field { margin-top: 4px; }
+  .has-errors .field-feedback li + li { margin-top: 0; }
+  .has-errors #sequence { min-height: 44px; height: 44px; }
+  .has-errors .sequence-field .field-feedback { margin-top: 4px; }
+  .has-errors .configuration-summary { margin-top: 4px; padding-block: 6px; }
+  .has-errors .decomposition, .has-errors .decomposition-grid { margin-top: 4px; }
+  .has-errors .information-card { min-height: 56px; gap: 4px; }
+  .has-errors .sequence-actions { margin-top: 8px; }
+  .has-errors .sequence-actions + .information-note { margin-top: 4px; }
+  /* Mensagens extensas rolam junto ao campo, mantendo as ações na área visível */
+  .sequence-field .error-text { max-height: 102px; overflow: auto; }
 }

@@ -196,6 +196,52 @@ test('fechar pelo botão e pelo scrim preserva dados e foco', async ({ page }) =
   await expect(opener).toBeFocused(); await expect(page.locator('#ways')).toHaveValue('2');
 });
 
+test('GitHub fica na Ajuda rápida, sem ação duplicada no cabeçalho', async ({ page }) => {
+  await expect(page.locator('.global-actions').getByRole('link', { name: /GitHub/ })).toHaveCount(0);
+  await expect(page.locator('.global-actions button')).toHaveCount(2);
+  await page.locator('[data-help="quick"]').click();
+  await expect(page.getByRole('dialog').getByRole('link', { name: /Abrir GitHub/ })).toBeVisible();
+});
+
+for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768 }, { width: 1480, height: 742 }, { width: 1536, height: 864 }]) {
+  test(`Tela 1 inteira sem rolagem em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    async function fits() {
+      const geometry = await page.evaluate(() => {
+        const controls = [...document.querySelectorAll('.topbar, .stage-tabs, .intro, .panel, .attribution, #configure-form input, #configure-form select, #configure-form textarea, #configure-form button')];
+        return {
+          height: document.documentElement.scrollHeight, width: document.documentElement.scrollWidth,
+          overflow: getComputedStyle(document.body).overflow,
+          outside: controls.filter(n => { const r = n.getBoundingClientRect(); return r.top < 0 || r.bottom > innerHeight + 1 || r.left < 0 || r.right > innerWidth + 1; }).map(n => n.id || n.className),
+        };
+      });
+      expect(geometry.height).toBeLessThanOrEqual(viewport.height);
+      expect(geometry.width).toBeLessThanOrEqual(viewport.width);
+      expect(geometry.overflow).not.toBe('hidden');
+      expect(geometry.outside).toEqual([]);
+    }
+    await fits();
+    await page.locator('#load-example').click();
+    for (const mapping of ['set-associative', 'direct', 'fully-associative']) {
+      await page.locator('#mapping').selectOption(mapping); await fits();
+    }
+    await page.locator('#mapping').selectOption('set-associative');
+    await page.locator('#ways').selectOption('4'); await page.locator('#cacheLines').fill('2');
+    await page.locator('#memoryCells').fill('100'); await page.locator('#sequence').fill('-1, 4096, abc, 20');
+    await fits();
+    for (const id of ['bytesPerCell', 'memoryCells', 'cellsPerBlock', 'cacheLines']) await page.locator(`#${id}`).fill('');
+    await page.locator('#sequence').fill('-1, abc, -2, def, -3, xyz');
+    await fits();
+    await page.locator('#sequence').fill('x'.repeat(2000));
+    await fits();
+    if (viewport.height <= 800) {
+      await page.locator('#sequence-feedback').focus(); await page.keyboard.press('PageDown');
+      await expect.poll(() => page.locator('#sequence-feedback').evaluate(node => node.scrollTop)).toBeGreaterThan(0);
+      expect(await page.evaluate(() => scrollY)).toBe(0);
+    }
+  });
+}
+
 test('zero bits e entradas sem inteiros válidos não geram dados fictícios', async ({ page }) => {
   await page.locator('#mapping').selectOption('direct');
   for (const id of ['memoryCells', 'cacheLines', 'cellsPerBlock']) await page.locator(`#${id}`).fill('1');

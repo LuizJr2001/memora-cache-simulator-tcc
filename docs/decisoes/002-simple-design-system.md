@@ -42,10 +42,27 @@ A adoção vale para as três etapas principais:
 
 - cabeçalho branco;
 - marca Memora à esquerda;
-- ações globais à direita;
+- Glossário e Ajuda rápida à direita; Abrir GitHub disponível dentro da Ajuda rápida;
 - navegação por abas Configurar, Simular e Analisar, com aparência de navegador;
 - aba atual elevada, destacada e conectada ao conteúdo; as demais são destinos reconhecíveis;
 - componente `Memora/Navegação/Abas`, com três variantes, baseado em Tab do SDS.
+
+### Configurar sem rolagem no desktop — revisão em 12/10/2026
+
+A Tela 1 e suas representações SDS na v2 passam de 1280 × 900 para
+1280 × 720. O cabeçalho tem 52 px, os três campos de memória principal ficam
+lado a lado e os painéis usam intervalos menores. As abas mantêm sua forma,
+pesos e destaque da etapa atual. O resumo de erros fica junto ao título.
+
+A implementação adapta o espaço à altura disponível, com controles de 36 px
+em desktops de até 800 px de altura útil e textos em seus tamanhos legíveis.
+Os estados de validação reservam espaço para mensagens próximas dos campos.
+Textos extensos da sequência usam rolagem local por teclado. Telas menores
+mantêm painéis empilhados e fluxo vertical.
+
+O botão GitHub foi retirado dos 40 cabeçalhos da v2, porque repete o link
+Abrir GitHub da Ajuda rápida. A organização dos links na ajuda foi preservada.
+A revisão do Figma e a implementação são rastreáveis no PR #43 e nas #35/#37.
 
 ### Controles
 

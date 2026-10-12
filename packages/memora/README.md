@@ -43,9 +43,12 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-São 13 cenários de navegador: campos condicionais, exemplo, erros/bloqueio,
+São 18 cenários de navegador: campos condicionais, exemplo, erros/bloqueio,
 geração após editar parâmetros, preparação da entrada, 11 ajudas, teclado,
-foco, fluxo por teclado, limites de entrada, zero bits e layouts de 768, 390 e 320 px. O servidor é iniciado pelos testes.
+foco, fluxo por teclado, limites de entrada, zero bits, GitHub apenas na Ajuda rápida
+e layouts de 768, 390 e 320 px. Quatro cenários conferem a página inteira sem
+rolagem em 1280 × 720, 1366 × 768, 1480 × 742 e 1536 × 864, inclusive com vários
+erros e campos vazios. O servidor é iniciado pelos testes.
 `MEMORA_CHROMIUM_PATH` permite usar um Chromium já instalado, e
 `MEMORA_SCREENSHOT_DIR` define onde guardar as capturas opcionais.
 
@@ -88,6 +91,11 @@ A [Tela 1](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14),
 suas variantes e os textos visíveis das ajudas na página v2 guiam esta entrega.
 Os componentes React de Code Connect foram adaptados para HTML/CSS nativos,
 mantendo a stack e os tokens SDS. Os exemplos das ajudas são estáticos.
+No desktop, os três campos de memória principal ocupam uma linha. Cabeçalho,
+painéis e intervalos usam um arranjo compacto para caber na altura útil de notebooks
+e desktops com escala do Windows. Mensagens extensas da sequência têm rolagem
+local acessível por teclado; o cabeçalho oferece Glossário e Ajuda rápida,
+com Abrir GitHub dentro desta última. Em telas menores, os painéis são empilhados.
 A avaliação #33 permanece em paralelo.
 
 ## Origem
