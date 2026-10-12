@@ -3,19 +3,124 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Memora — Em desenvolvimento</title>
+    <title>Memora — Configurar</title>
+    <link rel="icon" href="./src/assets/memora.png" type="image/png">
+    <link rel="preload" href="./src/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./src/styles/base.css">
   </head>
   <body>
-    <main>
-      <h1>Memora</h1>
-      <p>Simulador educacional de memória cache</p>
-      <p>A nova interface está em desenvolvimento. Por enquanto, você pode usar o simulador Beto.</p>
-      <p><a href="/legado/">Abrir o Beto</a></p>
-      <footer>
-        Baseado no <a href="https://github.com/leo150250/simuladorCache">Beto, de Leandro Gabriel e colaboradores</a>.
-        Código distribuído sob licença MIT.
-      </footer>
+    <a class="skip-link" href="#configurar">Ir para a configuração</a>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon"><img src="./src/assets/memora.png" width="30" height="30" alt=""></span>
+        <div><strong>Memora</strong><span>Simulador de memória cache</span></div>
+      </div>
+      <nav class="global-actions" aria-label="Ajuda e referências">
+        <button type="button" data-help="glossary">Glossário</button>
+        <button type="button" data-help="quick">Ajuda rápida</button>
+        <a class="button" href="https://github.com/LuizJr2001/memora-cache-simulator-tcc" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> — abre em nova aba</span></a>
+      </nav>
+    </header>
+    <main id="configurar" tabindex="-1">
+      <ol class="stage-tabs" aria-label="Etapas do Memora">
+        <li class="stage-tab current" aria-current="step">1 Configurar</li>
+        <li class="stage-tab" aria-disabled="true" title="Etapa ainda indisponível">2 Simular</li>
+        <li class="stage-tab" aria-disabled="true" title="Etapa ainda indisponível">3 Analisar</li>
+      </ol>
+      <div class="intro">
+        <div><h1>Configure a memória cache</h1><p>Defina a arquitetura ou carregue um exemplo pronto para começar</p></div>
+        <button type="button" id="load-example">Carregar exemplo didático</button>
+      </div>
+      <div id="error-summary" class="error-summary" role="status" aria-live="polite" hidden></div>
+      <form id="configure-form" class="configuration-grid" novalidate>
+        <section class="panel parameters-panel" aria-labelledby="parameters-heading">
+          <div class="panel-heading">
+            <div><h2 id="parameters-heading">Parâmetros</h2><p>Use valores em potência de 2</p></div>
+            <button class="compact" type="button" data-help="how">Como funciona?</button>
+          </div>
+          <fieldset class="parameter-group">
+            <legend>MEMÓRIA PRINCIPAL</legend>
+            <div class="fields-grid">
+              <div class="field">
+                <div class="field-heading"><label for="bytesPerCell">Bytes por célula</label><button class="help-button" type="button" data-help="bytesPerCell" aria-label="Ajuda: Bytes por célula">?</button></div>
+                <input id="bytesPerCell" name="bytesPerCell" value="1" type="text" inputmode="numeric" aria-describedby="bytesPerCell-feedback" autocomplete="off">
+                <p class="field-feedback" id="bytesPerCell-feedback"></p>
+              </div>
+              <div class="field">
+                <div class="field-heading"><label for="memoryCells">Total de células</label><button class="help-button" type="button" data-help="memoryCells" aria-label="Ajuda: Total de células">?</button></div>
+                <input id="memoryCells" name="memoryCells" value="4096" type="text" inputmode="numeric" aria-describedby="memoryCells-feedback" autocomplete="off">
+                <p class="field-feedback" id="memoryCells-feedback"></p>
+              </div>
+              <div class="field">
+                <div class="field-heading"><label for="cellsPerBlock">Células por bloco</label><button class="help-button" type="button" data-help="cellsPerBlock" aria-label="Ajuda: Células por bloco">?</button></div>
+                <input id="cellsPerBlock" name="cellsPerBlock" value="16" type="text" inputmode="numeric" aria-describedby="cellsPerBlock-feedback" autocomplete="off">
+                <p class="field-feedback" id="cellsPerBlock-feedback"></p>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="parameter-group cache-group">
+            <legend>MEMÓRIA CACHE</legend>
+            <div class="fields-grid">
+              <div class="field">
+                <div class="field-heading"><label for="cacheLines">Número de linhas</label><button class="help-button" type="button" data-help="cacheLines" aria-label="Ajuda: Número de linhas">?</button></div>
+                <input id="cacheLines" name="cacheLines" value="32" type="text" inputmode="numeric" aria-describedby="cacheLines-feedback" autocomplete="off">
+                <p class="field-feedback" id="cacheLines-feedback"></p>
+              </div>
+              <div class="field">
+                <div class="field-heading"><label for="mapping">Mapeamento</label><button class="help-button" type="button" data-help="mapping" aria-label="Ajuda: Mapeamento">?</button></div>
+                <select id="mapping" name="mapping" aria-describedby="mapping-feedback">
+                  <option value="direct">Direto</option><option value="fully-associative">Totalmente associativo</option><option value="set-associative" selected>Por conjunto</option>
+                </select>
+                <p class="field-feedback" id="mapping-feedback"></p>
+              </div>
+              <div class="field">
+                <div class="field-heading"><label for="ways">Vias por conjunto</label><button class="help-button" type="button" data-help="ways" aria-label="Ajuda: Vias por conjunto">?</button></div>
+                <select id="ways" name="ways" aria-describedby="ways-feedback"></select>
+                <p class="field-feedback" id="ways-feedback"></p>
+              </div>
+              <div class="field">
+                <div class="field-heading"><label for="replacement">Substituição</label><button class="help-button" type="button" data-help="replacement" aria-label="Ajuda: Substituição">?</button></div>
+                <select id="replacement" name="replacement" aria-describedby="replacement-feedback">
+                  <option value="LRU">LRU</option><option value="FIFO">FIFO</option><option value="RANDOM">Random</option><option value="" hidden>Não se aplica</option>
+                </select>
+                <p class="field-feedback" id="replacement-feedback"></p>
+              </div>
+            </div>
+          </fieldset>
+          <button class="full-width" type="button" id="validate-parameters">Validar parâmetros</button>
+        </section>
+        <section class="panel sequence-panel" aria-labelledby="sequence-heading">
+          <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe os endereços por vírgula, espaço ou quebra de linha</p></div></div>
+          <div class="field sequence-field">
+            <div class="field-heading"><label for="sequence">Endereços a acessar</label><button class="help-button" type="button" data-help="sequence" aria-label="Ajuda: Endereços a acessar">?</button></div>
+            <textarea id="sequence" name="sequence" rows="4" aria-describedby="sequence-feedback" spellcheck="false" placeholder="Ex.: 0, 1, 16, 17, 32, 33"></textarea>
+            <div class="field-feedback" id="sequence-feedback"></div>
+          </div>
+          <div class="configuration-summary">
+            <span id="configuration-symbol" aria-hidden="true">◇</span>
+            <div><h3 id="configuration-status"></h3><p id="configuration-detail"></p></div>
+          </div>
+          <section class="decomposition" aria-labelledby="decomposition-heading">
+            <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
+            <p class="sr-only" id="preview-address"></p>
+            <div class="decomposition-grid" aria-describedby="preview-address">
+              <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
+              <div class="information-card"><output id="index-value" aria-labelledby="index-label">—</output><span id="index-label">Conjunto indisponível</span></div>
+              <div class="information-card"><output id="offset-value" aria-labelledby="offset-label">—</output><span id="offset-label">Deslocamento indisponível</span></div>
+            </div>
+          </section>
+          <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
+          <div class="information-note"><span class="ring-symbol" aria-hidden="true"><img id="note-ring" src="./src/assets/information-ring.svg" alt=""><span id="note-symbol">i</span></span><p id="note-text">As interrogações abrem ajuda contextual sem tirar você desta etapa</p></div>
+          <p class="sr-only" id="action-status" role="status" aria-live="polite"></p>
+        </section>
+      </form>
+      <footer class="attribution">Baseado no <a href="https://github.com/leo150250/simuladorCache" target="_blank" rel="noopener noreferrer">Beto, de Leandro Gabriel e colaboradores</a> · Licença MIT</footer>
     </main>
+    <dialog id="side-sheet" class="side-sheet" aria-labelledby="sheet-title">
+      <div class="sheet-heading"><h2 id="sheet-title"></h2><button type="button" class="close-button" id="close-sheet" aria-label="Fechar ajuda" autofocus>×</button></div>
+      <div id="sheet-content" class="sheet-content" tabindex="0" aria-label="Conteúdo da ajuda"></div>
+    </dialog>
+    <noscript><p class="no-script">Ative o JavaScript para configurar o Memora</p></noscript>
+    <script type="module" src="./src/ui/main.js"></script>
   </body>
 </html>

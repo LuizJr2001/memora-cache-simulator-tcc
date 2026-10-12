@@ -14,9 +14,9 @@ async function javascriptFiles(directory) {
   return results.flat();
 }
 
-const files = (await Promise.all(['scripts/', 'src/', 'tests/'].map(path =>
+const files = [...(await Promise.all(['scripts/', 'src/', 'tests/', 'browser/'].map(path =>
   javascriptFiles(new URL(path, packageRoot)),
-))).flat().sort((a, b) => a.pathname.localeCompare(b.pathname));
+))).flat(), new URL('playwright.config.js', packageRoot)].sort((a, b) => a.pathname.localeCompare(b.pathname));
 
 for (const file of files) {
   const result = spawnSync(process.execPath, ['--check', fileURLToPath(file)], { stdio: 'inherit' });
