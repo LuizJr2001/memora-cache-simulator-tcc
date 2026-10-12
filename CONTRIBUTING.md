@@ -71,3 +71,19 @@ Antes de abrir um pull request:
 5. use um título de pull request compatível com Conventional Commits.
 
 Descreva no pull request o que mudou, por que a alteração é necessária e como ela foi validada.
+
+## Desenvolvimento do pacote Memora
+
+O novo pacote fica em `packages/memora`; a aplicação legada em `docs/` serve para comparação. A [decisão 003](docs/decisoes/003-pacote-memora.md) detalha a separação entre motor e interface e a ordem de migração.
+
+Requer Node.js 22 ou superior e npm. Execute na raiz:
+
+```bash
+npm ci
+npm run dev
+```
+
+Memora: http://127.0.0.1:5173/ — Beto: http://127.0.0.1:5173/legado/.
+
+Antes do PR, execute `npm run check`. Nesta base isso verifica apenas a sintaxe do servidor; não substitui regressão da simulação. Os testes de regras e controles serão adicionados nas entregas relacionadas à #31. Entregas parciais devem usar `Refs #N`, reservando `Closes #N` para todos os critérios atendidos.
+
