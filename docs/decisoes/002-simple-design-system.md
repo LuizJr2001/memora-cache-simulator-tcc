@@ -2,7 +2,8 @@
 
 **Status:** aceita  
 **Data da adoção:** 25/09/2026  
-**Regras vigentes atualizadas:** 11/10/2026  
+**Regras vigentes atualizadas:** 12/10/2026
+
 **Escopo:** protótipo visual, componentes de interface e futura implementação
 
 ## Contexto
@@ -57,17 +58,23 @@ A adoção vale para as três etapas principais:
 - ícones de ajuda próximos ao canto direito do componente relacionado;
 - Decimal/Binário com a mesma base visual de botão e símbolo `✓` na opção selecionada.
 
-### Cores didáticas
+### Cores semânticas
 
-A base neutra do SDS não substitui a codificação pedagógica do Memora:
+Em 12/10/2026, os balões informativos das três etapas foram reunidos na mesma família de cor dos side sheets. Tag, Conjunto/Linha e Deslocamento deixam de receber violeta, ciano e teal; os rótulos e a posição identificam as partes do endereço.
 
-- Tag — violeta;
-- Conjunto — ciano;
-- Deslocamento — teal;
-- LENDO — azul;
-- ACERTO — verde;
-- FALTA — âmbar;
-- ERRO — vermelho.
+- **Informação:** `Background/Informação` e `Background/Ajuda` são aliases do mesmo `Blue/100` do SDS, `#F1F6FD`; texto neutro `Text/Default/Default`, `#1E1E1E`
+- **Consulta:** `Accent/Consulta` é alias de `Blue/800`, `#224A8A`; relaciona badges, indicadores laterais e bordas das linhas do conjunto atual
+- **Leitura em andamento:** família azul acompanhada de LENDO
+- **Condição positiva:** família verde acompanhada de ACERTO ou validação; os destaques existentes de recência/manutenção/inserção nas tabelas permanecem por enquanto
+- **Falta/substituição pendente:** família âmbar acompanhada de FALTA, Candidata ou indicação de substituição
+- **Erro de entrada/configuração:** família vermelha acompanhada de mensagem para corrigir dados
+- **Ação:** mantém a identidade carvão dos botões
+
+`Background/Informação` tem escopos de preenchimento de frame/forma; `Accent/Consulta` tem escopos de preenchimento de frame/forma/texto e borda. Ambos usam aliases, sem duplicar os valores primitivos, e sintaxe WEB `var(--memora-info-background)` e `var(--memora-current-set-accent)`. As bordas informativas reutilizam `Border/Default/Default`. A revisão preservou Inter, pesos, textos e geometria.
+
+**Opções a avaliar, ainda não aplicadas:** laranja para FALTA, mantendo vermelho para dados inválidos; tons neutros para recência/Mantida/Inserida nas tabelas, reservando o verde dos resultados para ACERTO. A falta na cache é um resultado esperado que exige buscar o bloco. Âmbar continua vigente até uma eventual revisão rastreável.
+
+A justificativa combina [semelhança da Gestalt](https://www.nngroup.com/articles/gestalt-similarity/) e [consistência e padrões de Nielsen](https://www.nngroup.com/articles/consistency-and-standards/). Convenções de [indicadores de estado do Carbon](https://www.carbondesignsystem.com/building-blocks/core/patterns/status-indicators) apoiam a discussão; não substituem o SDS nem determinam a cor de falta na cache. As [WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) exigem sinais além de cor. Os pares alterados passaram pelo [contraste mínimo de texto](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html): 15,32:1 para informação e 8,00:1 para badges de consulta sobre azul claro. A verificação é limitada aos pares modificados; foco, interação e contraste dos demais estados continuam a validar na #35.
 
 ### Tipografia
 
