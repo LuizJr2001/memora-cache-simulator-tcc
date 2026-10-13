@@ -34,6 +34,10 @@ test('exemplo didático libera uma entrada válida e usa os assets/fontes locais
   }));
   expect(assets).toEqual({ font: true, fontsLoaded: true, image: 30, informationRing: 20, fontWeight: '700', fieldRadius: '0px', tabWeight: '700' });
   await screenshot(page, 'configuracao-valida');
+  await page.getByLabel('Bytes por célula', { exact: true }).fill('3');
+  await expect(page.locator('#bytesPerCell')).toHaveAttribute('aria-invalid', 'false');
+  await expect(page.locator('#bytesPerCell-feedback')).toHaveText('Valor válido: 3 bytes');
+  await expect(page.locator('#prepare-input')).toBeEnabled();
 });
 
 test('mapeamentos condicionais e escolhas preservadas ao voltar para conjunto', async ({ page }) => {

@@ -306,3 +306,17 @@ foram registradas junto às demais capturas renovadas.
 Escopo restrito a `packages/memora`, sem alterações no Beto,
 núcleo `src/core`, telas 2/3 ou funcionalidades da Tela 1.
 PR #43 e issues #35/#37 mantidos abertos.
+
+## Orientação numérica e consolidação da entrega — 12/10/2026
+
+A frase de Parâmetros passou a **Use potências de 2, exceto em bytes por célula**.
+O texto explicita a regra existente do núcleo: bytes por célula aceita qualquer
+inteiro positivo. A orientação foi sincronizada nas 20 cópias presentes na v2,
+incluindo variantes SDS, fundos de ajuda, alternativas de design system e
+referência ampla, preservando Inter e os alinhamentos.
+
+O cenário de integração do exemplo também verifica que **3 bytes por célula**
+é aceito pela interface e mantém a preparação liberada. A contagem permanece
+em **37 testes Node e 40 cenários Chromium**, aprovados na verificação local
+após a revisão. Sintaxe e `git diff --check` passaram; capturas renovadas.
+O PR #43 apresenta o escopo final e a contagem vigente em uma descrição única.

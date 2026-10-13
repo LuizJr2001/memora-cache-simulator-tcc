@@ -38,6 +38,11 @@ disponível, com margens equilibradas (24 px no frame de 1280 px e 32 px
 na referência ampla) e intervalo definido entre os dois painéis. No
 mobile, os painéis se empilham sem rolagem horizontal.
 
+A orientação de Parâmetros é **Use potências de 2, exceto em bytes por célula**.
+Bytes por célula aceita qualquer inteiro positivo, conforme o núcleo do PR #41;
+total de células, células por bloco, linhas e vias devem ser potências de 2.
+As ajudas e validações próximas dos campos detalham as demais condições.
+
 No desktop, os painéis **Parâmetros** e **Sequência de endereços** têm
 a mesma altura e terminam próximos ao rodapé. Os grupos de campos de
 Parâmetros se distribuem verticalmente, e **Validar parâmetros** fica
