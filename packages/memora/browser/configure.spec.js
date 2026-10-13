@@ -530,3 +530,36 @@ for (const viewport of [
     await screenshot(page, `erros-sem-banner-${viewport.width}x${viewport.height}`);
   });
 }
+
+for (const viewport of [
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1480, height: 742 },
+  { width: 1920, height: 1080 },
+]) {
+  test(`ícone de erro centralizado no resumo em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.locator('#load-example').click();
+    await page.locator('#memoryCells').fill('100');
+    await expect(page.locator('#configuration-status')).toHaveText('Configuração com erros');
+    const geometry = await page.evaluate(() => {
+      const card = document.querySelector('.configuration-summary').getBoundingClientRect();
+      const symbol = document.querySelector('#configuration-symbol').getBoundingClientRect();
+      const title = document.querySelector('#configuration-status').getBoundingClientRect();
+      const detail = document.querySelector('#configuration-detail').getBoundingClientRect();
+      return {
+        diff: Math.abs((card.top + card.bottom) / 2 - (symbol.top + symbol.bottom) / 2),
+        symbolAlignment: getComputedStyle(document.querySelector('#configuration-symbol')).alignSelf,
+        textOrder: title.bottom < detail.top,
+        pageHeight: document.documentElement.scrollHeight,
+        pageWidth: document.documentElement.scrollWidth,
+      };
+    });
+    expect(geometry.symbolAlignment).toBe('center');
+    expect(geometry.diff).toBeLessThanOrEqual(2);
+    expect(geometry.textOrder).toBe(true);
+    expect(geometry.pageHeight).toBeLessThanOrEqual(viewport.height);
+    expect(geometry.pageWidth).toBeLessThanOrEqual(viewport.width);
+    await screenshot(page, `alerta-centralizado-${viewport.width}x${viewport.height}`);
+  });
+}
