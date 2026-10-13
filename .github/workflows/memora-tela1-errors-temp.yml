@@ -1,0 +1,39 @@
+name: Memora Tela 1 - error banner regression
+on:
+  push:
+    branches: [feature/35-tela-1]
+    paths:
+      - .github/workflows/memora-tela1-errors-temp.yml
+      - packages/memora/index.html
+      - packages/memora/src/styles/base.css
+      - packages/memora/src/ui/configure-screen.js
+      - packages/memora/browser/configure.spec.js
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - name: Chromium UI regression and screenshots
+        run: npm run test:ui --workspace @memora/simulator
+        env:
+          MEMORA_SCREENSHOT_DIR: ${{ github.workspace }}/packages/memora/docs/screenshots/tela-1
+      - run: git diff --check
+      - name: Publish screenshots
+        if: success()
+        run: |
+          if git diff --quiet -- packages/memora/docs/screenshots/tela-1; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/memora/docs/screenshots/tela-1
+          git commit -m "test(ui): renovar capturas sem banner geral de erros [skip ci]"
+          git push
