@@ -144,3 +144,38 @@ ajudas, foco, entradas válidas e inválidas e telas menores.
 Esta atualização preserva os arquivos executáveis do Beto, `src/core`,
 as funcionalidades de Configurar, o SDS, Inter e as ações de navegação.
 O PR #43 segue aberto para revisão, assim como #35 e #37.
+
+## Distribuição vertical e tamanho estável da sequência — 12/10/2026
+
+Após a revisão horizontal, as duas colunas passaram a preencher também a altura
+útil do desktop, com `main` como flex container e `configuration-grid` flexível.
+O painel Parâmetros agora reparte o espaço livre entre cabeçalho, Memória
+principal, Memória cache e o botão Validar parâmetros, que fica próximo à borda
+inferior em vez de solto no meio do painel. O painel Sequência de endereços
+acompanha a mesma altura; as ações e a nota de orientação ficam próximas da base.
+
+O campo editável `#sequence` ganhou **altura fixa sem redimensionamento manual**
+(`resize: none`): **96 px** quando a altura útil do desktop é de até
+800 px e **120 px** nos desktops mais altos. A altura permanece igual em
+mapeamentos, exemplo didático e erros; a área tem rolagem interna quando
+houver mais endereços que o espaço visível. O conteúdo e as validações são
+preservados. Mensagens de erro numerosas ficam completas dentro de sua
+área de rolagem local e podem ser percorridas por teclado, sem aumentar a página.
+
+O Figma v2 recebeu a mesma revisão nas 17 representações SDS da Tela 1,
+incluindo as variantes de mapeamento, inválidos e fundos das ajudas.
+A referência ampla de **1920 × 1080** também foi estendida até perto da base,
+com a distribuição vertical correspondente.
+
+**Validação efetivamente executada:**
+[GitHub Actions — 37 Node + 26 Chromium aprovados](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38327478741).
+Os novos cenários avaliam em **1280 × 720, 1366 × 768, 1480 × 742 e
+1920 × 1080**: altura fixa do textarea, ausência de rolagem de página,
+alinhamento inferior de Validar parâmetros, igualdade de altura dos painéis,
+aproximação da nota inferior, três mapeamentos, erros e side sheet.
+A suíte anterior também cobre entradas vazias, mensagens de erro extensas,
+foco, teclado, ajudas e telas pequenas.
+
+Capturas de desktop e das variantes foram **renovadas na branch**; consulte
+as imagens na seção anterior. Não foram alterados o núcleo, os executáveis
+do Beto, nem as telas 2 e 3. O PR #43 e as issues #35/#37 permanecem abertos.
