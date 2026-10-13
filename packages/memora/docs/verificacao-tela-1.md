@@ -100,3 +100,47 @@ Safari, Firefox e as telas seguintes não foram verificados nesta entrega.
 
 Para reproduzir, siga [README](../README.md). Para regenerar as capturas,
 defina `MEMORA_SCREENSHOT_DIR` ao executar os testes de navegador.
+
+## Ajuste horizontal fluido — 12/10/2026 (PR #43)
+
+O limite `max-width: 1280px` do elemento `main` concentrava a Tela 1 em
+monitores largos, com margens de até 320 px de cada lado em 1920 px.
+Foi removido apenas esse gargalo, passando a ocupar toda a largura disponível
+com `padding-inline: clamp(20px, 1.875vw, 32px)`.
+A proporção de colunas `520:648` e o intervalo de 24–32 px entre os painéis
+foram preservados. Abas, título, exemplo e atribuição herdam o novo alinhamento
+do contêiner. Não foram modificados HTML, núcleo, validações, foco ou ajuda.
+
+No Figma v2, **17 representações SDS de Tela 1** foram ajustadas:
+tela principal, ajudas de campos, três mapeamentos, casos inválidos,
+variante SDS e três fundos de ajuda geral. Em 1280 px há 24 px de cada lado,
+24 px entre os painéis, e largura útil de 1232 px. Todos os componentes
+alterados permanecem contidos nos respectivos painéis, inclusive com
+side sheet de Ajuda rápida aberta. O frame de referência amplo de
+1920 × 1080 mantém margens de 32 px e a mesma distribuição de colunas.
+As telas 2/3, variantes Carbon/USWDS e Material 3 e a V1.2 não foram alteradas.
+
+**Validação executada no GitHub Actions:**
+[execução aprovada](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38326007472)
+(Node 24, Chromium, instalação por `npm ci`, `npm run check`,
+`npm test`, `npm run test:ui --workspace @memora/simulator` e `git diff --check`).
+Os **37 testes Node e 22 cenários Chromium passaram**. Os quatro novos cenários
+verificam geometria do contêiner, alinhamento, margens, proporções,
+os três campos de memória lado a lado, ausência de rolagem,
+três mapeamentos, mensagens de erro e ajuda modal em
+1280 × 720, 1366 × 768, 1480 × 742 e 1920 × 1080.
+Os demais 18 cenários continuam cobrindo fluxo por teclado,
+ajudas, foco, entradas válidas e inválidas e telas menores.
+
+**Capturas da implementação atualizada** (além das nove originais regeneradas):
+
+| Área útil | Arquivo |
+|---|---|
+| 1280 × 720 | [layout-1280x720.png](screenshots/tela-1/layout-1280x720.png) |
+| 1366 × 768 | [layout-1366x768.png](screenshots/tela-1/layout-1366x768.png) |
+| 1480 × 742 | [layout-1480x742.png](screenshots/tela-1/layout-1480x742.png) |
+| 1920 × 1080 | [layout-1920x1080.png](screenshots/tela-1/layout-1920x1080.png) |
+
+Esta atualização preserva os arquivos executáveis do Beto, `src/core`,
+as funcionalidades de Configurar, o SDS, Inter e as ações de navegação.
+O PR #43 segue aberto para revisão, assim como #35 e #37.
