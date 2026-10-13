@@ -267,3 +267,31 @@ presentes e não há rolagem da página. Quatro novas capturas dos estados
 inválidos sem banner foram gravadas em `screenshots/tela-1/` e as
 capturas existentes afetadas foram renovadas. PR #43 e issues #35/#37
 continuam abertos.
+
+## Centralização do ícone de alerta do resumo — 12/10/2026
+
+O ícone vermelho do cartão **Configuração com erros** foi centralizado
+verticalmente em relação à altura do cartão, mantendo inalteradas as
+posições do título, da descrição, as cores e as dimensões do componente.
+No CSS da Tela 1, o seletor `.configuration-summary > span`
+passou a utilizar `align-self: center`, sem alterar o
+`align-items: start` do cartão para seu bloco textual.
+
+No Figma vigente, a variante **Tela 1.9 — Casos inválidos** teve o
+anel de alerta reposicionado em **y=22 px** e o glifo em **y=24 px**
+dentro do cartão de 64 px, alinhados pelos respectivos centros.
+Os demais componentes, telas e fundos não foram modificados.
+
+**Verificação executada:** [GitHub Actions aprovado](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743):
+**37 testes Node e 40 cenários Chromium**, todos aprovados.
+Os quatro cenários novos conferem em 1280×720, 1366×768,
+1480×742 e 1920×1080 que a diferença vertical entre os
+centros do símbolo e do cartão é de no máximo **2 px**,
+que a ordem visual do título/descrição é preservada e que a
+página não ganhou rolagem vertical nem horizontal.
+Quatro capturas adicionais `alerta-centralizado-*.png`
+foram registradas junto às demais capturas renovadas.
+
+Escopo restrito a `packages/memora`, sem alterações no Beto,
+núcleo `src/core`, telas 2/3 ou funcionalidades da Tela 1.
+PR #43 e issues #35/#37 mantidos abertos.
