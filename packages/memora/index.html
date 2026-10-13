@@ -98,17 +98,19 @@
             <span id="configuration-symbol" aria-hidden="true">◇</span>
             <div><h3 id="configuration-status"></h3><p id="configuration-detail"></p></div>
           </div>
-          <section class="decomposition" aria-labelledby="decomposition-heading">
-            <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
-            <p class="sr-only" id="preview-address"></p>
-            <div class="decomposition-grid" aria-describedby="preview-address">
-              <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
-              <div class="information-card"><output id="index-value" aria-labelledby="index-label">—</output><span id="index-label">Conjunto indisponível</span></div>
-              <div class="information-card"><output id="offset-value" aria-labelledby="offset-label">—</output><span id="offset-label">Deslocamento indisponível</span></div>
-            </div>
-          </section>
-          <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
-          <div class="information-note"><span class="ring-symbol" aria-hidden="true"><img id="note-ring" src="./src/assets/information-ring.svg" alt=""><span id="note-symbol">i</span></span><p id="note-text">As interrogações abrem ajuda contextual sem tirar você desta etapa</p></div>
+          <div class="sequence-bottom">
+            <section class="decomposition" aria-labelledby="decomposition-heading">
+              <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
+              <p class="sr-only" id="preview-address"></p>
+              <div class="decomposition-grid" aria-describedby="preview-address">
+                <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
+                <div class="information-card"><output id="index-value" aria-labelledby="index-label">—</output><span id="index-label">Conjunto indisponível</span></div>
+                <div class="information-card"><output id="offset-value" aria-labelledby="offset-label">—</output><span id="offset-label">Deslocamento indisponível</span></div>
+              </div>
+            </section>
+            <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
+            <div class="information-note"><span class="ring-symbol" aria-hidden="true"><img id="note-ring" src="./src/assets/information-ring.svg" alt=""><span id="note-symbol">i</span></span><p id="note-text">As interrogações abrem ajuda contextual sem tirar você desta etapa</p></div>
+          </div>
           <p class="sr-only" id="action-status" role="status" aria-live="polite"></p>
         </section>
       </form>
