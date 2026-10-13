@@ -27,7 +27,7 @@ jobs:
       - name: Testes visuais e capturas Chromium
         run: npm run test:ui --workspace @memora/simulator
         env:
-          MEMORA_SCREENSHOT_DIR: packages/memora/docs/screenshots/tela-1
+          MEMORA_SCREENSHOT_DIR: ${{ github.workspace }}/packages/memora/docs/screenshots/tela-1
       - run: git diff --check
       - name: Publicar capturas da tela na branch do PR
         run: |
