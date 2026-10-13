@@ -132,7 +132,8 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .sequence-field .field-heading { margin-bottom: 8px; }
 .sequence-field .field-feedback { margin-top: 8px; }
 .configuration-summary { display: flex; align-items: start; gap: 16px; margin-top: 16px; padding: 14px 18px; min-height: 74px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); }
-.configuration-summary > span { line-height: 22px; }
+/* Centraliza somente o símbolo, sem deslocar o título e a descrição do estado. */
+.configuration-summary > span { line-height: 22px; align-self: center; }
 .configuration-summary h3 { font-size: 15px; line-height: 21px; font-weight: 600; }
 .configuration-summary p { font-size: 13px; line-height: 18px; margin-top: 6px; }
 .decomposition { margin-top: 28px; }
