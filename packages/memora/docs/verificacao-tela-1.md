@@ -179,3 +179,29 @@ foco, teclado, ajudas e telas pequenas.
 Capturas de desktop e das variantes foram **renovadas na branch**; consulte
 as imagens na seção anterior. Não foram alterados o núcleo, os executáveis
 do Beto, nem as telas 2 e 3. O PR #43 e as issues #35/#37 permanecem abertos.
+
+## Refinamento de espaçamento dos campos — 12/10/2026
+
+Os espaços entre **rótulo e controle** passaram de **4 para 6 px** e entre
+**controle e dica/validação** de **6 para 8 px** em `packages/memora/src/styles/base.css`.
+As regras de sequências no desktop foram sincronizadas. Estados de erro mantêm
+o espaçamento compacto entre rótulos e caixas, preservando as mensagens
+completas e o requisito de ausência de rolagem em áreas úteis pequenas;
+nesses estados o `padding-block` dos painéis foi reduzido de 12 para
+10 px para compensar o espaço adicional entre campo e dica.
+
+No **Figma v2** foram ajustadas **17 representações SDS da Tela 1**
+(incluindo mapeamentos, inválidos e fundos das ajudas) e a
+referência de **1920 × 1080**, sem alterar cores, fontes, tamanhos de
+controles, alinhamento do `?` ou posição de Validar parâmetros.
+As variantes com erros foram compactadas para evitar sobreposição de
+mensagens extensas com o botão inferior.
+
+**Validação:** [GitHub Actions — execução aprovada](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38328328048):
+**37 testes Node + 28 cenários Chromium**, sem falhas. O novo cenário
+mede os espaçamentos reais entre rótulo/campo/dica em 1280 × 720 e
+1920 × 1080; os anteriores verificam quatro áreas úteis,
+os três mapeamentos, erros extensos, side sheets,
+retorno do foco, navegação por teclado e telas menores.
+As **13 capturas foram regeneradas** na branch do PR #43.
+As telas 2/3, o Beto e `src/core` não foram modificados.
