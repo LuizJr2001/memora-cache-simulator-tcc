@@ -274,3 +274,68 @@ for (const width of [768, 390, 320]) {
     }
   });
 }
+
+
+for (const viewport of [
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1480, height: 742 },
+  { width: 1920, height: 1080 },
+]) {
+  test(`distribuição horizontal fluida em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.locator('#load-example').click();
+    const readBounds = () => page.evaluate(() => {
+      const rect = selector => {
+        const r = document.querySelector(selector).getBoundingClientRect();
+        return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom };
+      };
+      return {
+        left: rect('.parameters-panel'),
+        right: rect('.sequence-panel'),
+        main: rect('main'), tabs: rect('.stage-tabs'),
+        intro: rect('.intro'), footer: rect('.attribution'),
+        memoryFields: [...document.querySelectorAll('.memory-group .field')].map(n => {
+          const r = n.getBoundingClientRect();
+          return { x: r.x, y: r.y, right: r.right };
+        }),
+        pageWidth: document.documentElement.scrollWidth,
+        pageHeight: document.documentElement.scrollHeight,
+      };
+    });
+    async function expectGeometry() {
+      const g = await readBounds();
+      const side = Math.min(32, Math.max(20, viewport.width * .01875));
+      expect(g.main.width).toBeCloseTo(viewport.width, 0);
+      expect(g.left.x).toBeCloseTo(side, 0);
+      expect(viewport.width - g.right.right).toBeCloseTo(side, 0);
+      expect(g.right.x - g.left.right).toBeGreaterThanOrEqual(23);
+      expect(g.right.x - g.left.right).toBeLessThanOrEqual(33);
+      expect(g.right.width / g.left.width).toBeGreaterThan(1.18);
+      expect(g.right.width / g.left.width).toBeLessThan(1.30);
+      expect(g.tabs.x).toBeCloseTo(g.left.x, 0);
+      expect(g.intro.x).toBeCloseTo(g.left.x, 0);
+      expect(g.footer.x).toBeCloseTo(g.left.x, 0);
+      expect(g.memoryFields).toHaveLength(3);
+      expect(g.memoryFields[0].y).toBeCloseTo(g.memoryFields[1].y, 0);
+      expect(g.memoryFields[1].y).toBeCloseTo(g.memoryFields[2].y, 0);
+      expect(g.memoryFields[0].right).toBeLessThan(g.memoryFields[1].x);
+      expect(g.memoryFields[1].right).toBeLessThan(g.memoryFields[2].x);
+      expect(g.pageWidth).toBeLessThanOrEqual(viewport.width);
+      expect(g.pageHeight).toBeLessThanOrEqual(viewport.height);
+    }
+    await expectGeometry();
+    for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
+      await page.locator('#mapping').selectOption(mapping);
+      await expectGeometry();
+    }
+    await page.locator('#memoryCells').fill('100');
+    await page.locator('#sequence').fill('-1, abc, 4096');
+    await expectGeometry();
+    await page.locator('[data-help="bytesPerCell"]').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toBeHidden();
+  });
+}
