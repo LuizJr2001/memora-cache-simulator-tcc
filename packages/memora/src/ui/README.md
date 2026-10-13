@@ -11,7 +11,15 @@ espaçamento da Ajuda rápida seguem a revisão vigente.
 `configuration-controller.js` mantém dados editáveis e consome as validações,
 geração, decomposição e `prepareSimulationInput` de `src/core`. Não cria cache.
 `configure-screen.js` liga esse controlador ao DOM, apresenta mensagens e emite
-`memora:input-prepared` somente com uma entrada válida. A decomposição é uma
+`memora:input-prepared` somente com uma entrada válida.
+As validações continuam junto aos campos, com borda vermelha e feedback
+específico; não há aviso geral vermelho visível no título. O resumo global
+permanece reservado aos leitores de tela (`sr-only`, `role=status`,
+`aria-live=polite`), e o subtítulo introdutório não desaparece em erros.
+O símbolo `#configuration-symbol` é centralizado verticalmente no cartão
+**Configuração com erros** por `align-self: center`, sem alterar a posição
+dos textos. A estrutura `.sequence-bottom` reúne decomposição, botões
+e nota para evitar espaçamento excessivo entre cartões e ações. A decomposição é uma
 prévia binária do primeiro endereço da sequência; campos de zero bits usam um traço.
 O futuro seletor Decimal/Binário pertence às telas seguintes.
 
