@@ -43,12 +43,14 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-São 18 cenários de navegador: campos condicionais, exemplo, erros/bloqueio,
-geração após editar parâmetros, preparação da entrada, 11 ajudas, teclado,
-foco, fluxo por teclado, limites de entrada, zero bits, GitHub apenas na Ajuda rápida
-e layouts de 768, 390 e 320 px. Quatro cenários conferem a página inteira sem
-rolagem em 1280 × 720, 1366 × 768, 1480 × 742 e 1536 × 864, inclusive com vários
-erros e campos vazios. O servidor é iniciado pelos testes.
+A suíte atual da branch `feature/35-tela-1` executa **40 cenários Chromium**, incluindo
+três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
+11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
+Também mede largura e altura em **1280 × 720, 1366 × 768, 1480 × 742 e
+1920 × 1080**, além dos layouts menores de 768, 390 e 320 px. Os testes
+adicionais verificam espaçamento dos campos, cartões de decomposição próximos
+aos botões, ausência de aviso vermelho geral visível e centralização vertical
+do ícone de alerta. O servidor local é iniciado pelos testes.
 `MEMORA_CHROMIUM_PATH` permite usar um Chromium já instalado, e
 `MEMORA_SCREENSHOT_DIR` define onde guardar as capturas opcionais.
 
@@ -85,17 +87,37 @@ Decisão e sequência de implementação:
 
 ## Referência visual
 
+A implementação e as capturas do [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
+estão documentadas no [relatório da Tela 1](docs/verificacao-tela-1.md),
+com os resultados mais recentes da [execução de regressão (37 testes Node e
+40 cenários Chromium)](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743).
+Esta implementação está **na branch do PR**, ainda não integrada à `main`.
+
+
 A [especificação v2](../../docs/prototipo-v2-especificacao.md) e a issue #37
 registram a referência vigente para #35: abas, controles e ajuda contextual.
 A [Tela 1](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14),
 suas variantes e os textos visíveis das ajudas na página v2 guiam esta entrega.
 Os componentes React de Code Connect foram adaptados para HTML/CSS nativos,
 mantendo a stack e os tokens SDS. Os exemplos das ajudas são estáticos.
-No desktop, os três campos de memória principal ocupam uma linha. Cabeçalho,
-painéis e intervalos usam um arranjo compacto para caber na altura útil de notebooks
-e desktops com escala do Windows. Mensagens extensas da sequência têm rolagem
-local acessível por teclado; o cabeçalho oferece Glossário e Ajuda rápida,
-com Abrir GitHub dentro desta última. Em telas menores, os painéis são empilhados.
+No desktop, os três campos de memória principal ocupam uma linha. O layout
+é fluido na largura e ocupa a altura útil da janela, mantendo os painéis
+**Parâmetros** e **Sequência de endereços** alinhados até a base. O botão
+**Validar parâmetros** fica próximo à borda inferior do painel esquerdo;
+no direito, os cartões Tag/Conjunto/Deslocamento ficam próximos dos botões de
+ação (12 px em desktop baixo, 16 px em desktop alto). O textarea mantém
+altura fixa de 96 px em viewports desktop de até 800 px de altura e de
+120 px acima disso, com rolagem interna e sem alça de redimensionamento.
+Rótulo/campo e campo/dica têm espaçamento base de 6 px e 8 px,
+respectivamente, com compactação específica para erros.
+
+Nos estados inválidos, as **bordas e mensagens de erro ficam junto aos campos**;
+não se exibe banner vermelho redundante sob o título. O resumo geral de erros
+permanece anunciado exclusivamente a leitores de tela (`sr-only`, `aria-live`),
+enquanto o subtítulo comum segue visível. O ícone de alerta do card
+**Configuração com erros** é centralizado verticalmente, sem deslocar título
+ou descrição. O cabeçalho oferece Glossário e Ajuda rápida, com Abrir GitHub
+somente nesta última. Em telas menores, os painéis são empilhados.
 A avaliação #33 permanece em paralelo.
 
 ## Origem
