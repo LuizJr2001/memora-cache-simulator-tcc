@@ -205,3 +205,38 @@ os três mapeamentos, erros extensos, side sheets,
 retorno do foco, navegação por teclado e telas menores.
 As **13 capturas foram regeneradas** na branch do PR #43.
 As telas 2/3, o Beto e `src/core` não foram modificados.
+
+## Distribuição vertical dos balões e botões — 12/10/2026
+
+O espaçamento excessivo entre os cartões **Tag**, **Conjunto** e
+**Deslocamento** e os botões **Gerar endereços/Iniciar simulação** foi
+eliminado. Os elementos de decomposição, ações e nota didática agora
+formam o grupo semântico `.sequence-bottom` no HTML. No desktop,
+o painel `.sequence-panel` distribui verticalmente quatro blocos:
+cabeçalho, entrada de endereços, resumo de configuração e grupo
+inferior. A margem automática anteriormente aplicada às ações
+foi removida; a distância entre os cartões e os botões fica em
+**12 px para altura útil até 800 px** e **16 px acima disso**.
+A nota didática permanece próxima da borda inferior, sem
+grandes espaços em branco entre os cartões e botões. No mobile,
+`display: contents` mantém a estrutura visual e os espaçamentos
+existentes.
+
+O **Figma vigente** foi sincronizado nas 17 variantes e fundos SDS da
+Tela 1 em 1280×720 (12 px entre cartões e ações), além do frame amplo
+1920×1080 (16 px entre cartões e ações), redistribuindo também
+campo de endereços, resumo e decomposição para aproveitar
+harmonicamente a altura disponível.
+
+**Testes executados:** [GitHub Actions aprovado](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38328900235):
+37 testes Node e **32 cenários Chromium** aprovados.
+Os quatro cenários adicionados verificam em **1280×720, 1366×768,
+1480×742 e 1920×1080** a distância entre cartões/botões/nota,
+a ausência de rolagem vertical e horizontal, os três mapeamentos,
+erros de entrada e side sheet de Ajuda rápida. Foram regeneradas
+as capturas de referência na branch do PR #43.
+
+Alterações limitadas a `packages/memora`. Preservados os estilos
+SDS, a fonte Inter, os controles, a lógica de validação,
+o núcleo `src/core`, o simulador original Beto e as telas 2/3.
+O PR #43 e as issues #35 e #37 continuam abertos.
