@@ -27,8 +27,9 @@ Tela 1, e editar dados invalida a entrada preparada. As etapas Simular e Analisa
 aparecem sem navegação ativa. Esta entrega não executa cache ou políticas.
 
 Adaptações para funcionamento: sequência inicialmente vazia; diálogo de geração
-com quantidade; resumo de erros sob o título, substituindo a descrição enquanto
-houver erros; painéis empilhados em telas menores.
+com quantidade; mensagens de erro junto aos campos (sem banner geral visível),
+resumo de erro acessível apenas aos leitores de tela e painéis empilhados
+em telas menores. O subtítulo introdutório permanece visível com erros.
 
 Na revisão de 12/10, os três campos de memória principal passaram a ocupar uma
 linha, o cabeçalho ficou com 52 px e foram reduzidos os intervalos entre os grupos.
@@ -42,14 +43,21 @@ com foco e PageDown, preservando o texto completo e as ações visíveis.
 
 ## Resultados
 
-Ambiente: Node.js 24.19.0, Playwright 1.64.0 e Chromium 153.0.8010.0, Linux.
+**Estado consolidado da branch `feature/35-tela-1` (PR #43):**
+[última execução automatizada aprovada](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743)
+com 37 testes Node e **40 cenários Chromium**. As seções cronológicas abaixo
+registram execuções anteriores e suas contagens históricas (18, 22, 26,
+28, 32 e 36); não substituem o total vigente. O PR continua aberto
+para revisão e não foi integrado à `main`.
+
+Ambiente da verificação inicial: Node.js 24.19.0, Playwright 1.64.0 e Chromium 153.0.8010.0, Linux.
 
 | Verificação | Resultado |
 |---|---|
 | `npm ci` | Instalação pelo lockfile concluída |
 | `npm run check` | 16 arquivos JavaScript com sintaxe válida |
 | `npm test` | 37 testes passaram: 28 existentes + 9 do controlador |
-| `npm run test:ui --workspace @memora/simulator` | 18 cenários passaram no Chromium |
+| `npm run test:ui --workspace @memora/simulator` | **40 cenários passaram no Chromium** na execução mais recente, incluindo quatro verificações da centralização do alerta |
 | `git diff --check` | Sem problemas de whitespace |
 | Diff dos três arquivos do Beto e de `src/core` | Sem alterações |
 
@@ -58,7 +66,7 @@ troca de política, geração após editar memória, mensagens e bloqueio, prepa
 zero bits, entradas coladas acima dos limites, conteúdo seguro, operação por
 teclado, as 11 ajudas, contenção/restauração de foco e fechamento por Escape,
 botão e scrim. A página inteira foi verificada sem rolagem em 1280 × 720,
-1366 × 768, 1480 × 742 e 1536 × 864: estado inicial, exemplo, três mapeamentos,
+1366 × 768, 1480 × 742 e 1920 × 1080: estado inicial, exemplo, três mapeamentos,
 erros simultâneos, quatro parâmetros vazios e mensagens extensas. Os testes
 medem os limites dos controles e a altura real do documento, sem ocultar o
 overflow da página. O link GitHub foi conferido apenas na Ajuda rápida.
@@ -97,6 +105,9 @@ Safari, Firefox e as telas seguintes não foram verificados nesta entrega.
 | Ajuda rápida e links externos | [ajuda-rapida.png](screenshots/tela-1/ajuda-rapida.png) |
 | Mobile válido, 390 px | [mobile.png](screenshots/tela-1/mobile.png) |
 | Mobile com erros, 390 px | [mobile-erros.png](screenshots/tela-1/mobile-erros.png) |
+| Erros sem banner em 1280 × 720 | [erros-sem-banner-1280x720.png](screenshots/tela-1/erros-sem-banner-1280x720.png) |
+| Ícone de alerta centralizado em 1280 × 720 | [alerta-centralizado-1280x720.png](screenshots/tela-1/alerta-centralizado-1280x720.png) |
+| Ícone de alerta centralizado em 1920 × 1080 | [alerta-centralizado-1920x1080.png](screenshots/tela-1/alerta-centralizado-1920x1080.png) |
 
 Para reproduzir, siga [README](../README.md). Para regenerar as capturas,
 defina `MEMORA_SCREENSHOT_DIR` ao executar os testes de navegador.
