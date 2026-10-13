@@ -498,3 +498,27 @@ for (const viewport of [
     await expect(page.getByRole('dialog')).toBeHidden();
   });
 }
+
+for (const viewport of [
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1480, height: 742 },
+  { width: 1920, height: 1080 },
+]) {
+  test(`erros localizados sem banner redundante em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.locator('#load-example').click();
+    await page.locator('#memoryCells').fill('100');
+    await page.locator('#sequence').fill('-1, 4096, abc, 20');
+    await expect(page.locator('#intro-description')).toBeVisible();
+    await expect(page.locator('#error-summary')).toBeHidden();
+    await expect(page.locator('#error-summary')).toContainText('erros impedem a simulação');
+    await expect(page.locator('#memoryCells')).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#memoryCells-feedback')).toContainText('não é potência de 2');
+    await expect(page.locator('#sequence')).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#sequence-feedback')).toHaveClass(/error-text/);
+    expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(viewport.height);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+    await screenshot(page, `erros-sem-banner-${viewport.width}x${viewport.height}`);
+  });
+}
