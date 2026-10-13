@@ -260,6 +260,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .has-errors .fields-grid { row-gap: 4px; }
   .has-errors .full-width { margin-top: 6px; }
   .has-errors .panel { padding: 12px; }
+  .has-errors .panel { padding-block: 10px; }
   .has-errors .field-heading { margin-bottom: 2px; }
   .has-errors .sequence-field { margin-top: 4px; }
   .has-errors .field-feedback li + li { margin-top: 0; }
