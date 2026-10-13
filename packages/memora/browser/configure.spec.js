@@ -443,3 +443,58 @@ test('respiro discreto entre rótulo, input e dica sem scroll no desktop', async
     expect((await measure()).pageHeight).toBeLessThanOrEqual(viewport.height);
   }
 });
+
+for (const viewport of [
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1480, height: 742 },
+  { width: 1920, height: 1080 },
+]) {
+  test(`prévia junto dos botões e seções bem distribuídas em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.locator('#load-example').click();
+    const inspect = () => page.evaluate(() => {
+      const rect = selector => document.querySelector(selector).getBoundingClientRect();
+      const cards = rect('.decomposition-grid');
+      const buttons = rect('.sequence-actions');
+      const note = rect('.sequence-panel .information-note');
+      const summary = rect('.configuration-summary');
+      const panel = rect('.sequence-panel');
+      const bottom = rect('.sequence-bottom');
+      return {
+        previewToActions: buttons.top - cards.bottom,
+        buttonsToNote: note.top - buttons.bottom,
+        noteToPanel: panel.bottom - note.bottom,
+        summaryToPreview: rect('.decomposition').top - summary.bottom,
+        bottomToPanel: panel.bottom - bottom.bottom,
+        fullHeight: document.documentElement.scrollHeight,
+        fullWidth: document.documentElement.scrollWidth,
+      };
+    });
+    async function verify() {
+      const g = await inspect();
+      expect(g.previewToActions).toBeGreaterThanOrEqual(8);
+      expect(g.previewToActions).toBeLessThanOrEqual(20);
+      expect(g.buttonsToNote).toBeGreaterThanOrEqual(3);
+      expect(g.buttonsToNote).toBeLessThanOrEqual(18);
+      expect(g.noteToPanel).toBeGreaterThanOrEqual(8);
+      expect(g.noteToPanel).toBeLessThanOrEqual(20);
+      expect(g.bottomToPanel).toBeCloseTo(g.noteToPanel, 0);
+      expect(g.summaryToPreview).toBeGreaterThanOrEqual(0);
+      expect(g.fullHeight).toBeLessThanOrEqual(viewport.height);
+      expect(g.fullWidth).toBeLessThanOrEqual(viewport.width);
+    }
+    await verify();
+    for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
+      await page.locator('#mapping').selectOption(mapping);
+      await verify();
+    }
+    await page.locator('#memoryCells').fill('100');
+    await page.locator('#sequence').fill('-1, 4096, abc, 20');
+    await verify();
+    await page.locator('[data-help="quick"]').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toBeHidden();
+  });
+}
