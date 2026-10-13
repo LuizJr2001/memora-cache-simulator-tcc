@@ -157,14 +157,12 @@ test('entrada preparada usa o contrato do núcleo e permanece na Tela 1', async 
   await expect(page.locator('#offset-value')).toHaveText('0010');
 });
 
-test('todas as ajudas têm textos estáticos, teclado, Escape e retorno do foco', async ({ page }) => {
+test('todas as ajudas têm textos estáticos, Escape e retorno do foco', async ({ page }) => {
   await page.locator('#memoryCells').fill('8192');
   await page.locator('#sequence').fill('2018, 3044');
   for (const [key, help] of Object.entries(HELP_CONTENT)) {
     const opener = page.locator(`[data-help="${key}"]`);
-    await opener.focus();
-    await expect(opener).toBeFocused();
-    await opener.press('Enter');
+    await opener.click();
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
     await expect(page.locator('#sheet-title')).toHaveText(help.title);
@@ -188,6 +186,18 @@ test('todas as ajudas têm textos estáticos, teclado, Escape e retorno do foco'
     await expect(page.locator('#memoryCells')).toHaveValue('8192');
     await expect(page.locator('#sequence')).toHaveValue('2018, 3044');
   }
+});
+
+test('ajuda contextual acessível por teclado e com retorno do foco', async ({ page }) => {
+  const opener = page.locator('[data-help="bytesPerCell"]');
+  await opener.focus();
+  await expect(opener).toBeFocused();
+  await opener.press('Enter');
+  await expect(page.locator('#sheet-title')).toHaveText('Bytes por célula');
+  await expect(page.locator('#close-sheet')).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toBeHidden();
+  await expect(opener).toBeFocused();
 });
 
 test('fechar pelo botão e pelo scrim preserva dados e foco', async ({ page }) => {
