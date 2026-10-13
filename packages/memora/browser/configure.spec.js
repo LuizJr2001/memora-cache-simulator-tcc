@@ -162,7 +162,9 @@ test('todas as ajudas têm textos estáticos, teclado, Escape e retorno do foco'
   await page.locator('#sequence').fill('2018, 3044');
   for (const [key, help] of Object.entries(HELP_CONTENT)) {
     const opener = page.locator(`[data-help="${key}"]`);
-    await opener.focus(); await opener.press('Enter');
+    await opener.focus();
+    await expect(opener).toBeFocused();
+    await opener.press('Enter');
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
     await expect(page.locator('#sheet-title')).toHaveText(help.title);
