@@ -511,7 +511,15 @@ for (const viewport of [
     await page.locator('#memoryCells').fill('100');
     await page.locator('#sequence').fill('-1, 4096, abc, 20');
     await expect(page.locator('#intro-description')).toBeVisible();
-    await expect(page.locator('#error-summary')).toBeHidden();
+    await expect(page.locator('#error-summary')).toHaveClass('sr-only');
+    const visualAlert = await page.locator('#error-summary').evaluate(node => ({
+      width: node.getBoundingClientRect().width,
+      height: node.getBoundingClientRect().height,
+      clipPath: getComputedStyle(node).clipPath,
+    }));
+    expect(visualAlert.width).toBeLessThanOrEqual(1);
+    expect(visualAlert.height).toBeLessThanOrEqual(1);
+    expect(visualAlert.clipPath).toBe('inset(50%)');
     await expect(page.locator('#error-summary')).toContainText('erros impedem a simulação');
     await expect(page.locator('#memoryCells')).toHaveAttribute('aria-invalid', 'true');
     await expect(page.locator('#memoryCells-feedback')).toContainText('não é potência de 2');
