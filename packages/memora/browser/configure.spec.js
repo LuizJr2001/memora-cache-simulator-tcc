@@ -399,3 +399,37 @@ for (const viewport of [
     await expect(page.getByRole('dialog')).toBeHidden();
   });
 }
+
+test('respiro discreto entre rótulo, input e dica sem scroll no desktop', async ({ page }) => {
+  for (const viewport of [{ width: 1280, height: 720 }, { width: 1920, height: 1080 }]) {
+    await page.setViewportSize(viewport);
+    await page.locator('#load-example').click();
+    const measure = () => page.evaluate(() => {
+      const gap = (a, b) => {
+        const one = document.querySelector(a).getBoundingClientRect();
+        const two = document.querySelector(b).getBoundingClientRect();
+        return Math.round(two.top - one.bottom);
+      };
+      return {
+        beforeInput: gap('.memory-group .field-heading', '.memory-group input'),
+        afterInput: gap('.memory-group input', '.memory-group .field-feedback'),
+        sequenceBefore: gap('.sequence-field .field-heading', '#sequence'),
+        sequenceAfter: gap('#sequence', '.sequence-field .field-feedback'),
+        pageHeight: document.documentElement.scrollHeight,
+      };
+    });
+    const g = await measure();
+    expect(g.beforeInput).toBe(6);
+    expect(g.afterInput).toBe(8);
+    expect(g.sequenceBefore).toBe(6);
+    expect(g.sequenceAfter).toBe(8);
+    expect(g.pageHeight).toBeLessThanOrEqual(viewport.height);
+    for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
+      await page.locator('#mapping').selectOption(mapping);
+      expect((await measure()).pageHeight).toBeLessThanOrEqual(viewport.height);
+    }
+    await page.locator('#memoryCells').fill('100');
+    await page.locator('#sequence').fill('-1, 4096, abc, 20');
+    expect((await measure()).pageHeight).toBeLessThanOrEqual(viewport.height);
+  }
+});
