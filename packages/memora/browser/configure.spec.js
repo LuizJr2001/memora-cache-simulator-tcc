@@ -340,3 +340,60 @@ for (const viewport of [
     await expect(page.getByRole('dialog')).toBeHidden();
   });
 }
+
+
+for (const viewport of [
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1480, height: 742 },
+  { width: 1920, height: 1080 },
+]) {
+  test(`painéis até rodapé e textarea fixo em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    const geometry = () => page.evaluate(() => {
+      const rect = selector => {
+        const r = document.querySelector(selector).getBoundingClientRect();
+        return { x: r.x, y: r.y, right: r.right, bottom: r.bottom, height: r.height };
+      };
+      return {
+        parameters: rect('.parameters-panel'),
+        sequence: rect('.sequence-panel'),
+        validate: rect('#validate-parameters'),
+        address: rect('#sequence'),
+        helpNote: rect('.sequence-panel .information-note'),
+        footer: rect('.attribution'),
+        resize: getComputedStyle(document.querySelector('#sequence')).resize,
+        height: document.documentElement.scrollHeight,
+        width: document.documentElement.scrollWidth,
+      };
+    });
+    async function check() {
+      const g = await geometry();
+      expect(g.parameters.bottom).toBeCloseTo(g.sequence.bottom, 0);
+      expect(g.parameters.bottom - g.validate.bottom).toBeGreaterThanOrEqual(11);
+      expect(g.parameters.bottom - g.validate.bottom).toBeLessThanOrEqual(26);
+      expect(g.sequence.bottom - g.helpNote.bottom).toBeLessThanOrEqual(18);
+      expect(g.footer.y - g.parameters.bottom).toBeGreaterThanOrEqual(6);
+      expect(viewport.height - g.footer.bottom).toBeGreaterThanOrEqual(0);
+      expect(viewport.height - g.footer.bottom).toBeLessThanOrEqual(18);
+      expect(g.address.height).toBe(viewport.height <= 800 ? 96 : 120);
+      expect(g.resize).toBe('none');
+      expect(g.height).toBeLessThanOrEqual(viewport.height);
+      expect(g.width).toBeLessThanOrEqual(viewport.width);
+    }
+    await check();
+    await page.locator('#load-example').click();
+    for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
+      await page.locator('#mapping').selectOption(mapping);
+      await check();
+    }
+    await page.locator('#memoryCells').fill('100');
+    await page.locator('#sequence').fill('-1, 4096, abc, 20');
+    await check();
+    await page.locator('[data-help="quick"]').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toBeHidden();
+  });
+}
