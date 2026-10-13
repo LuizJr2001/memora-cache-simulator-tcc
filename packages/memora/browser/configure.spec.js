@@ -325,6 +325,7 @@ for (const viewport of [
       expect(g.pageHeight).toBeLessThanOrEqual(viewport.height);
     }
     await expectGeometry();
+    await screenshot(page, `layout-${viewport.width}x${viewport.height}`);
     for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
       await page.locator('#mapping').selectOption(mapping);
       await expectGeometry();
