@@ -59,7 +59,7 @@ Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegad
 | Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
 | Avaliação | Retorno da orientação e dos estudantes em consolidação na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); imagens estáticas e Figma como apoio |
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
-| Implementação | Núcleo de configuração e entradas com 28 testes no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); ligação com a Tela 1, execução, controles, LRU e snapshots seguem em #25–#28, #30, #31 e [#35](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/35) |
+| Implementação | Núcleo de configuração e entradas integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); **Tela 1 — Configurar implementada na branch do [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**, ainda em revisão, com 37 testes Node e 40 cenários Chromium aprovados. A execução da cache, telas 2/3, LRU e snapshots seguem nas próximas entregas (#25–#28, #30, #31 e #35). |
 
 A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
 
@@ -67,7 +67,13 @@ A elaboração inicial terminou em 23/09, após demandar mais tempo que o previs
 
 ## Base de desenvolvimento do pacote
 
-O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. As telas e a execução da cache serão conectadas gradualmente, com testes, seguindo a #35.
+O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. A Tela 1 já dispõe de formulário funcional na branch do PR #43, incluindo
+os três mapeamentos, validação inline, decomposição didática, endereços,
+ajudas, prévia e preparação de entrada imutável; **não executa a simulação**.
+O layout fluido e os refinamentos dos estados inválidos estão descritos
+no [README do pacote](packages/memora/README.md) e no
+[relatório de verificação da Tela 1](packages/memora/docs/verificacao-tela-1.md).
+As telas seguintes e a execução da cache serão integradas gradualmente.
 
 Use Node.js 22 ou superior e npm:
 
@@ -80,7 +86,16 @@ npm run dev
 
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
-`npm run check` verifica a sintaxe dos arquivos JavaScript do pacote. `npm test` executa os 28 testes do núcleo; a regressão da execução da cache e das políticas será ampliada na #31. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
+Para conferir os ajustes ainda não integrados à `main`, atualize a branch
+`feature/35-tela-1` (`git switch feature/35-tela-1` e
+`git pull origin feature/35-tela-1`) antes de iniciar o servidor.
+O PR #43 e as issues #35/#37 permanecem abertos.
+
+`npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
+`npm test` executa **37 testes Node** (28 do núcleo e 9 de integração da Tela 1),
+e `npm run test:ui --workspace @memora/simulator` executa **40 cenários Chromium**
+na branch do PR #43. A regressão da execução da cache e das políticas será
+ampliada na #31. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
 
 ## Estrutura do repositório
 
