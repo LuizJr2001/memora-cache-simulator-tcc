@@ -81,7 +81,6 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     const errorCount = Object.keys(errors).length + (showSequenceErrors ? addresses.errors.length : 0);
     const errorSummary = byId('error-summary');
     errorSummary.hidden = errorCount === 0;
-    byId('intro-description').hidden = errorCount > 0;
     form.classList.toggle('has-errors', errorCount > 0);
     sequenceFeedback.tabIndex = showSequenceErrors ? 0 : -1;
     errorSummary.textContent = errorCount ? `⚠ ${errorCount} ${errorCount === 1 ? 'erro impede' : 'erros impedem'} a simulação — revise os campos indicados` : '';
