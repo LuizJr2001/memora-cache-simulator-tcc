@@ -240,3 +240,30 @@ Alterações limitadas a `packages/memora`. Preservados os estilos
 SDS, a fonte Inter, os controles, a lógica de validação,
 o núcleo `src/core`, o simulador original Beto e as telas 2/3.
 O PR #43 e as issues #35 e #37 continuam abertos.
+
+## Remoção do aviso geral de erros sob o título — 12/10/2026
+
+Foi removido visualmente o aviso global redundante do cabeçalho
+(`⚠ N erros impedem a simulação — revise os campos indicados`).
+O subtítulo permanente **"Defina a arquitetura ou carregue um exemplo
+pronto para começar"** volta a aparecer normalmente mesmo quando há
+erros. Cada campo inválido mantém sua borda vermelha e mensagem local;
+os botões continuam bloqueados quando a configuração é inválida.
+A informação resumida permanece exclusivamente em região `sr-only`,
+`role="status"`, `aria-live="polite"`, acessível a leitores de tela,
+sem ocupar espaço visual.
+
+No Figma vigente, a variante **Tela 1.9 — Casos inválidos** recebeu a
+remoção do grupo `Pendências` e a reexibição do subtítulo existente.
+O restante da Tela 1, ajudas, mapeamentos e a distribuição dos painéis
+não foram modificados.
+
+**Verificação executada:** [GitHub Actions aprovado](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38329559501).
+Os **37 testes Node e 36 cenários Chromium passaram**. Quatro cenários
+adicionais verificam em 1280×720, 1366×768, 1480×742 e 1920×1080 que
+a descrição permanece visível, o resumo geral ocupa no máximo 1 px
+e usa `clip-path: inset(50%)`, as mensagens de campo continuam
+presentes e não há rolagem da página. Quatro novas capturas dos estados
+inválidos sem banner foram gravadas em `screenshots/tela-1/` e as
+capturas existentes afetadas foram renovadas. PR #43 e issues #35/#37
+continuam abertos.
