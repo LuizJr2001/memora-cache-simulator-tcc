@@ -146,7 +146,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .information-note p { font-size: 12px; line-height: 17px; }
 .ring-symbol { flex-shrink: 0; width: 20px; height: 20px; display: inline-grid; place-items: center; position: relative; color: var(--memora-current-set-accent); font-size: 12px; font-weight: 600; }
 .ring-symbol img { position: absolute; inset: 0; }
-.error-summary { margin-top: 2px; color: var(--memora-error); font-size: 13px; line-height: 18px; }
 .attribution { font-size: 11px; line-height: 17px; margin-top: 16px; color: var(--memora-text-on-page-secondary); }
 .side-sheet { position: fixed; inset: 0; margin: 0 0 0 auto; padding: 28px; width: min(430px, 100%); max-width: 100%; height: 100dvh; max-height: 100dvh; border: 1px solid var(--sds-color-border-default-default); border-radius: 0; color: var(--sds-color-text-default-default); background: white; box-shadow: -4px 0 8px #0000001a; overflow: hidden; }
 .side-sheet.wide { width: min(500px, 100%); }
