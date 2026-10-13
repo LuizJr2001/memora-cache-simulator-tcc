@@ -112,11 +112,11 @@ h2 { font-size: 18px; line-height: 22px; font-weight: 600; }
 .parameter-group legend, .decomposition h3 { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--sds-color-text-default-secondary); padding: 0; }
 .fields-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 12px; margin-top: 14px; }
 .field { min-width: 0; }
-.field-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 20px; margin-bottom: 4px; }
+.field-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 20px; margin-bottom: 6px; }
 label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .help-button { padding: 0; width: 20px; height: 20px; min-height: 20px; flex-shrink: 0; font-size: 12px; position: relative; }
 .help-button::after { content: ''; position: absolute; inset: -3px; border-radius: inherit; }
-.field-feedback { min-height: 17px; margin-top: 6px; font-size: 12px; line-height: 17px; color: var(--sds-color-text-default-secondary); overflow-wrap: anywhere; }
+.field-feedback { min-height: 17px; margin-top: 8px; font-size: 12px; line-height: 17px; color: var(--sds-color-text-default-secondary); overflow-wrap: anywhere; }
 .field-feedback ul { padding: 0; margin: 0; list-style: none; }
 .field-feedback li + li { margin-top: 4px; }
 .error-text { color: var(--memora-error); }
@@ -223,8 +223,8 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .cache-group legend { margin-bottom: 10px; }
   .full-width { margin-top: 10px; }
   .sequence-field { margin-top: 12px; }
-  .sequence-field .field-heading { margin-bottom: 4px; }
-  .sequence-field .field-feedback { margin-top: 6px; }
+  .sequence-field .field-heading { margin-bottom: 6px; }
+  .sequence-field .field-feedback { margin-top: 8px; }
   .configuration-summary { margin-top: 12px; padding: 10px 16px; min-height: 60px; }
   .configuration-summary p { margin-top: 4px; }
   .decomposition { margin-top: 20px; }
