@@ -311,4 +311,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .sequence-field { margin-top: 8px; }
   .configuration-summary { margin-top: 8px; }
   .decomposition { margin-top: 8px; }
+  /* Os erros permanecem completos e navegáveis no próprio campo, sem aumentar a página. */
+  .has-errors .sequence-field .error-text { max-height: 64px; }
 }
