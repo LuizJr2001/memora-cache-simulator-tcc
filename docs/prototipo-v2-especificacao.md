@@ -27,25 +27,52 @@ O controle de ritmo da Tela 2 usa o rótulo **Velocidade**, junto à barra de aj
 
 Decimal/Binário altera apenas a apresentação de endereços, tags e blocos. A escolha deve ser preservada ao trocar de tela. A cache usa scroll local; o antigo botão Ver cache completa permanece removido.
 
-### Tela 1 inteira no desktop — revisão em 12/10/2026
+### Tela 1 — distribuição responsiva e estados de configuração (12/10/2026)
 
-A referência principal de Configurar, suas variantes SDS e as telas de fundo
-das ajudas usam **1280 × 720**, com cabeçalho de 52 px. Bytes por célula,
-Total de células e Células por bloco ocupam uma linha; cache e sequência
-permanecem em painéis lado a lado. Os intervalos foram reduzidos, preservando
-Inter, os tamanhos legíveis, os tokens e a aparência das abas. Nos casos
-inválidos, o resumo de erros fica sob o título, com o exemplo didático acessível.
+A referência de Configurar usa **1280 × 720**, com cabeçalho de 52 px,
+mais uma variante ampla de **1920 × 1080**. As **17 representações SDS**
+(tela principal, mapeamentos, invalidações, ajudas e fundos) seguem a mesma
+linguagem visual. **Bytes por célula**, **Total de células** e **Células por
+bloco** permanecem em uma linha no desktop. O conteúdo utiliza a largura
+disponível, com margens equilibradas (24 px no frame de 1280 px e 32 px
+na referência ampla) e intervalo definido entre os dois painéis. No
+mobile, os painéis se empilham sem rolagem horizontal.
 
-Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida. O botão
-GitHub foi removido por duplicar Abrir GitHub, que permanece na Ajuda rápida.
-A V1.2 mantém sua organização histórica.
+No desktop, os painéis **Parâmetros** e **Sequência de endereços** têm
+a mesma altura e terminam próximos ao rodapé. Os grupos de campos de
+Parâmetros se distribuem verticalmente, e **Validar parâmetros** fica
+perto da borda inferior. Na Sequência, os cartões **Tag, Conjunto/Linha
+e Deslocamento** permanecem junto dos botões **Gerar endereços** e
+**Iniciar simulação**: intervalo de 12 px nas alturas úteis até 800 px
+e 16 px nas maiores. A nota didática fica na parte inferior.
 
-A implementação no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
-adapta o espaço à altura disponível. Em 1280 × 720, 1366 × 768, 1480 × 742
-e 1536 × 864, os controles permanecem dentro da área visível nos três
-mapeamentos e com erros simultâneos. Mensagens extensas da sequência podem
-ser percorridas localmente por teclado. Em telas menores, os painéis são
-empilhados para preservar a leitura.
+O campo de endereços é editável, porém não é redimensionável:
+**96 px de altura** em desktops de até 800 px de altura útil e
+**120 px** nos maiores; conteúdo extenso rola dentro do campo.
+O afastamento base entre rótulo e controle é de **6 px** e entre
+controle e dica é de **8 px**. Os estados inválidos podem usar
+espaçamentos mais compactos para evitar rolagem da página.
+
+**Mensagens de erro são localizadas.** Campos inválidos recebem borda
+e texto vermelho próprios; não há banner geral vermelho sob o título
+da tela. A descrição introdutória permanece visível, e a contagem
+geral de erros é mantida apenas para leitores de tela, sem ocupar
+espaço visual. No cartão **Configuração com erros**, o ícone
+vermelho é centralizado verticalmente em relação ao cartão,
+mantendo o alinhamento dos dois textos.
+
+Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida;
+o link GitHub permanece exclusivamente dentro da Ajuda rápida.
+A V1.2 conserva a organização histórica. A Tela 1 funcional está
+em revisão no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43);
+as telas Simular/Analisar continuam fora desse PR.
+
+O comportamento implementado foi verificado em **1280 × 720,
+1366 × 768, 1480 × 742 e 1920 × 1080**, nos três mapeamentos,
+com erros e side sheets; mensagens extensas continuam
+navegáveis por teclado. [Evidências, capturas e resultados:
+37 testes Node e 40 cenários Chromium](../packages/memora/docs/verificacao-tela-1.md).
+A aprovação automatizada não equivale à avaliação externa prevista na #33.
 
 ## Sistema visual e componentes
 
