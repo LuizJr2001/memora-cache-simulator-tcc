@@ -6,11 +6,11 @@ import { createSideSheet } from './side-sheet.js';
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 const bits = value => `${value} ${value === 1 ? 'bit' : 'bits'}`;
 
-export function mountConfigureScreen(document, { random = Math.random, onPrepared = () => {} } = {}) {
+export function mountConfigureScreen(document, { random = Math.random, onPrepared = () => {}, onInvalidated = () => {}, sideSheet } = {}) {
   const byId = id => document.getElementById(id);
   const form = byId('configure-form');
-  const sheet = createSideSheet(document);
-  const controller = createConfigurationController({ random, onPrepared(input) {
+  const sheet = sideSheet ?? createSideSheet(document);
+  const controller = createConfigurationController({ random, onInvalidated, onPrepared(input) {
     onPrepared(input);
     // Contrato para a próxima etapa; não cria cache nem executa acessos
     form.dispatchEvent(new document.defaultView.CustomEvent('memora:input-prepared', { detail: input, bubbles: true }));
@@ -127,9 +127,6 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     else return;
     setText('action-status', '');
     render();
-  });
-  document.querySelectorAll('[data-help]').forEach(button => {
-    button.addEventListener('click', () => sheet.showHelp(button.dataset.help));
   });
   byId('load-example').addEventListener('click', () => {
     sequenceEdited = true; controller.loadExample(); render();

@@ -92,5 +92,24 @@ npm run check
 npm test
 ```
 
-`check` verifica a sintaxe dos arquivos JavaScript do pacote; `test` executa os testes do núcleo com o runner nativo do Node. A primeira suíte contém 28 testes de configuração, endereçamento, sequências e limites. A regressão da execução da cache, das políticas e dos controles será ampliada na #31. As [APIs e limites](packages/memora/src/core/README.md) orientam a integração com a interface. Entregas parciais devem usar `Refs #N`, reservando `Closes #N` para todos os critérios atendidos.
+`check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
+nativo do Node. Na branch `feature/35-tela-2`, são **58 testes Node** de
+configuração/entradas, controladores, execução, políticas, estatísticas e
+snapshots. A interface tem **67 cenários Chromium**, executados separadamente:
+
+```bash
+npx playwright install chromium
+npm run test:ui --workspace @memora/simulator
+```
+
+O servidor é iniciado pela suíte. `MEMORA_CHROMIUM_PATH` aceita um Chromium
+já instalado; `MEMORA_SCREENSHOT_DIR` e `MEMORA_SIMULATION_SCREENSHOT_DIR`
+definem pastas opcionais para capturas de Configurar e Simular. A Tela 3 e sua
+regressão permanecem pendentes. Registre resultados locais separadamente da CI.
+
+As [APIs e limites](packages/memora/src/core/README.md) orientam a integração.
+Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendidos.
+Quando uma tela depender de um PR aberto, indique a dependência e use esse PR
+como base temporária. A Tela 2 usa `feature/35-tela-1` como base enquanto o PR
+#43 aguarda integração; os arquivos executáveis do Beto continuam preservados.
 

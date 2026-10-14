@@ -140,7 +140,7 @@ test('limites do núcleo bloqueiam a interface sem truncar a entrada colada', as
   await expect(page.locator('#prepare-input')).toBeDisabled();
 });
 
-test('entrada preparada usa o contrato do núcleo e permanece na Tela 1', async ({ page }) => {
+test('entrada preparada usa o contrato do núcleo e abre a Tela 2 sem executar acessos', async ({ page }) => {
   await page.locator('#load-example').click();
   await page.evaluate(() => document.addEventListener('memora:input-prepared', event => {
     window.prepared = { input: event.detail, frozen: Object.isFrozen(event.detail) && Object.isFrozen(event.detail.addresses) };
@@ -153,8 +153,10 @@ test('entrada preparada usa o contrato do núcleo e permanece na Tela 1', async 
   expect(prepared.input.layout.tagBits).toBe(4);
   expect(Object.hasOwn(prepared.input, 'cache')).toBe(false);
   await expect(page.locator('#configuration-status')).toHaveText('Entrada preparada para simular');
-  await expect(page.locator('.stage-tabs [aria-current]')).toHaveText('1 Configurar');
-  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(2);
+  await expect(page.locator('.stage-tabs [aria-current]')).toHaveText('2 Simular');
+  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(1);
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await page.locator('#tab-configure').click();
   await page.locator('#sequence').fill('2018');
   await expect(page.locator('#configuration-status')).toHaveText('Configuração pronta para simular');
   await expect(page.locator('#tag-value')).toHaveText('0111');
@@ -166,6 +168,7 @@ test('todas as ajudas têm textos estáticos, Escape e retorno do foco', async (
   await page.locator('#memoryCells').fill('8192');
   await page.locator('#sequence').fill('2018, 3044');
   for (const [key, help] of Object.entries(HELP_CONTENT)) {
+    if (['lru', 'cache', 'history'].includes(key)) continue;
     const opener = page.locator(`[data-help="${key}"]`);
     await opener.click();
     const dialog = page.getByRole('dialog');

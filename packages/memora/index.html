@@ -7,6 +7,7 @@
     <link rel="icon" href="./src/assets/memora.png" type="image/png">
     <link rel="preload" href="./src/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/styles/simulation.css">
   </head>
   <body>
     <a class="skip-link" href="#configurar">Ir para a configuração</a>
@@ -21,11 +22,12 @@
       </nav>
     </header>
     <main id="configurar" tabindex="-1">
-      <ol class="stage-tabs" aria-label="Etapas do Memora">
-        <li class="stage-tab current" aria-current="step">1 Configurar</li>
-        <li class="stage-tab" aria-disabled="true" title="Etapa ainda indisponível">2 Simular</li>
-        <li class="stage-tab" aria-disabled="true" title="Etapa ainda indisponível">3 Analisar</li>
+      <ol class="stage-tabs" aria-label="Etapas do Memora" role="tablist">
+        <li class="stage-tab current" aria-current="step" role="presentation"><button id="tab-configure" type="button" role="tab" aria-selected="true" aria-controls="configuration-screen">1 Configurar</button></li>
+        <li class="stage-tab" aria-disabled="true" role="presentation"><button id="tab-simulate" type="button" role="tab" aria-selected="false" aria-controls="simulation-screen" tabindex="-1" disabled title="Prepare a configuração para simular">2 Simular</button></li>
+        <li class="stage-tab" aria-disabled="true" role="presentation"><button type="button" role="tab" aria-selected="false" tabindex="-1" disabled title="Análise detalhada ainda não disponível">3 Analisar</button></li>
       </ol>
+      <div id="configuration-screen" class="configuration-screen" role="tabpanel" aria-labelledby="tab-configure">
       <div class="intro">
         <div><h1>Configure a memória cache</h1><p id="intro-description">Defina a arquitetura ou carregue um exemplo pronto para começar</p><div id="error-summary" class="sr-only" role="status" aria-live="polite" hidden></div></div>
         <button type="button" id="load-example">Carregar exemplo didático</button>
@@ -117,6 +119,51 @@
           <p class="sr-only" id="action-status" role="status" aria-live="polite"></p>
         </section>
       </form>
+      </div>
+      <section id="simulation-screen" class="simulation-screen" role="tabpanel" aria-labelledby="tab-simulate" hidden>
+        <div class="simulation-intro">
+          <div><h1 id="simulation-title" tabindex="-1">Acompanhe a simulação</h1><p id="simulation-subtitle">Pronto para iniciar</p></div>
+          <div class="number-format" role="group" aria-label="Formato dos endereços"><span>Exibir em:</span><button type="button" id="format-decimal" aria-pressed="true">✓ Decimal</button><button type="button" id="format-binary" aria-pressed="false">Binário</button></div>
+        </div>
+        <div class="simulation-grid">
+          <div class="simulation-workspace">
+            <dl class="simulation-metrics" aria-label="Estatísticas da simulação">
+              <div><dt>Progresso</dt><dd id="sim-progress">0 / 0</dd></div>
+              <div class="metric-hit"><dt>Acertos</dt><dd id="sim-hits">0</dd></div>
+              <div class="metric-miss"><dt>Faltas</dt><dd id="sim-misses">0</dd></div>
+              <div><dt>Taxa de acerto</dt><dd id="sim-hit-rate">—</dd></div>
+              <div><dt>Linhas usadas</dt><dd id="sim-used-lines">0 / 0</dd></div>
+            </dl>
+            <section id="simulation-complete" class="simulation-complete" aria-labelledby="completion-title" hidden>
+              <div><h2 id="completion-title" tabindex="-1">✓ Simulação concluída</h2><p id="completion-detail"></p></div>
+              <div><button type="button" id="review-replacements">Revisar substituições</button><button type="button" id="new-simulation">Configurar nova simulação</button></div>
+            </section>
+            <section class="simulation-controls" aria-label="Controles da simulação">
+              <div class="playback-actions"><button type="button" id="sim-play">▶ Iniciar</button><button type="button" id="sim-stop">■ Parar</button><button type="button" id="sim-restart">↻ Reiniciar</button><button type="button" id="sim-step">Próxima etapa</button><button type="button" id="sim-next">Próximo acesso</button></div>
+              <div class="playback-preferences"><label class="detailed-control"><input type="checkbox" id="sim-detailed" checked>Etapas detalhadas</label><label class="speed-control" for="sim-speed"><input type="range" id="sim-speed" min="1" max="10" value="5" aria-valuetext="Moderada">Velocidade</label></div>
+            </section>
+            <div class="simulation-status"><p id="sim-status" role="status" aria-live="polite">Pronto para iniciar · nenhum acesso foi processado</p><span id="status-set" class="set-badge" hidden></span></div>
+            <section class="simulation-address simulation-card" aria-labelledby="current-address-heading">
+              <div class="simulation-card-heading"><h2 id="current-address-heading" tabindex="-1">Próximo acesso</h2><span id="address-set" class="set-badge" hidden></span><button type="button" id="show-live" hidden>Voltar ao estado atual</button></div>
+              <p id="current-address-description" class="simulation-description">O primeiro endereço será decomposto quando a simulação começar</p>
+              <dl class="current-address-parts"><div><dd id="sim-address">—</dd><dt>Endereço</dt></div><div><dd id="sim-tag">—</dd><dt id="sim-tag-label">Tag</dt></div><div><dd id="sim-set">—</dd><dt id="sim-set-label">Conjunto</dt></div><div><dd id="sim-offset">—</dd><dt id="sim-offset-label">Deslocamento</dt></div></dl>
+            </section>
+            <section class="simulation-cache simulation-card" aria-labelledby="cache-heading">
+              <div class="simulation-card-heading"><h2 id="cache-heading">Memória cache</h2><span id="cache-set" class="set-badge" hidden></span><button type="button" class="help-button" data-help="cache" aria-label="Ajuda: Memória cache">?</button></div>
+              <p class="simulation-description" id="cache-description">A cache começa vazia. As linhas aparecerão conforme os blocos forem carregados</p>
+              <div class="table-scroll cache-scroll" tabindex="0" aria-label="Linhas ocupadas da memória cache"><table id="cache-table"><caption class="sr-only">Linhas ocupadas, com o conjunto consultado primeiro</caption><thead></thead><tbody></tbody></table><div id="cache-empty" class="simulation-empty"><strong>Nenhuma linha ocupada</strong><p>Inicie a simulação para ver os blocos entrando na cache</p></div></div>
+            </section>
+          </div>
+          <section class="simulation-history simulation-card" aria-labelledby="history-heading">
+            <div class="simulation-card-heading"><h2 id="history-heading">Histórico de acessos</h2><button type="button" class="help-button" data-help="history" aria-label="Ajuda: Histórico de acessos">?</button></div>
+            <p id="history-description" class="simulation-description">Os acessos aparecerão aqui após o início da simulação</p>
+            <button type="button" id="show-all-history" hidden>Mostrar todos os acessos</button>
+            <div class="table-scroll history-scroll" tabindex="0" aria-label="Histórico completo de acessos"><table id="history-table"><caption class="sr-only">Acessos do mais recente ao mais antigo; selecione o número para revisar</caption><thead><tr><th scope="col">Nº</th><th scope="col">End.</th><th scope="col">Resultado</th><th scope="col">Explicação</th></tr></thead><tbody></tbody></table><div id="history-empty" class="simulation-empty"><strong>Nenhum acesso processado</strong><p>Clique em Iniciar para processar o primeiro endereço da sequência</p></div></div>
+            <div class="history-summary" id="history-summary"><h3 id="history-state-title">Estado atual</h3><p id="history-state">A cache está vazia e os contadores estão zerados</p></div>
+            <button type="button" id="go-analyze" disabled title="Análise detalhada ainda não disponível">Analisar decisão de substituição →</button>
+          </section>
+        </div>
+      </section>
       <footer class="attribution">Baseado no <a href="https://github.com/leo150250/simuladorCache" target="_blank" rel="noopener noreferrer">Beto, de Leandro Gabriel e colaboradores</a> · Licença MIT</footer>
     </main>
     <dialog id="side-sheet" class="side-sheet" aria-labelledby="sheet-title">

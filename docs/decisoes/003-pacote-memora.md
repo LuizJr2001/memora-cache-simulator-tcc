@@ -76,6 +76,25 @@ A integração com a Tela 1 permanece na #35. Execução, snapshots anteriores,
 políticas e controles serão extraídos nas entregas seguintes; esta etapa não
 completa a regressão da simulação da #31.
 
+## Progresso — 14/10/2026 · telas Configurar e Simular
+
+A Tela 1 está implementada no PR #43, ainda em revisão. A branch
+`feature/35-tela-2` parte do seu commit `d9258a9` e acrescenta a Tela 2:
+motor de execução esparso, FIFO/LRU/Random, snapshots imutáveis, controles,
+histórico, revisão de acessos, Decimal/Binário e três novas ajudas.
+O PR da Tela 2 usa a branch da Tela 1 como base temporária; não declara
+integração à `main` nem conclusão da #35.
+
+A separação prevista foi mantida: `src/core/simulation.js` não conhece DOM ou
+relógio; `src/ui/simulation-controller.js` controla tempo e seleção;
+`src/ui/simulate-screen.js` apresenta os dados. O núcleo de configuração foi
+reutilizado. O Beto executável, a licença e as atribuições foram preservados.
+
+Verificação local: **58 testes Node e 67 cenários Chromium** aprovados.
+[Evidências da Tela 2](../../packages/memora/docs/verificacao-tela-2.md).
+Analisar e suas quatro ajudas continuam como próxima entrega; a avaliação #33
+segue em paralelo e a publicação em produção ainda não foi definida.
+
 ## Como trabalhar
 
 Seguir `CONTRIBUTING.md` e `WORKFLOW.md`: uma ou duas issues em andamento,
@@ -104,3 +123,4 @@ funcional testada; o link local de comparação não define uma rota de produç�
 Manter a licença MIT original, a autoria de Leandro Gabriel e colaboradores e
 a identificação da origem nos módulos adaptados. A versão legada é a base de
 comparação, não uma referência correta para os defeitos já registrados.
+

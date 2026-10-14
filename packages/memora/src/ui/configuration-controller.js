@@ -3,7 +3,7 @@ import { EXAMPLE_ADDRESSES, generateAddresses, validateAddresses } from '../core
 import { prepareSimulationInput } from '../core/input.js';
 
 /** Estado da Tela 1, sem regras da cache e sem dependência de DOM */
-export function createConfigurationController({ random = Math.random, onPrepared = () => {} } = {}) {
+export function createConfigurationController({ random = Math.random, onPrepared = () => {}, onInvalidated = () => {} } = {}) {
   let raw = { ...DEFAULT_CONFIGURATION };
   let sequence = '';
   let preparedInput = null;
@@ -37,7 +37,7 @@ export function createConfigurationController({ random = Math.random, onPrepared
     };
   }
 
-  function invalidate() { preparedInput = null; parametersConfirmed = false; }
+  function invalidate() { preparedInput = null; parametersConfirmed = false; onInvalidated(); }
   return {
     view,
     setField(field, value) {
