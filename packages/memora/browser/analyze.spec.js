@@ -18,11 +18,13 @@ const after = (page, way) => page.locator(`#analysis-after-table tr[data-way="${
 
 test.beforeEach(async ({ page }) => { await page.setViewportSize({ width: 1280, height: 900 }); await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
 
-test('Analisar só habilita com acesso concluído e a primeira carga mostra vaga livre', async ({ page }) => {
-  await expect(page.locator('#tab-analyze')).toBeDisabled();
+test('Analisar orienta antes do primeiro acesso e a primeira carga mostra vaga livre', async ({ page }) => {
+  await page.locator('#tab-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeHidden();
   await prepare(page, 0); await expect(page.locator('#go-analyze')).toBeDisabled();
   for (let i = 0; i < 5; i++) await page.locator('#sim-step').click();
-  await expect(page.locator('#tab-analyze')).toBeDisabled();
+  await page.locator('#tab-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeHidden();
   await page.locator('#sim-step').click(); await open(page);
   await expect(page.locator('#analysis-event-title')).toHaveText('Acesso 1 de 21 · endereço 0');
   await expect(before(page, 1)).toContainText('Usar via livre');
@@ -32,7 +34,8 @@ test('Analisar só habilita com acesso concluído e a primeira carga mostra vaga
   await expect(page.locator('#analysis-in')).toContainText('0–15');
   await capture(page, 'primeira-carga');
   await page.locator('#analysis-return').click(); await page.locator('#sim-restart').click();
-  await expect(page.locator('#tab-analyze')).toBeDisabled(); await expect(page.locator('#go-analyze')).toBeDisabled();
+  await page.locator('#tab-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeHidden(); await expect(page.locator('#go-analyze')).toBeDisabled();
 });
 
 test('acesso 20 preserva o bloco removido, a via e a decisão LRU nos dois snapshots', async ({ page }) => {
@@ -121,8 +124,10 @@ test('trocar para análise pausa o relógio e as três abas têm navegação por
 
 test('editar a configuração descarta a análise anterior e exige novo acesso', async ({ page }) => {
   await prepare(page); await open(page); await page.locator('#tab-configure').click();
-  await page.locator('#sequence').fill('16, 17'); await expect(page.locator('#tab-analyze')).toBeDisabled();
-  await page.locator('#prepare-input').click(); await expect(page.locator('#tab-analyze')).toBeDisabled();
+  await page.locator('#sequence').fill('16, 17'); await page.locator('#tab-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeHidden();
+  await page.locator('#prepare-input').click(); await page.locator('#tab-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeHidden();
   await page.locator('#sim-next').click(); await open(page);
   await expect(page.locator('#analysis-event-title')).toHaveText('Acesso 1 de 2 · endereço 16');
   await expect(page.locator('#analysis-in')).toContainText('16–31');

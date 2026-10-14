@@ -1,10 +1,26 @@
 # Verificação da Tela 3 — Analisar
 
-Data: **14/10/2026**. Branch `feature/35-tela-3`, baseada no commit
-`4d9c3eafc3139004dc92ee2c0614c6c700130f69` da Tela 2,
-[PR #44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44), que
-depende da Tela 1 do [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43).
-Os PRs estão em revisão; a entrega não foi integrada à `main` ou publicada.
+Data: **14/10/2026**. Branch `feature/35-tela-3`, PR #45 com base em
+`main`, atualizada após a integração da Tela 2 pelo PR #44 (commit `3da8e9c`).
+A Tela 1 foi integrada pelo PR #43. A Tela 3 aguarda revisão e integração.
+
+## Revisão final após o PR #44
+
+A branch incorpora as etapas detalhadas, velocidade inicial 5, cache completa,
+células, paginação e ajustes de layout da versão final de Simular. Conflitos
+de integração foram resolvidos preservando esses comportamentos.
+
+As abas continuam clicáveis antes da preparação: configuração pendente mostra
+orientação em Configurar; entrada preparada sem acesso concluído pede iniciar
+ou avançar em Simular. Após concluir um acesso, Analisar abre seus snapshots.
+Iniciar/avançar limpa o aviso. Reiniciar/editar descarta a análise anterior.
+
+Validação local desta revisão: **30 arquivos JavaScript**, **75/75 testes Node**
+e **96/96 cenários Chromium** (45 Configurar, 29 Simular, 22 Analisar).
+`git diff --check` aprovado. As 16 capturas foram atualizadas; desktop compacto
+e endereço de 52 bits inspecionados visualmente. Node 24.19.0, Playwright
+1.64.0, Chromium 153.0.8010.0. Beto, motor e licença preservados em relação
+à `main`. Resultados anteriores abaixo registram o histórico da entrega.
 
 Rastreabilidade: #35 (interface), #28 (LRU), #30 (bloco anterior), #31
 (regressão), #37 (UX) e #22 (planejamento). A avaliação externa #33 continua
@@ -37,7 +53,7 @@ os arquivos do Beto e a licença foram preservados.
 
 | Parte | Comportamento |
 |---|---|
-| Disponibilidade | Aba/botão Analisar habilitam após o primeiro acesso concluído |
+| Disponibilidade | Aba orienta sobre a pendência; análise e botão ficam disponíveis após o primeiro acesso concluído |
 | Acesso selecionado | Usa a seleção do histórico, ou o último concluído; não usa dados incompletos da microetapa pendente |
 | Evento e decomposição | Endereço, resultado, tag, conjunto/linha, deslocamento e quantidade de bits |
 | Antes e Depois | Snapshots independentes do conjunto consultado, validade, tag, bloco, recência aplicável e decisão |
@@ -91,7 +107,7 @@ significa mais recente. LRU e suas ajudas de coluna não aparecem com direto,
 FIFO ou Random. Os exemplos dos side sheets são fixos, mesmo após avançar
 para outro acesso.
 
-## Verificação executada
+## Verificação anterior à integração final
 
 Ambiente local: **Node 24.19.0**, **Playwright 1.64.0** e
 **Chromium 153.0.8010.0**, em modo headless. Comandos na raiz:
@@ -165,8 +181,8 @@ compacto, ajuda LRU, mobile e limite de 52 bits foram inspecionados visualmente.
 
 ## Continuidade
 
-As três telas e as 18 ajudas estão implementadas nas branches em revisão.
-A próxima etapa é revisar/integrar as dependências, consolidar a avaliação e
+As Telas 1 e 2 estão integradas; a Tela 3 e as quatro ajudas adicionais estão no PR #45.
+A próxima etapa é revisar/integrar essa entrega, consolidar a avaliação e
 incorporar os retornos. Publicação, escrita/dirty bit, exportação e comparação
 entre configurações não fazem parte desta entrega. As issues permanecem
 abertas até os respectivos critérios de integração/avaliação serem cumpridos.

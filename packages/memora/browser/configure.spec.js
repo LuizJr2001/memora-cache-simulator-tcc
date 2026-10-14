@@ -154,7 +154,7 @@ test('entrada preparada usa o contrato do núcleo e abre a Tela 2 sem executar a
   expect(Object.hasOwn(prepared.input, 'cache')).toBe(false);
   await expect(page.locator('#configuration-status')).toHaveText('Entrada preparada para simular');
   await expect(page.locator('.stage-tabs [aria-current]')).toHaveText('2 Simular');
-  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(1);
+  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(0);
   await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
   await page.locator('#tab-configure').click();
   await page.locator('#sequence').fill('2018');
@@ -427,7 +427,7 @@ for (const viewport of [
   { width: 1480, height: 742 },
   { width: 1920, height: 1080 },
 ]) {
-  test(`painéis até rodapé e textarea fixo em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
+  test(`painéis até rodapé e textarea expandido estável em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     const geometry = () => page.evaluate(() => {
       const rect = selector => {
@@ -439,6 +439,8 @@ for (const viewport of [
         sequence: rect('.sequence-panel'),
         cacheGroup: rect('.cache-group'),
         address: rect('#sequence'),
+        feedback: rect('#sequence-feedback'),
+        summary: rect('.configuration-summary'),
         helpNote: rect('.sequence-panel .information-note'),
         footer: rect('.attribution'),
         resize: getComputedStyle(document.querySelector('#sequence')).resize,
@@ -446,6 +448,7 @@ for (const viewport of [
         width: document.documentElement.scrollWidth,
       };
     });
+    const initial = await geometry();
     async function check() {
       const g = await geometry();
       expect(g.parameters.bottom).toBeCloseTo(g.sequence.bottom, 0);
@@ -455,7 +458,13 @@ for (const viewport of [
       expect(g.footer.y - g.parameters.bottom).toBeGreaterThanOrEqual(6);
       expect(viewport.height - g.footer.bottom).toBeGreaterThanOrEqual(0);
       expect(viewport.height - g.footer.bottom).toBeLessThanOrEqual(18);
-      expect(g.address.height).toBe(viewport.height <= 800 ? 96 : 120);
+      expect(g.address.height).toBeGreaterThanOrEqual(72);
+      expect(g.address).toEqual(initial.address);
+      expect(g.parameters).toEqual(initial.parameters);
+      expect(g.sequence).toEqual(initial.sequence);
+      expect(g.summary).toEqual(initial.summary);
+      expect(g.summary.y - g.feedback.bottom).toBeGreaterThanOrEqual(8);
+      expect(g.summary.y - g.feedback.bottom).toBeLessThanOrEqual(16);
       expect(g.resize).toBe('none');
       expect(g.height).toBeLessThanOrEqual(viewport.height);
       expect(g.width).toBeLessThanOrEqual(viewport.width);
@@ -498,16 +507,16 @@ test('respiro discreto entre rótulo, input e dica sem scroll no desktop', async
     const g = await measure();
     expect(g.beforeInput).toBe(6);
     expect(g.afterInput).toBe(8);
-    expect(g.sequenceBefore).toBe(6);
-    expect(g.sequenceAfter).toBe(8);
+    expect(g.sequenceBefore).toBe(viewport.height <= 850 ? 4 : 6);
+    expect(g.sequenceAfter).toBe(viewport.height <= 850 ? 4 : 8);
     expect(g.pageHeight).toBeLessThanOrEqual(viewport.height);
     for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
       await page.locator('#mapping').selectOption(mapping);
-      expect((await measure()).pageHeight).toBeLessThanOrEqual(viewport.height);
+      expect(await measure()).toEqual(g);
     }
     await page.locator('#memoryCells').fill('100');
     await page.locator('#sequence').fill('-1, 4096, abc, 20');
-    expect((await measure()).pageHeight).toBeLessThanOrEqual(viewport.height);
+    expect(await measure()).toEqual(g);
   }
 });
 

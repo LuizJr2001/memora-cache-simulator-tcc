@@ -11,11 +11,22 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
   const form = byId('configure-form');
   const sheet = sideSheet ?? createSideSheet(document);
   const controller = createConfigurationController({ random, onInvalidated, onPrepared(input) {
+    navigationAttempted = false;
+    byId("navigation-warning").hidden = true;
     onPrepared(input);
     // Contrato para a próxima etapa; não cria cache nem executa acessos
     form.dispatchEvent(new document.defaultView.CustomEvent('memora:input-prepared', { detail: input, bubbles: true }));
   } });
   let sequenceEdited = false;
+  let navigationAttempted = false;
+  function renderNavigationWarning() {
+    const view = controller.view();
+    const warning = byId('navigation-warning');
+    warning.hidden = !navigationAttempted;
+    warning.textContent = !navigationAttempted ? '' : !view.canStart
+      ? 'Configuração pendente. Complete ou corrija os campos destacados para continuar.'
+      : 'Configuração pronta. Clique em Iniciar simulação para continuar.';
+  }
 
   function setText(id, text) { if (byId(id).textContent !== text) byId(id).textContent = text; }
   function setValue(element, value) { if (element.value !== String(value)) element.value = value; }
@@ -93,7 +104,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     setText('configuration-detail', l ? view.preparedInput ? `${view.preparedInput.addresses.length} endereços preparados para a próxima etapa` : !addresses.ok ? 'Informe endereços válidos para ver a prévia' :
       `${bits(l.addressBits)}: ${l.tagBits} para tag, ${l.indexBits} para ${c.mapping === 'direct' ? 'linha' : 'conjunto'} e ${l.offsetBits} para deslocamento` :
       'Corrija os campos destacados para continuar');
-    setText('configuration-symbol', !parameters.ok ? '⚠' : view.preparedInput ? '✓' : '◇');
+    setText('configuration-symbol', !parameters.ok ? '⚠' : view.canStart || view.preparedInput ? '✓' : '!');
     byId('configuration-symbol').classList.toggle('error-text', !parameters.ok);
     const indexName = raw.mapping === 'direct' ? 'Linha' : 'Conjunto';
     for (const [part, label, width, value] of [
@@ -106,13 +117,11 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     }
     setText('preview-address', preview ? `Decomposição binária do primeiro endereço da sequência: ${preview.address}` : 'Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
     setText('preview-label', preview ? `Primeiro endereço: ${number(preview.address)}` : 'Prévia indisponível');
-    const invalid = !parameters.ok || showSequenceErrors;
-    byId('note-ring').src = invalid ? './src/assets/error-ring.svg' : './src/assets/information-ring.svg';
-    setText('note-symbol', invalid ? '!' : 'i');
-    byId('note-symbol').classList.toggle('error-text', invalid);
-    setText('note-text', invalid ? 'Corrija os campos indicados para liberar a simulação' : raw.mapping === 'direct' ?
-      'No mapeamento direto, cada bloco só pode ocupar uma linha da cache' :
-      'As interrogações abrem ajuda contextual sem tirar você desta etapa');
+    byId('note-ring').src = './src/assets/information-ring.svg';
+    setText('note-symbol', 'i');
+    byId('note-symbol').classList.remove('error-text');
+    setText('note-text', 'As interrogações abrem ajuda contextual sem tirar você desta etapa');
+    renderNavigationWarning();
     return view;
   }
 
@@ -166,5 +175,5 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     });
   });
   render();
-  return controller;
+  return { ...controller, showNavigationWarning() { navigationAttempted = true; sequenceEdited = true; render(); } };
 }

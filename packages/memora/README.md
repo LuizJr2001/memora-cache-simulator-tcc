@@ -11,10 +11,9 @@ snapshot e Decimal/Binário. A **Tela 3 — Analisar** compara snapshots reais
 antes/depois, explica a decisão, mostra Sai/Entra e quatro passos didáticos,
 com casos de acerto, linha livre e substituição e suas quatro ajudas.
 
-A entrega atual está na branch `feature/35-tela-3`, baseada no commit
-`4d9c3ea` de `feature/35-tela-2` (PR #44), que depende da Tela 1 do PR #43.
-Os três PRs devem ser integrados após revisão, na ordem das dependências;
-a versão completa ainda não está na `main`.
+As Telas 1 e 2 foram integradas à `main` pelos PRs #43 e #44. A Tela 3 está
+na branch `feature/35-tela-3`, no PR #45 com base em `main`, incorporando
+os ajustes finais da simulação.
 
 ## Executar
 
@@ -42,9 +41,9 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos em `scripts`, `src`, `tests`, `browser` e da configuração Playwright. `test`
-executa **65 testes Node**: 28 de configuração/entradas, 9 do controlador da
-Tela 1, 15 da execução da cache, 6 do controlador da Tela 2 e 7 da projeção de análise. A suíte cobre
-vítimas, contadores, snapshots imutáveis, Random controlado, limites e relógio.
+executa **75 testes Node** de configuração/entradas, controladores, execução,
+explicações e apresentação da cache. A suíte cobre vítimas, contadores,
+snapshots imutáveis, Random controlado, limites, relógio e troca de modo.
 
 Para verificar a interface no Chromium:
 
@@ -53,16 +52,16 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A branch `feature/35-tela-3` executa **89 cenários Chromium**: 45 da Tela 1,
-22 da Tela 2 e 22 da Tela 3. A regressão da Tela 1 inclui
+A branch `feature/35-tela-3` executa **96 cenários Chromium**: 45 Configurar,
+29 Simular e 22 Analisar. A regressão da Tela 1 inclui
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
 Também mede largura e altura em **801 × 720, 1024 × 768, 1180 × 720,
 1280 × 720, 1366 × 768, 1480 × 742, 1536 × 864 e 1920 × 1080**,
 além dos layouts menores de 768, 390 e 320 px. Os testes
-adicionais verificam espaçamento dos campos, cartões de decomposição próximos
-aos botões, ausência de aviso vermelho geral visível e centralização vertical
-do ícone de alerta. A regressão inclui a identificação do primeiro endereço,
+adicionais verificam espaçamento dos campos, textarea expandido e estável entre
+validações, cartões próximos aos botões e centralização vertical do ícone de
+alerta. A regressão inclui a identificação do primeiro endereço,
 a remoção de prévias antigas após erros, 52 bits completos nos três mapeamentos
 e navegação por teclado nos erros locais. O servidor local é iniciado pelos testes.
 `MEMORA_CHROMIUM_PATH` permite usar um Chromium já instalado, e
@@ -72,11 +71,8 @@ e navegação por teclado nos erros locais. O servidor local é iniciado pelos t
 no viewport; cache e histórico têm rolagem local. Em 1024, 801, 768, 390 e
 320 px, a página pode rolar verticalmente, sem overflow horizontal da página.
 Os testes incluem início, seis microetapas, conclusão, revisão sem reexecução,
-políticas, formato, cancelamento do relógio, ajudas e entrada de 52 bits.
-`MEMORA_ANALYSIS_SCREENSHOT_DIR` guarda as capturas da Tela 3. A análise cobre
-os mesmos quatro desktops e cinco larguras menores, snapshots, decisão por
-política, navegação histórica, avanço do acesso pendente, invalidação da
-entrada, quatro ajudas e rolagem local com muitas vias.
+políticas, formato, cancelamento do relógio, ajudas, entrada de 52 bits, avisos
+de navegação, cache completa, células e paginação por teclado.
 
 ## Organização
 
@@ -103,16 +99,20 @@ integra o formulário ao núcleo. `onPrepared(input)` e o evento DOM
 imutáveis. O controlador mantém essa entrada até a próxima edição dos dados.
 A entrada inválida nunca emite o evento nem chama o callback.
 
-O callback cria a simulação e habilita a aba Simular. Voltar a Configurar pausa
+O callback cria a simulação e libera seu conteúdo. Voltar a Configurar pausa
 a execução e preserva o estado; qualquer edição invalida a simulação anterior,
 exigindo nova preparação. As abas ativas funcionam por clique, setas, Home e End.
-A aba Analisar e o botão correspondente habilitam após o primeiro acesso concluído.
+Antes da preparação, Simular/Analisar mantêm Configurar e mostram um aviso
+vermelho de pendência. Com entrada preparada e sem acesso concluído, Analisar mantém a Tela 2 e pede
+processar o primeiro acesso; iniciar ou avançar remove o aviso. Após concluir
+um acesso, a aba e o botão abrem sua análise.
 
 Iniciar/Continuar alterna com Pausar; Parar preserva o ponto atual; Reiniciar
-zera cache, histórico e contadores. Próxima etapa avança uma das seis fases;
-Próximo acesso termina apenas o acesso pendente. Etapas detalhadas determina
-se cada pulso automático avança uma fase ou um acesso completo. Velocidade
-ajusta de 1 a 10 pulsos/s, sem exibir esse detalhe técnico como rótulo na tela.
+zera cache, histórico e contadores. Etapas detalhadas marcada avança uma das
+seis fases por pulso automático ou Próxima etapa; desmarcada avança um acesso
+completo por pulso ou Avançar acesso. Próximo acesso termina apenas a entrada
+pendente. A velocidade começa em 5 e varia de 1 a 10, com etapas/segundo ou
+acessos/segundo no rótulo conforme o modo.
 Abrir ajuda ou revisar um acesso pausa a execução.
 
 O número de cada acesso no histórico permite revisar a cache após aquele acesso.
@@ -151,22 +151,23 @@ não aloca uma tabela com todas as vias possíveis de uma configuração enorme.
 
 A [Tela 3 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473)
 e suas variantes orientam a análise. O [relatório da Tela 3](docs/verificacao-tela-3.md)
-registra **65 testes Node e 89 cenários Chromium** aprovados localmente,
+registra a revisão atual com **75 testes Node e 96 cenários Chromium**, além do histórico de validação,
 16 capturas e as 58 correções de textos de via na seção Analisar do Figma.
 
 
 A [Tela 2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-1720)
 e suas variantes guiam a nova entrega. O [relatório da Tela 2](docs/verificacao-tela-2.md)
 registra resultados, capturas e a correção dos números de via no exemplo estático.
-A verificação local de 14/10 aprovou **58 testes Node e 67 cenários Chromium**;
-esses resultados não substituem a avaliação externa nem declaram CI remota.
+A [revisão geral do PR #44](docs/revisao-pr44.md) registra a verificação local
+atual de 14/10: **68 testes Node e 74 cenários Chromium** aprovados, incluindo
+as duas telas. Esses resultados não substituem a avaliação externa.
 
 
 A implementação e as capturas do [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
 estão documentadas no [relatório da Tela 1](docs/verificacao-tela-1.md),
 com a verificação local de 14/10: **37 testes Node e 45 cenários Chromium**,
 todos aprovados. O relatório distingue essa execução dos registros anteriores da CI.
-Esta implementação está **na branch do PR**, ainda não integrada à `main`.
+A Tela 1 já foi integrada à `main`; seus refinamentos posteriores fazem parte do PR #44.
 
 
 A [especificação v2](../../docs/prototipo-v2-especificacao.md) e a issue #37
@@ -182,14 +183,16 @@ memória principal e cache se distribuem no painel esquerdo, sem botão de
 confirmação: parâmetros e sequência são validados automaticamente ao editar,
 a prévia se atualiza com entrada válida e **Iniciar simulação** revalida tudo
 antes de avançar. No direito, os cartões Tag/Conjunto/Deslocamento ficam próximos dos botões de
-ação (12 px em desktop baixo, 16 px em desktop alto). O textarea mantém
-altura fixa de 96 px em viewports desktop de até 800 px de altura e de
-120 px acima disso, com rolagem interna e sem alça de redimensionamento.
-Rótulo/campo e campo/dica têm espaçamento base de 6 px e 8 px,
-respectivamente, com compactação específica para erros.
+ação (10 px em desktop baixo, 16 px em desktop alto). O textarea ocupa
+o espaço livre do painel, com mínimo de 72 px, rolagem interna e sem alça de
+redimensionamento. A altura permanece igual ao alternar entrada vazia, válida
+ou inválida na mesma janela. Rótulo/campo e campo/dica têm espaçamento base de
+6 px e 8 px, respectivamente; na sequência, notebooks de até 850 px de altura
+usam 4 px em ambos, inclusive nos estados inválidos.
 
 Nos estados inválidos, as **bordas e mensagens de erro ficam junto aos campos**;
-não se exibe banner vermelho redundante sob o título. O resumo geral de erros
+o aviso vermelho sob o título aparece apenas ao tentar avançar sem preparar
+a configuração e não repete os campos. O resumo geral de erros
 permanece anunciado exclusivamente a leitores de tela (`sr-only`, `aria-live`),
 enquanto o subtítulo comum segue visível. O ícone de alerta do card
 **Configuração com erros** é centralizado verticalmente, sem deslocar título

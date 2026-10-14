@@ -27,16 +27,10 @@ const analyzer = mountAnalyzeScreen(document, {
 const simulator = mountSimulateScreen(document, {
   onConfigure: () => navigate('configure'), onAnalyze: () => navigate('analyze'),
   onChange(state) {
-    setAvailable(2, Boolean(state?.history.length));
     analyzer.render(state);
   },
 });
 
-function setAvailable(index, available) {
-  tabs[index].disabled = !available;
-  if (available) tabs[index].parentElement.removeAttribute('aria-disabled');
-  else tabs[index].parentElement.setAttribute('aria-disabled', 'true');
-}
 function navigate(screen) {
   const index = screens.indexOf(screen), state = simulator.view();
   if (index < 0 || (index > 0 && !state) || (index === 2 && !state.history.length)) return;
@@ -60,11 +54,18 @@ function navigate(screen) {
   window.scrollTo(0, 0);
 }
 
-mountConfigureScreen(document, { sideSheet: sheet,
-  onPrepared(input) { simulator.prepare(input); setAvailable(1, true); navigate('simulate'); },
-  onInvalidated() { simulator.invalidate(); analyzer.render(null); setAvailable(1, false); setAvailable(2, false); },
+const configuration = mountConfigureScreen(document, { sideSheet: sheet,
+  onPrepared(input) { simulator.prepare(input); navigate('simulate'); },
+  onInvalidated() { simulator.invalidate(); analyzer.render(null); },
 });
-tabs.forEach((tab, index) => tab.addEventListener('click', () => navigate(screens[index])));
+tabs.forEach((tab, index) => tab.addEventListener('click', () => {
+  const state = simulator.view();
+  if (index > 0 && !state) configuration.showNavigationWarning();
+  else if (index === 2 && !state.history.length) {
+    navigate('simulate');
+    simulator.showAnalysisWarning();
+  } else navigate(screens[index]);
+}));
 document.querySelector('.stage-tabs').addEventListener('keydown', event => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
   const available = tabs.filter(tab => !tab.disabled);

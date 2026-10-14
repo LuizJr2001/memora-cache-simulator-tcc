@@ -50,7 +50,7 @@ export function createSimulationController(input, {
     },
     stop() { stopClock(); if (!engine.view().done) status = 'stopped'; return emit(); },
     restart() { stopClock(); engine.reset(); status = 'ready'; selected = null; error = null; return emit(); },
-    nextStep: () => manual(false),
+    nextStep: () => manual(!detailed),
     nextAccess: () => manual(true),
     setSpeed(value) {
       if (!Number.isInteger(value) || value < 1 || value > 10) throw new RangeError('Velocidade deve estar entre 1 e 10');
