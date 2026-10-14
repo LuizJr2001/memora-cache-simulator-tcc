@@ -95,7 +95,7 @@ Ver [relatório da Tela 2](../../docs/verificacao-tela-2.md): 58 testes Node e
 
 ### Orientação ao navegar com configuração pendente
 
-Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, destacando os nomes dos parâmetros vazios/inválidos e da sequência pendente. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Analisar continua sem tela implementada nesta branch; com entrada preparada, informa essa disponibilidade.
+Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Analisar continua sem tela implementada nesta branch; com entrada preparada, informa essa disponibilidade.
 
 No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
 

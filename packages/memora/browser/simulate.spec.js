@@ -260,13 +260,14 @@ test('endereços de 52 bits e cache enorme geram somente linhas ocupadas', async
 
 test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ page }) => {
   await page.locator('#tab-simulate').click();
-  await expect(page.locator('#navigation-warning')).toContainText('preencha Endereços a acessar');
+  await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
   await expect(page.locator('#simulation-screen')).toBeHidden();
   await page.locator('#memoryCells').fill('');
   await page.locator('#tab-analyze').click();
-  await expect(page.locator('#navigation-warning strong')).toContainText(['Total de células', 'Endereços a acessar']);
+  await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
+  await expect(page.locator('#navigation-warning')).toHaveCSS('color', 'rgb(185, 28, 28)');
   await page.locator('#load-example').click();
-  await expect(page.locator('#navigation-warning')).toContainText('clique em Iniciar simulação');
+  await expect(page.locator('#navigation-warning')).toContainText('Clique em Iniciar simulação');
   await page.locator('#tab-simulate').click();
   await expect(page.locator('#simulation-screen')).toBeHidden();
   await page.locator('#prepare-input').click();

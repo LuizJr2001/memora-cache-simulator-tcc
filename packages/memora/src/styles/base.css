@@ -364,7 +364,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .has-errors .panel { padding-block: 8px; }
 }
 
-.navigation-warning { margin-top: 6px; font-size: 13px; line-height: 18px; }
+.intro .navigation-warning { color: var(--memora-error); margin-top: 6px; font-size: 13px; line-height: 18px; }
 @media (min-width: 801px) and (max-height: 800px) {
   .parameters-panel { gap: 12px; }
   .parameters-panel .cache-group .fields-grid { row-gap: 16px; }

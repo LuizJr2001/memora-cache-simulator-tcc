@@ -19,27 +19,13 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
   } });
   let sequenceEdited = false;
   let navigationAttempted = false;
-  const fieldNames = { bytesPerCell: "Bytes por célula", memoryCells: "Total de células", cellsPerBlock: "Células por bloco", cacheLines: "Número de linhas", mapping: "Mapeamento", ways: "Vias por conjunto", replacement: "Substituição" };
   function renderNavigationWarning() {
     const view = controller.view();
-    const warning = byId("navigation-warning");
+    const warning = byId('navigation-warning');
     warning.hidden = !navigationAttempted;
-    warning.replaceChildren();
-    if (!navigationAttempted) return;
-    const fields = Object.keys(view.parameters.errors);
-    warning.append("Para continuar, ");
-    fields.forEach((field, index) => {
-      if (index) warning.append("; ");
-      warning.append(view.raw[field] === "" ? "preencha " : "corrija ");
-      const strong = document.createElement("strong"); strong.textContent = fieldNames[field]; warning.append(strong);
-    });
-    if (!view.addresses.ok) {
-      if (fields.length) warning.append("; ");
-      const strong = document.createElement("strong"); strong.textContent = "Endereços a acessar";
-      warning.append(view.sequence.trim() ? "corrija " : "preencha ", strong);
-    }
-    if (fields.length || !view.addresses.ok) warning.append(". Depois, clique em Iniciar simulação.");
-    else warning.append("clique em Iniciar simulação para preparar a configuração.");
+    warning.textContent = !navigationAttempted ? '' : !view.canStart
+      ? 'Configuração pendente. Complete ou corrija os campos destacados para continuar.'
+      : 'Configuração pronta. Clique em Iniciar simulação para continuar.';
   }
 
   function setText(id, text) { if (byId(id).textContent !== text) byId(id).textContent = text; }
