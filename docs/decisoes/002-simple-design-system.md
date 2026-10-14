@@ -2,7 +2,7 @@
 
 **Status:** aceita  
 **Data da adoção:** 25/09/2026  
-**Regras vigentes atualizadas:** 12/10/2026
+**Regras vigentes atualizadas:** 14/10/2026
 
 **Escopo:** protótipo visual, componentes de interface e futura implementação
 
@@ -52,7 +52,8 @@ A adoção vale para as três etapas principais:
 A Tela 1 e suas representações SDS na v2 passam de 1280 × 900 para
 1280 × 720. O cabeçalho tem 52 px, os três campos de memória principal ficam
 lado a lado e os painéis usam intervalos menores. As abas mantêm sua forma,
-pesos e destaque da etapa atual. O resumo de erros fica junto ao título.
+pesos e destaque da etapa atual. Os erros ficam junto aos campos; a contagem
+geral é reservada aos leitores de tela.
 
 A implementação adapta o espaço à altura disponível, com controles de 36 px
 em desktops de até 800 px de altura útil e textos em seus tamanhos legíveis.
@@ -63,6 +64,19 @@ mantêm painéis empilhados e fluxo vertical.
 O botão GitHub foi retirado dos 40 cabeçalhos da v2, porque repete o link
 Abrir GitHub da Ajuda rápida. A organização dos links na ajuda foi preservada.
 A revisão do Figma e a implementação são rastreáveis no PR #43 e nas #35/#37.
+
+Em 14/10, foram corrigidos os encaixes em 801 × 720, 1024 × 768 e no
+endereço de 52 bits em 1280 × 720. Entre 801 e 1200 px, o cabeçalho organiza
+título/botão e orientação em duas linhas; espaçamento e proporções dos cartões
+se ajustam, sem reduzir fontes ou esconder bits. Erros longos de parâmetros
+podem rolar localmente, com foco por teclado, em áreas úteis pequenas.
+
+A prévia recebe o rótulo **Primeiro endereço: …**; entradas inválidas mostram
+**Prévia indisponível**. O novo componente `Memora/Configurar/Prévia do endereço`
+reutiliza `Text/Default/Secondary`, Inter Regular 12 px e entrelinha de 16 px.
+Não é um botão e mantém peso regular. As 18 representações SDS de Configurar
+foram sincronizadas: Por conjunto habilita vias/substituição; Direto desabilita
+ambas; Totalmente associativo fixa vias e permite escolher substituição.
 
 ### Controles
 

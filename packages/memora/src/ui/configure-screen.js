@@ -22,6 +22,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
   function feedback(field, message, error) {
     const target = byId(`${field}-feedback`);
     target.classList.toggle('error-text', Boolean(error));
+    target.tabIndex = error ? 0 : -1;
     byId(field).setAttribute('aria-invalid', String(Boolean(error)));
     setText(`${field}-feedback`, error ? `⚠ ${error}` : message);
   }
@@ -50,12 +51,12 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
 
     feedback('bytesPerCell', `Valor válido: ${raw.bytesPerCell} ${Number(raw.bytesPerCell) === 1 ? 'byte' : 'bytes'}`, errors.bytesPerCell);
     feedback('memoryCells', l ? `${bits(l.addressBits)} de endereço` : 'O total de células define o intervalo de endereços', errors.memoryCells);
-    feedback('cellsPerBlock', l ? `${bits(l.offsetBits)} para deslocamento` : 'Use um tamanho compatível com a memória', errors.cellsPerBlock);
+    feedback('cellsPerBlock', l ? `${bits(l.offsetBits)} para deslocamento` : 'Defina a memória', errors.cellsPerBlock);
     feedback('cacheLines', l ? 'Capacidade compatível' : 'Defina a capacidade da cache', errors.cacheLines);
     feedback('mapping', '', errors.mapping);
-    const wayHint = c ? c.mapping === 'direct' ? '1 linha por conjunto · fixo no mapeamento direto' :
-      c.mapping === 'fully-associative' ? `${c.ways} vias · todas as ${c.cacheLines} linhas · 1 conjunto · valor fixo` :
-      `${c.ways} vias · ${l.setCount} conjuntos · valor ajustável` : 'Corrija os parâmetros para calcular os conjuntos';
+    const wayHint = c ? c.mapping === 'direct' ? '1 via · valor fixo' :
+      c.mapping === 'fully-associative' ? `${c.ways} vias · 1 conjunto · valor fixo` :
+      `${c.ways} vias · ${l.setCount} conjuntos · valor ajustável` : 'Revise os parâmetros';
     feedback('ways', wayHint, errors.ways);
     feedback('replacement', raw.mapping === 'direct' ? 'Cada bloco possui uma única linha possível' :
       raw.replacement === 'LRU' ? 'Estado LRU visível na simulação' : 'A política escolhe a linha a substituir', errors.replacement);
@@ -92,10 +93,10 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     byId('open-generator').disabled = !parameters.ok;
 
     setText('configuration-status', !parameters.ok ? 'Configuração com erros' : view.preparedInput ?
-      'Entrada preparada para simular' : view.canStart ? 'Configuração pronta para simular' : 'Configuração válida · informe os endereços');
-    setText('configuration-detail', l ? view.preparedInput ? `${view.preparedInput.addresses.length} endereços preparados para a próxima etapa` :
+      'Entrada preparada para simular' : view.canStart ? 'Configuração pronta para simular' : 'Configuração válida');
+    setText('configuration-detail', l ? view.preparedInput ? `${view.preparedInput.addresses.length} endereços preparados para a próxima etapa` : !addresses.ok ? 'Informe endereços válidos para ver a prévia' :
       `${bits(l.addressBits)}: ${l.tagBits} para tag, ${l.indexBits} para ${c.mapping === 'direct' ? 'linha' : 'conjunto'} e ${l.offsetBits} para deslocamento` :
-      'Corrija os campos destacados antes de calcular a decomposição ou iniciar a simulação');
+      'Corrija os campos destacados para continuar');
     setText('configuration-symbol', !parameters.ok ? '⚠' : view.preparedInput ? '✓' : '◇');
     byId('configuration-symbol').classList.toggle('error-text', !parameters.ok);
     const indexName = raw.mapping === 'direct' ? 'Linha' : 'Conjunto';
@@ -108,12 +109,13 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       setText(`${part}-label`, !l ? `${label} indisponível` : width === 0 ? `Sem bits de ${label.toLowerCase()}` : `${label} · ${bits(width)}`);
     }
     setText('preview-address', preview ? `Decomposição binária do primeiro endereço da sequência: ${preview.address}` : 'Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
+    setText('preview-label', preview ? `Primeiro endereço: ${number(preview.address)}` : 'Prévia indisponível');
     const invalid = !parameters.ok || showSequenceErrors;
     byId('note-ring').src = invalid ? './src/assets/error-ring.svg' : './src/assets/information-ring.svg';
     setText('note-symbol', invalid ? '!' : 'i');
     byId('note-symbol').classList.toggle('error-text', invalid);
     setText('note-text', invalid ? 'Corrija os campos indicados para liberar a simulação' : raw.mapping === 'direct' ?
-      'No mapeamento direto, cada bloco da memória principal possui uma única linha possível na cache' :
+      'No mapeamento direto, cada bloco só pode ocupar uma linha da cache' :
       'As interrogações abrem ajuda contextual sem tirar você desta etapa');
     return view;
   }

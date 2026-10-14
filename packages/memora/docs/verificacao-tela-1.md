@@ -1,6 +1,6 @@
 # Tela 1 — Configurar: verificação da entrega
 
-Data: 12/10/2026 · Refs #35 e #37
+Verificação mais recente: 14/10/2026 · Refs #35 e #37
 
 A interface está restrita a `packages/memora`, com a atualização do lockfile na raiz.
 O núcleo do PR #41 e os arquivos executáveis do Beto foram preservados.
@@ -14,7 +14,8 @@ O núcleo do PR #41 e os arquivos executáveis do Beto foram preservados.
 
 Os campos e a sequência usam as validações existentes. A geração recebe a
 memória configurada no momento da ação; vias e substituição apresentam os valores
-normalizados pelo núcleo. A prévia binária decompõe o primeiro endereço válido.
+normalizados pelo núcleo. A prévia binária identifica e decompõe o primeiro
+endereço de uma sequência válida, sem reaproveitar prévias após erros.
 
 As 8 ajudas de campo, Como funciona?, Glossário e Ajuda rápida usam os textos
 visíveis da v2. Foram consultados os textos dos slots dos Cards, porque as
@@ -44,10 +45,12 @@ com foco e PageDown, preservando o texto completo e as ações visíveis.
 ## Resultados
 
 **Estado consolidado da branch `feature/35-tela-1` (PR #43):**
-[última execução automatizada aprovada](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743)
-com 37 testes Node e **40 cenários Chromium**. As seções cronológicas abaixo
+verificação local de 14/10 com 37 testes Node e **45 cenários Chromium**.
+A [execução anterior da CI](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743)
+aprovou 37 testes Node e 40 cenários antes destas correções.
+As seções cronológicas abaixo
 registram execuções anteriores e suas contagens históricas (18, 22, 26,
-28, 32 e 36); não substituem o total vigente. O PR continua aberto
+28, 32, 36 e 40); não substituem o total vigente. O PR continua aberto
 para revisão e não foi integrado à `main`.
 
 Ambiente da verificação inicial: Node.js 24.19.0, Playwright 1.64.0 e Chromium 153.0.8010.0, Linux.
@@ -57,7 +60,7 @@ Ambiente da verificação inicial: Node.js 24.19.0, Playwright 1.64.0 e Chromium
 | `npm ci` | Instalação pelo lockfile concluída |
 | `npm run check` | 16 arquivos JavaScript com sintaxe válida |
 | `npm test` | 37 testes passaram: 28 existentes + 9 do controlador |
-| `npm run test:ui --workspace @memora/simulator` | **40 cenários passaram no Chromium** na execução mais recente, incluindo quatro verificações da centralização do alerta |
+| `npm run test:ui --workspace @memora/simulator` | **45 cenários passaram no Chromium** na verificação local de 14/10, incluindo as exceções de scroll e a identificação da prévia |
 | `git diff --check` | Sem problemas de whitespace |
 | Diff dos três arquivos do Beto e de `src/core` | Sem alterações |
 
@@ -65,8 +68,9 @@ Os cenários de navegador cobrem exemplo, três mapeamentos, alteração das via
 troca de política, geração após editar memória, mensagens e bloqueio, preparação,
 zero bits, entradas coladas acima dos limites, conteúdo seguro, operação por
 teclado, as 11 ajudas, contenção/restauração de foco e fechamento por Escape,
-botão e scrim. A página inteira foi verificada sem rolagem em 1280 × 720,
-1366 × 768, 1480 × 742 e 1920 × 1080: estado inicial, exemplo, três mapeamentos,
+botão e scrim. A página inteira foi verificada sem rolagem em 801 × 720,
+1024 × 768, 1180 × 720, 1280 × 720, 1366 × 768, 1480 × 742,
+1536 × 864 e 1920 × 1080: estado inicial, exemplo, três mapeamentos,
 erros simultâneos, quatro parâmetros vazios e mensagens extensas. Os testes
 medem os limites dos controles e a altura real do documento, sem ocultar o
 overflow da página. O link GitHub foi conferido apenas na Ajuda rápida.
@@ -320,3 +324,69 @@ O cenário de integração do exemplo também verifica que **3 bytes por célula
 em **37 testes Node e 40 cenários Chromium**, aprovados na verificação local
 após a revisão. Sintaxe e `git diff --check` passaram; capturas renovadas.
 O PR #43 apresenta o escopo final e a contagem vigente em uma descrição única.
+
+
+## Correção das exceções da revisão — 14/10/2026
+
+A revisão independente do commit `21ec808` encontrou três exceções. As
+correções deste PR ajustam o encaixe real do conteúdo, sem esconder o overflow
+na página, reduzir fontes ou alterar as regras e os limites do núcleo.
+
+| Cenário reproduzido | Altura anterior do documento | Resultado corrigido |
+|---|---|---|
+| 801 × 720, exemplo válido | 779 px | 720 px, sem scroll da página |
+| 1024 × 768, exemplo válido | 779 px | 768 px, sem scroll da página |
+| 1280 × 720, 2^52 células e endereço 4503599627370495 | 724 px | 720 px, com os 52 bits completos |
+
+O cabeçalho de Parâmetros mantém título e Como funciona? na mesma linha,
+com a orientação abaixo, entre 801 e 1200 px. Os intervalos e as proporções
+se adaptam à largura/altura disponíveis. Os dois painéis, os três campos de
+memória lado a lado e a altura fixa do textarea foram preservados.
+Erros longos de parâmetros usam rolagem local com foco por teclado nas
+áreas úteis menores; nenhuma mensagem é removida ou resumida pelo CSS.
+
+A prévia exibe **Primeiro endereço: …**. A regressão usa `2018, 3044` e
+confere `0111 | 1110 | 0010`; inverter a sequência muda o endereço indicado.
+Texto ou parâmetros inválidos substituem o rótulo por **Prévia indisponível**
+e os valores binários por traços, impedindo a permanência de uma prévia antiga.
+A descrição completa continua associada aos cartões para leitores de tela.
+Os textos de estado, orientação e vias foram encurtados para evitar repetição.
+
+No Figma, foram sincronizadas **18 representações SDS**, incluindo principal,
+variantes, fundos das ajudas, referência SDS e desktop amplo. Por conjunto
+habilita vias e substituição; Direto fixa/desabilita ambas; Totalmente
+associativo fixa vias e habilita substituição. A prévia usa o componente
+[Memora/Configurar/Prévia do endereço](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=721-594),
+com propriedade de texto, Inter Regular 12 px, entrelinha de 16 px e token
+`Text/Default/Secondary`. Foram conferidos limites dos cartões/rótulos, uso de
+Inter e composição visual. A única imagem da tela principal é a marca, com
+cerca de 30 × 30 px; o restante permanece em camadas editáveis. V1.2 e as duas
+alternativas de design system foram preservadas.
+
+**Validação local concluída:** sintaxe dos 16 arquivos, **37 testes Node e
+45 cenários Chromium**, todos aprovados. Ambiente: Node.js 24.19.0,
+Playwright 1.64.0 e Chromium 153.0.8010.0. O diff não altera o Beto, `src/core`
+ou o contrato de preparação.
+
+Os novos testes percorrem estado inicial, três mapeamentos, erros simultâneos,
+campos vazios e mensagens extensas em 801 × 720, 1024 × 768 e 1180 × 720.
+A operação por PageDown dos erros de parâmetros foi verificada em 801 × 720,
+sem deslocar a página. O caso de 52 bits percorre os três mapeamentos em
+1280 × 720, 1366 × 768, 1480 × 742 e 1920 × 1080, conferindo cada bit e os
+limites dos cartões e das ações. Os testes aguardam o carregamento da Inter.
+As áreas úteis e os estados verificados delimitam esta evidência; não se
+declara cobertura de toda combinação de valores, zoom ou navegador.
+
+As **27 capturas** foram regeneradas, com seis novas referências:
+
+| Referência | Captura |
+|---|---|
+| Desktop intermediário 801 × 720 | [layout-801x720.png](screenshots/tela-1/layout-801x720.png) |
+| Erros locais com foco/PageDown em 801 × 720 | [erros-801x720.png](screenshots/tela-1/erros-801x720.png) |
+| Desktop intermediário 1024 × 768 | [layout-1024x768.png](screenshots/tela-1/layout-1024x768.png) |
+| Desktop intermediário 1180 × 720 | [layout-1180x720.png](screenshots/tela-1/layout-1180x720.png) |
+| Endereço de 52 bits, sem corte dos bits | [endereco-52-bits.png](screenshots/tela-1/endereco-52-bits.png) |
+| Primeiro endereço conhecido, 2018 | [previa-endereco.png](screenshots/tela-1/previa-endereco.png) |
+
+O PR #43 continua em revisão; #35 mantém as telas 2/3 e a execução da cache
+pendentes. Esta verificação técnica não encerra a avaliação externa #33.

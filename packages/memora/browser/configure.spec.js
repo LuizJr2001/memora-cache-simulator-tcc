@@ -12,7 +12,8 @@ async function screenshot(page, name) {
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('#configuration-status')).toHaveText('Configuração válida · informe os endereços');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator('#configuration-status')).toHaveText('Configuração válida');
 });
 
 test('exemplo didático libera uma entrada válida e usa os assets/fontes locais', async ({ page }) => {
@@ -219,7 +220,7 @@ test('GitHub fica na Ajuda rápida, sem ação duplicada no cabeçalho', async (
   await expect(page.getByRole('dialog').getByRole('link', { name: /Abrir GitHub/ })).toBeVisible();
 });
 
-for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768 }, { width: 1480, height: 742 }, { width: 1536, height: 864 }]) {
+for (const viewport of [{ width: 801, height: 720 }, { width: 1024, height: 768 }, { width: 1180, height: 720 }, { width: 1280, height: 720 }, { width: 1366, height: 768 }, { width: 1480, height: 742 }, { width: 1536, height: 864 }]) {
   test(`Tela 1 inteira sem rolagem em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     async function fits() {
@@ -238,6 +239,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
     }
     await fits();
     await page.locator('#load-example').click();
+    if (viewport.width <= 1180) await screenshot(page, `layout-${viewport.width}x${viewport.height}`);
     for (const mapping of ['set-associative', 'direct', 'fully-associative']) {
       await page.locator('#mapping').selectOption(mapping); await fits();
     }
@@ -245,6 +247,12 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
     await page.locator('#ways').selectOption('4'); await page.locator('#cacheLines').fill('2');
     await page.locator('#memoryCells').fill('100'); await page.locator('#sequence').fill('-1, 4096, abc, 20');
     await fits();
+    if (viewport.width === 801) {
+      await page.locator('#memoryCells-feedback').focus(); await page.keyboard.press('PageDown');
+      await expect.poll(() => page.locator('#memoryCells-feedback').evaluate(node => node.scrollTop)).toBeGreaterThan(0);
+      expect(await page.evaluate(() => scrollY)).toBe(0);
+      await screenshot(page, 'erros-801x720');
+    }
     for (const id of ['bytesPerCell', 'memoryCells', 'cellsPerBlock', 'cacheLines']) await page.locator(`#${id}`).fill('');
     await page.locator('#sequence').fill('-1, abc, -2, def, -3, xyz');
     await fits();
@@ -257,6 +265,58 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
     }
   });
 }
+
+test('prévia identifica o primeiro endereço e não mantém valor antigo após erros', async ({ page }) => {
+  const label = page.locator('#preview-label');
+  await expect(label).toBeVisible();
+  await expect(label).toHaveText('Prévia indisponível');
+  await page.locator('#sequence').fill('2018, 3044');
+  await expect(label).toHaveText('Primeiro endereço: 2.018');
+  await expect(page.locator('#preview-address')).toHaveText('Decomposição binária do primeiro endereço da sequência: 2018');
+  await expect(page.locator('#tag-value')).toHaveText('0111');
+  await expect(page.locator('#index-value')).toHaveText('1110');
+  await expect(page.locator('#offset-value')).toHaveText('0010');
+  await screenshot(page, 'previa-endereco');
+  await page.locator('#sequence').fill('3044, 2018');
+  await expect(label).toHaveText('Primeiro endereço: 3.044');
+  await page.locator('#sequence').fill('abc, 2018');
+  await expect(label).toHaveText('Prévia indisponível');
+  await expect(page.locator('#tag-value')).toHaveText('—');
+  await page.locator('#sequence').fill('2018');
+  await page.locator('#memoryCells').fill('100');
+  await expect(label).toHaveText('Prévia indisponível');
+  await page.locator('#load-example').click();
+  await expect(label).toHaveText('Primeiro endereço: 0');
+});
+
+test('endereço válido de 52 bits mantém todos os bits e ações dentro do desktop', async ({ page }) => {
+  await page.locator('#memoryCells').fill('4503599627370496');
+  await page.locator('#sequence').fill('4503599627370495');
+  await expect(page.locator('#preview-label')).toHaveText('Primeiro endereço: 4.503.599.627.370.495');
+  for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768 }, { width: 1480, height: 742 }, { width: 1920, height: 1080 }]) {
+    await page.setViewportSize(viewport);
+    for (const mapping of ['set-associative', 'direct', 'fully-associative']) {
+      await page.locator('#mapping').selectOption(mapping);
+      await expect(page.locator('#prepare-input')).toBeEnabled();
+      const values = await page.locator('.information-card output').allTextContents();
+      expect(values.filter(value => value !== '—').join('')).toBe('1'.repeat(52));
+      const geometry = await page.evaluate(() => ({
+        height: document.documentElement.scrollHeight,
+        width: document.documentElement.scrollWidth,
+        bodyOverflow: getComputedStyle(document.body).overflow,
+        clipped: [...document.querySelectorAll('.decomposition-heading, .information-card, .information-card output, #prepare-input, .attribution')].some(node => {
+          const r = node.getBoundingClientRect();
+          return r.left < 0 || r.right > innerWidth || r.top < 0 || r.bottom > innerHeight;
+        }),
+      }));
+      expect(geometry.height).toBeLessThanOrEqual(viewport.height);
+      expect(geometry.width).toBeLessThanOrEqual(viewport.width);
+      expect(geometry.bodyOverflow).not.toBe('hidden');
+      expect(geometry.clipped).toBe(false);
+      if (viewport.width === 1280 && mapping === 'set-associative') await screenshot(page, 'endereco-52-bits');
+    }
+  }
+});
 
 test('zero bits e entradas sem inteiros válidos não geram dados fictícios', async ({ page }) => {
   await page.locator('#mapping').selectOption('direct');

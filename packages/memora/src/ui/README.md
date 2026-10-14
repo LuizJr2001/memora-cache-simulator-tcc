@@ -20,7 +20,12 @@ O símbolo `#configuration-symbol` é centralizado verticalmente no cartão
 **Configuração com erros** por `align-self: center`, sem alterar a posição
 dos textos. A estrutura `.sequence-bottom` reúne decomposição, botões
 e nota para evitar espaçamento excessivo entre cartões e ações. A decomposição é uma
-prévia binária do primeiro endereço da sequência; campos de zero bits usam um traço.
+prévia binária do primeiro endereço de uma sequência válida; campos de zero bits usam um traço.
+`#preview-label` identifica esse endereço em decimal; parâmetros ou sequência
+inválidos exibem Prévia indisponível. A descrição completa permanece em
+`#preview-address`, associada aos cartões para leitores de tela.
+Em larguras intermediárias, erros extensos dos parâmetros têm rolagem local
+e recebem foco por teclado, preservando o texto e a altura da página.
 O futuro seletor Decimal/Binário pertence às telas seguintes.
 
 `side-sheet.js` usa um dialog modal nativo, com foco contido, Escape e retorno do

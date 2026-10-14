@@ -43,14 +43,17 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A suíte atual da branch `feature/35-tela-1` executa **40 cenários Chromium**, incluindo
+A suíte atual da branch `feature/35-tela-1` executa **45 cenários Chromium**, incluindo
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
-Também mede largura e altura em **1280 × 720, 1366 × 768, 1480 × 742 e
-1920 × 1080**, além dos layouts menores de 768, 390 e 320 px. Os testes
+Também mede largura e altura em **801 × 720, 1024 × 768, 1180 × 720,
+1280 × 720, 1366 × 768, 1480 × 742, 1536 × 864 e 1920 × 1080**,
+além dos layouts menores de 768, 390 e 320 px. Os testes
 adicionais verificam espaçamento dos campos, cartões de decomposição próximos
 aos botões, ausência de aviso vermelho geral visível e centralização vertical
-do ícone de alerta. O servidor local é iniciado pelos testes.
+do ícone de alerta. A regressão inclui a identificação do primeiro endereço,
+a remoção de prévias antigas após erros, 52 bits completos nos três mapeamentos
+e navegação por teclado nos erros locais. O servidor local é iniciado pelos testes.
 `MEMORA_CHROMIUM_PATH` permite usar um Chromium já instalado, e
 `MEMORA_SCREENSHOT_DIR` define onde guardar as capturas opcionais.
 
@@ -89,8 +92,8 @@ Decisão e sequência de implementação:
 
 A implementação e as capturas do [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
 estão documentadas no [relatório da Tela 1](docs/verificacao-tela-1.md),
-com os resultados mais recentes da [execução de regressão (37 testes Node e
-40 cenários Chromium)](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38330126743).
+com a verificação local de 14/10: **37 testes Node e 45 cenários Chromium**,
+todos aprovados. O relatório distingue essa execução dos registros anteriores da CI.
 Esta implementação está **na branch do PR**, ainda não integrada à `main`.
 
 

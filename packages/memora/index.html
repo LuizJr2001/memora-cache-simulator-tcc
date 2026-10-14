@@ -88,7 +88,7 @@
           <button class="full-width" type="button" id="validate-parameters">Validar parâmetros</button>
         </section>
         <section class="panel sequence-panel" aria-labelledby="sequence-heading">
-          <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe os endereços por vírgula, espaço ou quebra de linha</p></div></div>
+          <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe por vírgula, espaço ou quebra de linha</p></div></div>
           <div class="field sequence-field">
             <div class="field-heading"><label for="sequence">Endereços a acessar</label><button class="help-button" type="button" data-help="sequence" aria-label="Ajuda: Endereços a acessar">?</button></div>
             <textarea id="sequence" name="sequence" rows="4" aria-describedby="sequence-feedback" spellcheck="false" placeholder="Ex.: 0, 1, 16, 17, 32, 33"></textarea>
@@ -100,7 +100,10 @@
           </div>
           <div class="sequence-bottom">
             <section class="decomposition" aria-labelledby="decomposition-heading">
-              <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
+              <div class="decomposition-heading">
+                <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
+                <p id="preview-label" aria-hidden="true"></p>
+              </div>
               <p class="sr-only" id="preview-address"></p>
               <div class="decomposition-grid" aria-describedby="preview-address">
                 <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
