@@ -7,7 +7,6 @@ export function createConfigurationController({ random = Math.random, onPrepared
   let raw = { ...DEFAULT_CONFIGURATION };
   let sequence = '';
   let preparedInput = null;
-  let parametersConfirmed = false;
 
   function view() {
     const parameters = validateConfiguration(raw);
@@ -23,7 +22,7 @@ export function createConfigurationController({ random = Math.random, onPrepared
       }
     }
     return {
-      raw: { ...raw }, sequence, preparedInput, parametersConfirmed,
+      raw: { ...raw }, sequence, preparedInput,
       parameters, addresses,
       canStart: parameters.ok && addresses.ok,
       waysEditable: raw.mapping === 'set-associative',
@@ -37,7 +36,7 @@ export function createConfigurationController({ random = Math.random, onPrepared
     };
   }
 
-  function invalidate() { preparedInput = null; parametersConfirmed = false; onInvalidated(); }
+  function invalidate() { preparedInput = null; onInvalidated(); }
   return {
     view,
     setField(field, value) {
@@ -47,7 +46,6 @@ export function createConfigurationController({ random = Math.random, onPrepared
       return view();
     },
     setSequence(value) { sequence = value; invalidate(); return view(); },
-    validateParameters() { parametersConfirmed = validateConfiguration(raw).ok; return view(); },
     loadExample() {
       raw = { ...DEFAULT_CONFIGURATION };
       sequence = EXAMPLE_ADDRESSES.join(', ');

@@ -2,7 +2,8 @@
 
 Esta pasta implementa Configurar, Simular e Analisar, conforme a #35, em
 HTML/CSS e módulos ES. A Tela 3 está em `feature/35-tela-3`, baseada no
-PR #44 (Tela 2), que depende do PR #43 (Tela 1). A integração segue em revisão.
+PR #44 (Tela 2). A Tela 1 foi integrada pelo PR #43 à `main`, agora base do PR #44.
+A integração das telas 2 e 3 segue em revisão.
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
@@ -17,6 +18,9 @@ geração, decomposição e `prepareSimulationInput` de `src/core`, sem criar ca
 somente com entrada válida. Aceita `onPrepared`, `onInvalidated`, `random` e um
 `sideSheet` compartilhado. O controlador chama `onInvalidated` ao alterar os
 dados; a integração descarta a simulação antiga até a próxima preparação.
+Parâmetros e sequência são validados a cada edição, sem botão de confirmação
+nem estado `parametersConfirmed`. A geração usa a memória atual e o início
+revalida a entrada completa no núcleo antes de emitir o evento.
 
 Erros ficam junto aos campos, com borda e texto específicos. O resumo global
 é reservado a leitores de tela (`sr-only`, `role=status`, `aria-live=polite`),

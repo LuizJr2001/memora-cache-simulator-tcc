@@ -124,7 +124,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .cache-group { padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--sds-color-border-default-default); }
 .cache-group legend { float: left; width: 100%; margin-bottom: 14px; }
 .cache-group .fields-grid { clear: both; margin-top: 0; }
-.full-width { width: 100%; margin-top: 14px; }
 .sequence-panel { display: flex; flex-direction: column; }
 /* Sem alteração da distribuição para telas pequenas. */
 .sequence-bottom { display: contents; }
@@ -226,7 +225,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .fields-grid { column-gap: 16px; row-gap: 10px; margin-top: 10px; }
   .cache-group { margin-top: 12px; padding-top: 12px; }
   .cache-group legend { margin-bottom: 10px; }
-  .full-width { margin-top: 10px; }
   .sequence-field { margin-top: 12px; }
   .sequence-field .field-heading { margin-bottom: 6px; }
   .sequence-field .field-feedback { margin-top: 8px; }
@@ -246,7 +244,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 @media (min-width: 801px) and (max-height: 800px) {
   .configuration-grid { gap: 24px; }
   #configure-form input, #configure-form select { height: 36px; padding-block: 7px; }
-  #validate-parameters, .sequence-actions button { min-height: 36px; padding-block: 8px; }
+  .sequence-actions button { min-height: 36px; padding-block: 8px; }
   .parameter-group { margin-top: 12px; }
   .fields-grid { row-gap: 8px; margin-top: 8px; }
   .cache-group { margin-top: 8px; padding-top: 8px; }
@@ -263,7 +261,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .has-errors .cache-group { margin-top: 4px; padding-top: 4px; }
   .has-errors .cache-group legend { margin-bottom: 4px; }
   .has-errors .fields-grid { row-gap: 4px; }
-  .has-errors .full-width { margin-top: 6px; }
   .has-errors .panel { padding: 12px; }
   .has-errors .panel { padding-block: 10px; }
   .has-errors .field-heading { margin-bottom: 2px; }
@@ -296,6 +293,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
     flex-direction: column;
     justify-content: space-between;
   }
+  /* A validação é automática: os grupos ocupam o espaço sem uma ação de confirmação. */
   /* Divide a altura entre os blocos sem criar vazio entre os balões e os botões. */
   .sequence-panel { justify-content: space-between; }
   .sequence-bottom { display: flex; flex-direction: column; flex-shrink: 0; }
@@ -351,7 +349,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .cache-group legend { margin-bottom: 6px; }
   .field-heading { margin-bottom: 4px; }
   .field-feedback { margin-top: 6px; }
-  .full-width { margin-top: 8px; }
   .sequence-field, .configuration-summary { margin-top: 6px; }
   .configuration-summary { padding: 6px 12px; gap: 8px; }
   .sequence-field .field-heading { margin-bottom: 4px; }

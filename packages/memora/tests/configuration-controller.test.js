@@ -49,10 +49,10 @@ test('reduzir linhas não corrige silenciosamente vias inválidas nem libera o i
   assert.deepEqual(view.waysOptions, ['1', '2']);
 });
 
-test('geração usa a memória atual após editar parâmetros já validados', () => {
+test('geração usa a memória atual e valida automaticamente após editar parâmetros', () => {
   const screen = createConfigurationController({ random: () => .999 });
-  screen.loadExample(); screen.validateParameters(); screen.setField('memoryCells', '256');
-  assert.equal(screen.view().parametersConfirmed, false);
+  screen.loadExample(); screen.setField('memoryCells', '256');
+  assert.equal(screen.view().parameters.ok, true);
   assert.equal(screen.view().canStart, false); // a sequência anterior ultrapassa a nova memória
   const generated = screen.generate(3);
   assert.equal(generated.ok, true); assert.deepEqual(generated.view.addresses.addresses, [255, 255, 255]);

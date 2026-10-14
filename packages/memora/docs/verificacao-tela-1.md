@@ -1,5 +1,10 @@
 # Tela 1 — Configurar: verificação da entrega
 
+**Referência atual — 14/10/2026:** o botão Validar parâmetros foi removido
+nas branches dos PRs #44 e #45, e o Figma foi sincronizado. As seções abaixo
+registram revisões anteriores; para o comportamento e as capturas atuais,
+consulte [validação automática](verificacao-validacao-automatica.md).
+
 Verificação mais recente: 14/10/2026 · Refs #35 e #37
 
 A interface está restrita a `packages/memora`, com a atualização do lockfile na raiz.

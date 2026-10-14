@@ -45,8 +45,12 @@ As ajudas e validações próximas dos campos detalham as demais condições.
 
 No desktop, os painéis **Parâmetros** e **Sequência de endereços** têm
 a mesma altura e terminam próximos ao rodapé. Os grupos de campos de
-Parâmetros se distribuem verticalmente, e **Validar parâmetros** fica
-perto da borda inferior. Na Sequência, os cartões **Tag, Conjunto/Linha
+Parâmetros se distribuem verticalmente entre cabeçalho, memória principal e
+memória cache, com o último grupo próximo à borda inferior. A validação acontece
+automaticamente ao editar os campos; não há botão **Validar parâmetros** nem
+estado de confirmação manual. A prévia acompanha a configuração e a sequência
+válidas, e **Iniciar simulação** revalida a entrada completa antes de avançar.
+Na Sequência, os cartões **Tag, Conjunto/Linha
 e Deslocamento** permanecem junto dos botões **Gerar endereços** e
 **Iniciar simulação**: intervalo base de 12 px nas alturas úteis até 800 px
 e 16 px nas maiores, com 8 px nas larguras intermediárias compactas.
@@ -70,8 +74,8 @@ mantendo o alinhamento dos dois textos.
 Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida;
 o link GitHub permanece exclusivamente dentro da Ajuda rápida.
 A V1.2 conserva a organização histórica. A Tela 1 funcional está
-em revisão no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43);
-as telas Simular/Analisar continuam fora desse PR.
+integrada à `main` pelo [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43);
+Simular está em revisão no PR #44, que inclui a remoção da confirmação manual.
 
 O comportamento implementado foi verificado em **1280 × 720,
 1366 × 768, 1480 × 742 e 1920 × 1080**, nos três mapeamentos,

@@ -85,10 +85,6 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     form.classList.toggle('has-errors', errorCount > 0);
     sequenceFeedback.tabIndex = showSequenceErrors ? 0 : -1;
     errorSummary.textContent = errorCount ? `⚠ ${errorCount} ${errorCount === 1 ? 'erro impede' : 'erros impedem'} a simulação — revise os campos indicados` : '';
-    const validate = byId('validate-parameters');
-    validate.disabled = !parameters.ok;
-    validate.textContent = !parameters.ok ? 'Corrija os erros para continuar' :
-      view.parametersConfirmed ? 'Parâmetros validados ✓' : 'Validar parâmetros';
     byId('prepare-input').disabled = !view.canStart;
     byId('open-generator').disabled = !parameters.ok;
 
@@ -131,9 +127,6 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
   byId('load-example').addEventListener('click', () => {
     sequenceEdited = true; controller.loadExample(); render();
     setText('action-status', 'Exemplo didático carregado com 21 endereços');
-  });
-  byId('validate-parameters').addEventListener('click', () => {
-    controller.validateParameters(); render(); setText('action-status', 'Parâmetros validados');
   });
   form.addEventListener('submit', event => {
     event.preventDefault(); sequenceEdited = true;

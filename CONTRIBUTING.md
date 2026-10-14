@@ -110,8 +110,8 @@ Configurar, Simular e Analisar. Registre resultados locais separadamente da CI.
 As [APIs e limites](packages/memora/src/core/README.md) orientam a integração.
 Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendidos.
 Quando uma tela depender de um PR aberto, indique a dependência e use esse PR
-como base temporária. A Tela 2 usa `feature/35-tela-1` como base enquanto o PR
-#43 aguarda integração. A Tela 3 usa `feature/35-tela-2`, do PR #44, como base.
+como base temporária. A Tela 1 foi integrada pelo PR #43; o PR #44 da Tela 2
+agora aponta para `main`. O PR #45 da Tela 3 usa `feature/35-tela-2`, do PR #44, como base.
 Integrar as dependências antes de direcionar os PRs seguintes à `main`.
 Os arquivos executáveis do Beto continuam preservados.
 

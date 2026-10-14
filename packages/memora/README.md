@@ -177,9 +177,11 @@ Os componentes React de Code Connect foram adaptados para HTML/CSS nativos,
 mantendo a stack e os tokens SDS. Os exemplos das ajudas são estáticos.
 No desktop, os três campos de memória principal ocupam uma linha. O layout
 é fluido na largura e ocupa a altura útil da janela, mantendo os painéis
-**Parâmetros** e **Sequência de endereços** alinhados até a base. O botão
-**Validar parâmetros** fica próximo à borda inferior do painel esquerdo;
-no direito, os cartões Tag/Conjunto/Deslocamento ficam próximos dos botões de
+**Parâmetros** e **Sequência de endereços** alinhados até a base. Os grupos de
+memória principal e cache se distribuem no painel esquerdo, sem botão de
+confirmação: parâmetros e sequência são validados automaticamente ao editar,
+a prévia se atualiza com entrada válida e **Iniciar simulação** revalida tudo
+antes de avançar. No direito, os cartões Tag/Conjunto/Deslocamento ficam próximos dos botões de
 ação (12 px em desktop baixo, 16 px em desktop alto). O textarea mantém
 altura fixa de 96 px em viewports desktop de até 800 px de altura e de
 120 px acima disso, com rolagem interna e sem alça de redimensionamento.
