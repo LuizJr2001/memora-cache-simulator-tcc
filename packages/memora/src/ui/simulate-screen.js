@@ -167,9 +167,19 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     const review = event.target.closest?.('button[data-review]');
     if (review) controller?.selectAccess(Number(review.dataset.review));
   });
-  byId('sim-play').addEventListener('click', () => controller?.view().status === 'running' ? controller.pause() : controller?.play());
+  byId('sim-play').addEventListener('click', () => {
+    if (controller?.view().status === 'running') controller.pause();
+    else if (controller && !controller.view().done) {
+      byId('simulation-analysis-warning').hidden = true;
+      controller.play();
+    }
+  });
   for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-step', 'nextStep'], ['sim-next', 'nextAccess'], ['show-live', 'showLive']]) {
-    byId(id).addEventListener('click', () => { if (method === 'restart') onlyReplacements = false; controller?.[method](); });
+    byId(id).addEventListener('click', () => {
+      if (method === 'restart') onlyReplacements = false;
+      if (controller && ['nextStep', 'nextAccess'].includes(method)) byId('simulation-analysis-warning').hidden = true;
+      controller?.[method]();
+    });
   }
   for (const format of ['decimal', 'binary']) byId(`format-${format}`).addEventListener('click', () => controller?.setFormat(format));
   byId('sim-speed').addEventListener('input', () => controller?.setSpeed(Number(byId('sim-speed').value)));
@@ -182,8 +192,12 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   byId('show-all-history').addEventListener('click', () => { onlyReplacements = false; if (controller) render(controller.view()); });
   document.addEventListener('memora:help-open', () => { if (!root.hidden) controller?.pause(); });
   return {
-    prepare(input) { controller?.dispose(); onlyReplacements = false; previousDone = false;
+    prepare(input) { byId('simulation-analysis-warning').hidden = true; controller?.dispose(); onlyReplacements = false; previousDone = false;
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
+    showAnalysisWarning() {
+      text('simulation-analysis-warning', 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados da simulação nesta tela.');
+      byId('simulation-analysis-warning').hidden = false;
+    },
     pause() { controller?.pause(); },
     invalidate() { controller?.dispose(); controller = null; },
     view() { return controller?.view() ?? null; },

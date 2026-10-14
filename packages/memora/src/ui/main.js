@@ -42,9 +42,8 @@ tabs[1].addEventListener('click', () => {
 document.getElementById('tab-analyze').addEventListener('click', () => {
   if (!simulator.view()) configuration.showNavigationWarning();
   else {
-    navigate('configure');
-    const warning = document.getElementById('navigation-warning');
-    warning.hidden = false; warning.textContent = 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados na aba Simular.';
+    if (simulationView.hidden) navigate('simulate');
+    simulator.showAnalysisWarning();
   }
 });
 document.querySelector('.stage-tabs').addEventListener('keydown', event => {
