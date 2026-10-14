@@ -484,3 +484,29 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   }
   .parameters-panel .cache-group { margin-top: 0; }
 }
+
+/* Status em duas linhas compactas, com ícone centralizado na altura do texto. */
+.sequence-panel .configuration-summary {
+  min-height: 56px;
+  padding-block: 8px;
+  align-items: center;
+}
+.sequence-panel .configuration-summary > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+.sequence-panel .configuration-summary p {
+  height: 18px;
+  min-height: 18px;
+  max-height: 18px;
+  margin-top: 2px;
+}
+@media (max-width: 800px) {
+  .sequence-panel .configuration-summary p {
+    height: auto;
+    max-height: none;
+  }
+}
