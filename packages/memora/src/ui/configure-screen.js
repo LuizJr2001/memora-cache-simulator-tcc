@@ -104,7 +104,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     setText('configuration-detail', l ? view.preparedInput ? `${view.preparedInput.addresses.length} endereços preparados para a próxima etapa` : !addresses.ok ? 'Informe endereços válidos para ver a prévia' :
       `${bits(l.addressBits)}: ${l.tagBits} para tag, ${l.indexBits} para ${c.mapping === 'direct' ? 'linha' : 'conjunto'} e ${l.offsetBits} para deslocamento` :
       'Corrija os campos destacados para continuar');
-    setText('configuration-symbol', !parameters.ok ? '⚠' : view.preparedInput ? '✓' : '◇');
+    setText('configuration-symbol', !parameters.ok ? '⚠' : view.canStart || view.preparedInput ? '✓' : '◇');
     byId('configuration-symbol').classList.toggle('error-text', !parameters.ok);
     const indexName = raw.mapping === 'direct' ? 'Linha' : 'Conjunto';
     for (const [part, label, width, value] of [
