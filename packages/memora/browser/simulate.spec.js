@@ -27,7 +27,7 @@ test('entrada preparada abre Simular vazio e preserva os assets e o sistema visu
   await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
   await expect(page.locator('#sim-hits')).toHaveText('0'); await expect(page.locator('#sim-misses')).toHaveText('0');
   await expect(page.locator('#sim-hit-rate')).toHaveText('—');
-  await expect(page.locator('#cache-empty')).toBeVisible(); await expect(page.locator('#history-empty')).toBeVisible();
+  await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(0); await expect(page.locator('#history-empty')).toBeVisible();
   await expect(page.locator('#sim-address')).toHaveText('—');
   await expect(page.locator('#tab-simulate')).toHaveAttribute('aria-selected', 'true');
   await expect(page.getByRole('tab', { name: '3 Analisar' })).toBeEnabled();
@@ -52,7 +52,7 @@ test('seis microetapas não antecipam estatísticas e o próximo acesso não dup
     await page.locator('#sim-step').click(); await expect(page.locator('#sim-status')).toContainText(label);
     await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
   }
-  await expect(page.locator('#cache-table tbody tr')).toHaveCount(1);
+  await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(1);
   await expect(page.locator('#history-table tbody [data-pending]')).toHaveCount(1);
   await page.locator('#sim-next').click(); await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await expect(page.locator('#sim-misses')).toHaveText('1');
@@ -148,7 +148,7 @@ test('play, pause, velocidade e navegação cancelam o relógio e preservam o an
   await page.locator('#tab-simulate').click(); await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await expect(page.locator('#sim-play')).toHaveText('▶ Continuar');
   await page.locator('#sim-restart').click(); await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
-  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(0); await expect(page.locator('#cache-empty')).toBeVisible();
+  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(0); await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(0);
 });
 
 test('mudança da configuração invalida a simulação antiga e nova preparação inicia em zero', async ({ page }) => {
@@ -156,7 +156,7 @@ test('mudança da configuração invalida a simulação antiga e nova preparaç�
   await expect(page.locator('#sequence')).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
   await page.locator('#sequence').fill('0, 1'); await page.locator('#tab-simulate').click(); await expect(page.locator('#navigation-warning')).toBeVisible();
   await page.locator('#prepare-input').click(); await expect(page.locator('#sim-progress')).toHaveText('0 / 2');
-  await expect(page.locator('#sim-hits')).toHaveText('0'); await expect(page.locator('#cache-empty')).toBeVisible();
+  await expect(page.locator('#sim-hits')).toHaveText('0'); await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(0);
   await page.locator('#tab-configure').focus(); await page.keyboard.press('ArrowRight');
   await expect(page.locator('#tab-simulate')).toBeFocused();
   await page.keyboard.press('ArrowLeft'); await expect(page.locator('#configuration-screen')).toBeVisible();
@@ -245,12 +245,13 @@ for (const width of [1024, 801, 768, 390, 320]) {
   });
 }
 
-test('endereços de 52 bits e cache enorme geram somente linhas ocupadas', async ({ page }) => {
+test('endereços de 52 bits e cache enorme mantêm renderização paginada', async ({ page }) => {
   for (const [id, value] of [['memoryCells', '4503599627370496'], ['cellsPerBlock', '1'], ['cacheLines', '4503599627370496']]) await page.locator(`#${id}`).fill(value);
   await page.locator('#mapping').selectOption('fully-associative');
   await page.locator('#sequence').fill('0, 4503599627370495, 4503599627370495');
   await page.locator('#prepare-input').click(); await advance(page, 2);
-  await expect(page.locator('#cache-table tbody tr')).toHaveCount(2);
+  await expect(page.locator('#cache-table tbody tr')).toHaveCount(128);
+  await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(2);
   await page.locator('#format-binary').click(); await expect(page.locator('#sim-address')).toHaveText('1'.repeat(52));
   await expect(page.locator('#sim-tag')).toHaveText('1'.repeat(52));
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280);
@@ -316,4 +317,49 @@ test('Etapas detalhadas muda apresentação e avanço manual sem perder o acesso
   await page.locator('#sim-next').click();
   await expect(page.locator('#sim-hits')).toHaveText('1');
   await expect(page.locator('#access-detail-steps')).toContainText('V=1');
+});
+
+
+test('cache mostra 32 linhas com V=0 e células, e revisão recupera o bloco anterior', async ({ page }) => {
+  await page.locator('#mapping').selectOption('direct');
+  await page.locator('#sequence').fill('996, 2017, 996');
+  await page.locator('#prepare-input').click();
+  await expect(page.locator('#cache-table tbody tr')).toHaveCount(32);
+  await expect(page.locator('#cache-table tbody tr[data-valid="0"]')).toHaveCount(32);
+  await expect(page.locator('#cache-table .cache-cell[data-address]')).toHaveCount(0);
+  await advance(page, 1);
+  const line = page.locator('#cache-table tr[data-set="30"]');
+  await expect(line).toHaveAttribute('data-valid', '1');
+  await expect(line.locator('.cache-cell')).toHaveCount(16);
+  await expect(line.locator('.cache-cell').first()).toHaveText('992');
+  await expect(line.locator('.cache-cell').last()).toHaveText('1007');
+  await expect(line.locator('.accessed-cell')).toHaveText('996');
+  await advance(page, 2);
+  await page.getByRole('button', { name: 'Revisar acesso 2', exact: true }).click();
+  await expect(line.locator('.cache-cell').first()).toHaveText('2016');
+  await expect(line.locator('.accessed-cell')).toHaveText('2017');
+  await expect(page.locator('#sim-progress')).toHaveText('3 / 3');
+  await page.locator('#show-live').click();
+  await expect(line.locator('.cache-cell').first()).toHaveText('992');
+  await page.locator('#format-binary').click();
+  await expect(line.locator('.accessed-cell')).toHaveText('001111100100');
+});
+
+test('paginação de linhas e células permite navegar em cache e blocos grandes', async ({ page }) => {
+  await page.locator('#cellsPerBlock').fill('1024');
+  await page.locator('#memoryCells').fill('1048576');
+  await page.locator('#cacheLines').fill('512');
+  await page.locator('#mapping').selectOption('direct');
+  await page.locator('#sequence').fill('1000');
+  await page.locator('#prepare-input').click(); await advance(page, 1);
+  await expect(page.locator('#cache-table tbody tr')).toHaveCount(128);
+  await expect(page.locator('#cache-table tr[data-set="0"] .accessed-cell')).toHaveText('1000');
+  await page.getByRole('button', { name: 'Células anteriores da linha 0, via 1', exact: true }).click();
+  await expect(page.locator('#cache-table tr[data-set="0"] .cache-cell').first()).toHaveText('976');
+  await page.locator('#cache-next').click();
+  await expect(page.locator('#cache-table tbody tr[data-set="128"]')).toHaveCount(1);
+  await page.locator('#cache-line-jump').fill('511'); await page.locator('#cache-jump-form button').click();
+  await expect(page.locator('#cache-table tbody tr[data-set="511"]')).toHaveCount(1);
+  await expect(page.locator('#cache-next')).toBeDisabled();
+  await expect(page.locator('#sim-used-lines')).toHaveText('1 / 512');
 });

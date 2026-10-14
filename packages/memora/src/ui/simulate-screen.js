@@ -1,6 +1,7 @@
 import { createSimulationController } from './simulation-controller.js';
 import { lruState } from '../core/simulation.js';
 import { explainSimulationAccess } from './simulation-explanation.js';
+import { cachePage, blockCellPage, CACHE_PAGE_SIZE, BLOCK_PAGE_SIZE } from './cache-presentation.js';
 
 const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no conjunto', result: 'Resultado do acesso',
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
@@ -10,6 +11,8 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   const byId = id => document.getElementById(id);
   const root = byId('simulation-screen');
   let controller = null, onlyReplacements = false, previousDone = false;
+  let cacheStart = 0, lastFocus = null;
+  const cellStarts = new Map();
   function text(id, value) { const node = byId(id); if (node.textContent !== value) node.textContent = value; }
   function element(tag, content, className) {
     const node = document.createElement(tag); if (content !== undefined) node.textContent = content;
@@ -94,39 +97,88 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
       text(`sim-${id}-label`, width === 0 ? `Sem bits de ${label === 'Desloc.' ? 'deslocamento' : label.toLowerCase()}` : `${label} · ${width} ${width === 1 ? 'bit' : 'bits'}`);
     }
 
-    text('cache-description', selectedAccess ? `Estado após o acesso ${selectedAccess.number} · conjunto revisado primeiro` :
-      cache.length ? 'Linhas ocupadas · conjunto atual primeiro. Role para ver os demais conjuntos populados' :
-        'A cache começa vazia. As linhas aparecerão conforme os blocos forem carregados');
+    const focusKey = focus ? `${focus.number}:${focus.way ?? focus.foundWay ?? 0}:${state.selected}` : null;
+    if (focus && focusKey !== lastFocus) {
+      cacheStart = Math.floor((focus.decomposition.set * config.ways + (focus.way ?? focus.foundWay ?? 0)) / CACHE_PAGE_SIZE) * CACHE_PAGE_SIZE;
+      lastFocus = focusKey; cellStarts.clear();
+    }
+    const page = cachePage(cache, config, cacheStart, set);
+    cacheStart = page.start;
+    text('cache-description', selectedAccess ? `Estado após o acesso ${selectedAccess.number} · V=0 indica linha vazia` :
+      `Todas as linhas, inclusive vazias (V=0) · ${config.mapping === 'direct' ? 'linha' : 'conjunto'} atual primeiro`);
+    byId('cache-navigation').hidden = config.cacheLines <= CACHE_PAGE_SIZE;
+    byId('cache-prev').disabled = page.start === 0;
+    byId('cache-next').disabled = page.end === page.total;
+    text('cache-page-summary', `Linhas ${number(page.start)}–${number(page.end - 1)} de ${number(page.total)} (índices a partir de 0)`);
     const table = byId('cache-table'), head = element('tr');
-    for (const label of [config.mapping === 'direct' ? 'Linha' : 'Conj.', 'Via', 'Válido', 'Tag', 'Bloco armazenado', ...(useLru ? ['LRU'] : []), 'Ação']) {
+    for (const label of [config.mapping === 'direct' ? 'Linha' : 'Conj.', 'Via', 'V', 'Tag', 'Bloco armazenado', ...(useLru ? ['LRU'] : []), 'Ação']) {
       const th = element('th', label); th.scope = 'col';
+      if (label === 'V') { th.title = 'Validade: 0 indica linha vazia; 1 indica bloco carregado'; th.setAttribute('aria-label', 'Bit de validade'); }
       if (label === 'LRU') { const help = element('button', '?', 'help-button'); help.type = 'button'; help.dataset.help = 'lru'; help.id = 'lru-help'; help.setAttribute('aria-label', 'Ajuda: Estado LRU'); th.append(' ', help); }
       head.append(th);
     }
     const activeHelp = document.activeElement?.id === 'lru-help';
     const columns = `${config.mapping === 'direct'}:${useLru}`;
     if (table.dataset.columns !== columns) { table.tHead.replaceChildren(head); table.dataset.columns = columns; }
-    const rows = [...cache].sort((a, b) => Number(b.set === set) - Number(a.set === set) || a.set - b.set || a.way - b.way);
+    const rows = page.rows;
     const body = document.createDocumentFragment();
     for (const line of rows) {
       const rank = ranks.find(r => r.set === line.set && r.way === line.way);
       const chosen = focus && line.set === focus.decomposition.set && line.way === focus.way;
       const selectedVictim = current && state.phase === 'select' && current.result === 'miss' && chosen;
-      const updated = chosen && (selectedAccess || !current || state.phase === 'update');
+      const updated = line.valid && chosen && (selectedAccess || !current || state.phase === 'update');
       const candidate = rank?.candidate && line.set === set && !chosen;
       const tr = element('tr', undefined, `cache-row${line.set === set ? ' current-set' : ''}${selectedVictim || candidate ? ' candidate-row' : ''}${updated ? ' updated-row' : ''}`);
-      tr.dataset.set = line.set; tr.dataset.way = line.way + 1;
+      tr.dataset.set = line.set; tr.dataset.way = line.way + 1; tr.dataset.valid = String(Number(line.valid));
+      if (!line.valid) tr.classList.add('empty-cache-row');
       const lru = !rank ? '—' : line.set !== set ? `${rank.rank}` : rank.newest && rank.candidate ? '1 · Única via' :
         rank.newest ? '1 · Mais recente' : rank.candidate ? `${rank.rank} · Próx. substituição` : `${rank.rank} · Menos recente`;
-      const action = selectedVictim ? 'Selecionada' : updated ? focus.result === 'hit' ? 'Mantida' : focus.lineBefore ? 'Substituída' : 'Nova' :
+      const action = !line.valid ? selectedVictim ? 'Será preenchida' : 'Vazia' : selectedVictim ? 'Selecionada' : updated ? focus.result === 'hit' ? 'Mantida' : focus.lineBefore ? 'Substituída' : 'Nova' :
         candidate ? 'Candidata' : 'Mantida';
-      for (const value of [numeric(line.set, layout.indexBits), String(line.way + 1), '1', numeric(line.tag, layout.tagBits), range(line), ...(useLru ? [lru] : []), action]) tr.append(element('td', value));
-      if (state.detailed && current && line.set === set && ['search', 'result', 'select'].includes(state.phase)) {
+      for (const value of [numeric(line.set, layout.indexBits), String(line.way + 1), String(Number(line.valid)), line.valid ? numeric(line.tag, layout.tagBits) : '—']) tr.append(element('td', value));
+      const block = element('td', undefined, 'cache-block');
+      const key = `${line.set}:${line.way}:${line.valid ? line.block : 'empty'}`;
+      const inBlock = line.valid && focus && focus.address >= line.blockStart && focus.address <= line.blockEnd;
+      const cellStart = cellStarts.get(key) ?? (inBlock ? focus.decomposition.offset : 0);
+      const cells = blockCellPage(line, config.cellsPerBlock, cellStart);
+      block.append(element('span', line.valid ? range(line) : 'Bloco não carregado', 'block-range'));
+      const strip = element('div', undefined, 'cache-cells');
+      strip.setAttribute('aria-label', 'Células do bloco (endereços da memória principal)');
+      strip.tabIndex = 0;
+      for (const cell of cells.cells) {
+        const selected = inBlock && cell.address === focus.address;
+        const box = element('span', cell.address === null ? '—' : numeric(cell.address), `cache-cell${selected ? ' accessed-cell' : ''}`);
+        box.dataset.offset = cell.offset;
+        if (cell.address !== null) box.dataset.address = cell.address;
+        box.title = cell.address === null ? `Célula vazia · deslocamento ${cell.offset}` : `Endereço ${cell.address} · deslocamento ${cell.offset}`;
+        if (selected) box.setAttribute('aria-label', `Endereço ${cell.address}, célula do acesso atual`);
+        strip.append(box);
+      }
+      block.append(strip);
+      if (cells.total > BLOCK_PAGE_SIZE) {
+        const navigation = element('div', undefined, 'cell-navigation');
+        for (const [label, start, disabled] of [['←', cells.start - BLOCK_PAGE_SIZE, cells.start === 0], ['→', cells.end, cells.end === cells.total]]) {
+          const button = element('button', label); button.type = 'button'; button.disabled = disabled;
+          button.dataset.cells = key; button.dataset.start = start;
+          button.setAttribute('aria-label', `${label === '←' ? 'Células anteriores' : 'Próximas células'} da ${config.mapping === 'direct' ? 'linha' : 'conjunto'} ${line.set}, via ${line.way + 1}`);
+          navigation.append(button);
+        }
+        navigation.insertBefore(element('span', `Deslocamentos ${cells.start}–${cells.end - 1} / ${number(cells.total)}`), navigation.lastChild);
+        block.append(navigation);
+      }
+      tr.append(block);
+      for (const value of [...(useLru ? [lru] : []), action]) tr.append(element('td', value));
+      if (line.valid && state.detailed && current && line.set === set && ['search', 'result', 'select'].includes(state.phase)) {
         tr.children[3].classList.add(line.tag === current.decomposition.tag ? 'tag-match' : 'tag-mismatch');
       }
       body.append(tr);
     }
-    table.tBodies[0].replaceChildren(body); byId('cache-empty').hidden = cache.length !== 0;
+    table.tBodies[0].replaceChildren(body); byId('cache-empty').hidden = true;
+    const accessedCell = table.querySelector('.accessed-cell');
+    if (accessedCell) {
+      const strip = accessedCell.parentElement;
+      strip.scrollLeft = accessedCell.getBoundingClientRect().left - strip.getBoundingClientRect().left - strip.clientWidth / 2 + accessedCell.clientWidth / 2;
+    }
     if (activeHelp && byId('lru-help')) byId('lru-help').focus({ preventScroll: true });
 
     const historyBody = byId('history-table').tBodies[0], historyRows = document.createDocumentFragment();
@@ -203,8 +255,34 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   }
 
   root.addEventListener('click', event => {
+    const cellButton = event.target.closest?.('button[data-cells]');
+    if (cellButton && controller) {
+      cellStarts.set(cellButton.dataset.cells, Number(cellButton.dataset.start));
+      controller.pause(); render(controller.view());
+    }
     const review = event.target.closest?.('button[data-review]');
     if (review) controller?.selectAccess(Number(review.dataset.review));
+  });
+  for (const [id, direction] of [['cache-prev', -1], ['cache-next', 1]]) {
+    byId(id).addEventListener('click', () => {
+      if (!controller) return;
+      controller.pause(); cacheStart += direction * CACHE_PAGE_SIZE;
+      render(controller.view()); byId('cache-scroll').scrollTop = 0;
+    });
+  }
+  byId('cache-jump-form').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!controller) return;
+    const input = byId('cache-line-jump'), value = input.value.trim();
+    const index = /^\d+$/.test(value) ? Number(value) : NaN;
+    const total = controller.view().configuration.cacheLines;
+    if (!Number.isSafeInteger(index) || index < 0 || index >= total) {
+      input.setAttribute('aria-invalid', 'true');
+      text('cache-jump-error', `Informe uma linha entre 0 e ${number(total - 1)}`);
+      return;
+    }
+    input.setAttribute('aria-invalid', 'false'); text('cache-jump-error', '');
+    controller.pause(); cacheStart = index; render(controller.view()); byId('cache-scroll').scrollTop = 0;
   });
   byId('sim-play').addEventListener('click', () => {
     if (controller?.view().status === 'running') controller.pause();
@@ -215,7 +293,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   });
   for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-step', 'nextStep'], ['sim-next', 'nextAccess'], ['show-live', 'showLive']]) {
     byId(id).addEventListener('click', () => {
-      if (method === 'restart') onlyReplacements = false;
+      if (method === 'restart') { onlyReplacements = false; cacheStart = 0; lastFocus = null; cellStarts.clear(); }
       if (controller && ['nextStep', 'nextAccess'].includes(method)) byId('simulation-analysis-warning').hidden = true;
       controller?.[method]();
     });
@@ -231,7 +309,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   byId('show-all-history').addEventListener('click', () => { onlyReplacements = false; if (controller) render(controller.view()); });
   document.addEventListener('memora:help-open', () => { if (!root.hidden) controller?.pause(); });
   return {
-    prepare(input) { byId('simulation-analysis-warning').hidden = true; controller?.dispose(); onlyReplacements = false; previousDone = false;
+    prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear(); byId('simulation-analysis-warning').hidden = true; controller?.dispose(); onlyReplacements = false; previousDone = false;
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
     showAnalysisWarning() {
       text('simulation-analysis-warning', 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados da simulação nesta tela.');

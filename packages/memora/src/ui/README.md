@@ -66,7 +66,7 @@ registros após a conclusão; Mostrar todos remove o filtro. Esses controles
 funcionam na Tela 2. O botão Analisar e a terceira aba ficam desabilitados até a
 próxima entrega, que consumirá os snapshots já disponíveis.
 
-A cache é esparsa e apresenta somente linhas ocupadas. Cache e histórico têm
+O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm
 scroll local acessível por teclado. O desktop foi verificado sem scroll da
 página nas quatro resoluções do relatório; larguras menores usam fluxo vertical.
 Textos são inseridos via `textContent`, sem interpretar entrada como HTML.
@@ -108,3 +108,14 @@ A opção afeta tanto a reprodução automática quanto o avanço manual: marcad
 O modo detalhado mostra o endereço binário dividido em Tag, Linha/Conjunto e Deslocamento, um roteiro das seis fases e a explicação da fase atual. Durante a consulta, as tags coincidentes e diferentes recebem destaques próprios. O roteiro tem rolagem local e acompanha a fase, sem rolar a página. Ao revisar um acesso, usa o snapshot original. O modo resumido esconde o roteiro e mantém as descrições do histórico.
 
 As explicações incluem validade e comparação de tags, primeiro acesso ao bloco (falta compulsória), linha livre, critérios FIFO/LRU/Random e os blocos anterior/novo. Uma releitura de bloco removido não é rotulada como compulsória. As explicações são derivadas dos dados do motor, sem executar novamente a cache. O detalhamento não altera políticas, resultados ou contagens.
+
+
+### Cache completa e células — revisão de 14/10/2026
+
+A tabela mostra todas as 32 linhas do exemplo, incluindo vias vazias (V=0, tag sem valor e células com —). Linhas carregadas mantêm o intervalo e mostram os endereços de cada célula da memória principal, com a célula do acesso atual destacada. A revisão de histórico usa o snapshot after e restaura as células do acesso revisado sem alterar as estatísticas.
+
+Caches com mais de 128 linhas usam páginas de até 128 linhas, botões Anteriores/Próximas e Ir à linha (índice a partir de 0). A execução acompanha a página da linha consultada. Blocos maiores que 16 células têm navegação por janelas de 16, iniciando na janela do deslocamento atual. Valores em binário não são quebrados dentro das células; rolagem horizontal local permite ler o número completo. As áreas têm foco por teclado.
+
+A representação continua usando endereços das células, como o Beto, e não valores arbitrários de bytes. Vias vazias só existem na apresentação; o motor e os snapshots continuam esparsos e imutáveis. A contagem de linhas usadas inclui apenas linhas válidas.
+
+Verificação: 68 testes Node e 27 cenários Chromium da Tela 2 aprovados. Layout, formatos, revisão, substituição e navegação em configurações grandes verificados; desktop sem scroll da página nas quatro resoluções existentes. A revisão de largura das células foi verificada novamente nos cenários de layout e navegação.
