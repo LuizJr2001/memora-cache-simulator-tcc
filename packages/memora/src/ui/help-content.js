@@ -1,0 +1,90 @@
+// Textos visíveis da página v2 do Figma, conferidos em 12/10/2026
+// Descrição explica a regra; o exemplo é fixo e não usa a configuração atual
+export const HELP_CONTENT = {
+  "bytesPerCell": {
+    "title": "Bytes por célula",
+    "node": "311:251",
+    "body": [
+      "Defina quantos bytes há em cada célula endereçável\n\nUse um número inteiro positivo",
+      "4096 células × 1 byte = 4096 bytes (4 KiB)"
+    ]
+  },
+  "memoryCells": {
+    "title": "Total de células",
+    "node": "311:386",
+    "body": [
+      "Defina o total de células da memória principal. Os endereços vão de 0 a total de células − 1\n\nUse uma potência de 2: bits de endereço = log₂(total de células)",
+      "4096 células → 12 bits de endereço e intervalo de 0 a 4095"
+    ]
+  },
+  "cellsPerBlock": {
+    "title": "Células por bloco",
+    "node": "311:521",
+    "body": [
+      "Defina quantas células consecutivas formam um bloco transferido para a cache\n\nO tamanho deve ser compatível com a memória e uma potência de 2: bits de deslocamento = log₂(células por bloco)",
+      "16 células por bloco → 4 bits de deslocamento\nO bloco 992–1007 contém 16 células"
+    ]
+  },
+  "cacheLines": {
+    "title": "Número de linhas",
+    "node": "311:656",
+    "body": [
+      "Defina quantas linhas a cache terá. Cada linha armazena um bloco\n\nNo mapeamento por conjunto, o total de linhas deve ser divisível pelo número de vias: conjuntos = linhas ÷ vias",
+      "32 linhas × 16 células por bloco = 512 células de dados na cache"
+    ]
+  },
+  "mapping": {
+    "title": "Mapeamento",
+    "node": "311:792",
+    "body": [
+      "Escolha onde cada bloco poderá ser armazenado na cache\n\nDireto: uma única linha possível\nTotalmente associativo: qualquer linha\nPor conjunto: qualquer via do conjunto correspondente",
+      "No exemplo por conjunto, o bloco 190 só pode ocupar uma das 2 vias do conjunto 14"
+    ]
+  },
+  "ways": {
+    "title": "Vias por conjunto",
+    "node": "311:927",
+    "body": [
+      "Defina quantas linhas haverá em cada conjunto. O número de vias deve dividir o total de linhas\n\nDireto: 1 via por conjunto\nTotalmente associativo: todas as linhas em um único conjunto",
+      "32 linhas ÷ 2 vias = 16 conjuntos\nSão 4 bits para identificar o conjunto"
+    ]
+  },
+  "replacement": {
+    "title": "Substituição",
+    "node": "311:1062",
+    "body": [
+      "Escolha a política usada quando uma falta exige substituir um bloco e não há linha livre\n\nNo direto, há apenas uma linha possível. Nos mapeamentos associativos, escolha LRU, FIFO ou Random",
+      "Com 2 vias e LRU, a falta no endereço 3044 substitui o bloco 992–1007, usado há mais tempo"
+    ]
+  },
+  "sequence": {
+    "title": "Endereços a acessar",
+    "node": "311:1197",
+    "body": [
+      "Informe a sequência de endereços que você quer simular\n\nUse inteiros de 0 a total de células − 1. Corrija valores negativos, textos, campos vazios e endereços fora do intervalo antes de iniciar",
+      "A sequência fixa do exemplo tem 21 endereços entre 0 e 4095 e reproduz uma substituição LRU"
+    ]
+  },
+  "how": {
+    "title": "Como funciona?",
+    "node": "311:7771",
+    "body": [
+      "Em cada acesso, o endereço é dividido para buscar o bloco na cache\n\nACERTO: o bloco é encontrado em uma linha válida\nFALTA: o bloco precisa ser carregado; com o conjunto cheio, uma linha é substituída",
+      "Memória: 4096 células de 1 byte e blocos de 16 células\nCache: mapeamento por conjunto, 32 linhas, 2 vias e LRU\nEndereço: 12 bits — 4 de tag, 4 de conjunto e 4 de deslocamento"
+    ]
+  },
+  "glossary": {
+    "title": "Glossário",
+    "node": "311:7907",
+    "body": [
+      "Acerto (hit): O dado já está em uma linha válida da cache com a tag esperada\n\nFalta (miss): O bloco ainda não está disponível na posição consultada e precisa ser carregado\n\nBloco: Grupo de células transferido entre memória principal e cache\n\nLinha: Posição física da cache que armazena um bloco e seus metadados\n\nVia: Uma das linhas possíveis dentro de um conjunto associativo\n\nTag: Parte do endereço usada para identificar qual bloco está armazenado\n\nConjunto: Grupo de linhas da cache no qual um endereço pode ser procurado\n\nDeslocamento: Bits que selecionam a célula ou byte dentro do bloco\n\nVálido: Indica se o conteúdo da linha pode ser considerado durante a busca\n\nLRU: Substitui a linha usada há mais tempo entre as candidatas do conjunto\n\nFIFO: Substitui a linha que entrou primeiro entre as candidatas\n\nRandom: Seleciona aleatoriamente uma linha candidata à substituição"
+    ]
+  },
+  "quick": {
+    "title": "Ajuda rápida",
+    "node": "311:8070",
+    "body": [
+      "1 · Configurar\nDefina a arquitetura e os endereços, ou carregue o exemplo didático\n\n2 · Simular\nAcompanhe os acessos, a cache e o histórico\n\n3 · Analisar\nCompare a cache antes e depois de uma substituição"
+    ]
+  }
+};

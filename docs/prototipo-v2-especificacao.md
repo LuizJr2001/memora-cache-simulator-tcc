@@ -1,6 +1,6 @@
 # Memora — Especificação visual do protótipo v2
 
-**Consolidação documental:** 12/10/2026
+**Consolidação documental:** 14/10/2026
 
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
@@ -26,6 +26,106 @@ A entrega no Figma contém telas estáticas. A aparência de abas, botões e sid
 O controle de ritmo da Tela 2 usa o rótulo **Velocidade**, junto à barra de ajuste, em todas as 14 variantes da simulação. A interface não exibe o texto técnico `5 etapas/s`; a reprodução funcional do ajuste segue na #35.
 
 Decimal/Binário altera apenas a apresentação de endereços, tags e blocos. A escolha deve ser preservada ao trocar de tela. A cache usa scroll local; o antigo botão Ver cache completa permanece removido.
+
+### Tela 1 — distribuição responsiva e estados de configuração (12/10/2026)
+
+A referência de Configurar usa **1280 × 720**, com cabeçalho de 52 px,
+mais uma variante ampla de **1920 × 1080**. As **17 representações SDS**
+(tela principal, mapeamentos, invalidações, ajudas e fundos) seguem a mesma
+linguagem visual. **Bytes por célula**, **Total de células** e **Células por
+bloco** permanecem em uma linha no desktop. O conteúdo utiliza a largura
+disponível, com margens equilibradas (24 px no frame de 1280 px e 32 px
+na referência ampla) e intervalo definido entre os dois painéis. No
+mobile, os painéis se empilham sem rolagem horizontal.
+
+A orientação de Parâmetros é **Use potências de 2, exceto em bytes por célula**.
+Bytes por célula aceita qualquer inteiro positivo, conforme o núcleo do PR #41;
+total de células, células por bloco, linhas e vias devem ser potências de 2.
+As ajudas e validações próximas dos campos detalham as demais condições.
+
+No desktop, os painéis **Parâmetros** e **Sequência de endereços** têm
+a mesma altura e terminam próximos ao rodapé. Os grupos de campos de
+Parâmetros se distribuem verticalmente, e **Validar parâmetros** fica
+perto da borda inferior. Na Sequência, os cartões **Tag, Conjunto/Linha
+e Deslocamento** permanecem junto dos botões **Gerar endereços** e
+**Iniciar simulação**: intervalo base de 12 px nas alturas úteis até 800 px
+e 16 px nas maiores, com 8 px nas larguras intermediárias compactas.
+A nota didática fica na parte inferior.
+
+O campo de endereços é editável, porém não é redimensionável:
+**96 px de altura** em desktops de até 800 px de altura útil e
+**120 px** nos maiores; conteúdo extenso rola dentro do campo.
+O afastamento base entre rótulo e controle é de **6 px** e entre
+controle e dica é de **8 px**. Os estados inválidos podem usar
+espaçamentos mais compactos para evitar rolagem da página.
+
+**Mensagens de erro são localizadas.** Campos inválidos recebem borda
+e texto vermelho próprios; não há banner geral vermelho sob o título
+da tela. A descrição introdutória permanece visível, e a contagem
+geral de erros é mantida apenas para leitores de tela, sem ocupar
+espaço visual. No cartão **Configuração com erros**, o ícone
+vermelho é centralizado verticalmente em relação ao cartão,
+mantendo o alinhamento dos dois textos.
+
+Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida;
+o link GitHub permanece exclusivamente dentro da Ajuda rápida.
+A V1.2 conserva a organização histórica. A Tela 1 funcional está
+em revisão no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43);
+as telas Simular/Analisar continuam fora desse PR.
+
+O comportamento implementado foi verificado em **1280 × 720,
+1366 × 768, 1480 × 742 e 1920 × 1080**, nos três mapeamentos,
+com erros e side sheets; mensagens extensas continuam
+navegáveis por teclado. [Evidências, capturas e resultados:
+37 testes Node e 45 cenários Chromium](../packages/memora/docs/verificacao-tela-1.md).
+A aprovação automatizada não equivale à avaliação externa prevista na #33.
+
+### Tela 1 — correção das exceções e identificação da prévia (14/10/2026)
+
+As larguras intermediárias de **801 a 1200 px** mantêm os dois painéis e
+os três campos de memória lado a lado. No cabeçalho de Parâmetros, título e
+Como funciona? ficam na primeira linha; a orientação ocupa a largura abaixo.
+Os intervalos se ajustam à altura útil, preservando Inter, os tamanhos dos
+textos e o textarea fixo de 96/120 px. Até 800 px de largura, os painéis
+continuam empilhados, com fluxo vertical.
+
+A decomposição identifica **Primeiro endereço: …**, em decimal e com
+separadores brasileiros. Usa o primeiro item de uma sequência integralmente
+válida; parâmetros ou sequência inválidos exibem **Prévia indisponível**,
+sem manter o endereço anterior. A descrição acessível mantém o valor completo
+e a relação com a sequência. Os cartões preservam todos os bits, inclusive
+quando a tag precisa quebrar linha.
+
+Os textos de apoio foram encurtados: **Separe por vírgula, espaço ou quebra
+de linha**, **1 via · valor fixo** no direto e **32 vias · 1 conjunto · valor
+fixo** no cenário totalmente associativo de 32 linhas. Sem endereços válidos,
+o resumo orienta a informá-los; com parâmetros inválidos, pede a correção dos
+campos destacados. A regra e os valores continuam vindo do núcleo.
+
+| Mapeamento | Vias por conjunto | Substituição |
+|---|---|---|
+| Direto | Fixo em 1, desabilitado | Não se aplica, desabilitada |
+| Totalmente associativo | Fixo no total de linhas, desabilitado | Editável |
+| Por conjunto | Editável | Editável |
+
+Esses estados e a prévia foram sincronizados nas **18 representações SDS**
+(17 de 1280 × 720 e a referência ampla). O componente reutilizável
+[Memora/Configurar/Prévia do endereço](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=721-594)
+usa Inter Regular 12 px, entrelinha de 16 px e `Text/Default/Secondary` do SDS.
+O título e a prévia formam uma linha com auto-layout. V1.2 e as duas
+alternativas de design system foram preservadas nesta revisão.
+
+Em larguras intermediárias com até 800 px de altura útil, erros extensos dos
+parâmetros têm duas linhas visíveis e rolagem local. O texto permanece completo,
+e o foco por teclado permite percorrê-lo com PageDown. A página mantém as ações
+visíveis sem ocultar seu overflow.
+
+A regressão acrescenta **801 × 720, 1024 × 768 e 1180 × 720**, além dos
+desktops já cobertos, com estado inicial, três mapeamentos, erros simultâneos,
+campos vazios e mensagens extensas. O endereço **4503599627370495** em memória
+de **2^52 células** foi verificado nos três mapeamentos em quatro desktops,
+começando por 1280 × 720. São **37 testes Node e 45 cenários Chromium** aprovados
+localmente, com 27 capturas atualizadas no relatório do PR #43.
 
 ## Sistema visual e componentes
 
@@ -186,6 +286,8 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 09/10 | Abas, identidade dos controles, microcopy e simplificação dos side sheets | #37 |
 | 11/10 | Espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade, revisão dos textos de ajuda e sincronização documental | #37 e revisão desta especificação |
 | 12/10 | Azul informativo compartilhado com os side sheets e indicadores de consulta com a mesma identidade; pesquisa e proposta de cor para FALTA | #37 e decisão 002 |
+| 12/10 | Configurar em 1280 × 720; memória principal em uma linha; GitHub apenas na Ajuda rápida; conferência no Figma e no código | #35, #37 e PR #43 |
+| 14/10 | Correção de encaixe em larguras intermediárias e endereço de 52 bits; prévia com endereço explícito e campos condicionais sincronizados em 18 telas SDS | #35, #37 e PR #43 |
 
 ## Implementação e avaliação
 
