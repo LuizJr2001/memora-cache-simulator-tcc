@@ -9,16 +9,19 @@ export function createSideSheet(document) {
   let previousOverflow = '';
 
   function open(name, build, wide = false) {
-    opener = document.activeElement;
+    if (!dialog.open) {
+      opener = document.activeElement;
+      previousOverflow = document.body.style.overflow;
+    }
     title.textContent = name;
     close.setAttribute('aria-label', `Fechar: ${name}`);
     dialog.classList.toggle('wide', wide);
     content.replaceChildren();
     build(content);
     content.scrollTop = 0;
-    previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    dialog.showModal();
+    if (!dialog.open) dialog.showModal();
+    dialog.dispatchEvent(new document.defaultView.CustomEvent('memora:help-open', { bubbles: true }));
     close.focus();
   }
 
@@ -111,11 +114,21 @@ export function createSideSheet(document) {
       } else {
         card(parent, 'Descrição', help.body[0], key === 'how');
         card(parent, 'Exemplo didático', help.body[1], key === 'how');
+        if (key === 'lru') {
+          const button = document.createElement('button');
+          button.type = 'button'; button.dataset.help = 'glossary';
+          button.className = 'sheet-glossary'; button.textContent = 'Abrir glossário completo';
+          parent.append(button);
+        }
       }
     }, ['how', 'glossary', 'quick'].includes(key));
   }
 
   close.addEventListener('click', () => dialog.close());
+  document.addEventListener('click', event => {
+    const button = event.target.closest?.('button[data-help]');
+    if (button && !button.disabled) showHelp(button.dataset.help);
+  });
   // Escape usa o evento cancel nativo do dialog; a restauração é comum a todas as saídas
   dialog.addEventListener('close', () => {
     document.body.style.overflow = previousOverflow;

@@ -73,6 +73,30 @@ export const HELP_CONTENT = {
       "Memória: 4096 células de 1 byte e blocos de 16 células\nCache: mapeamento por conjunto, 32 linhas, 2 vias e LRU\nEndereço: 12 bits — 4 de tag, 4 de conjunto e 4 de deslocamento"
     ]
   },
+  "lru": {
+    "title": "Estado LRU",
+    "node": "311:2383",
+    "body": [
+      "Mais recente: via acessada por último\nPróxima substituição: via menos recente, candidata a sair quando não houver via livre\n\nEssas indicações aparecem apenas com a política LRU",
+      "Em um conjunto com 2 vias, após acessar 2018, a via 2 (bloco 2016–2031) fica mais recente; a via 1 (bloco 992–1007) passa a ser candidata à próxima substituição"
+    ]
+  },
+  "cache": {
+    "title": "Memória cache",
+    "node": "311:2736",
+    "body": [
+      "Veja os blocos armazenados e os metadados de cada linha\n\nVálido: indica se a linha contém um bloco válido\nTag: usada para identificar o bloco\nBloco armazenado: intervalo de células do bloco\nLRU: ordem de uso das vias, disponível com a política LRU",
+      "No conjunto 14, a tag 7 identifica o bloco 2016–2031; a tag 3 identifica o bloco 992–1007"
+    ]
+  },
+  "history": {
+    "title": "Histórico de acessos",
+    "node": "311:3082",
+    "body": [
+      "Veja a ordem dos acessos, seus resultados e as explicações\n\nSelecione uma linha para revisar os detalhes do acesso",
+      "Endereço 2018 → ACERTO: o bloco 2016–2031 já está na cache"
+    ]
+  },
   "glossary": {
     "title": "Glossário",
     "node": "311:7907",

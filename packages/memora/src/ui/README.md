@@ -1,36 +1,132 @@
 # Interface Memora
 
-Esta pasta implementa a Tela 1 — Configurar e seus side sheets, conforme #35.
-Simular, Analisar e a execução da cache continuam pendentes.
+Esta pasta implementa Configurar e Simular, conforme a #35, em HTML/CSS e
+módulos ES. A Tela 1 foi integrada à `main` pelo PR #43; a Tela 2 está na branch
+`feature/35-tela-2`, em revisão no PR #44. Analisar tem entrega separada no PR #45.
 
-Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md) e o Figma nela indicado; refinamentos de UX acompanhados na #37.
-Consultar a especificação e o design atualizado antes de implementar cada tela.
-As abas, a identidade dos controles, a estrutura dos 18 side sheets e o
-espaçamento da Ajuda rápida seguem a revisão vigente.
+Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
+e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
+Os tokens SDS, Inter local, botões em Bold 700, campos retos e balões azuis
+são compartilhados entre as duas telas.
 
-`configuration-controller.js` mantém dados editáveis e consome as validações,
-geração, decomposição e `prepareSimulationInput` de `src/core`. Não cria cache.
-`configure-screen.js` liga esse controlador ao DOM, apresenta mensagens e emite
-`memora:input-prepared` somente com uma entrada válida.
-As validações continuam junto aos campos, com borda vermelha e feedback
-específico; não há aviso geral vermelho visível no título. O resumo global
-permanece reservado aos leitores de tela (`sr-only`, `role=status`,
-`aria-live=polite`), e o subtítulo introdutório não desaparece em erros.
-O símbolo `#configuration-symbol` é centralizado verticalmente no cartão
-**Configuração com erros** por `align-self: center`, sem alterar a posição
-dos textos. A estrutura `.sequence-bottom` reúne decomposição, botões
-e nota para evitar espaçamento excessivo entre cartões e ações. A decomposição é uma
-prévia binária do primeiro endereço de uma sequência válida; campos de zero bits usam um traço.
-`#preview-label` identifica esse endereço em decimal; parâmetros ou sequência
-inválidos exibem Prévia indisponível. A descrição completa permanece em
-`#preview-address`, associada aos cartões para leitores de tela.
-Em larguras intermediárias, erros extensos dos parâmetros têm rolagem local
-e recebem foco por teclado, preservando o texto e a altura da página.
-O futuro seletor Decimal/Binário pertence às telas seguintes.
+## Configurar
 
-`side-sheet.js` usa um dialog modal nativo, com foco contido, Escape e retorno do
-foco. `help-content.js` contém os textos visíveis da v2: 8 ajudas de campo,
-Como funciona?, Glossário e Ajuda rápida. O foco inicial é o botão de fechar;
-o conteúdo tem scroll e pode receber foco para operação por teclado.
-Side sheets apresentam conteúdo didático estático; a análise antes/depois usa
-snapshots do motor, preservando os valores removidos antes da mutação (#30).
+`configuration-controller.js` mantém os dados editáveis e consome validação,
+geração, decomposição e `prepareSimulationInput` de `src/core`, sem criar cache.
+`configure-screen.js` apresenta os resultados e emite `memora:input-prepared`
+somente com entrada válida. Aceita `onPrepared`, `onInvalidated`, `random` e um
+`sideSheet` compartilhado. O controlador chama `onInvalidated` ao alterar os
+dados; a integração descarta a simulação antiga até a próxima preparação.
+Parâmetros e sequência são validados a cada edição, sem botão de confirmação
+nem estado `parametersConfirmed`. A geração usa a memória atual e o início
+revalida a entrada completa no núcleo antes de emitir o evento.
+
+Erros ficam junto aos campos, com borda e texto específicos. O resumo global
+é reservado a leitores de tela (`sr-only`, `role=status`, `aria-live=polite`),
+sem repetir a lista de campos no aviso de navegação. O símbolo de Configuração com erros é
+centralizado verticalmente, sem deslocar os textos.
+
+A prévia binária identifica o primeiro endereço de uma sequência integralmente
+válida; campos de zero bits usam traço. `#preview-label` identifica o endereço
+em decimal e a descrição acessível conserva seu valor completo. Entrada inválida
+mostra Prévia indisponível. Erros extensos têm rolagem local por teclado nas
+larguras intermediárias, conforme o relatório da Tela 1.
+
+## Simular
+
+`simulation-controller.js` consome `createSimulation` e controla somente
+relógio, preferências, estado de execução e acesso selecionado. Aceita
+`random`, `schedule`, `cancel` e `onChange` para verificação determinística.
+Seu token de geração invalida callbacks antigos após pausa, avanço manual,
+reinício, troca de tela ou descarte da simulação.
+
+- `play` alterna com `pause`; `stop` preserva o andamento e identifica a parada
+- `restart` zera motor e seleção, preservando formato, velocidade e modo detalhado
+- `nextStep` avança uma fase no modo detalhado ou um acesso no resumido;
+  `nextAccess` conclui somente o acesso pendente
+- `setSpeed` aceita inteiros de 1 a 10; cada pulso avança uma fase ou um acesso
+  conforme `setDetailed`
+- `selectAccess` pausa e seleciona um registro existente; `showLive` retira a seleção
+- `setFormat` muda apresentação sem reexecutar dados; `dispose` cancela o relógio
+
+`simulate-screen.js` apresenta contadores, fases, endereço decomposto, cache
+completa e histórico, com o acesso mais recente primeiro. Decimal/Binário
+altera endereço, tag, conjunto/linha, deslocamento, intervalos e explicações;
+estatísticas, número do acesso e via continuam decimais. Campos de zero bits
+são identificados sem inventar bits.
+
+LRU aparece apenas com mapeamento associativo e política LRU. A posição 1
+significa mais recente; candidata só aparece quando não há via livre. A seleção
+da vítima usa `lineBefore`; a linha inserida usa `lineAfter`. A execução e o
+histórico preservam intervalos e estatísticas anteriores à mutação (#30).
+
+O número do acesso é um botão de revisão: mostra a cache de `after`, sem mudar
+os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
+restaura o estado atual, sem avançar o motor. Revisar substituições filtra os
+registros após a conclusão; Mostrar todos remove o filtro. Esses controles
+funcionam na Tela 2. A terceira aba informa a indisponibilidade da análise na
+própria Tela 2; o botão de análise da decisão aguarda a próxima entrega,
+que consumirá os snapshots já disponíveis.
+
+O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm
+scroll local acessível por teclado. O desktop foi verificado sem scroll da
+página nas quatro resoluções do relatório; larguras menores usam fluxo vertical.
+Textos são inseridos via `textContent`, sem interpretar entrada como HTML.
+
+## Navegação e ajuda compartilhadas
+
+`main.js` prepara o conteúdo de Simular somente com entrada válida; as abas
+aceitam navegação antes da preparação para orientar sobre a pendência.
+Voltar para Configurar pausa a execução e preserva o estado enquanto não houver
+edição. Setas, Home e End percorrem as abas disponíveis, com seleção e foco
+visíveis. A preparação continua sem executar acessos automaticamente.
+
+`side-sheet.js` usa `dialog` nativo com foco contido, Escape, botão de fechar,
+scrim e retorno à origem. A delegação de `button[data-help]` atende também a
+controles renderizados dinamicamente. Abrir ajuda em Simular pausa o relógio.
+O evento `memora:help-open` comunica essa abertura; o Glossário aberto pela
+ajuda LRU preserva o controle de origem para o retorno de foco.
+
+`help-content.js` contém **14 ajudas estáticas** disponíveis nessas duas etapas:
+8 campos de Configurar, Como funciona?, Glossário, Ajuda rápida, Estado LRU,
+Memória cache e Histórico de acessos. Usa os textos visíveis da v2 e exemplos
+fixos, inclusive a correção das vias do cenário. As quatro ajudas de Analisar
+ficam para a próxima entrega.
+
+Ver [revisão geral do PR #44](../../docs/revisao-pr44.md): 68 testes Node e
+74 cenários Chromium aprovados localmente, incluindo a regressão da Tela 1.
+
+### Orientação ao navegar com configuração pendente
+
+Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Analisar continua sem tela implementada nesta branch. Com entrada preparada, o aviso vermelho aparece abaixo do subtítulo de Simular e mantém essa tela ativa. Iniciar/Continuar, Próxima etapa ou Próximo acesso removem o aviso; uma nova preparação também o limpa.
+
+No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
+
+As pendências, seus avisos e os refinamentos do layout foram incluídos na suíte
+completa de Configurar e na revisão geral do PR #44.
+
+### Etapas detalhadas — revisão de 14/10/2026
+
+A opção afeta tanto a reprodução automática quanto o avanço manual: marcada percorre as seis fases; desmarcada conclui um acesso por avanço. O botão passa a indicar Avançar acesso no modo resumido. Trocar de modo durante um acesso conclui apenas a entrada pendente, sem duplicar estatísticas. A taxa indica etapas/segundo ou acessos/segundo conforme o modo, com valor inicial 5.
+
+O modo detalhado mostra o endereço binário dividido em Tag, Linha/Conjunto e Deslocamento, um roteiro das seis fases e a explicação da fase atual. Durante a consulta, as tags coincidentes e diferentes recebem destaques próprios. O roteiro tem rolagem local e acompanha a fase, sem rolar a página. Ao revisar um acesso, usa o snapshot original. O modo resumido esconde o roteiro e mantém as descrições do histórico.
+
+As explicações incluem validade e comparação de tags, primeiro acesso ao bloco (falta compulsória), linha livre, critérios FIFO/LRU/Random e os blocos anterior/novo. Uma releitura de bloco removido não é rotulada como compulsória. As explicações são derivadas dos dados do motor, sem executar novamente a cache. O detalhamento não altera políticas, resultados ou contagens.
+
+
+### Cache completa e células — revisão de 14/10/2026
+
+A tabela mostra todas as 32 linhas do exemplo, incluindo vias vazias (V=0, tag sem valor e células com —). Linhas carregadas mantêm o intervalo e mostram os endereços de cada célula da memória principal, com a célula do acesso atual destacada. A revisão de histórico usa o snapshot after e restaura as células do acesso revisado sem alterar as estatísticas.
+
+Caches com mais de 128 linhas usam páginas de até 128 linhas, botões Anteriores/Próximas e Ir à linha (índice a partir de 0). A execução acompanha a página da linha consultada. Blocos maiores que 16 células têm navegação por janelas de 16, iniciando na janela do deslocamento atual. Valores em binário não são quebrados dentro das células; rolagem horizontal local permite ler o número completo. As áreas têm foco por teclado.
+
+A representação continua usando endereços das células, como o Beto, e não valores arbitrários de bytes. Vias vazias só existem na apresentação; o motor e os snapshots continuam esparsos e imutáveis. A contagem de linhas usadas inclui apenas linhas válidas.
+
+As setas de navegação das células preservam o foco do teclado após redesenhar
+a tabela; ao atingir um limite do bloco, o foco segue para a seta disponível.
+Preparar uma nova simulação limpa o campo Ir à linha e seu aviso anterior.
+
+Verificação atual: 68 testes Node e 74 cenários Chromium (45 Configurar e 29
+Simular). Layout, formatos, revisão, substituição, avisos e navegação em
+configurações grandes verificados; desktop sem scroll da página nas quatro
+resoluções existentes. Capturas atuais no relatório de revisão geral.
