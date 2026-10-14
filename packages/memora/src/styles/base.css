@@ -474,3 +474,13 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .parameters-panel { gap: 10px; }
   .parameters-panel .cache-group .fields-grid { row-gap: 12px; }
 }
+
+/* Reserva três linhas de legenda na memória principal e afasta a cache. */
+@media (min-width: 801px) {
+  .parameters-panel .memory-group .field-feedback {
+    height: 51px;
+    min-height: 51px;
+    max-height: 51px;
+  }
+  .parameters-panel .cache-group { margin-top: 8px; }
+}
