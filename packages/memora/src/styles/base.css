@@ -440,3 +440,37 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .sequence-panel .configuration-summary,
 .sequence-panel .information-note { justify-content: flex-start; }
 .sequence-panel .information-note p { text-align: left; }
+
+/* Encaixe de notebooks: reduz espaços, preservando fontes e ações visíveis. */
+@media (min-width: 801px) and (max-height: 850px) {
+  main { padding-top: 8px; padding-bottom: 8px; }
+  .stage-tabs { margin-bottom: 8px; }
+  .intro { margin-bottom: 8px; }
+  .configuration-grid { gap: 24px; }
+  .configuration-grid .panel { padding: 12px; }
+  .sequence-panel .panel-heading { min-height: 40px; }
+  .sequence-panel .sequence-field { margin-top: 6px; }
+  .sequence-field .field-heading { margin-bottom: 4px; }
+  .sequence-field .field-feedback { margin-top: 4px; }
+  #configure-form #sequence { height: 72px; min-height: 72px; max-height: 72px; }
+  .sequence-panel .configuration-summary {
+    min-height: 58px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+  }
+  .sequence-panel .configuration-summary p {
+    height: 36px;
+    min-height: 36px;
+    margin-top: 2px;
+  }
+  .sequence-panel .sequence-bottom .decomposition { margin-top: 0; }
+  .decomposition-grid { margin-top: 6px; }
+  .information-card { min-height: 56px; padding-block: 6px; gap: 4px; }
+  .sequence-panel .sequence-bottom .sequence-actions { margin-top: 10px; }
+  .sequence-panel .sequence-bottom .sequence-actions + .information-note { margin-top: 10px; }
+  .sequence-panel .information-note { min-height: 34px; padding-block: 6px; }
+  .attribution { margin-top: 6px; }
+  .parameters-panel { gap: 10px; }
+  .parameters-panel .cache-group .fields-grid { row-gap: 12px; }
+}
