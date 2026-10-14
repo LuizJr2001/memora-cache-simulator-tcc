@@ -262,8 +262,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 
 
 /* Tela 1: altura disponível, campos distribuídos e endereço sem alça de redimensionamento.
-   A altura fixa do textarea muda apenas com a altura útil do viewport,
-   nunca com o conteúdo, o mapeamento ou a presença de erros. */
+   O textarea ocupa o espaço livre do painel sem depender do conteúdo ou da validação. */
 @media (min-width: 801px) {
   main {
     display: flex;
@@ -509,4 +508,25 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
     height: auto;
     max-height: none;
   }
+}
+
+/* A caixa de endereços absorve o espaço livre antes da decomposição. */
+@media (min-width: 801px) {
+  .sequence-panel .sequence-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .sequence-field > .field-heading,
+  .sequence-field > .field-feedback { flex-shrink: 0; }
+  #configure-form #sequence {
+    flex: 1 1 72px;
+    height: auto;
+    min-height: 72px;
+    max-height: none;
+    resize: none;
+    overflow-y: auto;
+  }
+  .sequence-panel .sequence-bottom { margin-top: 0; }
 }
