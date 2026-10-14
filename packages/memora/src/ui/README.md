@@ -23,7 +23,7 @@ revalida a entrada completa no núcleo antes de emitir o evento.
 
 Erros ficam junto aos campos, com borda e texto específicos. O resumo global
 é reservado a leitores de tela (`sr-only`, `role=status`, `aria-live=polite`),
-sem banner vermelho redundante. O símbolo de Configuração com erros é
+sem repetir a lista de campos no aviso de navegação. O símbolo de Configuração com erros é
 centralizado verticalmente, sem deslocar os textos.
 
 A prévia binária identifica o primeiro endereço de uma sequência integralmente
@@ -42,14 +42,15 @@ reinício, troca de tela ou descarte da simulação.
 
 - `play` alterna com `pause`; `stop` preserva o andamento e identifica a parada
 - `restart` zera motor e seleção, preservando formato, velocidade e modo detalhado
-- `nextStep` avança uma fase; `nextAccess` conclui somente o acesso pendente
+- `nextStep` avança uma fase no modo detalhado ou um acesso no resumido;
+  `nextAccess` conclui somente o acesso pendente
 - `setSpeed` aceita inteiros de 1 a 10; cada pulso avança uma fase ou um acesso
   conforme `setDetailed`
 - `selectAccess` pausa e seleciona um registro existente; `showLive` retira a seleção
 - `setFormat` muda apresentação sem reexecutar dados; `dispose` cancela o relógio
 
 `simulate-screen.js` apresenta contadores, fases, endereço decomposto, cache
-ocupada e histórico completo, com o acesso mais recente primeiro. Decimal/Binário
+completa e histórico, com o acesso mais recente primeiro. Decimal/Binário
 altera endereço, tag, conjunto/linha, deslocamento, intervalos e explicações;
 estatísticas, número do acesso e via continuam decimais. Campos de zero bits
 são identificados sem inventar bits.
@@ -63,8 +64,9 @@ O número do acesso é um botão de revisão: mostra a cache de `after`, sem mud
 os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
 restaura o estado atual, sem avançar o motor. Revisar substituições filtra os
 registros após a conclusão; Mostrar todos remove o filtro. Esses controles
-funcionam na Tela 2. O botão Analisar e a terceira aba ficam desabilitados até a
-próxima entrega, que consumirá os snapshots já disponíveis.
+funcionam na Tela 2. A terceira aba informa a indisponibilidade da análise na
+própria Tela 2; o botão de análise da decisão aguarda a próxima entrega,
+que consumirá os snapshots já disponíveis.
 
 O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm
 scroll local acessível por teclado. O desktop foi verificado sem scroll da
@@ -73,7 +75,8 @@ Textos são inseridos via `textContent`, sem interpretar entrada como HTML.
 
 ## Navegação e ajuda compartilhadas
 
-`main.js` prepara Simular e habilita a segunda aba somente com entrada válida.
+`main.js` prepara o conteúdo de Simular somente com entrada válida; as abas
+aceitam navegação antes da preparação para orientar sobre a pendência.
 Voltar para Configurar pausa a execução e preserva o estado enquanto não houver
 edição. Setas, Home e End percorrem as abas disponíveis, com seleção e foco
 visíveis. A preparação continua sem executar acessos automaticamente.
@@ -90,8 +93,8 @@ Memória cache e Histórico de acessos. Usa os textos visíveis da v2 e exemplos
 fixos, inclusive a correção das vias do cenário. As quatro ajudas de Analisar
 ficam para a próxima entrega.
 
-Ver [relatório da Tela 2](../../docs/verificacao-tela-2.md): 58 testes Node e
-67 cenários Chromium aprovados localmente, incluindo a regressão da Tela 1.
+Ver [revisão geral do PR #44](../../docs/revisao-pr44.md): 68 testes Node e
+74 cenários Chromium aprovados localmente, incluindo a regressão da Tela 1.
 
 ### Orientação ao navegar com configuração pendente
 
@@ -99,7 +102,8 @@ Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de prep
 
 No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
 
-Validação desta alteração: 58 testes Node aprovados e sintaxe de 22 arquivos verificada. Cenário Playwright adicionado para as abas e pendências; execução visual pendente porque o download do Chromium foi bloqueado/truncado no ambiente.
+As pendências, seus avisos e os refinamentos do layout foram incluídos na suíte
+completa de Configurar e na revisão geral do PR #44.
 
 ### Etapas detalhadas — revisão de 14/10/2026
 
@@ -118,4 +122,11 @@ Caches com mais de 128 linhas usam páginas de até 128 linhas, botões Anterior
 
 A representação continua usando endereços das células, como o Beto, e não valores arbitrários de bytes. Vias vazias só existem na apresentação; o motor e os snapshots continuam esparsos e imutáveis. A contagem de linhas usadas inclui apenas linhas válidas.
 
-Verificação: 68 testes Node e 27 cenários Chromium da Tela 2 aprovados. Layout, formatos, revisão, substituição e navegação em configurações grandes verificados; desktop sem scroll da página nas quatro resoluções existentes. A revisão de largura das células foi verificada novamente nos cenários de layout e navegação.
+As setas de navegação das células preservam o foco do teclado após redesenhar
+a tabela; ao atingir um limite do bloco, o foco segue para a seta disponível.
+Preparar uma nova simulação limpa o campo Ir à linha e seu aviso anterior.
+
+Verificação atual: 68 testes Node e 74 cenários Chromium (45 Configurar e 29
+Simular). Layout, formatos, revisão, substituição, avisos e navegação em
+configurações grandes verificados; desktop sem scroll da página nas quatro
+resoluções existentes. Capturas atuais no relatório de revisão geral.

@@ -111,6 +111,10 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     byId('cache-next').disabled = page.end === page.total;
     text('cache-page-summary', `Linhas ${number(page.start)}–${number(page.end - 1)} de ${number(page.total)} (índices a partir de 0)`);
     const table = byId('cache-table'), head = element('tr');
+    const activeCellButton = table.contains(document.activeElement) && document.activeElement?.dataset.cells ? {
+      key: document.activeElement.dataset.cells,
+      label: document.activeElement.getAttribute('aria-label'),
+    } : null;
     for (const label of [config.mapping === 'direct' ? 'Linha' : 'Conj.', 'Via', 'V', 'Tag', 'Bloco armazenado', ...(useLru ? ['LRU'] : []), 'Ação']) {
       const th = element('th', label); th.scope = 'col';
       if (label === 'V') { th.title = 'Validade: 0 indica linha vazia; 1 indica bloco carregado'; th.setAttribute('aria-label', 'Bit de validade'); }
@@ -180,6 +184,12 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
       strip.scrollLeft = accessedCell.getBoundingClientRect().left - strip.getBoundingClientRect().left - strip.clientWidth / 2 + accessedCell.clientWidth / 2;
     }
     if (activeHelp && byId('lru-help')) byId('lru-help').focus({ preventScroll: true });
+    if (activeCellButton) {
+      const buttons = [...table.querySelectorAll('button[data-cells]')].filter(button => button.dataset.cells === activeCellButton.key);
+      const same = buttons.find(button => button.getAttribute('aria-label') === activeCellButton.label && !button.disabled);
+      const target = same ?? buttons.find(button => !button.disabled);
+      target?.focus({ preventScroll: true });
+    }
 
     const historyBody = byId('history-table').tBodies[0], historyRows = document.createDocumentFragment();
     const activeReview = document.activeElement?.dataset.review;
@@ -309,7 +319,9 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   byId('show-all-history').addEventListener('click', () => { onlyReplacements = false; if (controller) render(controller.view()); });
   document.addEventListener('memora:help-open', () => { if (!root.hidden) controller?.pause(); });
   return {
-    prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear(); byId('simulation-analysis-warning').hidden = true; controller?.dispose(); onlyReplacements = false; previousDone = false;
+    prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear(); byId('simulation-analysis-warning').hidden = true;
+      byId('cache-line-jump').value = ''; byId('cache-line-jump').setAttribute('aria-invalid', 'false'); text('cache-jump-error', '');
+      controller?.dispose(); onlyReplacements = false; previousDone = false;
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
     showAnalysisWarning() {
       text('simulation-analysis-warning', 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados da simulação nesta tela.');

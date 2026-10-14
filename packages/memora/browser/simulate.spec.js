@@ -363,3 +363,35 @@ test('paginação de linhas e células permite navegar em cache e blocos grandes
   await expect(page.locator('#cache-next')).toBeDisabled();
   await expect(page.locator('#sim-used-lines')).toHaveText('1 / 512');
 });
+
+test('navegação das células preserva foco pelo teclado, inclusive no fim do bloco', async ({ page }) => {
+  await page.locator('#cellsPerBlock').fill('32');
+  await page.locator('#mapping').selectOption('direct');
+  await page.locator('#sequence').fill('0');
+  await page.locator('#prepare-input').click(); await advance(page, 1);
+  const next = page.getByRole('button', { name: 'Próximas células da linha 0, via 1', exact: true });
+  const previous = page.getByRole('button', { name: 'Células anteriores da linha 0, via 1', exact: true });
+  await next.focus(); await page.keyboard.press('Enter');
+  await expect(page.locator('#cache-table tr[data-set="0"] .cache-cell').first()).toHaveText('16');
+  await expect(next).toBeDisabled(); await expect(previous).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#cache-table tr[data-set="0"] .cache-cell').first()).toHaveText('0');
+  await expect(previous).toBeDisabled(); await expect(next).toBeFocused();
+  await expect(page.locator('#sim-progress')).toHaveText('1 / 1');
+});
+
+test('uma nova simulação limpa a linha informada e o aviso de paginação anterior', async ({ page }) => {
+  await page.locator('#memoryCells').fill('1048576');
+  await page.locator('#cacheLines').fill('512');
+  await page.locator('#mapping').selectOption('direct');
+  await page.locator('#sequence').fill('0'); await page.locator('#prepare-input').click();
+  await page.locator('#cache-line-jump').fill('512'); await page.locator('#cache-jump-form button').click();
+  await expect(page.locator('#cache-line-jump')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#cache-jump-error')).toContainText('0 e 511');
+  await page.locator('#tab-configure').click(); await page.locator('#sequence').fill('1');
+  await page.locator('#prepare-input').click();
+  await expect(page.locator('#cache-line-jump')).toHaveValue('');
+  await expect(page.locator('#cache-line-jump')).toHaveAttribute('aria-invalid', 'false');
+  await expect(page.locator('#cache-jump-error')).toBeEmpty();
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 1');
+});

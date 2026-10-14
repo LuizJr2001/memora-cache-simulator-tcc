@@ -59,7 +59,7 @@ Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegad
 | Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
 | Avaliação | Retorno da orientação e dos estudantes em consolidação na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); imagens estáticas e Figma como apoio |
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
-| Implementação | Núcleo de configuração e entradas integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); **Configurar no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**, em revisão; **Tela 2 — Simular na branch `feature/35-tela-2`**, dependente desse PR. Execução real, FIFO/LRU/Random, controles, snapshots e histórico implementados, com 58 testes Node e 67 cenários Chromium aprovados localmente em 14/10. Analisar (Tela 3), avaliação completa e integração continuam pendentes na #35/#33. |
+| Implementação | Núcleo integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41) e **Configurar integrado no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**. **Tela 2 — Simular em revisão no [PR #44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44)**, com execução real, FIFO/LRU/Random, controles, snapshots, histórico, etapas detalhadas e células da cache. A revisão geral de 14/10 aprovou 68 testes Node e 74 cenários Chromium. Analisar (Tela 3), avaliação completa e integração da Tela 2 continuam pendentes na #35/#33. |
 
 A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
 
@@ -102,12 +102,13 @@ Para conferir os ajustes ainda não integrados à `main`, atualize a branch
 `feature/35-tela-2` (`git switch feature/35-tela-2` e
 `git pull origin feature/35-tela-2`) antes de iniciar o servidor.
 Carregue o exemplo na Tela 1 e use **Iniciar simulação** para abrir Simular.
-O PR #43 e as issues #35/#37 permanecem abertos; o PR da Tela 2 depende da Tela 1.
+O PR #43 já foi integrado; o PR #44 da Tela 2 aponta para `main` e aguarda aprovação.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
-`npm test` executa **58 testes Node**, incluindo execução e controladores,
-e `npm run test:ui --workspace @memora/simulator` executa **67 cenários Chromium**
+`npm test` executa **68 testes Node**, incluindo execução, controladores e apresentação,
+e `npm run test:ui --workspace @memora/simulator` executa **74 cenários Chromium**
 na branch da Tela 2. Instale antes o navegador com `npx playwright install chromium`.
+A [revisão geral do PR #44](packages/memora/docs/revisao-pr44.md) registra o fluxo verificado, as correções finais e capturas atuais.
 A Tela 3 e sua regressão permanecem pendentes na #35/#31. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
 
 ## Estrutura do repositório

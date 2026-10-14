@@ -93,9 +93,9 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
-nativo do Node. Na branch `feature/35-tela-2`, são **58 testes Node** de
+nativo do Node. Na branch `feature/35-tela-2`, são **68 testes Node** de
 configuração/entradas, controladores, execução, políticas, estatísticas e
-snapshots. A interface tem **67 cenários Chromium**, executados separadamente:
+snapshots, explicações e apresentação da cache. A interface tem **74 cenários Chromium**, executados separadamente:
 
 ```bash
 npx playwright install chromium
