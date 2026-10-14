@@ -72,3 +72,15 @@ test('velocidade inicial é 5 etapas por segundo e reprograma o relógio ao ajus
   assert.equal(tasks.size, 1);
   assert.equal(tasks.values().next().value.delay, 100);
 });
+
+test('avanço manual segue modo detalhado e troca no meio do acesso sem duplicar contagem', () => {
+  const { controller: c } = setup();
+  c.nextStep(); assert.equal(c.view().phase, 'decompose');
+  assert.equal(c.view().statistics.processed, 0);
+  c.setDetailed(false); c.nextStep(); assert.equal(c.view().statistics.processed, 1);
+  c.nextStep(); assert.equal(c.view().statistics.processed, 2);
+  c.setDetailed(true); c.nextStep(); assert.equal(c.view().phase, 'decompose');
+  assert.equal(c.view().statistics.processed, 2);
+  c.nextAccess(); assert.equal(c.view().statistics.processed, 3);
+  assert.equal(c.view().statistics.hits, 1);
+});

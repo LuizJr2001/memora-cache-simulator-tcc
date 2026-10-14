@@ -166,3 +166,23 @@
 }
 
 .simulation-intro #simulation-analysis-warning { color: var(--memora-error); margin-top: 6px; font-size: 13px; line-height: 18px; }
+
+/* Detalhamento usa rolagem local, mantendo os controles e a página estáveis. */
+.simulation-mode-description { font-size: 12px; line-height: 17px; color: var(--sds-color-text-default-secondary); }
+.access-details { margin-top: 10px; border: 1px solid var(--sds-color-border-default-default); border-radius: 12px; padding: 10px 12px; background: var(--memora-info-background); max-height: 240px; flex-shrink: 0; overflow: auto; font-size: 12px; line-height: 17px; }
+.access-details h3 { font-size: 13px; margin-bottom: 8px; }
+.access-details ol { padding-left: 20px; margin: 8px 0 0; }
+.access-details li { padding: 4px 6px; }
+.access-details li + li { margin-top: 4px; }
+.access-details li p { margin-top: 3px; }
+.access-details .active-phase { border-left: 3px solid var(--memora-current-set-accent); background: white; }
+.access-details .future-phase { color: var(--sds-color-text-default-secondary); }
+.access-binary { display: flex; flex-wrap: wrap; gap: 6px; }
+.binary-part { display: flex; flex-direction: column; gap: 3px; padding: 4px 6px; border: 1px solid var(--sds-color-border-default-default); border-radius: 6px; min-width: 0; max-width: 100%; }
+.binary-part strong { font-family: monospace; overflow-wrap: anywhere; }
+.binary-part small { font-size: 11px; }
+.is-detailed .history-scroll { min-height: 90px; }
+@media (min-width: 801px) and (max-height: 800px) { .access-details { max-height: 168px; } .is-detailed .history-summary { margin-top: 6px; padding: 8px; } }
+
+#cache-table td.tag-match { background: var(--memora-hit-background); color: var(--memora-hit-text); border-color: var(--memora-hit-border); font-weight: 600; }
+#cache-table td.tag-mismatch { background: var(--memora-miss-background); color: var(--memora-miss-text); border-color: var(--memora-miss-border); font-weight: 600; }

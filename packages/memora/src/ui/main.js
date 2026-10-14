@@ -31,7 +31,7 @@ const configuration = mountConfigureScreen(document, { sideSheet: sheet,
     navigate('simulate');
   },
   onInvalidated() {
-    simulator.invalidate(); tabs[1].parentElement.setAttribute('aria-disabled', 'true');
+    simulator.invalidate(); tabs[1].parentElement.removeAttribute('aria-disabled');
   },
 });
 tabs[0].addEventListener('click', () => navigate('configure'));

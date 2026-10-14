@@ -154,7 +154,7 @@ test('entrada preparada usa o contrato do núcleo e abre a Tela 2 sem executar a
   expect(Object.hasOwn(prepared.input, 'cache')).toBe(false);
   await expect(page.locator('#configuration-status')).toHaveText('Entrada preparada para simular');
   await expect(page.locator('.stage-tabs [aria-current]')).toHaveText('2 Simular');
-  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(1);
+  await expect(page.locator('.stage-tabs [aria-disabled="true"]')).toHaveCount(0);
   await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
   await page.locator('#tab-configure').click();
   await page.locator('#sequence').fill('2018');

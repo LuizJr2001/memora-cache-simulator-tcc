@@ -1,5 +1,6 @@
 import { createSimulationController } from './simulation-controller.js';
 import { lruState } from '../core/simulation.js';
+import { explainSimulationAccess } from './simulation-explanation.js';
 
 const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no conjunto', result: 'Resultado do acesso',
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
@@ -21,10 +22,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     const numeric = (value, width = layout.addressBits) => state.format === 'binary' ?
       value.toString(2).padStart(Math.max(1, width), '0') : String(value);
     const range = line => `${numeric(line.blockStart)}–${numeric(line.blockEnd)}`;
-    const explain = access => !access?.result ? 'Lendo o endereço e consultando a cache' : access.result === 'hit' ?
-      `Endereço já presente no bloco ${range(access.decomposition)}` : access.lineBefore ?
-        `${access.reason === 'direct' ? 'Mapeamento direto' : access.reason === 'RANDOM' ? 'Random' : access.reason} substitui ${range(access.lineBefore)} por ${range(access.decomposition)}` :
-        `Bloco ${range(access.decomposition)} carregado em linha livre`;
+    const explain = access => explainSimulationAccess(access, config, layout, state.history, state.format)?.summary ?? 'Nenhum acesso iniciado';
     const focus = selectedAccess ?? current ?? lastAccess;
     const address = selectedAccess ?? current ?? (state.done ? null : lastAccess);
     const cache = selectedAccess?.after.cache ?? state.cache;
@@ -32,7 +30,8 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     const useLru = config.mapping !== 'direct' && config.replacement === 'LRU';
     const ranks = lruState(cache, config) ?? [];
     const currentSet = set === undefined ? null : numeric(set, layout.indexBits);
-    const currentBadge = `${state.done && !selectedAccess ? 'Último conjunto' : 'Conjunto atual'} · ${currentSet}`;
+    const placeLabel = config.mapping === 'direct' ? 'Linha' : 'Conjunto';
+    const currentBadge = `${placeLabel} ${state.done && !selectedAccess ? 'final' : 'atual'} · ${currentSet}`;
 
     text('sim-progress', `${stats.processed} / ${stats.total}`); text('sim-hits', number(stats.hits));
     text('sim-misses', number(stats.misses)); text('sim-hit-rate', stats.hitRate === null ? '—' :
@@ -49,8 +48,12 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
+    text('sim-step', state.detailed ? 'Próxima etapa' : 'Avançar acesso');
+    text('sim-mode-description', state.detailed ? 'Detalhado: avança uma etapa e explica a decisão' : 'Resumido: avança um acesso completo');
+    root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
-    const speedLabel = `${state.speed} ${state.speed === 1 ? 'etapa' : 'etapas'}/segundo`;
+    const unit = state.detailed ? (state.speed === 1 ? 'etapa' : 'etapas') : (state.speed === 1 ? 'acesso' : 'acessos');
+    const speedLabel = `${state.speed} ${unit}/segundo`;
     text('sim-speed-label', `Velocidade (${speedLabel})`);
     byId('sim-speed').setAttribute('aria-valuetext', speedLabel);
     for (const format of ['decimal', 'binary']) {
@@ -118,6 +121,9 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
       const action = selectedVictim ? 'Selecionada' : updated ? focus.result === 'hit' ? 'Mantida' : focus.lineBefore ? 'Substituída' : 'Nova' :
         candidate ? 'Candidata' : 'Mantida';
       for (const value of [numeric(line.set, layout.indexBits), String(line.way + 1), '1', numeric(line.tag, layout.tagBits), range(line), ...(useLru ? [lru] : []), action]) tr.append(element('td', value));
+      if (state.detailed && current && line.set === set && ['search', 'result', 'select'].includes(state.phase)) {
+        tr.children[3].classList.add(line.tag === current.decomposition.tag ? 'tag-match' : 'tag-mismatch');
+      }
       body.append(tr);
     }
     table.tBodies[0].replaceChildren(body); byId('cache-empty').hidden = cache.length !== 0;
@@ -128,7 +134,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     const visible = [...state.history].reverse().filter(a => !onlyReplacements || a.replaced);
     if (current && !onlyReplacements) {
       const tr = element('tr', undefined, 'pending-row'); tr.dataset.pending = 'true';
-      for (const value of [current.number, numeric(current.address), current.result ? resultText : '→ Lendo', step]) tr.append(element('td', String(value)));
+      for (const value of [current.number, numeric(current.address), current.result ? resultText : '→ Lendo', state.detailed ? explainSimulationAccess(current, config, layout, state.history, state.format).steps.find(item => item.phase === state.phase)?.body ?? step : step]) tr.append(element('td', String(value)));
       historyRows.append(tr);
     }
     for (const access of visible) {
@@ -159,6 +165,39 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
         `A via ${focus.way + 1} é a mais recente${candidate ? `; a via ${candidate.way + 1}, com ${range(cache.find(l => l.set === candidate.set && l.way === candidate.way))}, é candidata à próxima substituição` : '; uma via livre será usada antes de substituir um bloco'}`;
     }
     text('history-state', summary);
+
+    const detail = explainSimulationAccess(focus, config, layout, state.history, state.format);
+    byId('access-details').hidden = !state.detailed;
+    byId('access-details-empty').hidden = Boolean(detail);
+    const timeline = byId('access-detail-steps');
+    const binary = byId('access-binary');
+    timeline.replaceChildren(); binary.replaceChildren();
+    if (detail) {
+      for (const part of detail.binary) {
+        const group = element('span', undefined, 'binary-part');
+        group.append(element('strong', part.value), element('small', `${part.label} · ${part.width} bits`));
+        binary.append(group);
+      }
+      const phases = detail.steps.map(item => item.phase);
+      const active = current ? phases.indexOf(state.phase) : phases.length - 1;
+      for (const [index, item] of detail.steps.entries()) {
+        const li = element('li', undefined, index === active ? 'active-phase' : index < active ? 'completed-phase' : 'future-phase');
+        const title = element('strong', `${index < active || (!current && index === active) ? '✓ ' : ''}${item.title}`);
+        li.append(title);
+        if (index <= active) li.append(element('p', item.body));
+        if (index === active && current) li.setAttribute('aria-current', 'step');
+        timeline.append(li);
+      }
+    }
+    const detailPhase = `${focus?.number}:${state.phase}:${state.selected}`;
+    if (current && detail && state.detailed && byId('access-details').dataset.phase !== detailPhase) {
+      const activeItem = timeline.querySelector('[aria-current="step"]');
+      if (activeItem) {
+        const panel = byId('access-details');
+        panel.scrollTop += activeItem.getBoundingClientRect().top - panel.getBoundingClientRect().top - 28;
+      }
+    }
+    byId('access-details').dataset.phase = detailPhase;
     if (state.done && !previousDone && !root.hidden) byId('completion-title').focus({ preventScroll: true });
     previousDone = state.done;
   }

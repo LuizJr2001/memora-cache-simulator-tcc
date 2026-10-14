@@ -79,7 +79,7 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await expect(page.locator('#sim-progress')).toHaveText('19 / 21');
   await screenshot(page, 'atualizando-cache');
   await page.locator('#sim-next').click();
-  await expect(page.locator('#history-table tr[data-access="20"]')).toContainText('LRU substitui 992–1007 por 3040–3055');
+  await expect(page.locator('#history-table tr[data-access="20"]')).toContainText('Substitui o bloco 992–1007 da via 1 pelo bloco 3040–3055');
   await expect(page.locator('#sim-misses')).toHaveText('8');
   await page.locator('#sim-next').click(); await expect(page.locator('#simulation-complete')).toBeVisible();
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
@@ -172,7 +172,7 @@ for (const [mapping, replacement, victim] of [['direct', 'FIFO', '0–0'], ['ful
     if (mapping !== 'direct') await page.locator('#replacement').selectOption(replacement);
     await page.locator('#sequence').fill('0, 1, 0, 2'); await page.locator('#prepare-input').click();
     await advance(page, 4);
-    await expect(page.locator('#history-table tr[data-access="4"]')).toContainText(`${victim} por 2–2`);
+    await expect(page.locator('#history-table tr[data-access="4"]')).toContainText(`bloco ${victim}`);
     await expect(page.locator('#cache-table').getByRole('columnheader', { name: /LRU/ })).toHaveCount(0);
     await expect(page.locator('#sim-hits')).toHaveText('1'); await expect(page.locator('#sim-misses')).toHaveText('3');
   });
@@ -290,4 +290,30 @@ test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar
   await expect(page.locator('#simulation-analysis-warning')).toBeVisible();
   await page.locator('#sim-step').click();
   await expect(page.locator('#simulation-analysis-warning')).toBeHidden();
+});
+
+
+test('Etapas detalhadas muda apresentação e avanço manual sem perder o acesso atual', async ({ page }) => {
+  await prepare(page);
+  await expect(page.locator('#access-details')).toBeVisible();
+  await page.locator('#sim-step').click();
+  await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Decompor endereço');
+  await expect(page.locator('#access-binary')).toContainText('Deslocamento');
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await page.locator('#sim-step').click();
+  await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Nenhuma linha válida');
+  await page.locator('#sim-detailed').uncheck();
+  await expect(page.locator('#access-details')).toBeHidden();
+  await expect(page.locator('#sim-mode-description')).toContainText('Resumido');
+  await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (5 acessos/segundo)');
+  await page.locator('#sim-step').click();
+  await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
+  await expect(page.locator('#history-table tr[data-access="1"]')).toContainText('Falta compulsória');
+  await page.locator('#sim-detailed').check();
+  await expect(page.locator('#access-details')).toBeVisible();
+  await page.locator('#sim-step').click();
+  await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
+  await page.locator('#sim-next').click();
+  await expect(page.locator('#sim-hits')).toHaveText('1');
+  await expect(page.locator('#access-detail-steps')).toContainText('V=1');
 });

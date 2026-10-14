@@ -100,3 +100,11 @@ Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de prep
 No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
 
 Validação desta alteração: 58 testes Node aprovados e sintaxe de 22 arquivos verificada. Cenário Playwright adicionado para as abas e pendências; execução visual pendente porque o download do Chromium foi bloqueado/truncado no ambiente.
+
+### Etapas detalhadas — revisão de 14/10/2026
+
+A opção afeta tanto a reprodução automática quanto o avanço manual: marcada percorre as seis fases; desmarcada conclui um acesso por avanço. O botão passa a indicar Avançar acesso no modo resumido. Trocar de modo durante um acesso conclui apenas a entrada pendente, sem duplicar estatísticas. A taxa indica etapas/segundo ou acessos/segundo conforme o modo, com valor inicial 5.
+
+O modo detalhado mostra o endereço binário dividido em Tag, Linha/Conjunto e Deslocamento, um roteiro das seis fases e a explicação da fase atual. Durante a consulta, as tags coincidentes e diferentes recebem destaques próprios. O roteiro tem rolagem local e acompanha a fase, sem rolar a página. Ao revisar um acesso, usa o snapshot original. O modo resumido esconde o roteiro e mantém as descrições do histórico.
+
+As explicações incluem validade e comparação de tags, primeiro acesso ao bloco (falta compulsória), linha livre, critérios FIFO/LRU/Random e os blocos anterior/novo. Uma releitura de bloco removido não é rotulada como compulsória. As explicações são derivadas dos dados do motor, sem executar novamente a cache. O detalhamento não altera políticas, resultados ou contagens.
