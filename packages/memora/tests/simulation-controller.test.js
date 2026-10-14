@@ -59,3 +59,16 @@ test('controles rejeitam preferências e acessos inexistentes', () => {
   assert.throws(() => c.setSpeed(0), RangeError); assert.throws(() => c.setSpeed(11), RangeError);
   assert.throws(() => c.setFormat('hex'), TypeError); assert.throws(() => c.selectAccess(1), RangeError);
 });
+
+test('velocidade inicial é 5 etapas por segundo e reprograma o relógio ao ajustar', () => {
+  const { controller: c, tasks } = setup();
+  assert.equal(c.view().speed, 5);
+  c.play();
+  assert.equal(tasks.values().next().value.delay, 200);
+  c.setSpeed(1);
+  assert.equal(tasks.size, 1);
+  assert.equal(tasks.values().next().value.delay, 1000);
+  c.setSpeed(10);
+  assert.equal(tasks.size, 1);
+  assert.equal(tasks.values().next().value.delay, 100);
+});

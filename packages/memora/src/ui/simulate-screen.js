@@ -50,7 +50,9 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
-    byId('sim-speed').setAttribute('aria-valuetext', state.speed < 4 ? 'Lenta' : state.speed > 7 ? 'Rápida' : 'Moderada');
+    const speedLabel = `${state.speed} ${state.speed === 1 ? 'etapa' : 'etapas'}/segundo`;
+    text('sim-speed-label', `Velocidade (${speedLabel})`);
+    byId('sim-speed').setAttribute('aria-valuetext', speedLabel);
     for (const format of ['decimal', 'binary']) {
       byId(`format-${format}`).setAttribute('aria-pressed', String(state.format === format));
       text(`format-${format}`, `${state.format === format ? '✓ ' : ''}${format === 'decimal' ? 'Decimal' : 'Binário'}`);
