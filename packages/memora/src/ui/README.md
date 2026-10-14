@@ -1,8 +1,8 @@
 # Interface Memora
 
 Esta pasta implementa Configurar e Simular, conforme a #35, em HTML/CSS e
-módulos ES. A Tela 1 está no PR #43; a Tela 2 está na branch
-`feature/35-tela-2`, dependente desse PR. Analisar permanece pendente.
+módulos ES. A Tela 1 foi integrada à `main` pelo PR #43; a Tela 2 está na branch
+`feature/35-tela-2`, em revisão no PR #44. Analisar tem entrega separada no PR #45.
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
@@ -17,6 +17,9 @@ geração, decomposição e `prepareSimulationInput` de `src/core`, sem criar ca
 somente com entrada válida. Aceita `onPrepared`, `onInvalidated`, `random` e um
 `sideSheet` compartilhado. O controlador chama `onInvalidated` ao alterar os
 dados; a integração descarta a simulação antiga até a próxima preparação.
+Parâmetros e sequência são validados a cada edição, sem botão de confirmação
+nem estado `parametersConfirmed`. A geração usa a memória atual e o início
+revalida a entrada completa no núcleo antes de emitir o evento.
 
 Erros ficam junto aos campos, com borda e texto específicos. O resumo global
 é reservado a leitores de tela (`sr-only`, `role=status`, `aria-live=polite`),

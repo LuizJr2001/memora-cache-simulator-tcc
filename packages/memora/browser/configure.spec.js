@@ -17,6 +17,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('exemplo didático libera uma entrada válida e usa os assets/fontes locais', async ({ page }) => {
+  await expect(page.getByRole('button', { name: /Validar parâmetros|Parâmetros validados/ })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Iniciar simulação' })).toBeDisabled();
   await page.getByRole('button', { name: 'Carregar exemplo didático' }).click();
   await expect(page.getByLabel('Endereços a acessar', { exact: true })).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
@@ -98,7 +99,6 @@ test('geração usa o limite recém-editado e erros preservam a sequência', asy
   await page.addInitScript(() => { Math.random = () => .999; });
   await page.reload();
   await page.locator('#load-example').click();
-  await page.locator('#validate-parameters').click();
   await page.locator('#memoryCells').fill('512');
   await page.locator('#open-generator').click();
   await page.getByLabel('Quantidade de endereços').fill('1001');
@@ -437,7 +437,7 @@ for (const viewport of [
       return {
         parameters: rect('.parameters-panel'),
         sequence: rect('.sequence-panel'),
-        validate: rect('#validate-parameters'),
+        cacheGroup: rect('.cache-group'),
         address: rect('#sequence'),
         helpNote: rect('.sequence-panel .information-note'),
         footer: rect('.attribution'),
@@ -449,8 +449,8 @@ for (const viewport of [
     async function check() {
       const g = await geometry();
       expect(g.parameters.bottom).toBeCloseTo(g.sequence.bottom, 0);
-      expect(g.parameters.bottom - g.validate.bottom).toBeGreaterThanOrEqual(11);
-      expect(g.parameters.bottom - g.validate.bottom).toBeLessThanOrEqual(26);
+      expect(g.parameters.bottom - g.cacheGroup.bottom).toBeGreaterThanOrEqual(11);
+      expect(g.parameters.bottom - g.cacheGroup.bottom).toBeLessThanOrEqual(26);
       expect(g.sequence.bottom - g.helpNote.bottom).toBeLessThanOrEqual(18);
       expect(g.footer.y - g.parameters.bottom).toBeGreaterThanOrEqual(6);
       expect(viewport.height - g.footer.bottom).toBeGreaterThanOrEqual(0);

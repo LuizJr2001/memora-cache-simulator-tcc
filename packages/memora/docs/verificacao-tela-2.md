@@ -3,8 +3,12 @@
 Data: **14/10/2026**. Entrega em `feature/35-tela-2`, baseada no commit
 `d9258a975c190e1f62051b67a85b601f0cd6e1e3` da Tela 1.
 O [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)
-ainda está aberto; o PR desta entrega usa `feature/35-tela-1` como base.
+foi integrado; o PR #44 desta entrega agora usa `main` como base.
 A implementação permanece em revisão, sem integração à `main` ou publicação.
+
+**Atualização de 14/10/2026:** Configurar valida automaticamente, sem botão
+de confirmação. O início continua revalidando a entrada completa.
+Ver [relatório e capturas atuais](verificacao-validacao-automatica.md).
 
 Rastreabilidade: #35 (interface), #28 (LRU), #30 (bloco removido), #31
 (regressão), #37 (UX) e #22 (planejamento). A avaliação externa #33 permanece

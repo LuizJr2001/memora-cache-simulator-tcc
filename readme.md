@@ -73,9 +73,11 @@ A elaboração inicial terminou em 23/09, após demandar mais tempo que o previs
 
 ## Base de desenvolvimento do pacote
 
-O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. A Tela 1 já dispõe de formulário funcional na branch do PR #43, incluindo
+O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. A Tela 1 foi integrada à `main` pelo PR #43, incluindo
 os três mapeamentos, validação inline, decomposição didática, endereços,
 ajudas, prévia e preparação de entrada imutável; **não executa a simulação**.
+Parâmetros e sequência são validados automaticamente ao editar os campos,
+sem ação manual de confirmação; Iniciar simulação revalida a entrada completa.
 O layout fluido e os refinamentos dos estados inválidos estão descritos
 no [README do pacote](packages/memora/README.md) e no
 [relatório de verificação da Tela 1](packages/memora/docs/verificacao-tela-1.md).
