@@ -117,13 +117,10 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     }
     setText('preview-address', preview ? `Decomposição binária do primeiro endereço da sequência: ${preview.address}` : 'Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
     setText('preview-label', preview ? `Primeiro endereço: ${number(preview.address)}` : 'Prévia indisponível');
-    const invalid = !parameters.ok || showSequenceErrors;
-    byId('note-ring').src = invalid ? './src/assets/error-ring.svg' : './src/assets/information-ring.svg';
-    setText('note-symbol', invalid ? '!' : 'i');
-    byId('note-symbol').classList.toggle('error-text', invalid);
-    setText('note-text', invalid ? 'Corrija os campos indicados para liberar a simulação' : raw.mapping === 'direct' ?
-      'No mapeamento direto, cada bloco só pode ocupar uma linha da cache' :
-      'As interrogações abrem ajuda contextual sem tirar você desta etapa');
+    byId('note-ring').src = './src/assets/information-ring.svg';
+    setText('note-symbol', 'i');
+    byId('note-symbol').classList.remove('error-text');
+    setText('note-text', 'As interrogações abrem ajuda contextual sem tirar você desta etapa');
     renderNavigationWarning();
     return view;
   }
