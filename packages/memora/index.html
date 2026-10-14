@@ -24,12 +24,12 @@
     <main id="configurar" tabindex="-1">
       <ol class="stage-tabs" aria-label="Etapas do Memora" role="tablist">
         <li class="stage-tab current" aria-current="step" role="presentation"><button id="tab-configure" type="button" role="tab" aria-selected="true" aria-controls="configuration-screen">1 Configurar</button></li>
-        <li class="stage-tab" aria-disabled="true" role="presentation"><button id="tab-simulate" type="button" role="tab" aria-selected="false" aria-controls="simulation-screen" tabindex="-1" disabled title="Prepare a configuração para simular">2 Simular</button></li>
-        <li class="stage-tab" aria-disabled="true" role="presentation"><button type="button" role="tab" aria-selected="false" tabindex="-1" disabled title="Análise detalhada ainda não disponível">3 Analisar</button></li>
+        <li class="stage-tab" aria-disabled="true" role="presentation"><button id="tab-simulate" type="button" role="tab" aria-selected="false" aria-controls="simulation-screen" tabindex="-1" title="Prepare a configuração para simular">2 Simular</button></li>
+        <li class="stage-tab" aria-disabled="true" role="presentation"><button id="tab-analyze" type="button" role="tab" aria-selected="false" tabindex="-1" title="Análise detalhada ainda não disponível">3 Analisar</button></li>
       </ol>
       <div id="configuration-screen" class="configuration-screen" role="tabpanel" aria-labelledby="tab-configure">
       <div class="intro">
-        <div><h1>Configure a memória cache</h1><p id="intro-description">Defina a arquitetura ou carregue um exemplo pronto para começar</p><div id="error-summary" class="sr-only" role="status" aria-live="polite" hidden></div></div>
+        <div><h1>Configure a memória cache</h1><p id="intro-description">Defina a arquitetura ou carregue um exemplo pronto para começar</p><p id="navigation-warning" class="navigation-warning error-text" role="alert" hidden></p><div id="error-summary" class="sr-only" role="status" aria-live="polite" hidden></div></div>
         <button type="button" id="load-example">Carregar exemplo didático</button>
       </div>
       <form id="configure-form" class="configuration-grid" novalidate>

@@ -25,20 +25,31 @@ function navigate(screen) {
   window.scrollTo(0, 0);
 }
 
-mountConfigureScreen(document, { sideSheet: sheet,
+const configuration = mountConfigureScreen(document, { sideSheet: sheet,
   onPrepared(input) {
-    simulator.prepare(input); tabs[1].disabled = false; tabs[1].parentElement.removeAttribute('aria-disabled');
+    simulator.prepare(input); tabs[1].parentElement.removeAttribute('aria-disabled');
     navigate('simulate');
   },
   onInvalidated() {
-    simulator.invalidate(); tabs[1].disabled = true; tabs[1].parentElement.setAttribute('aria-disabled', 'true');
+    simulator.invalidate(); tabs[1].parentElement.setAttribute('aria-disabled', 'true');
   },
 });
 tabs[0].addEventListener('click', () => navigate('configure'));
-tabs[1].addEventListener('click', () => navigate('simulate'));
+tabs[1].addEventListener('click', () => {
+  if (!simulator.view()) configuration.showNavigationWarning();
+  else navigate('simulate');
+});
+document.getElementById('tab-analyze').addEventListener('click', () => {
+  if (!simulator.view()) configuration.showNavigationWarning();
+  else {
+    navigate('configure');
+    const warning = document.getElementById('navigation-warning');
+    warning.hidden = false; warning.textContent = 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados na aba Simular.';
+  }
+});
 document.querySelector('.stage-tabs').addEventListener('keydown', event => {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-  const available = tabs.filter(tab => !tab.disabled);
+  const available = [...tabs, document.getElementById('tab-analyze')];
   const index = available.indexOf(document.activeElement);
   if (index === -1) return;
   event.preventDefault();

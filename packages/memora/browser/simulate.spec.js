@@ -30,7 +30,7 @@ test('entrada preparada abre Simular vazio e preserva os assets e o sistema visu
   await expect(page.locator('#cache-empty')).toBeVisible(); await expect(page.locator('#history-empty')).toBeVisible();
   await expect(page.locator('#sim-address')).toHaveText('—');
   await expect(page.locator('#tab-simulate')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.getByRole('tab', { name: '3 Analisar' })).toBeDisabled();
+  await expect(page.getByRole('tab', { name: '3 Analisar' })).toBeEnabled();
   await expect.poll(() => page.evaluate(() => performance.getEntriesByType('resource').some(entry => entry.initiatorType === 'css' && entry.name.endsWith('/src/assets/speed-knob.svg')))).toBe(true);
   const assets = await page.evaluate(async () => {
     const response = await fetch('./src/assets/speed-knob.svg');
@@ -154,14 +154,14 @@ test('play, pause, velocidade e navegação cancelam o relógio e preservam o an
 test('mudança da configuração invalida a simulação antiga e nova preparação inicia em zero', async ({ page }) => {
   await prepare(page); await advance(page, 2); await page.locator('#tab-configure').click();
   await expect(page.locator('#sequence')).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
-  await page.locator('#sequence').fill('0, 1'); await expect(page.locator('#tab-simulate')).toBeDisabled();
+  await page.locator('#sequence').fill('0, 1'); await page.locator('#tab-simulate').click(); await expect(page.locator('#navigation-warning')).toBeVisible();
   await page.locator('#prepare-input').click(); await expect(page.locator('#sim-progress')).toHaveText('0 / 2');
   await expect(page.locator('#sim-hits')).toHaveText('0'); await expect(page.locator('#cache-empty')).toBeVisible();
   await page.locator('#tab-configure').focus(); await page.keyboard.press('ArrowRight');
   await expect(page.locator('#tab-simulate')).toBeFocused();
   await page.keyboard.press('ArrowLeft'); await expect(page.locator('#configuration-screen')).toBeVisible();
   await page.locator('#memoryCells').fill('100'); await expect(page.locator('#prepare-input')).toBeDisabled();
-  await expect(page.locator('#tab-simulate')).toBeDisabled();
+  await page.locator('#tab-simulate').click(); await expect(page.locator('#navigation-warning')).toBeVisible();
 });
 
 for (const [mapping, replacement, victim] of [['direct', 'FIFO', '0–0'], ['fully-associative', 'FIFO', '0–0'], ['fully-associative', 'RANDOM', '1–1']]) {
@@ -255,4 +255,20 @@ test('endereços de 52 bits e cache enorme geram somente linhas ocupadas', async
   await expect(page.locator('#sim-tag')).toHaveText('1'.repeat(52));
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280);
   await page.locator('#sim-next').click(); await expect(page.locator('#sim-hits')).toHaveText('1');
+});
+
+
+test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ page }) => {
+  await page.locator('#tab-simulate').click();
+  await expect(page.locator('#navigation-warning')).toContainText('preencha Endereços a acessar');
+  await expect(page.locator('#simulation-screen')).toBeHidden();
+  await page.locator('#memoryCells').fill('');
+  await page.locator('#tab-analyze').click();
+  await expect(page.locator('#navigation-warning strong')).toContainText(['Total de células', 'Endereços a acessar']);
+  await page.locator('#load-example').click();
+  await expect(page.locator('#navigation-warning')).toContainText('clique em Iniciar simulação');
+  await page.locator('#tab-simulate').click();
+  await expect(page.locator('#simulation-screen')).toBeHidden();
+  await page.locator('#prepare-input').click();
+  await expect(page.locator('#simulation-screen')).toBeVisible();
 });

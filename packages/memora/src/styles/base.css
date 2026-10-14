@@ -291,8 +291,13 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .parameters-panel {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
   }
+  .parameters-panel .parameter-group { margin-top: 0; }
+  .parameters-panel .memory-group { flex: 1 1 auto; }
+  .parameters-panel .cache-group { flex: 2 1 auto; }
+  .parameters-panel .cache-group .fields-grid { row-gap: clamp(16px, 4vh, 48px); }
   /* A validação é automática: os grupos ocupam o espaço sem uma ação de confirmação. */
   /* Divide a altura entre os blocos sem criar vazio entre os balões e os botões. */
   .sequence-panel { justify-content: space-between; }
@@ -357,4 +362,10 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .information-note { padding-block: 4px; }
   .has-errors .parameters-panel .error-text { max-height: 34px; overflow: auto; }
   .has-errors .panel { padding-block: 8px; }
+}
+
+.navigation-warning { margin-top: 6px; font-size: 13px; line-height: 18px; }
+@media (min-width: 801px) and (max-height: 800px) {
+  .parameters-panel { gap: 12px; }
+  .parameters-panel .cache-group .fields-grid { row-gap: 16px; }
 }
