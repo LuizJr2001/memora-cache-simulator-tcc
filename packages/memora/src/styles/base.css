@@ -482,5 +482,5 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
     min-height: 51px;
     max-height: 51px;
   }
-  .parameters-panel .cache-group { margin-top: 8px; }
+  .parameters-panel .cache-group { margin-top: 0; }
 }
