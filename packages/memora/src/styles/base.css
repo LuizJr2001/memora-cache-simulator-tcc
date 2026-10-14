@@ -435,3 +435,8 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   max-height: 34px;
   text-align: center;
 }
+
+/* Mantém os balões compactos, com leitura alinhada à esquerda. */
+.sequence-panel .configuration-summary,
+.sequence-panel .information-note { justify-content: flex-start; }
+.sequence-panel .information-note p { text-align: left; }
