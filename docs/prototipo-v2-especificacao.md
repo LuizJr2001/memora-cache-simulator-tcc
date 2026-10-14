@@ -157,12 +157,50 @@ na seção Simular (`311:1712`), incluindo variantes, fundos das ajudas,
 resumos e exemplo LRU. O texto do histórico agora indica revisar os detalhes
 do acesso, compatível com a revisão na própria Tela 2. Estilos e geometria
 foram preservados e a tela principal foi conferida visualmente.
-V1.2 permanece histórica. As referências estáticas de vias da Tela 3 deverão
-ser reconciliadas quando essa etapa for implementada.
+V1.2 permanece histórica. As referências estáticas de vias da Tela 3 foram reconciliadas na entrega
+seguinte, conforme o registro abaixo.
 
 Verificação local: sintaxe de 22 arquivos, **58 testes Node e 67 cenários
 Chromium**, com capturas e limites no [relatório da Tela 2](../packages/memora/docs/verificacao-tela-2.md).
 Não representa integração à `main`, avaliação externa nem resultado de CI remota.
+
+### Tela 3 — análise funcional dos snapshots (14/10/2026)
+
+A branch `feature/35-tela-3`, baseada no PR #44 da Tela 2, implementa a análise
+do acesso selecionado ou do último concluído. O quadro Antes usa o snapshot
+anterior à atualização; Depois usa o posterior. Sai/Entra e a explicação usam
+os blocos preservados, sem reexecutar o acesso ou sortear novamente a vítima.
+
+Os quatro passos se adaptam a substituição, acerto e linha livre. Direto,
+FIFO e Random têm explicações próprias e não exibem LRU indevido. A comparação
+lista as vias ocupadas do conjunto consultado e, quando necessário, somente
+a vaga escolhida, com Válido 0 no estado anterior. As tabelas têm scroll local,
+sem criar todas as linhas de uma configuração enorme.
+
+Analisar habilita após o primeiro acesso concluído. Próximo acesso consulta
+o registro seguinte já salvo; no fim do histórico, conclui exatamente um novo
+acesso, incluindo a microetapa pendente. Ao final da sequência, fica desabilitado.
+Voltar ou trocar de aba preserva a seleção e mantém o relógio pausado.
+Decimal/Binário é compartilhado com Simular. Editar a entrada/reiniciar invalida
+a análise anterior.
+
+As quatro ajudas completam os **18 side sheets**. Reutilizam o mesmo renderer
+Card, o dialog, as cores e os exemplos fixos da v2. Foram corrigidos **58 textos
+visíveis na seção Analisar**, incluindo números de via, variantes, fundos e
+exemplos de Antes × depois/LRU. A via 1 é a vítima do acesso 20; a via 2 contém
+2016–2031. Geometria, estilos, ajuda geral e V1.2 foram preservados.
+
+A composição segue a referência de 1280 × 900, adaptada ao cabeçalho de 52 px
+e às margens fluidas compartilhadas. Ações e rodapé cabem nos quatro desktops,
+começando em 1280 × 720. Os resumos evitam repetir intervalos extensos;
+os valores completos permanecem nas tabelas e em Sai/Entra. Binário usa
+intervalos inicial–final, como em Simular; bloco de uma célula usa um único valor.
+Larguras menores usam fluxo vertical e rolagem local nas tabelas.
+
+Verificação local: sintaxe de **26 arquivos**, **65 testes Node e 89 cenários
+Chromium**; [relatório e 16 capturas](../packages/memora/docs/verificacao-tela-3.md).
+A implementação das três telas está em revisão; integração, avaliação externa
+e publicação permanecem pendentes.
 
 ## Sistema visual e componentes
 
@@ -213,7 +251,7 @@ Pelas [WCAG 2.2 — Uso de cor](https://www.w3.org/WAI/WCAG22/Understanding/use-
 
 **Conferência no Figma:** 4.833 nós de texto em Inter e 681 rótulos de ações/abas em Bold (700), sem divergência de família ou peso nesse escopo. A verificação não encontrou textos fora dos controles nem contêineres de ação descentralizados. Foram conferidas visualmente as três telas principais e a variante Decimal/Binário.
 
-A implementação #35 carrega Inter local e aplica `font-weight: 700` às ações e abas das telas Configurar/Simular nas branches em revisão. A aplicação na Tela 3 e a avaliação completa permanecem pendentes.
+A implementação #35 carrega Inter local e aplica `font-weight: 700` às ações e abas das telas Configurar/Simular nas branches em revisão. A Tela 3 também reutiliza essa identidade na branch atual; a avaliação completa permanece pendente.
 
 ## Ajuda contextual e microcopy
 
@@ -326,6 +364,7 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 12/10 | Configurar em 1280 × 720; memória principal em uma linha; GitHub apenas na Ajuda rápida; conferência no Figma e no código | #35, #37 e PR #43 |
 | 14/10 | Correção de encaixe em larguras intermediárias e endereço de 52 bits; prévia com endereço explícito e campos condicionais sincronizados em 18 telas SDS | #35, #37 e PR #43 |
 | 14/10 | Tela 2 implementada em branch dependente do PR #43; motor, políticas, controles e snapshots; identificação das vias corrigida na seção Simular | #35, #28, #30, #31 e #37 |
+| 14/10 | Tela 3 implementada em branch dependente do PR #44; comparação dos snapshots, quatro ajudas e navegação; vias de Analisar reconciliadas | #35, #28, #30, #31 e #37 |
 
 ## Implementação e avaliação
 
@@ -338,6 +377,6 @@ As associações registram decisões do redesign. A inspeção formal com severi
 - #25–#28, #30 e #31 — regras, correções, LRU e regressão
 - #24 — incorporação das decisões e evidências ao artigo
 
-As telas Configurar/Simular consomem o motor em `src/core`, mantendo interface e interação em `src/ui`, nas branches ainda em revisão. Trocar de aba ou formato numérico deve preservar o estado; as ajudas devem abrir/fechar por teclado e restaurar o foco. Cada entrega visual deve registrar referência, screenshots e verificações dos estados envolvidos.
+As telas Configurar/Simular/Analisar consomem o motor em `src/core`, mantendo interface e interação em `src/ui`, nas branches ainda em revisão. Trocar de aba ou formato numérico deve preservar o estado; as ajudas devem abrir/fechar por teclado e restaurar o foco. Cada entrega visual deve registrar referência, screenshots e verificações dos estados envolvidos.
 
-A avaliação do protótipo continua com telas/imagens estáticas, da Tela 1 para a Tela 3, da esquerda para a direita. O Figma é apoio opcional para consultar detalhes; a avaliação da versão funcional pertence à etapa seguinte (#23). Configurar e Simular têm implementação e regressão local nas branches em revisão; a integração, a Tela 3, a consolidação da avaliação e a atualização do artigo permanecem pendentes nas respectivas issues. A base do pacote e o núcleo de configuração/endereços já estão integrados.
+A avaliação do protótipo continua com telas/imagens estáticas, da Tela 1 para a Tela 3, da esquerda para a direita. O Figma é apoio opcional para consultar detalhes; a avaliação da versão funcional pertence à etapa seguinte (#23). As três telas têm implementação e regressão local nas branches em revisão; a integração, a consolidação da avaliação e a atualização do artigo permanecem pendentes nas respectivas issues. A base do pacote e o núcleo de configuração/endereços já estão integrados.

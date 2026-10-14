@@ -93,9 +93,9 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
-nativo do Node. Na branch `feature/35-tela-2`, são **58 testes Node** de
+nativo do Node. Na branch `feature/35-tela-3`, são **65 testes Node** de
 configuração/entradas, controladores, execução, políticas, estatísticas e
-snapshots. A interface tem **67 cenários Chromium**, executados separadamente:
+snapshots. A interface tem **89 cenários Chromium**, executados separadamente:
 
 ```bash
 npx playwright install chromium
@@ -103,13 +103,15 @@ npm run test:ui --workspace @memora/simulator
 ```
 
 O servidor é iniciado pela suíte. `MEMORA_CHROMIUM_PATH` aceita um Chromium
-já instalado; `MEMORA_SCREENSHOT_DIR` e `MEMORA_SIMULATION_SCREENSHOT_DIR`
-definem pastas opcionais para capturas de Configurar e Simular. A Tela 3 e sua
-regressão permanecem pendentes. Registre resultados locais separadamente da CI.
+já instalado; `MEMORA_SCREENSHOT_DIR`, `MEMORA_SIMULATION_SCREENSHOT_DIR` e
+`MEMORA_ANALYSIS_SCREENSHOT_DIR` definem pastas opcionais para capturas de
+Configurar, Simular e Analisar. Registre resultados locais separadamente da CI.
 
 As [APIs e limites](packages/memora/src/core/README.md) orientam a integração.
 Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendidos.
 Quando uma tela depender de um PR aberto, indique a dependência e use esse PR
 como base temporária. A Tela 2 usa `feature/35-tela-1` como base enquanto o PR
-#43 aguarda integração; os arquivos executáveis do Beto continuam preservados.
+#43 aguarda integração. A Tela 3 usa `feature/35-tela-2`, do PR #44, como base.
+Integrar as dependências antes de direcionar os PRs seguintes à `main`.
+Os arquivos executáveis do Beto continuam preservados.
 

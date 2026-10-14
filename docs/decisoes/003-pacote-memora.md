@@ -95,6 +95,24 @@ Verificação local: **58 testes Node e 67 cenários Chromium** aprovados.
 Analisar e suas quatro ajudas continuam como próxima entrega; a avaliação #33
 segue em paralelo e a publicação em produção ainda não foi definida.
 
+## Progresso — 14/10/2026 · Tela 3 e fluxo completo
+
+`feature/35-tela-3` parte do commit `4d9c3ea` da Tela 2 (PR #44), que depende
+da Tela 1 (PR #43). A análise lê os snapshots existentes sem duplicar o motor.
+A projeção pura fica em `src/ui/analysis-model.js`; a apresentação em
+`src/ui/analyze-screen.js`; a navegação permanece em `src/ui/main.js`.
+
+Analisar cobre substituições, acertos e cargas em vaga livre. Próximo acesso
+percorre registros salvos antes de executar um acesso novo; a vítima Random
+não é sorteada outra vez durante a revisão. Os quatro side sheets completam
+as 18 ajudas da v2. Os 58 textos de via da seção Analisar no Figma foram
+sincronizados com a sequência real.
+
+O fluxo das três telas foi verificado com **65 testes Node e 89 cenários
+Chromium**. [Relatório da Tela 3](../../packages/memora/docs/verificacao-tela-3.md).
+Núcleo executável, Beto e licença foram preservados. A integração dos PRs,
+a avaliação com participantes e a publicação permanecem como próximos passos.
+
 ## Como trabalhar
 
 Seguir `CONTRIBUTING.md` e `WORKFLOW.md`: uma ou duas issues em andamento,

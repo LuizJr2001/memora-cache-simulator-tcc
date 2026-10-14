@@ -7,11 +7,14 @@ por esta etapa. A interface usa as APIs de configuração/endereços do PR #41.
 Iniciar simulação prepara uma entrada válida e abre a **Tela 2 — Simular**, em
 estado inicial, sem executar acessos automaticamente. A Tela 2 implementa os
 três mapeamentos, FIFO/LRU/Random, controles, microetapas, histórico, revisão por
-snapshot e Decimal/Binário. **Analisar (Tela 3) permanece pendente na #35**.
+snapshot e Decimal/Binário. A **Tela 3 — Analisar** compara snapshots reais
+antes/depois, explica a decisão, mostra Sai/Entra e quatro passos didáticos,
+com casos de acerto, linha livre e substituição e suas quatro ajudas.
 
-A entrega da Tela 2 está na branch `feature/35-tela-2`, baseada no commit
-`d9258a9` de `feature/35-tela-1`. Depende do PR #43, ainda em revisão; esta
-implementação não está integrada à `main`.
+A entrega atual está na branch `feature/35-tela-3`, baseada no commit
+`4d9c3ea` de `feature/35-tela-2` (PR #44), que depende da Tela 1 do PR #43.
+Os três PRs devem ser integrados após revisão, na ordem das dependências;
+a versão completa ainda não está na `main`.
 
 ## Executar
 
@@ -39,8 +42,8 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos em `scripts`, `src`, `tests`, `browser` e da configuração Playwright. `test`
-executa **58 testes Node**: 28 de configuração/entradas, 9 do controlador da
-Tela 1, 15 da execução da cache e 6 do controlador da Tela 2. A suíte cobre
+executa **65 testes Node**: 28 de configuração/entradas, 9 do controlador da
+Tela 1, 15 da execução da cache, 6 do controlador da Tela 2 e 7 da projeção de análise. A suíte cobre
 vítimas, contadores, snapshots imutáveis, Random controlado, limites e relógio.
 
 Para verificar a interface no Chromium:
@@ -50,8 +53,8 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A branch `feature/35-tela-2` executa **67 cenários Chromium**: os 45 da Tela 1
-mais 22 da Tela 2. A regressão da Tela 1 inclui
+A branch `feature/35-tela-3` executa **89 cenários Chromium**: 45 da Tela 1,
+22 da Tela 2 e 22 da Tela 3. A regressão da Tela 1 inclui
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
 Também mede largura e altura em **801 × 720, 1024 × 768, 1180 × 720,
@@ -70,13 +73,17 @@ no viewport; cache e histórico têm rolagem local. Em 1024, 801, 768, 390 e
 320 px, a página pode rolar verticalmente, sem overflow horizontal da página.
 Os testes incluem início, seis microetapas, conclusão, revisão sem reexecução,
 políticas, formato, cancelamento do relógio, ajudas e entrada de 52 bits.
+`MEMORA_ANALYSIS_SCREENSHOT_DIR` guarda as capturas da Tela 3. A análise cobre
+os mesmos quatro desktops e cinco larguras menores, snapshots, decisão por
+política, navegação histórica, avanço do acesso pendente, invalidação da
+entrada, quatro ajudas e rolagem local com muitas vias.
 
 ## Organização
 
 - `src/core/`: configuração, endereçamento, entrada, execução, políticas,
   estatísticas e snapshots, sem DOM nem temporizadores.
-- `src/ui/`: telas Configurar/Simular, seus controladores, navegação, side sheet
-  e textos estáticos das 14 ajudas disponíveis nessas etapas.
+- `src/ui/`: telas Configurar/Simular/Analisar, controladores, projeção dos
+  snapshots, navegação, side sheet e textos estáticos das 18 ajudas.
 - `src/styles/`: tokens SDS, aliases Memora e layout responsivo.
 - `src/assets/`: marca, aros e controle de velocidade exportados do Figma; Inter local com licença OFL.
 - `scripts/`: ferramentas de desenvolvimento.
@@ -99,7 +106,7 @@ A entrada inválida nunca emite o evento nem chama o callback.
 O callback cria a simulação e habilita a aba Simular. Voltar a Configurar pausa
 a execução e preserva o estado; qualquer edição invalida a simulação anterior,
 exigindo nova preparação. As abas ativas funcionam por clique, setas, Home e End.
-A aba Analisar e o botão correspondente permanecem desabilitados.
+A aba Analisar e o botão correspondente habilitam após o primeiro acesso concluído.
 
 Iniciar/Continuar alterna com Pausar; Parar preserva o ponto atual; Reiniciar
 zera cache, histórico e contadores. Próxima etapa avança uma das seis fases;
@@ -121,7 +128,32 @@ visíveis e os exemplos fixos da v2. A ajuda LRU permite abrir o Glossário.
 Decisão e sequência de implementação:
 [003-pacote-memora.md](../../docs/decisoes/003-pacote-memora.md).
 
+## Analisar
+
+Abra pelo botão Analisar decisão de substituição ou pela terceira aba.
+A Tela 3 usa o acesso selecionado no histórico, ou o último concluído. A execução
+pausa e a etapa pendente permanece preservada. Os quadros mostram o conjunto
+consultado antes/depois, distinguindo o bloco removido do inserido e os
+metadados reais. LRU aparece somente quando aplicável; FIFO, Random e direto
+têm explicações próprias. Acertos e vias livres não inventam uma remoção.
+
+Próximo acesso percorre primeiro os registros já salvos, sem executar novamente.
+Ao chegar ao último registro, conclui exatamente um novo acesso da simulação,
+inclusive uma microetapa pendente. Ao final, o botão fica desabilitado. Voltar
+à simulação preserva a seleção e os contadores. Decimal/Binário é compartilhado
+entre as telas. Editar a entrada ou reiniciar descarta a análise anterior.
+
+As quatro ajudas completam os 18 side sheets da v2. A comparação lista somente
+as vias ocupadas e, na carga inicial, a vaga escolhida, representada com Válido 0;
+não aloca uma tabela com todas as vias possíveis de uma configuração enorme.
+
 ## Referência visual
+
+A [Tela 3 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473)
+e suas variantes orientam a análise. O [relatório da Tela 3](docs/verificacao-tela-3.md)
+registra **65 testes Node e 89 cenários Chromium** aprovados localmente,
+16 capturas e as 58 correções de textos de via na seção Analisar do Figma.
+
 
 A [Tela 2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-1720)
 e suas variantes guiam a nova entrega. O [relatório da Tela 2](docs/verificacao-tela-2.md)

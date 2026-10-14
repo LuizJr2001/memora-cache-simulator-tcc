@@ -19,3 +19,8 @@ Copyright © The Inter Project Authors, sob SIL Open Font License 1.1,
 preservada em `fonts/OFL.txt`. A fonte é servida localmente, sem Google Fonts.
 
 Referência: https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14
+
+A Tela 3 reutiliza `memora.png`: o preenchimento de imagem do nó `311:6476`
+é idêntico ao de `311:17`. Não há outro asset estático novo nessa tela. O
+slot e a imagem local foram verificados no navegador em 30 × 30 px; abas,
+botões e Cards reutilizam os componentes HTML/CSS existentes.

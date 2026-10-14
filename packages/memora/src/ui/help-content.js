@@ -1,6 +1,38 @@
 // Textos visíveis da página v2 do Figma, conferidos em 12/10/2026
 // Descrição explica a regra; o exemplo é fixo e não usa a configuração atual
 export const HELP_CONTENT = {
+  "analysis-decision": {
+    "title": "Decisão de substituição",
+    "node": "311:6786",
+    "body": [
+      "Revise a política e a via escolhida quando uma falta exige substituir um bloco\n\nOs passos mostram a escolha da vítima e a atualização da cache",
+      "Endereço 3044 → conjunto 14 cheio → LRU escolhe o bloco 992–1007 → entra o bloco 3040–3055"
+    ]
+  },
+  "analysis-snapshots": {
+    "title": "Estado antes × depois",
+    "node": "311:6956",
+    "body": [
+      "Antes: estado usado para escolher a via\nDepois: estado após carregar o novo bloco\n\nCompare o bloco removido, o inserido e a recência das vias",
+      "Na via 1, o bloco 992–1007 é removido e o bloco 3040–3055 é inserido. A tag muda de 3 para 11"
+    ]
+  },
+  "analysis-lru": {
+    "title": "LRU na decisão",
+    "node": "311:7126",
+    "body": [
+      "Com o conjunto cheio, uma falta substitui a via que ficou há mais tempo sem ser acessada\n\nA escolha considera a ordem de uso em Antes, anterior à atualização da cache",
+      "A via 2 foi acessada depois da via 1. Sem via livre, a próxima falta substitui a via 1"
+    ]
+  },
+  "analysis-decomposition": {
+    "title": "Decomposição do endereço",
+    "node": "311:7296",
+    "body": [
+      "Tag: usada para identificar o bloco\nConjunto: indica onde procurar\nDeslocamento: seleciona a célula dentro do bloco\n\nA quantidade de bits depende da arquitetura e do mapeamento",
+      "2018 = 0111 | 1110 | 0010\nTag 7 · Conjunto 14 · Deslocamento 2\nSão 4 bits para cada parte"
+    ]
+  },
   "bytesPerCell": {
     "title": "Bytes por célula",
     "node": "311:251",

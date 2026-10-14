@@ -1,13 +1,13 @@
 # Interface Memora
 
-Esta pasta implementa Configurar e Simular, conforme a #35, em HTML/CSS e
-módulos ES. A Tela 1 está no PR #43; a Tela 2 está na branch
-`feature/35-tela-2`, dependente desse PR. Analisar permanece pendente.
+Esta pasta implementa Configurar, Simular e Analisar, conforme a #35, em
+HTML/CSS e módulos ES. A Tela 3 está em `feature/35-tela-3`, baseada no
+PR #44 (Tela 2), que depende do PR #43 (Tela 1). A integração segue em revisão.
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
 Os tokens SDS, Inter local, botões em Bold 700, campos retos e balões azuis
-são compartilhados entre as duas telas.
+são compartilhados entre as três telas.
 
 ## Configurar
 
@@ -60,13 +60,43 @@ O número do acesso é um botão de revisão: mostra a cache de `after`, sem mud
 os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
 restaura o estado atual, sem avançar o motor. Revisar substituições filtra os
 registros após a conclusão; Mostrar todos remove o filtro. Esses controles
-funcionam na Tela 2. O botão Analisar e a terceira aba ficam desabilitados até a
-próxima entrega, que consumirá os snapshots já disponíveis.
+funcionam na Tela 2. O botão Analisar e a terceira aba habilitam após o primeiro
+acesso concluído e abrem o registro selecionado, ou o último concluído.
 
 A cache é esparsa e apresenta somente linhas ocupadas. Cache e histórico têm
 scroll local acessível por teclado. O desktop foi verificado sem scroll da
 página nas quatro resoluções do relatório; larguras menores usam fluxo vertical.
 Textos são inseridos via `textContent`, sem interpretar entrada como HTML.
+
+## Analisar
+
+`analysis-model.js` projeta o acesso selecionado, ou o último concluído, sem
+chamar o motor ou sortear outra vítima. `createAnalysisModel(state)` retorna
+`null` sem acesso concluído e, nos demais casos, acesso, configuração, layout,
+tipo (`hit`, `free`, `replacement`), relevância do LRU, linhas antes/depois e
+possibilidade de avançar. O acesso selecionado prevalece sobre a etapa pendente.
+
+As linhas são filtradas pelo conjunto consultado; uma vaga escolhida ainda
+vazia é representada por uma única linha com `line: null`. Não há criação de
+linhas vazias proporcionais ao tamanho da configuração. A recência é derivada
+separadamente de cada snapshot, sem alterar os registros.
+
+`analyze-screen.js` apresenta evento, decomposição, dois quadros, Sai/Entra e
+quatro passos. Narrativas usam `reason`, `lineBefore` e `lineAfter` gravados;
+acertos e cargas em vaga livre não são chamados de substituição. LRU só aparece
+quando aplicável. Os exemplos das quatro ajudas continuam fixos.
+
+`main.js` integra análise ao mesmo controlador de Simular. Próximo acesso seleciona
+o registro seguinte já existente; somente no fim do histórico chama `nextAccess`
+e seleciona o novo registro concluído. Uma etapa pendente é concluída uma única
+vez, sem duplicação. No fim da sequência, o botão é desabilitado. A troca de
+formato e de abas preserva a seleção; voltar a Simular não retoma o relógio.
+Editar a configuração ou reiniciar remove a disponibilidade da análise antiga.
+
+As tabelas têm scroll local e cabeçalhos fixos. Valores binários são completos,
+com intervalos inicial–final, como em Simular; blocos de uma célula usam um único
+valor. Resumos evitam repetir intervalos extensos, mantendo os dados nas tabelas
+e nos cartões. O layout compacto preserva ações e rodapé em 1280 × 720.
 
 ## Navegação e ajuda compartilhadas
 
@@ -81,11 +111,11 @@ controles renderizados dinamicamente. Abrir ajuda em Simular pausa o relógio.
 O evento `memora:help-open` comunica essa abertura; o Glossário aberto pela
 ajuda LRU preserva o controle de origem para o retorno de foco.
 
-`help-content.js` contém **14 ajudas estáticas** disponíveis nessas duas etapas:
-8 campos de Configurar, Como funciona?, Glossário, Ajuda rápida, Estado LRU,
-Memória cache e Histórico de acessos. Usa os textos visíveis da v2 e exemplos
-fixos, inclusive a correção das vias do cenário. As quatro ajudas de Analisar
-ficam para a próxima entrega.
+`help-content.js` contém **18 ajudas estáticas**: 8 campos de Configurar,
+Como funciona?, Glossário, Ajuda rápida, Estado LRU, Memória cache, Histórico
+de acessos e as quatro de Analisar: Decisão de substituição, Estado antes ×
+depois, LRU na decisão e Decomposição do endereço. Usa os textos visíveis da
+v2, com exemplos fixos e identificação das vias coerente com a execução.
 
-Ver [relatório da Tela 2](../../docs/verificacao-tela-2.md): 58 testes Node e
-67 cenários Chromium aprovados localmente, incluindo a regressão da Tela 1.
+Ver [relatório da Tela 3](../../docs/verificacao-tela-3.md): 65 testes Node e
+89 cenários Chromium aprovados localmente, com a regressão das três telas.
