@@ -7,7 +7,7 @@ const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no co
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 
-export function mountSimulateScreen(document, { onConfigure = () => {}, random = Math.random } = {}) {
+export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyze = () => {}, onChange = () => {}, random = Math.random } = {}) {
   const byId = id => document.getElementById(id);
   const root = byId('simulation-screen');
   let controller = null, onlyReplacements = false, previousDone = false;
@@ -48,6 +48,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     text('sim-play', state.done ? '✓ Concluído' : state.status === 'running' ? 'Ⅱ Pausar' :
       state.status === 'ready' ? '▶ Iniciar' : '▶ Continuar');
     byId('sim-play').disabled = state.done;
+    byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
@@ -262,6 +263,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
     byId('access-details').dataset.phase = detailPhase;
     if (state.done && !previousDone && !root.hidden) byId('completion-title').focus({ preventScroll: true });
     previousDone = state.done;
+    onChange(state);
   }
 
   root.addEventListener('click', event => {
@@ -312,6 +314,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
   byId('sim-speed').addEventListener('input', () => controller?.setSpeed(Number(byId('sim-speed').value)));
   byId('sim-detailed').addEventListener('change', () => controller?.setDetailed(byId('sim-detailed').checked));
   byId('new-simulation').addEventListener('click', onConfigure);
+  byId('go-analyze').addEventListener('click', onAnalyze);
   byId('review-replacements').addEventListener('click', () => {
     const last = controller?.view().history.findLast(a => a.replaced);
     if (last) { onlyReplacements = true; controller.selectAccess(last.number); byId('current-address-heading').focus({ preventScroll: true }); }
@@ -324,10 +327,13 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, random =
       controller?.dispose(); onlyReplacements = false; previousDone = false;
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
     showAnalysisWarning() {
-      text('simulation-analysis-warning', 'A análise detalhada ainda não está disponível nesta versão. Acompanhe os resultados da simulação nesta tela.');
+      text('simulation-analysis-warning', 'Processe ao menos um acesso para analisar a decisão da cache. Clique em Iniciar ou Próximo acesso.');
       byId('simulation-analysis-warning').hidden = false;
     },
     pause() { controller?.pause(); },
+    selectAccess(number) { controller?.selectAccess(number); },
+    nextAccess() { controller?.nextAccess(); },
+    setFormat(format) { controller?.setFormat(format); },
     invalidate() { controller?.dispose(); controller = null; },
     view() { return controller?.view() ?? null; },
   };

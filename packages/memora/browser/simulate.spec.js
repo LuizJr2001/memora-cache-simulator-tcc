@@ -276,13 +276,14 @@ test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ p
 });
 
 test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar', async ({ page }) => {
+  await page.clock.install();
   await prepare(page);
   await page.locator('#tab-analyze').click();
   await expect(page.locator('#simulation-screen')).toBeVisible();
   await expect(page.locator('#configuration-screen')).toBeHidden();
   await expect(page.locator('#tab-simulate')).toHaveAttribute('aria-selected', 'true');
   await expect(page.locator('#simulation-analysis-warning')).toBeVisible();
-  await expect(page.locator('#simulation-analysis-warning')).toContainText('nesta tela');
+  await expect(page.locator('#simulation-analysis-warning')).toContainText('Processe ao menos um acesso');
   await expect(page.locator('#navigation-warning')).toBeHidden();
   await page.locator('#sim-play').click();
   await expect(page.locator('#simulation-analysis-warning')).toBeHidden();

@@ -1,13 +1,14 @@
 # Interface Memora
 
-Esta pasta implementa Configurar e Simular, conforme a #35, em HTML/CSS e
-módulos ES. A Tela 1 foi integrada à `main` pelo PR #43; a Tela 2 está na branch
-`feature/35-tela-2`, em revisão no PR #44. Analisar tem entrega separada no PR #45.
+Esta pasta implementa Configurar, Simular e Analisar, conforme a #35, em
+HTML/CSS e módulos ES. A Tela 3 está em `feature/35-tela-3`, baseada no
+PR #44 (Tela 2). A Tela 1 foi integrada pelo PR #43 à `main`, agora base do PR #44.
+A integração das telas 2 e 3 segue em revisão.
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
 Os tokens SDS, Inter local, botões em Bold 700, campos retos e balões azuis
-são compartilhados entre as duas telas.
+são compartilhados entre as três telas.
 
 ## Configurar
 
@@ -64,14 +65,43 @@ O número do acesso é um botão de revisão: mostra a cache de `after`, sem mud
 os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
 restaura o estado atual, sem avançar o motor. Revisar substituições filtra os
 registros após a conclusão; Mostrar todos remove o filtro. Esses controles
-funcionam na Tela 2. A terceira aba informa a indisponibilidade da análise na
-própria Tela 2; o botão de análise da decisão aguarda a próxima entrega,
-que consumirá os snapshots já disponíveis.
+funcionam na Tela 2. A terceira aba abre a análise do acesso selecionado ou do último concluído.
+Antes do primeiro acesso, orienta a iniciar/avançar na própria Tela 2.
 
 O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm
 scroll local acessível por teclado. O desktop foi verificado sem scroll da
 página nas quatro resoluções do relatório; larguras menores usam fluxo vertical.
 Textos são inseridos via `textContent`, sem interpretar entrada como HTML.
+
+## Analisar
+
+`analysis-model.js` projeta o acesso selecionado, ou o último concluído, sem
+chamar o motor ou sortear outra vítima. `createAnalysisModel(state)` retorna
+`null` sem acesso concluído e, nos demais casos, acesso, configuração, layout,
+tipo (`hit`, `free`, `replacement`), relevância do LRU, linhas antes/depois e
+possibilidade de avançar. O acesso selecionado prevalece sobre a etapa pendente.
+
+As linhas são filtradas pelo conjunto consultado; uma vaga escolhida ainda
+vazia é representada por uma única linha com `line: null`. Não há criação de
+linhas vazias proporcionais ao tamanho da configuração. A recência é derivada
+separadamente de cada snapshot, sem alterar os registros.
+
+`analyze-screen.js` apresenta evento, decomposição, dois quadros, Sai/Entra e
+quatro passos. Narrativas usam `reason`, `lineBefore` e `lineAfter` gravados;
+acertos e cargas em vaga livre não são chamados de substituição. LRU só aparece
+quando aplicável. Os exemplos das quatro ajudas continuam fixos.
+
+`main.js` integra análise ao mesmo controlador de Simular. Próximo acesso seleciona
+o registro seguinte já existente; somente no fim do histórico chama `nextAccess`
+e seleciona o novo registro concluído. Uma etapa pendente é concluída uma única
+vez, sem duplicação. No fim da sequência, o botão é desabilitado. A troca de
+formato e de abas preserva a seleção; voltar a Simular não retoma o relógio.
+Editar a configuração ou reiniciar remove a disponibilidade da análise antiga.
+
+As tabelas têm scroll local e cabeçalhos fixos. Valores binários são completos,
+com intervalos inicial–final, como em Simular; blocos de uma célula usam um único
+valor. Resumos evitam repetir intervalos extensos, mantendo os dados nas tabelas
+e nos cartões. O layout compacto preserva ações e rodapé em 1280 × 720.
 
 ## Navegação e ajuda compartilhadas
 
@@ -87,18 +117,18 @@ controles renderizados dinamicamente. Abrir ajuda em Simular pausa o relógio.
 O evento `memora:help-open` comunica essa abertura; o Glossário aberto pela
 ajuda LRU preserva o controle de origem para o retorno de foco.
 
-`help-content.js` contém **14 ajudas estáticas** disponíveis nessas duas etapas:
-8 campos de Configurar, Como funciona?, Glossário, Ajuda rápida, Estado LRU,
-Memória cache e Histórico de acessos. Usa os textos visíveis da v2 e exemplos
-fixos, inclusive a correção das vias do cenário. As quatro ajudas de Analisar
-ficam para a próxima entrega.
+`help-content.js` contém **18 ajudas estáticas**: 8 campos de Configurar,
+Como funciona?, Glossário, Ajuda rápida, Estado LRU, Memória cache, Histórico
+de acessos e as quatro de Analisar: Decisão de substituição, Estado antes ×
+depois, LRU na decisão e Decomposição do endereço. Usa os textos visíveis da
+v2, com exemplos fixos e identificação das vias coerente com a execução.
 
 Ver [revisão geral do PR #44](../../docs/revisao-pr44.md): 68 testes Node e
 74 cenários Chromium aprovados localmente, incluindo a regressão da Tela 1.
 
 ### Orientação ao navegar com configuração pendente
 
-Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Analisar continua sem tela implementada nesta branch. Com entrada preparada, o aviso vermelho aparece abaixo do subtítulo de Simular e mantém essa tela ativa. Iniciar/Continuar, Próxima etapa ou Próximo acesso removem o aviso; uma nova preparação também o limpa.
+Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Com entrada preparada e nenhum acesso concluído, o aviso vermelho pede processar o primeiro acesso e mantém Simular ativa. Após concluir um acesso, Analisar abre os snapshots reais. Iniciar/Continuar, Próxima etapa ou Próximo acesso removem o aviso; uma nova preparação também o limpa.
 
 No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
 

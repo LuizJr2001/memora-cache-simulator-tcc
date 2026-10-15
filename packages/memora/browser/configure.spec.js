@@ -168,7 +168,7 @@ test('todas as ajudas têm textos estáticos, Escape e retorno do foco', async (
   await page.locator('#memoryCells').fill('8192');
   await page.locator('#sequence').fill('2018, 3044');
   for (const [key, help] of Object.entries(HELP_CONTENT)) {
-    if (['lru', 'cache', 'history'].includes(key)) continue;
+    if (['lru', 'cache', 'history'].includes(key) || key.startsWith('analysis-')) continue;
     const opener = page.locator(`[data-help="${key}"]`);
     await opener.click();
     const dialog = page.getByRole('dialog');

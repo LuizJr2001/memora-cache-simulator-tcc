@@ -59,7 +59,7 @@ Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegad
 | Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
 | Avaliação | Retorno da orientação e dos estudantes em consolidação na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); imagens estáticas e Figma como apoio |
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
-| Implementação | Núcleo integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41) e **Configurar integrado no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**. **Tela 2 — Simular em revisão no [PR #44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44)**, com execução real, FIFO/LRU/Random, controles, snapshots, histórico, etapas detalhadas e células da cache. A revisão geral de 14/10 aprovou 68 testes Node e 74 cenários Chromium. Analisar (Tela 3), avaliação completa e integração da Tela 2 continuam pendentes na #35/#33. |
+| Implementação | Núcleo integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41) e **Configurar integrado no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**. **Tela 2 — Simular integrada no [PR #44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44)**, com execução real, FIFO/LRU/Random, controles, snapshots, histórico, etapas detalhadas e células da cache. A revisão geral de 14/10 aprovou 68 testes Node e 74 cenários Chromium. Analisar (Tela 3) está em revisão no [PR #45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45), com snapshots antes/depois, Sai/Entra e decisões didáticas. Avaliação externa permanece na #33. |
 
 A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
 
@@ -85,7 +85,10 @@ A branch `feature/35-tela-2` conecta essa entrada à execução real, com contro
 cache, LRU, histórico e revisão por snapshots, preservando o Beto em `docs/`.
 O [relatório da Tela 2](packages/memora/docs/verificacao-tela-2.md) registra a
 verificação e a correção dos números de via no cenário estático do Figma.
-Analisar será implementada na próxima entrega.
+A branch `feature/35-tela-3` acrescenta Analisar: comparação antes/depois,
+blocos Sai/Entra, quatro passos didáticos, acerto/linha livre/substituição e
+quatro ajudas. O [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md)
+registra a regressão e a sincronização das vias no Figma. O motor foi preservado.
 
 Use Node.js 22 ou superior e npm:
 
@@ -99,17 +102,17 @@ npm run dev
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
 Para conferir os ajustes ainda não integrados à `main`, atualize a branch
-`feature/35-tela-2` (`git switch feature/35-tela-2` e
-`git pull origin feature/35-tela-2`) antes de iniciar o servidor.
+`feature/35-tela-3` (`git switch feature/35-tela-3` e
+`git pull origin feature/35-tela-3`) antes de iniciar o servidor.
 Carregue o exemplo na Tela 1 e use **Iniciar simulação** para abrir Simular.
-O PR #43 já foi integrado; o PR #44 da Tela 2 aponta para `main` e aguarda aprovação.
+Os PRs #43 e #44 foram integrados. O PR #45 da Tela 3 aponta para `main`.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
-`npm test` executa **68 testes Node**, incluindo execução, controladores e apresentação,
-e `npm run test:ui --workspace @memora/simulator` executa **74 cenários Chromium**
-na branch da Tela 2. Instale antes o navegador com `npx playwright install chromium`.
+`npm test` executa **75 testes Node**, incluindo execução, controladores, apresentação e análise,
+e `npm run test:ui --workspace @memora/simulator` executa **96 cenários Chromium**
+na branch da Tela 3. Instale antes o navegador com `npx playwright install chromium`.
 A [revisão geral do PR #44](packages/memora/docs/revisao-pr44.md) registra o fluxo verificado, as correções finais e capturas atuais.
-A Tela 3 e sua regressão permanecem pendentes na #35/#31. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
+A [verificação da Tela 3](packages/memora/docs/verificacao-tela-3.md) registra sua regressão e integração com a Tela 2. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
 
 ## Estrutura do repositório
 
