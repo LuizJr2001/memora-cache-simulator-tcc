@@ -48,6 +48,17 @@ A aplicação legada Beto em `docs/` permite configurar e acompanhar, em tempo r
 
 Para consultar o legado, abra [`docs/index.html`](docs/index.html) em um navegador.
 
+## Acesso online e publicação
+
+Endereço público do Memora: [luizjr2001.github.io/memora-cache-simulator-tcc](https://luizjr2001.github.io/memora-cache-simulator-tcc/).
+
+A publicação usa GitHub Pages e é atualizada automaticamente após alterações
+na `main`, depois da verificação de sintaxe e dos testes Node.
+`npm run build` prepara `_site/` apenas com a aplicação e suas licenças.
+O Beto legado e seu domínio histórico não fazem parte dessa publicação.
+Consulte o [guia de publicação](docs/publicacao-github-pages.md) para a ativação
+inicial, conferência local e diagnóstico.
+
 ## Estado atual e referência visual
 
 **Referência vigente:** [especificação do protótipo v2](docs/prototipo-v2-especificacao.md) e [página v2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2). A [V1.2](docs/prototipo-v1-2-especificacao.md) permanece como histórico.
@@ -174,3 +185,4 @@ O **Beto**, sistema legado que deu origem ao Memora, foi originalmente desenvolv
 A adoção do nome Memora não altera a atribuição da ferramenta original nem a rastreabilidade acadêmica das evidências coletadas durante o TCC.
 
 Este projeto é distribuído sob a licença [MIT](LICENSE).
+

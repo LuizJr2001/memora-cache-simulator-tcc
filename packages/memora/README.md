@@ -33,6 +33,15 @@ A aplicação usa HTML, CSS e módulos ES, sem framework nem dependências de ru
 Playwright é uma dependência exclusiva de desenvolvimento para testes no navegador.
 O servidor não é uma infraestrutura de produção.
 
+## Publicação estática
+
+Na raiz do repositório, `npm run build` prepara `_site/` com HTML, módulos ES,
+estilos, imagens, fonte e licenças. A aplicação publicada executa a simulação
+no navegador, sem depender do servidor de desenvolvimento.
+O workflow de GitHub Pages verifica e publica alterações da `main`;
+pull requests executam apenas as verificações e a preparação.
+Consulte o [guia de publicação](../../docs/publicacao-github-pages.md).
+
 ## Verificar
 
 ```bash
@@ -205,3 +214,4 @@ A avaliação #33 permanece em paralelo.
 O simulador original é o [Beto, de Leandro Gabriel e colaboradores](https://github.com/leo150250/simuladorCache).
 O código do legado permanece em `docs/`. A extração e adaptação do motor deve
 preservar essa atribuição e a [licença MIT do repositório](../../LICENSE).
+
