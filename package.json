@@ -5,7 +5,9 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "dev": "npm run dev --workspace @memora/simulator",
+    "build": "npm run build --workspace @memora/simulator",
     "check": "npm run check --workspaces --if-present",
     "test": "npm run test --workspaces --if-present"
   }
 }
+

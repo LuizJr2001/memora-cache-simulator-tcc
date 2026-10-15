@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "node scripts/dev-server.js",
+    "build": "node scripts/build-site.js",
     "check": "node scripts/check-syntax.js",
     "test": "node --test",
     "test:ui": "playwright test"
@@ -14,3 +15,4 @@
     "@playwright/test": "^1.64.0"
   }
 }
+
