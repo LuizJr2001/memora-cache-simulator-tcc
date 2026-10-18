@@ -6,6 +6,15 @@ O computador do desenvolvedor pode ficar desligado após a publicação.
 
 Endereço padrão: https://luizjr2001.github.io/memora-cache-simulator-tcc/
 
+## Publicação realizada
+
+O workflow foi integrado à `main` pelo [PR #47](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/47).
+A [execução de publicação](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38663768957)
+terminou com sucesso na noite de **14/10/2026 em Brasília** — **15/10/2026 em UTC**.
+As três telas estão disponíveis no endereço acima; os passos de ativação a
+seguir ficam como referência de configuração. O
+[histórico do projeto](historico-desenvolvimento.md) reúne os marcos anteriores.
+
 ## Ativação inicial
 
 1. Integre o workflow `.github/workflows/deploy.yml` à `main`.

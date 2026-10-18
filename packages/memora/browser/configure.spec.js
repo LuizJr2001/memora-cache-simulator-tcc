@@ -102,7 +102,7 @@ test('geração usa o limite recém-editado e erros preservam a sequência', asy
   await page.locator('#memoryCells').fill('512');
   await page.locator('#open-generator').click();
   await page.getByLabel('Quantidade de endereços').fill('1001');
-  await page.getByRole('dialog').getByRole('button', { name: 'Gerar endereços', exact: true }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Gerar endereços aleatórios', exact: true }).click();
   await expect(page.locator('#generation-feedback')).toContainText('entre 1 e 1000');
   await expect(page.locator('#sequence')).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
   await page.getByLabel('Quantidade de endereços').fill('3');

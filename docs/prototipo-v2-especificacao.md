@@ -1,13 +1,17 @@
 # Memora — Especificação visual do protótipo v2
 
-**Consolidação documental:** 14/10/2026
+**Consolidação documental:** 18/10/2026
 
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
 
 A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, as revisões de espaçamento, tipografia e textos de ajuda em 11/10 e a padronização das cores informativas em 12/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
 
-A entrega no Figma contém telas estáticas. A aparência de abas, botões e side sheets especifica a interface; a navegação, a execução real e a operação por teclado serão implementadas em código. A avaliação externa segue na #33. As revisões visuais não representam aprovação dos participantes ou conclusão da implementação.
+A entrega no Figma contém telas estáticas. A navegação, a execução real e a
+operação por teclado estão implementadas em código e integradas à `main` pelos
+PRs #43, #44 e #45. A publicação foi adicionada no PR #47. A avaliação externa
+segue na #33; o [histórico de desenvolvimento](historico-desenvolvimento.md)
+distingue os marcos técnicos das atividades acadêmicas pendentes.
 
 ## Organização da página
 
@@ -17,13 +21,16 @@ A entrega no Figma contém telas estáticas. A aparência de abas, botões e sid
 - Blocos próprios para design system, comparação Beto × Memora e marca
 - Página V1.2 preservada como referência anterior
 
-| Etapa | Referência principal | Estados e conteúdos a implementar |
+| Etapa | Referência principal | Estados e conteúdos implementados |
 |---|---|---|
 | 1 · Configurar | [Tela 1](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14) | Memória principal, bloco, cache, três mapeamentos, vias condicionais, sequência, exemplo pronto, validações inline e bloqueio da execução |
 | 2 · Simular | [Tela 2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-1720) | Antes de iniciar, controles, velocidade, microetapas, conjunto atual, cache com scroll, validade/tag/bloco/LRU, histórico e conclusão |
 | 3 · Analisar | [Tela 3](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473) | Acesso selecionado, snapshots antes/depois, bloco removido/inserido, recência e quatro passos didáticos |
 
-O controle de ritmo da Tela 2 usa o rótulo **Velocidade**, junto à barra de ajuste, em todas as 14 variantes da simulação. A interface não exibe o texto técnico `5 etapas/s`; a reprodução funcional foi implementada na branch da Tela 2, acompanhada na #35.
+O controle de ritmo da Tela 2 usa **Velocidade**, junto à barra de ajuste.
+Na aplicação, o rótulo inclui o valor atual: **Velocidade (5 etapas/segundo)**
+no modo detalhado e **Velocidade (5 acessos/segundo)** no resumido. O valor
+inicial é 5; a reprodução funcional foi integrada no PR #44.
 
 Decimal/Binário altera apenas a apresentação de endereços, tags e blocos. A escolha deve ser preservada ao trocar de tela. A cache usa scroll local; o antigo botão Ver cache completa permanece removido.
 
@@ -51,14 +58,14 @@ automaticamente ao editar os campos; não há botão **Validar parâmetros** nem
 estado de confirmação manual. A prévia acompanha a configuração e a sequência
 válidas, e **Iniciar simulação** revalida a entrada completa antes de avançar.
 Na Sequência, os cartões **Tag, Conjunto/Linha
-e Deslocamento** permanecem junto dos botões **Gerar endereços** e
+e Deslocamento** permanecem junto dos botões **Gerar endereços aleatórios** e
 **Iniciar simulação**: intervalo base de 12 px nas alturas úteis até 800 px
 e 16 px nas maiores, com 8 px nas larguras intermediárias compactas.
 A nota didática fica na parte inferior.
 
-O campo de endereços é editável, porém não é redimensionável:
-**96 px de altura** em desktops de até 800 px de altura útil e
-**120 px** nos maiores; conteúdo extenso rola dentro do campo.
+O campo de endereços é editável, porém não é redimensionável. No desktop,
+ocupa o espaço livre do painel, com mínimo de **72 px**, rolagem interna e
+geometria estável entre entrada vazia, válida e inválida.
 O afastamento base entre rótulo e controle é de **6 px** e entre
 controle e dica é de **8 px**. Os estados inválidos podem usar
 espaçamentos mais compactos para evitar rolagem da página.
@@ -75,7 +82,32 @@ Os **40 cabeçalhos da v2** contêm apenas Glossário e Ajuda rápida;
 o link GitHub permanece exclusivamente dentro da Ajuda rápida.
 A V1.2 conserva a organização histórica. A Tela 1 funcional está
 integrada à `main` pelo [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43);
-Simular está em revisão no PR #44, que inclui a remoção da confirmação manual.
+Simular foi integrado pelo PR #44, incluindo a remoção da confirmação manual.
+
+### Textos de Configurar na versão funcional — 18/10/2026
+
+O botão e o painel usam **Gerar endereços aleatórios**. O painel explica que
+a ação substitui o conteúdo de **Endereços a acessar**, solicita de 1 a 1000
+endereços e informa o intervalo da memória atual. Repetições são possíveis;
+o exemplo didático permanece fixo.
+
+Sob **COMO O ENDEREÇO SERÁ DIVIDIDO**, a descrição acompanha o mapeamento:
+
+| Mapeamento | Descrição |
+|---|---|
+| Direto | Direto: tag \| linha \| deslocamento |
+| Totalmente associativo | Totalmente associativo: tag \| deslocamento |
+| Por conjunto | Por conjunto: tag \| conjunto \| deslocamento |
+
+No totalmente associativo, o cartão central continua indicando **Sem bits de
+conjunto**. As larguras dos demais campos vêm dos parâmetros válidos; a prévia
+identifica o primeiro endereço. A ajuda Mapeamento detalha onde procurar o bloco.
+
+O rodapé identifica a origem no **simulador educacional de memória cache Beto**,
+de Leandro Gabriel e colaboradores. **Como funciona?** explica que o Memora
+aprimora essa ferramenta com validação, explicações e análise. MIT identifica
+a licença do código. Esta seção registra a revisão textual da aplicação;
+as conferências do Figma mantêm as datas indicadas nas respectivas seções.
 
 O comportamento implementado foi verificado em **1280 × 720,
 1366 × 768, 1480 × 742 e 1920 × 1080**, nos três mapeamentos,
@@ -90,7 +122,7 @@ As larguras intermediárias de **801 a 1200 px** mantêm os dois painéis e
 os três campos de memória lado a lado. No cabeçalho de Parâmetros, título e
 Como funciona? ficam na primeira linha; a orientação ocupa a largura abaixo.
 Os intervalos se ajustam à altura útil, preservando Inter, os tamanhos dos
-textos e o textarea fixo de 96/120 px. Até 800 px de largura, os painéis
+textos e a geometria estável do textarea. Até 800 px de largura, os painéis
 continuam empilhados, com fluxo vertical.
 
 A decomposição identifica **Primeiro endereço: …**, em decimal e com
@@ -133,7 +165,7 @@ localmente, com 27 capturas atualizadas no relatório do PR #43.
 
 ### Tela 2 — implementação funcional e referência corrigida (14/10/2026)
 
-A branch `feature/35-tela-2`, baseada na Tela 1 do PR #43, implementa Simular:
+A Tela 2, integrada à `main` pelo PR #44 após o PR #43, implementa Simular:
 três mapeamentos, FIFO/LRU/Random, seis fases por acesso, execução automática,
 pausa/parada/reinício, avanço por fase/acesso, velocidade, cache, contadores,
 histórico completo e Decimal/Binário. A mudança de formato preserva a execução
@@ -142,8 +174,9 @@ simulação antiga e exige preparar outra entrada.
 
 A revisão pelo número do acesso apresenta a cache após aquele acesso, com
 os contadores atuais preservados e essa distinção no subtítulo. O motor
-armazena os snapshots antes/depois para a futura Tela 3, sem reexecutar o
-histórico. A Tela 3 e o botão Analisar permanecem desabilitados nesta entrega.
+armazena os snapshots antes/depois usados pela Tela 3, sem reexecutar o
+histórico. Analisar fica disponível após o primeiro acesso concluído;
+antes disso, a tentativa orienta a iniciar/avançar na própria Tela 2.
 As três ajudas de Simular usam os textos visíveis, com exemplos fixos.
 
 A composição segue a v2 de 1280 × 900, adaptada ao cabeçalho compartilhado
@@ -166,11 +199,14 @@ seguinte, conforme o registro abaixo.
 
 Verificação local: sintaxe de 22 arquivos, **58 testes Node e 67 cenários
 Chromium**, com capturas e limites no [relatório da Tela 2](../packages/memora/docs/verificacao-tela-2.md).
-Não representa integração à `main`, avaliação externa nem resultado de CI remota.
+Esse é o registro da primeira verificação da Tela 2. A revisão final do PR #44
+registrou 68 testes Node e 74 cenários Chromium no
+[relatório de revisão geral](../packages/memora/docs/revisao-pr44.md).
+A integração ocorreu em 14/10; a avaliação externa permanece separada.
 
 ### Tela 3 — análise funcional dos snapshots (14/10/2026)
 
-A branch `feature/35-tela-3`, baseada no PR #44 da Tela 2, implementa a análise
+A Tela 3, integrada à `main` pelo PR #45 após o PR #44, implementa a análise
 do acesso selecionado ou do último concluído. O quadro Antes usa o snapshot
 anterior à atualização; Depois usa o posterior. Sai/Entra e a explicação usam
 os blocos preservados, sem reexecutar o acesso ou sortear novamente a vítima.
@@ -203,8 +239,9 @@ Larguras menores usam fluxo vertical e rolagem local nas tabelas.
 
 Verificação local: sintaxe de **26 arquivos**, **65 testes Node e 89 cenários
 Chromium**; [relatório e 16 capturas](../packages/memora/docs/verificacao-tela-3.md).
-A implementação das três telas está em revisão; integração, avaliação externa
-e publicação permanecem pendentes.
+Esse é o registro inicial da Tela 3. A revisão final documentou **75 testes
+Node e 96 cenários Chromium**. As três telas foram integradas em 14/10 e
+publicadas pelo PR #47; a avaliação externa continua pendente.
 
 ## Sistema visual e componentes
 
@@ -255,7 +292,8 @@ Pelas [WCAG 2.2 — Uso de cor](https://www.w3.org/WAI/WCAG22/Understanding/use-
 
 **Conferência no Figma:** 4.833 nós de texto em Inter e 681 rótulos de ações/abas em Bold (700), sem divergência de família ou peso nesse escopo. A verificação não encontrou textos fora dos controles nem contêineres de ação descentralizados. Foram conferidas visualmente as três telas principais e a variante Decimal/Binário.
 
-A implementação #35 carrega Inter local e aplica `font-weight: 700` às ações e abas das telas Configurar/Simular nas branches em revisão. A Tela 3 também reutiliza essa identidade na branch atual; a avaliação completa permanece pendente.
+A implementação integrada carrega Inter local e aplica `font-weight: 700`
+às ações e abas das três telas. A avaliação externa permanece pendente.
 
 ## Ajuda contextual e microcopy
 
@@ -369,6 +407,8 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 14/10 | Correção de encaixe em larguras intermediárias e endereço de 52 bits; prévia com endereço explícito e campos condicionais sincronizados em 18 telas SDS | #35, #37 e PR #43 |
 | 14/10 | Tela 2 implementada em branch dependente do PR #43; motor, políticas, controles e snapshots; identificação das vias corrigida na seção Simular | #35, #28, #30, #31 e #37 |
 | 14/10 | Tela 3 implementada em branch dependente do PR #44; comparação dos snapshots, quatro ajudas e navegação; vias de Analisar reconciliadas | #35, #28, #30, #31 e #37 |
+| 14/10 | Três telas integradas à `main`; publicação concluída no GitHub Pages à noite, com registro em 15/10 UTC | PRs #43, #44, #45 e #47 |
+| 18/10 | Textos da aplicação explicitam geração aleatória, destino da sequência, divisão conforme o mapeamento e origem no Beto; documentação consolidada | #35, #37 e [histórico](historico-desenvolvimento.md) |
 
 ## Implementação e avaliação
 
@@ -381,6 +421,14 @@ As associações registram decisões do redesign. A inspeção formal com severi
 - #25–#28, #30 e #31 — regras, correções, LRU e regressão
 - #24 — incorporação das decisões e evidências ao artigo
 
-As telas Configurar/Simular/Analisar consomem o motor em `src/core`, mantendo interface e interação em `src/ui`, nas branches ainda em revisão. Trocar de aba ou formato numérico deve preservar o estado; as ajudas devem abrir/fechar por teclado e restaurar o foco. Cada entrega visual deve registrar referência, screenshots e verificações dos estados envolvidos.
+As telas Configurar/Simular/Analisar consomem o motor em `src/core`, mantendo
+interface e interação em `src/ui`, na versão integrada à `main`. Trocar de aba
+ou formato numérico preserva o estado; as ajudas abrem/fecham por teclado e
+restauram o foco. Cada entrega visual registra referências e verificações.
 
-A avaliação do protótipo continua com telas/imagens estáticas, da Tela 1 para a Tela 3, da esquerda para a direita. O Figma é apoio opcional para consultar detalhes; a avaliação da versão funcional pertence à etapa seguinte (#23). As três telas têm implementação e regressão local nas branches em revisão; a integração, a consolidação da avaliação e a atualização do artigo permanecem pendentes nas respectivas issues. A base do pacote e o núcleo de configuração/endereços já estão integrados.
+O material inicial de avaliação do protótipo contém telas/imagens estáticas,
+da Tela 1 para a Tela 3, da esquerda para a direita. O Figma continua como
+referência visual; a aplicação publicada permite avaliar a interação funcional
+na #23. A consolidação da avaliação e a atualização do artigo permanecem
+pendentes nas respectivas issues. Implementação, integração e publicação já
+estão concluídas no escopo das três telas.

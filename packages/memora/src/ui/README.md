@@ -1,9 +1,8 @@
 # Interface Memora
 
 Esta pasta implementa Configurar, Simular e Analisar, conforme a #35, em
-HTML/CSS e módulos ES. A Tela 3 está em `feature/35-tela-3`, baseada no
-PR #44 (Tela 2). A Tela 1 foi integrada pelo PR #43 à `main`, agora base do PR #44.
-A integração das telas 2 e 3 segue em revisão.
+HTML/CSS e módulos ES. As três telas estão integradas à `main` pelos PRs
+#43 (Configurar), #44 (Simular) e #45 (Analisar), desde 14/10/2026.
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
@@ -19,8 +18,10 @@ somente com entrada válida. Aceita `onPrepared`, `onInvalidated`, `random` e um
 `sideSheet` compartilhado. O controlador chama `onInvalidated` ao alterar os
 dados; a integração descarta a simulação antiga até a próxima preparação.
 Parâmetros e sequência são validados a cada edição, sem botão de confirmação
-nem estado `parametersConfirmed`. A geração usa a memória atual e o início
-revalida a entrada completa no núcleo antes de emitir o evento.
+nem estado `parametersConfirmed`. **Gerar endereços aleatórios** usa a memória
+atual e substitui **Endereços a acessar**, com possíveis repetições. O painel
+informa a quantidade permitida, o intervalo de valores e a substituição da
+sequência. O início revalida a entrada completa no núcleo antes de emitir o evento.
 
 Erros ficam junto aos campos, com borda e texto específicos. O resumo global
 é reservado a leitores de tela (`sr-only`, `role=status`, `aria-live=polite`),
@@ -32,6 +33,13 @@ válida; campos de zero bits usam traço. `#preview-label` identifica o endereç
 em decimal e a descrição acessível conserva seu valor completo. Entrada inválida
 mostra Prévia indisponível. Erros extensos têm rolagem local por teclado nas
 larguras intermediárias, conforme o relatório da Tela 1.
+
+`#decomposition-mapping` explicita a divisão conforme o mapeamento selecionado:
+Tag/Linha/Deslocamento no direto, Tag/Conjunto/Deslocamento por conjunto e
+Tag/Deslocamento no totalmente associativo. A descrição é associada aos cartões
+por `aria-describedby` e atualizada com os parâmetros. O rodapé e Como funciona?
+identificam o Memora como aprimoramento do simulador educacional Beto;
+a licença do código permanece MIT.
 
 ## Simular
 

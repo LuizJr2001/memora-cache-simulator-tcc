@@ -106,6 +106,12 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       'Corrija os campos destacados para continuar');
     setText('configuration-symbol', !parameters.ok ? '⚠' : view.canStart || view.preparedInput ? '✓' : '!');
     byId('configuration-symbol').classList.toggle('error-text', !parameters.ok);
+    const mappingDescription = {
+      direct: 'Direto: tag | linha | deslocamento',
+      'fully-associative': 'Totalmente associativo: tag | deslocamento',
+      'set-associative': 'Por conjunto: tag | conjunto | deslocamento',
+    };
+    setText('decomposition-mapping', mappingDescription[raw.mapping] ?? 'Selecione um mapeamento');
     const indexName = raw.mapping === 'direct' ? 'Linha' : 'Conjunto';
     for (const [part, label, width, value] of [
       ['tag', 'Tag', l?.tagBits, preview?.tag],
@@ -147,19 +153,19 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     }
   });
   byId('open-generator').addEventListener('click', () => {
-    sheet.open('Gerar endereços', parent => {
+    sheet.open('Gerar endereços aleatórios', parent => {
       const generator = document.createElement('form');
       generator.noValidate = true;
       generator.className = 'generator-form';
       const hint = document.createElement('p');
-      hint.textContent = `Defina uma quantidade entre 1 e ${number(MAX_ADDRESSES)} para gerar endereços na memória configurada`;
+      hint.textContent = `Defina uma quantidade entre 1 e ${number(MAX_ADDRESSES)}. Os endereços serão sorteados entre 0 e ${number(Number(controller.view().raw.memoryCells) - 1)} e substituirão o conteúdo de Endereços a acessar. Pode haver repetições`;
       const label = document.createElement('label');
       label.htmlFor = 'address-count'; label.textContent = 'Quantidade de endereços';
       const count = document.createElement('input');
       count.id = 'address-count'; count.type = 'text'; count.inputMode = 'numeric'; count.value = String(EXAMPLE_ADDRESSES.length);
       count.setAttribute('aria-describedby', 'generation-feedback');
       const message = document.createElement('p'); message.id = 'generation-feedback'; message.className = 'field-feedback'; message.setAttribute('role', 'status');
-      const submit = document.createElement('button'); submit.type = 'submit'; submit.textContent = 'Gerar endereços';
+      const submit = document.createElement('button'); submit.type = 'submit'; submit.textContent = 'Gerar endereços aleatórios';
       generator.append(hint, label, count, message, submit);
       generator.addEventListener('submit', event => {
         event.preventDefault();
@@ -169,7 +175,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
           count.setAttribute('aria-invalid', 'true'); count.focus(); return;
         }
         sequenceEdited = true; render(); sheet.close();
-        setText('action-status', `${result.view.addresses.addresses.length} endereços gerados`);
+        setText('action-status', `${result.view.addresses.addresses.length} endereços aleatórios inseridos em Endereços a acessar`);
       });
       parent.append(generator);
     });
