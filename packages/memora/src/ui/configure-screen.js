@@ -107,9 +107,9 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     setText('configuration-symbol', !parameters.ok ? '⚠' : view.canStart || view.preparedInput ? '✓' : '!');
     byId('configuration-symbol').classList.toggle('error-text', !parameters.ok);
     const mappingDescription = {
-      direct: 'Direto: tag | linha | deslocamento',
-      'fully-associative': 'Totalmente associativo: tag | deslocamento',
-      'set-associative': 'Por conjunto: tag | conjunto | deslocamento',
+      direct: 'Mapeamento direto',
+      'fully-associative': 'Mapeamento totalmente associativo',
+      'set-associative': 'Mapeamento por conjunto',
     };
     setText('decomposition-mapping', mappingDescription[raw.mapping] ?? 'Selecione um mapeamento');
     const indexName = raw.mapping === 'direct' ? 'Linha' : 'Conjunto';

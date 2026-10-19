@@ -92,7 +92,10 @@
         <section class="panel sequence-panel" aria-labelledby="sequence-heading">
           <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe por vírgula, espaço ou quebra de linha</p></div></div>
           <div class="field sequence-field">
-            <div class="field-heading"><label for="sequence">Endereços a acessar</label><button class="help-button" type="button" data-help="sequence" aria-label="Ajuda: Endereços a acessar">?</button></div>
+            <div class="field-heading sequence-field-heading">
+              <label for="sequence">Endereços a acessar</label>
+              <div class="sequence-field-actions"><button class="compact" type="button" id="open-generator">Gerar endereços aleatórios</button><button class="help-button" type="button" data-help="sequence" aria-label="Ajuda: Endereços a acessar">?</button></div>
+            </div>
             <textarea id="sequence" name="sequence" rows="4" aria-describedby="sequence-feedback" spellcheck="false" placeholder="Ex.: 0, 1, 16, 17, 32, 33"></textarea>
             <div class="field-feedback" id="sequence-feedback"></div>
           </div>
@@ -103,10 +106,12 @@
           <div class="sequence-bottom">
             <section class="decomposition" aria-labelledby="decomposition-heading">
               <div class="decomposition-heading">
-                <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
+                <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO</h3>
+              </div>
+              <div class="decomposition-context">
+                <p id="decomposition-mapping" class="decomposition-mapping" aria-live="polite"></p>
                 <p id="preview-label" aria-hidden="true"></p>
               </div>
-              <p id="decomposition-mapping" class="decomposition-mapping" aria-live="polite"></p>
               <p class="sr-only" id="preview-address"></p>
               <div class="decomposition-grid" aria-describedby="decomposition-mapping preview-address">
                 <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
@@ -114,7 +119,7 @@
                 <div class="information-card"><output id="offset-value" aria-labelledby="offset-label">—</output><span id="offset-label">Deslocamento indisponível</span></div>
               </div>
             </section>
-            <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços aleatórios</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
+            <div class="sequence-actions"><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
             <div class="information-note"><span class="ring-symbol" aria-hidden="true"><img id="note-ring" src="./src/assets/information-ring.svg" alt=""><span id="note-symbol">i</span></span><p id="note-text">As interrogações abrem ajuda contextual sem tirar você desta etapa</p></div>
           </div>
           <p class="sr-only" id="action-status" role="status" aria-live="polite"></p>

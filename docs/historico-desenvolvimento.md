@@ -33,6 +33,7 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
 | 14/10 | Analisar integrado à `main` | [PR #45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45): Antes/Depois, Sai/Entra, quatro passos didáticos, acerto/via livre/substituição e conclusão das 18 ajudas |
 | 14/10 à noite | Publicação no GitHub Pages | [PR #47](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/47) e [execução concluída com sucesso](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38663768957); em UTC, o registro da publicação é de **15/10**, entre 01h06 e 01h13 |
 | 18/10 | Revisão dos textos de Configurar e da documentação | Geração identificada como aleatória, destino da sequência explícito, divisão por mapeamento e apresentação da origem no simulador educacional Beto |
+| 18/10 | Refinamento do título e das ações da sequência | Título completo da divisão de acordo com o mapeamento; geração à esquerda da interrogação de Endereços a acessar; Iniciar simulação centralizado. [Relatório](../packages/memora/docs/verificacao-acoes-enderecos.md) |
 
 ## Comportamentos consolidados
 

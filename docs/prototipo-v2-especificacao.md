@@ -57,9 +57,10 @@ memória cache, com o último grupo próximo à borda inferior. A validação ac
 automaticamente ao editar os campos; não há botão **Validar parâmetros** nem
 estado de confirmação manual. A prévia acompanha a configuração e a sequência
 válidas, e **Iniciar simulação** revalida a entrada completa antes de avançar.
-Na Sequência, os cartões **Tag, Conjunto/Linha
-e Deslocamento** permanecem junto dos botões **Gerar endereços aleatórios** e
-**Iniciar simulação**: intervalo base de 12 px nas alturas úteis até 800 px
+Na Sequência, **Gerar endereços aleatórios** fica no cabeçalho de
+**Endereços a acessar**, imediatamente à esquerda da interrogação. Os cartões
+**Tag, Conjunto/Linha e Deslocamento** permanecem próximos de **Iniciar
+simulação**, centralizado horizontalmente no painel: intervalo base de 12 px nas alturas úteis até 800 px
 e 16 px nas maiores, com 8 px nas larguras intermediárias compactas.
 A nota didática fica na parte inferior.
 
@@ -91,13 +92,15 @@ a ação substitui o conteúdo de **Endereços a acessar**, solicita de 1 a 1000
 endereços e informa o intervalo da memória atual. Repetições são possíveis;
 o exemplo didático permanece fixo.
 
-Sob **COMO O ENDEREÇO SERÁ DIVIDIDO**, a descrição acompanha o mapeamento:
+O título completo é **COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO**.
+A linha abaixo identifica o mapeamento atual e o primeiro endereço da sequência;
+os cartões apresentam sua divisão:
 
-| Mapeamento | Descrição |
+| Mapeamento | Cartões |
 |---|---|
-| Direto | Direto: tag \| linha \| deslocamento |
-| Totalmente associativo | Totalmente associativo: tag \| deslocamento |
-| Por conjunto | Por conjunto: tag \| conjunto \| deslocamento |
+| Direto | Tag · Linha · Deslocamento |
+| Totalmente associativo | Tag · Deslocamento; cartão central sem bits de conjunto |
+| Por conjunto | Tag · Conjunto · Deslocamento |
 
 No totalmente associativo, o cartão central continua indicando **Sem bits de
 conjunto**. As larguras dos demais campos vêm dos parâmetros válidos; a prévia
@@ -409,6 +412,7 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 14/10 | Tela 3 implementada em branch dependente do PR #44; comparação dos snapshots, quatro ajudas e navegação; vias de Analisar reconciliadas | #35, #28, #30, #31 e #37 |
 | 14/10 | Três telas integradas à `main`; publicação concluída no GitHub Pages à noite, com registro em 15/10 UTC | PRs #43, #44, #45 e #47 |
 | 18/10 | Textos da aplicação explicitam geração aleatória, destino da sequência, divisão conforme o mapeamento e origem no Beto; documentação consolidada | #35, #37 e [histórico](historico-desenvolvimento.md) |
+| 18/10 | Título completo da divisão; geração junto ao campo de endereços, à esquerda da ajuda; Iniciar simulação centralizado | [Relatório do refinamento](../packages/memora/docs/verificacao-acoes-enderecos.md) |
 
 ## Implementação e avaliação
 
