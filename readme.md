@@ -35,14 +35,15 @@ As principais frentes do trabalho são:
 
 | Etapa | O que está implementado |
 |---|---|
-| **Configurar** | Três mapeamentos, vias e substituição condicionais, validação ao editar, sequência manual, geração aleatória e exemplo didático de 21 endereços. A prévia identifica o primeiro endereço e sua divisão conforme o mapeamento. |
+| **Configurar** | Três mapeamentos, vias e substituição condicionais, validação ao editar, sequência manual, geração aleatória e exemplo didático de 21 endereços. A prévia calcula a divisão a partir do primeiro endereço, sem exibir um rótulo adicional para ele. |
 | **Simular** | Direto, totalmente associativo e por conjunto; FIFO, LRU e Random; seis etapas por acesso ou avanço resumido; início, pausa, parada e reinício; velocidade inicial 5; estatísticas, cache com linhas vazias/células e histórico revisável. |
 | **Analisar** | Snapshots antes/depois, blocos Sai/Entra e quatro passos que explicam acerto, carga em via livre ou substituição, com o critério de cada política. Revisão sem executar novamente o acesso. |
 | **Recursos compartilhados** | Decimal/Binário em Simular/Analisar, navegação com preservação do estado, 18 ajudas contextuais, Glossário, Ajuda rápida, teclado/foco e layout responsivo. |
 
 **Gerar endereços aleatórios** preenche o campo **Endereços a acessar**,
 substituindo a sequência atual. O botão fica junto ao rótulo desse campo,
-à esquerda da ajuda; **Iniciar simulação** fica centralizado abaixo da prévia.
+com 16 px de distância da ajuda; **Iniciar simulação** ocupa a largura disponível
+abaixo da prévia, com o texto centralizado.
 A quantidade pode variar de 1 a 1000; cada valor
 é sorteado entre 0 e total de células − 1, com possíveis repetições. O exemplo didático é fixo;
 a geração aleatória não garante acertos ou substituições específicos.

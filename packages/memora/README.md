@@ -111,12 +111,13 @@ o intervalo atual e essa substituição antes da geração. O exemplo didático
 permanece uma sequência fixa independente da geração aleatória.
 
 Em **COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO**, a linha de
-contexto identifica o mapeamento selecionado e o primeiro endereço. Os cartões
+contexto identifica o mapeamento selecionado, sem o rótulo Primeiro endereço. Os cartões
 apresentam sua divisão: direto usa Tag/Linha/Deslocamento; por conjunto usa Tag/Conjunto/Deslocamento;
 totalmente associativo usa Tag/Deslocamento, sem bits de conjunto. Os cartões
 calculam as larguras a partir dos parâmetros e usam o primeiro endereço válido.
-**Iniciar simulação** fica centralizado abaixo da prévia, com largura máxima
-de 364 px e adaptação à largura disponível nas telas menores.
+**Iniciar simulação** ocupa toda a largura disponível abaixo da prévia,
+alinhado às bordas do campo de endereços, com o texto centralizado.
+O gerador mantém 16 px de distância da interrogação.
 
 `mountConfigureScreen(document, { onPrepared, random })` em `src/ui/configure-screen.js`
 integra o formulário ao núcleo. `onPrepared(input)` e o evento DOM
