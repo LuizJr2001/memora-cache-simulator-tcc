@@ -138,6 +138,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .decomposition { margin-top: 28px; }
 .decomposition-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: 12px; row-gap: 4px; }
 #preview-label { font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); overflow-wrap: anywhere; }
+.decomposition-mapping { margin-top: 4px; font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); }
 .decomposition-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
 .information-card { min-height: 74px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); text-align: center; padding: 12px 10px 10px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
 .information-card output { font-size: 15px; font-weight: 600; line-height: 20px; overflow-wrap: anywhere; }
@@ -529,4 +530,9 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
     overflow-y: auto;
   }
   .sequence-panel .sequence-bottom { margin-top: 0; }
+}
+
+/* A explicação do mapeamento e o rótulo de geração cabem no desktop estreito. */
+@media (min-width: 801px) and (max-width: 1050px) and (max-height: 850px) {
+  .sequence-panel .configuration-summary { margin-bottom: 4px; }
 }

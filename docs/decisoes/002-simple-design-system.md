@@ -4,7 +4,7 @@
 **Data da adoção:** 25/09/2026  
 **Regras vigentes atualizadas:** 14/10/2026
 
-**Escopo:** protótipo visual, componentes de interface e futura implementação
+**Escopo:** protótipo visual, componentes de interface e implementação funcional
 
 ## Contexto
 

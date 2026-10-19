@@ -93,7 +93,7 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
-nativo do Node. Na branch `feature/35-tela-3`, são **75 testes Node** de
+nativo do Node. A versão integrada contém **75 testes Node** de
 configuração/entradas, controladores, execução, políticas, estatísticas e
 snapshots, explicações e apresentação da cache. A interface tem **96 cenários Chromium**, executados separadamente:
 
@@ -110,6 +110,9 @@ Configurar, Simular e Analisar. Registre resultados locais separadamente da CI.
 As [APIs e limites](packages/memora/src/core/README.md) orientam a integração.
 Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendidos.
 Quando uma tela depender de um PR aberto, indique a dependência e use esse PR
-como base temporária. As Telas 1 e 2 foram integradas pelos PRs #43 e #44.
-O PR #45 da Tela 3 usa `main` como base e incorpora os refinamentos finais
-da simulação. Os arquivos executáveis do Beto continuam preservados.
+como base temporária. As três telas foram integradas à `main` pelos PRs #43,
+#44 e #45 em 14/10/2026; novas alterações devem partir da `main` atualizada.
+O PR #47 adicionou build e publicação no GitHub Pages. Inclua `npm run build`
+na verificação de alterações que afetem a aplicação publicada. O
+[histórico](docs/historico-desenvolvimento.md) distingue implementação,
+integração, publicação e avaliação. Os arquivos executáveis do Beto continuam preservados.

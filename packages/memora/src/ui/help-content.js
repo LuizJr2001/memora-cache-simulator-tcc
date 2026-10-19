@@ -1,4 +1,4 @@
-// Textos visíveis da página v2 do Figma, conferidos em 12/10/2026
+// Textos da v2 do Figma; esclarecimentos de Configurar e origem em 18/10/2026
 // Descrição explica a regra; o exemplo é fixo e não usa a configuração atual
 export const HELP_CONTENT = {
   "analysis-decision": {
@@ -69,7 +69,7 @@ export const HELP_CONTENT = {
     "title": "Mapeamento",
     "node": "311:792",
     "body": [
-      "Escolha onde cada bloco poderá ser armazenado na cache\n\nDireto: uma única linha possível\nTotalmente associativo: qualquer linha\nPor conjunto: qualquer via do conjunto correspondente",
+      "O mapeamento define onde procurar o bloco e como dividir o endereço\n\nDireto: tag | linha | deslocamento; uma única linha possível\nTotalmente associativo: tag | deslocamento; qualquer linha, sem bits de conjunto\nPor conjunto: tag | conjunto | deslocamento; qualquer via do conjunto correspondente",
       "No exemplo por conjunto, o bloco 190 só pode ocupar uma das 2 vias do conjunto 14"
     ]
   },
@@ -93,7 +93,7 @@ export const HELP_CONTENT = {
     "title": "Endereços a acessar",
     "node": "311:1197",
     "body": [
-      "Informe a sequência de endereços que você quer simular\n\nUse inteiros de 0 a total de células − 1. Corrija valores negativos, textos, campos vazios e endereços fora do intervalo antes de iniciar",
+      "Informe a sequência de endereços que você quer simular ou use Gerar endereços aleatórios para preencher Endereços a acessar\n\nA geração substitui a sequência atual e pode repetir endereços. Use inteiros de 0 a total de células − 1; corrija entradas inválidas antes de iniciar",
       "A sequência fixa do exemplo tem 21 endereços entre 0 e 4095 e reproduz uma substituição LRU"
     ]
   },
@@ -101,7 +101,7 @@ export const HELP_CONTENT = {
     "title": "Como funciona?",
     "node": "311:7771",
     "body": [
-      "Em cada acesso, o endereço é dividido para buscar o bloco na cache\n\nACERTO: o bloco é encontrado em uma linha válida\nFALTA: o bloco precisa ser carregado; com o conjunto cheio, uma linha é substituída",
+      "O Memora aprimora o Beto, simulador educacional de memória cache de Leandro Gabriel e colaboradores, com validação, explicações e análise dos acessos\n\nEm cada acesso, o endereço é dividido conforme o mapeamento\n\nACERTO: o bloco é encontrado em uma linha válida\nFALTA: o bloco precisa ser carregado; com o conjunto cheio, uma linha é substituída",
       "Memória: 4096 células de 1 byte e blocos de 16 células\nCache: mapeamento por conjunto, 32 linhas, 2 vias e LRU\nEndereço: 12 bits — 4 de tag, 4 de conjunto e 4 de deslocamento"
     ]
   },

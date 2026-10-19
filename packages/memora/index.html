@@ -106,14 +106,15 @@
                 <h3 id="decomposition-heading">COMO O ENDEREÇO SERÁ DIVIDIDO</h3>
                 <p id="preview-label" aria-hidden="true"></p>
               </div>
+              <p id="decomposition-mapping" class="decomposition-mapping" aria-live="polite"></p>
               <p class="sr-only" id="preview-address"></p>
-              <div class="decomposition-grid" aria-describedby="preview-address">
+              <div class="decomposition-grid" aria-describedby="decomposition-mapping preview-address">
                 <div class="information-card"><output id="tag-value" aria-labelledby="tag-label">—</output><span id="tag-label">Tag indisponível</span></div>
                 <div class="information-card"><output id="index-value" aria-labelledby="index-label">—</output><span id="index-label">Conjunto indisponível</span></div>
                 <div class="information-card"><output id="offset-value" aria-labelledby="offset-label">—</output><span id="offset-label">Deslocamento indisponível</span></div>
               </div>
             </section>
-            <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
+            <div class="sequence-actions"><button type="button" id="open-generator">Gerar endereços aleatórios</button><button type="submit" id="prepare-input" disabled>Iniciar simulação</button></div>
             <div class="information-note"><span class="ring-symbol" aria-hidden="true"><img id="note-ring" src="./src/assets/information-ring.svg" alt=""><span id="note-symbol">i</span></span><p id="note-text">As interrogações abrem ajuda contextual sem tirar você desta etapa</p></div>
           </div>
           <p class="sr-only" id="action-status" role="status" aria-live="polite"></p>
@@ -196,7 +197,7 @@
           </div>
         </div>
       </section>
-      <footer class="attribution">Baseado no <a href="https://github.com/leo150250/simuladorCache" target="_blank" rel="noopener noreferrer">Beto, de Leandro Gabriel e colaboradores</a> · Licença MIT</footer>
+      <footer class="attribution">Baseado no <a href="https://github.com/leo150250/simuladorCache" target="_blank" rel="noopener noreferrer">simulador educacional de memória cache Beto</a>, de Leandro Gabriel e colaboradores · Licença MIT</footer>
     </main>
     <dialog id="side-sheet" class="side-sheet" aria-labelledby="sheet-title">
       <div class="sheet-heading"><h2 id="sheet-title"></h2><button type="button" class="close-button" id="close-sheet" aria-label="Fechar ajuda" autofocus>×</button></div>

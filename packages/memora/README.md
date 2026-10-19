@@ -2,7 +2,7 @@
 
 Pacote npm privado `@memora/simulator`, dentro do mesmo repositório do TCC.
 A Tela 1 — Configurar implementa parâmetros, os três mapeamentos, entrada e
-geração de endereços, exemplo didático, decomposição e as 11 ajudas acessíveis
+geração de endereços aleatórios, exemplo didático, decomposição e as 11 ajudas acessíveis
 por esta etapa. A interface usa as APIs de configuração/endereços do PR #41.
 Iniciar simulação prepara uma entrada válida e abre a **Tela 2 — Simular**, em
 estado inicial, sem executar acessos automaticamente. A Tela 2 implementa os
@@ -11,9 +11,11 @@ snapshot e Decimal/Binário. A **Tela 3 — Analisar** compara snapshots reais
 antes/depois, explica a decisão, mostra Sai/Entra e quatro passos didáticos,
 com casos de acerto, linha livre e substituição e suas quatro ajudas.
 
-As Telas 1 e 2 foram integradas à `main` pelos PRs #43 e #44. A Tela 3 está
-na branch `feature/35-tela-3`, no PR #45 com base em `main`, incorporando
-os ajustes finais da simulação.
+As três telas foram integradas à `main` pelos PRs #43, #44 e #45 em 14/10/2026.
+O PR #47 acrescentou a publicação no
+[GitHub Pages](https://luizjr2001.github.io/memora-cache-simulator-tcc/).
+Datas, evidências e pendências estão no
+[histórico de desenvolvimento](../../docs/historico-desenvolvimento.md).
 
 ## Executar
 
@@ -61,7 +63,7 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A branch `feature/35-tela-3` executa **96 cenários Chromium**: 45 Configurar,
+A versão integrada contém **96 cenários Chromium**: 45 Configurar,
 29 Simular e 22 Analisar. A regressão da Tela 1 inclui
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
@@ -100,6 +102,17 @@ A sequência está limitada a 1000 endereços e 18000 caracteres; a interface de
 consumir esses limites e apresentar os erros próximos aos campos.
 
 ## Fluxo entre Configurar e Simular
+
+**Gerar endereços aleatórios** abre um painel que solicita de 1 a 1000
+endereços. A ação sorteia valores entre 0 e total de células − 1, pode repetir
+endereços e substitui o conteúdo de **Endereços a acessar**. O painel explicita
+o intervalo atual e essa substituição antes da geração. O exemplo didático
+permanece uma sequência fixa independente da geração aleatória.
+
+Em **COMO O ENDEREÇO SERÁ DIVIDIDO**, a prévia informa o mapeamento selecionado:
+direto usa Tag/Linha/Deslocamento; por conjunto usa Tag/Conjunto/Deslocamento;
+totalmente associativo usa Tag/Deslocamento, sem bits de conjunto. Os cartões
+calculam as larguras a partir dos parâmetros e usam o primeiro endereço válido.
 
 `mountConfigureScreen(document, { onPrepared, random })` em `src/ui/configure-screen.js`
 integra o formulário ao núcleo. `onPrepared(input)` e o evento DOM
@@ -165,10 +178,10 @@ registra a revisão atual com **75 testes Node e 96 cenários Chromium**, além 
 
 
 A [Tela 2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-1720)
-e suas variantes guiam a nova entrega. O [relatório da Tela 2](docs/verificacao-tela-2.md)
+e suas variantes orientam a interface. O [relatório da Tela 2](docs/verificacao-tela-2.md)
 registra resultados, capturas e a correção dos números de via no exemplo estático.
 A [revisão geral do PR #44](docs/revisao-pr44.md) registra a verificação local
-atual de 14/10: **68 testes Node e 74 cenários Chromium** aprovados, incluindo
+daquela entrega em 14/10: **68 testes Node e 74 cenários Chromium** aprovados, incluindo
 as duas telas. Esses resultados não substituem a avaliação externa.
 
 
@@ -211,7 +224,8 @@ A avaliação #33 permanece em paralelo.
 
 ## Origem
 
-O simulador original é o [Beto, de Leandro Gabriel e colaboradores](https://github.com/leo150250/simuladorCache).
+O Memora é baseado no [Beto, simulador educacional de memória cache de Leandro Gabriel e colaboradores](https://github.com/leo150250/simuladorCache).
+O rodapé e a ajuda Como funciona? explicitam essa origem. MIT identifica a licença do código.
 O código do legado permanece em `docs/`. A extração e adaptação do motor deve
 preservar essa atribuição e a [licença MIT do repositório](../../LICENSE).
 

@@ -1,6 +1,8 @@
 # Memora — Simulador Educacional de Memória Cache
 
-O **Memora** é o projeto de avaliação e aprimoramento de um simulador educacional de memória cache, gratuito e de código aberto, para apoiar disciplinas de Arquitetura e Organização de Computadores. A nova interface está prototipada no Figma e sua implementação funcional está em andamento.
+O **Memora** é um simulador educacional de memória cache, gratuito e de código aberto, baseado no **Beto**, de Leandro Gabriel e colaboradores. Apoia disciplinas de Arquitetura e Organização de Computadores com configuração validada, execução passo a passo e análise das decisões da cache.
+
+**[Abrir o Memora](https://luizjr2001.github.io/memora-cache-simulator-tcc/)** · As três telas — Configurar, Simular e Analisar — estão implementadas e integradas à `main`. A avaliação externa e a atualização do artigo continuam em andamento.
 
 O Memora é a nova identidade do projeto de avaliação e aprimoramento do simulador **Beto**, preservando sua origem acadêmica e seu legado técnico, mas distinguindo a proposta revisada do sistema original.
 
@@ -18,7 +20,7 @@ A decisão está detalhada em [docs/decisoes/001-nome-memora.md](docs/decisoes/0
 
 O trabalho não propõe reconstruir o sistema legado do zero. Seu objetivo é avaliar a ferramenta existente, identificar lacunas técnicas e de Interação Humano-Computador (IHC), priorizar requisitos e implementar melhorias que tornem a simulação mais robusta, clara e útil para estudantes.
 
-As principais frentes previstas são:
+As principais frentes do trabalho são:
 
 - validar configurações e apresentar mensagens de erro didáticas;
 - melhorar a organização visual e corrigir desalinhamentos da interface;
@@ -28,6 +30,31 @@ As principais frentes previstas são:
 - manter operações de leitura/escrita, políticas de escrita e *dirty bit* como trabalho futuro, fora do escopo essencial (#32);
 - oferecer estatísticas, exportação de resultados e comparação entre configurações, conforme a viabilidade técnica;
 - avaliar a usabilidade e a experiência de uso por inspeção heurística e levantamento de requisitos com estudantes.
+
+## Funcionalidades do Memora
+
+| Etapa | O que está implementado |
+|---|---|
+| **Configurar** | Três mapeamentos, vias e substituição condicionais, validação ao editar, sequência manual, geração aleatória e exemplo didático de 21 endereços. A prévia identifica o primeiro endereço e sua divisão conforme o mapeamento. |
+| **Simular** | Direto, totalmente associativo e por conjunto; FIFO, LRU e Random; seis etapas por acesso ou avanço resumido; início, pausa, parada e reinício; velocidade inicial 5; estatísticas, cache com linhas vazias/células e histórico revisável. |
+| **Analisar** | Snapshots antes/depois, blocos Sai/Entra e quatro passos que explicam acerto, carga em via livre ou substituição, com o critério de cada política. Revisão sem executar novamente o acesso. |
+| **Recursos compartilhados** | Decimal/Binário em Simular/Analisar, navegação com preservação do estado, 18 ajudas contextuais, Glossário, Ajuda rápida, teclado/foco e layout responsivo. |
+
+**Gerar endereços aleatórios** preenche o campo **Endereços a acessar**,
+substituindo a sequência atual. A quantidade pode variar de 1 a 1000; cada valor
+é sorteado entre 0 e total de células − 1, com possíveis repetições. O exemplo didático é fixo;
+a geração aleatória não garante acertos ou substituições específicos.
+
+| Mapeamento | Como o endereço será dividido |
+|---|---|
+| Direto | Tag · Linha · Deslocamento |
+| Totalmente associativo | Tag · Deslocamento; sem bits de conjunto |
+| Por conjunto | Tag · Conjunto · Deslocamento |
+
+A quantidade de bits depende dos parâmetros; campos de zero bits são
+identificados na prévia. O exemplo completo termina em **21 acessos, 12 acertos,
+9 faltas e 57,1% de acerto**. No acesso 20, LRU substitui **992–1007 por
+3040–3055**, na **via 1 do conjunto 14**.
 
 ## Funcionalidades do legado disponível
 
@@ -68,9 +95,11 @@ inicial, conferência local e diagnóstico.
 | Protótipo | Telas Configurar, Simular e Analisar, variantes e 18 side sheets na v2 |
 | UX | Abas de navegador, botões em pílula, campos de cantos retos, balões azuis, linguagem direta e textos reduzidos; revisão na [#37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37) |
 | Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
-| Avaliação | Retorno da orientação e dos estudantes em consolidação na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); imagens estáticas e Figma como apoio |
+| Avaliação | Retorno da orientação em consolidação e avaliação com estudantes pendente na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); Figma e imagens são referências do protótipo, e a versão funcional está disponível online |
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
-| Implementação | Núcleo integrado no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41) e **Configurar integrado no [PR #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43)**. **Tela 2 — Simular integrada no [PR #44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44)**, com execução real, FIFO/LRU/Random, controles, snapshots, histórico, etapas detalhadas e células da cache. A revisão geral de 14/10 aprovou 68 testes Node e 74 cenários Chromium. Analisar (Tela 3) está em revisão no [PR #45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45), com snapshots antes/depois, Sai/Entra e decisões didáticas. Avaliação externa permanece na #33. |
+| Implementação | Núcleo no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); Configurar, Simular e Analisar integrados à `main` pelos [PRs #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43), [#44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44) e [#45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45) em 14/10/2026 |
+| Verificação técnica | Entrega integrada documentada com 75 testes Node e 96 cenários Chromium; [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md). Resultados técnicos não substituem a avaliação externa |
+| Publicação | GitHub Pages configurado no [PR #47](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/47), com atualização automática na `main` e sintaxe/testes/build antes do deploy |
 
 A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
 
@@ -80,23 +109,28 @@ e os campos condicionais foram sincronizados nas 18 representações SDS do Figm
 O [relatório da Tela 1](packages/memora/docs/verificacao-tela-1.md) registra a
 regressão e as 27 capturas, incluindo erros com rolagem local por teclado.
 
-A elaboração inicial terminou em 23/09, após demandar mais tempo que o previsto. O desenvolvimento segue em paralelo à avaliação, conforme a [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22). A implementação, a avaliação completa e a atualização do artigo permanecem como entregas a concluir.
+A elaboração inicial terminou em 23/09, após demandar mais tempo que o previsto.
+O desenvolvimento seguiu em paralelo à avaliação, conforme a [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22).
+O [histórico de desenvolvimento](docs/historico-desenvolvimento.md) reúne datas,
+decisões, PRs e pendências até 18/10/2026. A avaliação completa e a atualização
+do artigo permanecem como entregas a concluir.
 
 ## Base de desenvolvimento do pacote
 
 O pacote privado `@memora/simulator` fica em `packages/memora`, no mesmo repositório. A base foi integrada pelo PR #36. O núcleo já valida parâmetros e sequências, calcula a decomposição e gera endereços dentro de limites documentados. A Tela 1 foi integrada à `main` pelo PR #43, incluindo
 os três mapeamentos, validação inline, decomposição didática, endereços,
-ajudas, prévia e preparação de entrada imutável; **não executa a simulação**.
+ajudas, prévia e preparação de entrada imutável; a preparação abre Simular
+sem processar um acesso automaticamente.
 Parâmetros e sequência são validados automaticamente ao editar os campos,
 sem ação manual de confirmação; Iniciar simulação revalida a entrada completa.
 O layout fluido e os refinamentos dos estados inválidos estão descritos
 no [README do pacote](packages/memora/README.md) e no
 [relatório de verificação da Tela 1](packages/memora/docs/verificacao-tela-1.md).
-A branch `feature/35-tela-2` conecta essa entrada à execução real, com controles,
+A Tela 2 conecta essa entrada à execução real, com controles,
 cache, LRU, histórico e revisão por snapshots, preservando o Beto em `docs/`.
 O [relatório da Tela 2](packages/memora/docs/verificacao-tela-2.md) registra a
 verificação e a correção dos números de via no cenário estático do Figma.
-A branch `feature/35-tela-3` acrescenta Analisar: comparação antes/depois,
+A Tela 3 acrescenta Analisar: comparação antes/depois,
 blocos Sai/Entra, quatro passos didáticos, acerto/linha livre/substituição e
 quatro ajudas. O [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md)
 registra a regressão e a sincronização das vias no Figma. O motor foi preservado.
@@ -106,22 +140,20 @@ Use Node.js 22 ou superior e npm:
 ```bash
 git fetch origin
 git switch main
+git pull --ff-only origin main
 npm ci
 npm run dev
 ```
 
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
-Para conferir os ajustes ainda não integrados à `main`, atualize a branch
-`feature/35-tela-3` (`git switch feature/35-tela-3` e
-`git pull origin feature/35-tela-3`) antes de iniciar o servidor.
 Carregue o exemplo na Tela 1 e use **Iniciar simulação** para abrir Simular.
-Os PRs #43 e #44 foram integrados. O PR #45 da Tela 3 aponta para `main`.
+As três telas estão na `main`; não é necessário usar as antigas branches de implementação.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
 `npm test` executa **75 testes Node**, incluindo execução, controladores, apresentação e análise,
 e `npm run test:ui --workspace @memora/simulator` executa **96 cenários Chromium**
-na branch da Tela 3. Instale antes o navegador com `npx playwright install chromium`.
+na versão integrada. Instale antes o navegador com `npx playwright install chromium`.
 A [revisão geral do PR #44](packages/memora/docs/revisao-pr44.md) registra o fluxo verificado, as correções finais e capturas atuais.
 A [verificação da Tela 3](packages/memora/docs/verificacao-tela-3.md) registra sua regressão e integração com a Tela 2. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
 

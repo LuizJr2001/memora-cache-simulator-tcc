@@ -3,9 +3,22 @@
 Data: 30/09/2026. Origem: preferência do autor por um novo pacote.
 Issues: #34 (base), #35 (interface), #25–#28, #30 e #31 (regras e testes).
 
+## Estado consolidado — 18/10/2026
+
+A decisão está aplicada: base e núcleo integrados nos PRs #36/#41, três telas
+integradas à `main` nos PRs #43/#44/#45 e publicação estática no GitHub Pages
+adicionada pelo PR #47. `src/core` contém as regras sem DOM; `src/ui` consome
+snapshots reais, com estado, relógio e navegação próprios. Estilos SDS e assets
+locais são compartilhados. O [histórico](../historico-desenvolvimento.md) reúne
+datas, evidências e pendências acadêmicas.
+
+As seções Contexto, Primeira entrega, Sequência de trabalho e Progresso abaixo
+preservam o registro da decisão e das entregas intermediárias. Seus estados de
+revisão e próximos passos pertencem àquele momento.
+
 ## Contexto
 
-O código executável atual fica em `docs/index.html`, `docs/scripts.js` e
+Na origem desta decisão, o código executável ficava em `docs/index.html`, `docs/scripts.js` e
 `docs/style.css`. Na base do Beto não havia pacote npm, framework ou suíte automatizada.
 `scripts.js` mistura regras da cache, estado global, temporizadores e criação de
 elementos HTML. A especificação v2 descreve a nova interface, ainda em avaliação.
@@ -117,12 +130,12 @@ a avaliação com participantes e a publicação permanecem como próximos passo
 
 Seguir `CONTRIBUTING.md` e `WORKFLOW.md`: uma ou duas issues em andamento,
 branches curtas a partir de `main`, commits convencionais, PR por entrega e
-verificação dos critérios antes de integrar. Exemplo da próxima branch:
+verificação dos critérios antes de integrar. Exemplo de branch para uma nova melhoria:
 
 ```bash
 git switch main
 git pull origin main
-git switch -c feature/25-validacao-configuracao-memora
+git switch -c feature/numero-da-issue-melhoria
 ```
 
 Relacionar cada PR à issue de comportamento e a #35 quando incluir uma tela.
@@ -132,11 +145,12 @@ PRs visuais, e resultados esperados/reais nos PRs do motor.
 
 ## Publicação e atribuição
 
-O servidor local mostra Memora em `/` e o Beto em `/legado/`. A configuração de
-GitHub Pages e os arquivos executáveis de `docs/` não são alterados nesta base.
-O pacote fora de `docs/` não é automaticamente publicado pelo Pages atual.
-Decidir o caminho de build/publicação somente quando houver uma versão
-funcional testada; o link local de comparação não define uma rota de produção.
+O servidor local mostra Memora em `/` e o Beto em `/legado/`. A primeira entrega
+da base preservou a publicação anterior. Após as três telas funcionais, o
+PR #47 introduziu `npm run build`, que prepara `_site/`, e um workflow que
+verifica e publica a `main` no GitHub Pages. O pacote inclui aplicação e
+licenças; o Beto e `docs/CNAME` ficam fora da publicação. Consulte o
+[guia de publicação](../publicacao-github-pages.md).
 
 Manter a licença MIT original, a autoria de Leandro Gabriel e colaboradores e
 a identificação da origem nos módulos adaptados. A versão legada é a base de
