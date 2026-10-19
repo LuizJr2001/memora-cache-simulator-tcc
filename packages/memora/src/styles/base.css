@@ -129,6 +129,9 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .sequence-bottom { display: contents; }
 .sequence-field { margin-top: 24px; }
 .sequence-field .field-heading { margin-bottom: 8px; }
+.sequence-field-heading { flex-wrap: wrap; }
+.sequence-field-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; max-width: 100%; }
+.sequence-field-actions #open-generator { min-height: 28px; padding: 4px; font-size: 12px; line-height: 18px; }
 .sequence-field .field-feedback { margin-top: 8px; }
 .configuration-summary { display: flex; align-items: start; gap: 16px; margin-top: 16px; padding: 14px 18px; min-height: 74px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); }
 /* Centraliza somente o símbolo, sem deslocar o título e a descrição do estado. */
@@ -138,12 +141,14 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .decomposition { margin-top: 28px; }
 .decomposition-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: 12px; row-gap: 4px; }
 #preview-label { font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); overflow-wrap: anywhere; }
-.decomposition-mapping { margin-top: 4px; font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); }
+.decomposition-context { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin-top: 4px; }
+.decomposition-mapping { font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); }
 .decomposition-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
 .information-card { min-height: 74px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); text-align: center; padding: 12px 10px 10px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
 .information-card output { font-size: 15px; font-weight: 600; line-height: 20px; overflow-wrap: anywhere; }
 .information-card span { font-size: 12px; font-weight: 600; line-height: 17px; }
-.sequence-actions { display: grid; grid-template-columns: minmax(0, 220fr) minmax(0, 364fr); gap: 16px; margin-top: 32px; }
+.sequence-actions { display: flex; justify-content: center; margin-top: 32px; }
+.sequence-actions #prepare-input { width: min(100%, 364px); }
 .information-note { display: flex; align-items: center; gap: 12px; margin-top: auto; padding: 10px 12px; min-height: 44px; background: var(--memora-info-background); border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); }
 .sequence-actions + .information-note { margin-top: 32px; }
 .information-note p { font-size: 12px; line-height: 17px; }
@@ -183,7 +188,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .panel { padding: 20px; }
   .panel-heading { flex-wrap: wrap; }
   .decomposition-grid { gap: 8px; }
-  .sequence-actions { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 800px) {
   .configuration-grid { grid-template-columns: minmax(0, 1fr); }
@@ -207,7 +211,6 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .decomposition-grid { gap: 8px; }
   .information-card { padding-inline: 6px; }
   .information-card span { font-size: 11px; }
-  .sequence-actions { grid-template-columns: 1fr; gap: 12px; }
   .side-sheet { padding: 24px 20px; }
 }
 
@@ -535,4 +538,5 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 /* A explicação do mapeamento e o rótulo de geração cabem no desktop estreito. */
 @media (min-width: 801px) and (max-width: 1050px) and (max-height: 850px) {
   .sequence-panel .configuration-summary { margin-bottom: 4px; }
+  .decomposition-context { margin-top: 0; }
 }

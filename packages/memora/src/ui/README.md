@@ -34,12 +34,20 @@ em decimal e a descrição acessível conserva seu valor completo. Entrada invá
 mostra Prévia indisponível. Erros extensos têm rolagem local por teclado nas
 larguras intermediárias, conforme o relatório da Tela 1.
 
-`#decomposition-mapping` explicita a divisão conforme o mapeamento selecionado:
-Tag/Linha/Deslocamento no direto, Tag/Conjunto/Deslocamento por conjunto e
-Tag/Deslocamento no totalmente associativo. A descrição é associada aos cartões
-por `aria-describedby` e atualizada com os parâmetros. O rodapé e Como funciona?
+`#decomposition-mapping` identifica o mapeamento atual. Os cartões mostram Tag/Linha/Deslocamento no
+direto, Tag/Conjunto/Deslocamento por conjunto e Tag/Deslocamento no totalmente
+associativo. O título é COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO.
+A linha de contexto reúne mapeamento e primeiro endereço, com quebra nas telas
+menores. A descrição é associada aos cartões por `aria-describedby` e atualizada
+com os parâmetros. O rodapé e Como funciona?
 identificam o Memora como aprimoramento do simulador educacional Beto;
 a licença do código permanece MIT.
+
+`#open-generator` fica em `.sequence-field-actions`, antes da ajuda do campo
+Endereços a acessar. Os dois controles permanecem alinhados; em telas pequenas,
+o grupo pode ir para a linha abaixo do rótulo. `.sequence-actions` contém apenas
+`#prepare-input`, centralizado e limitado a 364 px. O gerador mantém o mesmo
+listener, a validação e o retorno de foco após fechar o painel.
 
 ## Simular
 

@@ -104,15 +104,19 @@ consumir esses limites e apresentar os erros próximos aos campos.
 ## Fluxo entre Configurar e Simular
 
 **Gerar endereços aleatórios** abre um painel que solicita de 1 a 1000
-endereços. A ação sorteia valores entre 0 e total de células − 1, pode repetir
+endereços. O botão fica ao lado esquerdo da interrogação no cabeçalho de
+**Endereços a acessar**. A ação sorteia valores entre 0 e total de células − 1, pode repetir
 endereços e substitui o conteúdo de **Endereços a acessar**. O painel explicita
 o intervalo atual e essa substituição antes da geração. O exemplo didático
 permanece uma sequência fixa independente da geração aleatória.
 
-Em **COMO O ENDEREÇO SERÁ DIVIDIDO**, a prévia informa o mapeamento selecionado:
-direto usa Tag/Linha/Deslocamento; por conjunto usa Tag/Conjunto/Deslocamento;
+Em **COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO**, a linha de
+contexto identifica o mapeamento selecionado e o primeiro endereço. Os cartões
+apresentam sua divisão: direto usa Tag/Linha/Deslocamento; por conjunto usa Tag/Conjunto/Deslocamento;
 totalmente associativo usa Tag/Deslocamento, sem bits de conjunto. Os cartões
 calculam as larguras a partir dos parâmetros e usam o primeiro endereço válido.
+**Iniciar simulação** fica centralizado abaixo da prévia, com largura máxima
+de 364 px e adaptação à largura disponível nas telas menores.
 
 `mountConfigureScreen(document, { onPrepared, random })` em `src/ui/configure-screen.js`
 integra o formulário ao núcleo. `onPrepared(input)` e o evento DOM
@@ -204,8 +208,9 @@ No desktop, os três campos de memória principal ocupam uma linha. O layout
 memória principal e cache se distribuem no painel esquerdo, sem botão de
 confirmação: parâmetros e sequência são validados automaticamente ao editar,
 a prévia se atualiza com entrada válida e **Iniciar simulação** revalida tudo
-antes de avançar. No direito, os cartões Tag/Conjunto/Deslocamento ficam próximos dos botões de
-ação (10 px em desktop baixo, 16 px em desktop alto). O textarea ocupa
+antes de avançar. No direito, os cartões Tag/Conjunto/Deslocamento ficam próximos
+de Iniciar simulação (10 px em desktop baixo, 16 px em desktop alto), enquanto
+a geração permanece junto do campo de endereços. O textarea ocupa
 o espaço livre do painel, com mínimo de 72 px, rolagem interna e sem alça de
 redimensionamento. A altura permanece igual ao alternar entrada vazia, válida
 ou inválida na mesma janela. Rótulo/campo e campo/dica têm espaçamento base de
