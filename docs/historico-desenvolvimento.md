@@ -7,14 +7,16 @@ O horário UTC do GitHub pode cair no dia seguinte.
 
 ## Situação consolidada
 
-As telas **Configurar, Simular e Analisar** estão implementadas e integradas à
-`main`. O [Memora online](https://luizjr2001.github.io/memora-cache-simulator-tcc/)
+O fluxo vigente é **Configurar → Simular**, com comparação antes/depois
+integrada ao cartão Memória cache pelo PR #60. As três telas anteriores foram
+integradas em 14/10 e permanecem como referência histórica. O [Memora online](https://luizjr2001.github.io/memora-cache-simulator-tcc/)
 é publicado pelo GitHub Pages, com atualização automática após sintaxe, testes
 Node e build. O Beto em `docs/` continua disponível para comparação local.
 
-O código funcional e as verificações técnicas estão documentados. A avaliação
-externa, a inspeção formal com severidade e a incorporação dos resultados ao
-artigo continuam em andamento ou pendentes nas issues correspondentes.
+O código funcional e as verificações técnicas estão documentados. O artigo
+em LaTeX incorpora a implementação e o levantamento de 13 respostas do Beto.
+A avaliação externa do Memora e a inspeção formal com severidade permanecem
+pendentes. Consulte o [estado atual](estado-atual.md) e o [artigo](../tcc/README.md).
 
 ## Marcos e evidências
 
@@ -37,6 +39,10 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
 | 18/10 | Espaçamento do gerador e largura da ação principal | Gerador separado da ajuda por 16 px, rótulo Primeiro endereço removido e Iniciar simulação ocupando a largura disponível, com texto centralizado. [Relatório](../packages/memora/docs/verificacao-largura-iniciar.md) |
 | 22/10 | Mais espaço lateral no botão de geração | Padding horizontal ampliado de 4 para 16 px em cada lado, com distância de 16 px até a ajuda e encaixe conferido de 320 a 1920 px. [Relatório atualizado](../packages/memora/docs/verificacao-largura-iniciar.md#refinamento-do-gerador--22102026) |
 | 22/10 | Configuração inicial baseada no Beto | Abertura com mapeamento direto, 21 acessos originais, FIFO como preferência e quantidade inicial 32 no gerador. O botão inicialmente carregava por conjunto/LRU; em 23/10 foi unificado com os valores de abertura do Beto. [Verificação](../packages/memora/docs/verificacao-configuracao-inicial.md) |
+| 23/10 | Restauração do exemplo inicial e simplificação de Simular | PRs #51, #53, #55 e #57–#59: abertura e botão de exemplo usam o Beto; removidos blocos redundantes; Progresso verde ao concluir; Parar somente em reprodução; unidade passos/acessos por segundo |
+| 23/10 | Análise integrada à simulação | [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60) e [decisão 004](decisoes/004-analise-contextual.md): duas etapas, comparação recolhível, revisão sem execução e 16 ajudas |
+| 23/10 | Botões preenchidos em roxo | [PR #61](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/61) e [#62](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/62): `#75609A` e texto branco em todas as ações; a proposta de secundários com contorno foi substituída |
+| 23/10 | Consolidação documental e artigo | Atualização dos guias, decisões, resultados dos dois cenários e fonte LaTeX; questionário já coletado diferenciado da avaliação posterior do Memora |
 
 ## Comportamentos consolidados
 
@@ -55,20 +61,22 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
   bits de conjunto. A arquitetura define a largura dos campos, que podem ter
   zero bits. A prévia usa o primeiro endereço de uma sequência válida.
 - **Simular:** modo detalhado avança uma das seis etapas; modo resumido avança
-  um acesso completo. O rótulo de velocidade indica etapas/segundo ou
+  um acesso completo. Próximo acesso conclui um acesso nos dois modos; Parar só fica habilitado durante reprodução automática. O rótulo de velocidade indica passos/segundo ou
   acessos/segundo, com valor inicial 5. Cache e histórico têm rolagem local.
-- **Analisar:** snapshots reais permitem explicar a escolha sem repetir a
+- **Comparação em Simular:** snapshots reais permitem explicar a escolha sem repetir a
   execução ou sortear novamente uma vítima Random. Acerto e carga em via livre
   recebem explicações próprias, sem inventar uma substituição.
 - **Origem:** o Memora aprimora o [Beto](https://github.com/leo150250/simuladorCache),
   simulador educacional de memória cache de Leandro Gabriel e colaboradores.
   MIT é a licença do código.
 
-No exemplo didático, o resultado completo é **12 acertos, 9 faltas, 57,1% e
-8/32 linhas usadas**. O acesso 20 remove **992–1007 (tag 3)** e insere
-**3040–3055 (tag 11)** na **via 1 do conjunto 14**; a via 2 mantém 2016–2031.
-As referências estáticas de vias do Figma foram reconciliadas durante as
-entregas das telas 2 e 3.
+No exemplo inicial do Beto e no botão Carregar exemplo didático, o resultado
+é **13 acertos, 8 faltas, 61,9% e 3/32 linhas usadas**. O cenário por conjunto/LRU
+das ajudas e dos testes usa outra sequência e termina em **12 acertos, 9 faltas,
+57,1% e 8/32 linhas**. No acesso 20 desse segundo cenário, a via 1 do conjunto 14
+troca **992–1007 (tag 3)** por **3040–3055 (tag 11)**; a via 2 mantém 2016–2031.
+Os [dois cenários reproduzíveis](estado-atual.md#cenários-reproduzíveis) registram
+os parâmetros e endereços sem atribuir o resultado LRU à abertura direta.
 
 ## Evidências de verificação
 
@@ -84,6 +92,8 @@ passaram. Os relatórios mantêm os registros originais.
 | Preparação e publicação do PR #47 | Sintaxe, 75 testes Node, build e deploy com sucesso | [Guia de publicação](publicacao-github-pages.md) e [GitHub Actions](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38663768957) |
 | Textos e documentação, 18/10 | Sintaxe, 75 testes Node, 96 cenários Chromium e build aprovados localmente | [Relatório e cinco capturas](../packages/memora/docs/verificacao-textos-configuracao.md) |
 | Configuração inicial, 22–23/10 | Sintaxe, 75 testes Node, 97 cenários Chromium verificados, incluindo reexecução isolada de dois timeouts, e build aprovado | [Relatório e quatro capturas](../packages/memora/docs/verificacao-configuracao-inicial.md) |
+| Integração da comparação, PR #60 | 78 testes Node e 93 cenários Chromium (46 + 32 + 15), sintaxe e build | [Decisão 004](decisoes/004-analise-contextual.md) e [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60) |
+| Cores dos botões, PRs #61/#62 | Sintaxe, 78 testes Node e build; nova inspeção visual da paleta pendente | [PR #61](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/61) e [#62](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/62) |
 
 Firefox/Safari e avaliação com participantes não são comprovados por esses
 testes Chromium. O [guia de contribuição](../CONTRIBUTING.md) descreve como
@@ -96,7 +106,8 @@ executar as suítes e registrar novas verificações separadamente.
   e a avaliação da versão funcional na [#23](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/23).
 - Registrar a inspeção formal, dificuldades observadas e decisões decorrentes,
   sem tratar inspeções visuais ou testes automatizados como aprovação externa.
-- Incorporar decisões, método, evidências e resultados ao artigo, conforme
+- Revisar com a orientação o [artigo atualizado](../tcc/README.md) e incorporar
+  os resultados da avaliação externa quando existirem, conforme
   [#24](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/24).
 - Manter leitura/escrita, políticas de escrita e dirty bit como trabalho futuro
   na [#32](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/32);

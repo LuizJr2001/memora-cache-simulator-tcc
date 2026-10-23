@@ -20,3 +20,15 @@ As respostas às perguntas da pesquisa foram preservadas sem alterações de con
 ## Finalidade
 
 Os dados apoiam o levantamento e a priorização de requisitos, a análise de problemas de usabilidade e a definição das melhorias do simulador Beto. O uso deve permanecer restrito às finalidades acadêmicas previstas no termo de consentimento.
+
+## Relação com a implementação e o artigo
+
+O levantamento descreve a experiência com o **Beto**, não a avaliação posterior
+do Memora. O [artigo atualizado](../../tcc/README.md) incorpora a coleta e a
+análise descritiva: cada alternativa de múltipla seleção usa denominador 13,
+sem supor que os percentuais somem 100%. A escala de utilidade efetivamente
+aplicada vai de 1 a 4. O roteiro preliminar guardado no material do artigo não
+substitui os enunciados aplicados, preservados no cabeçalho do CSV.
+
+A avaliação do Memora com estudantes permanece pendente; testes automatizados
+e alterações de interface não acrescentam novas respostas a este levantamento.

@@ -112,7 +112,20 @@ Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendido
 Quando uma tela depender de um PR aberto, indique a dependência e use esse PR
 como base temporária. As três telas foram integradas à `main` pelos PRs #43,
 #44 e #45 em 14/10/2026; novas alterações devem partir da `main` atualizada.
-O PR #47 adicionou build e publicação no GitHub Pages. Inclua `npm run build`
+O PR #60 integrou a comparação à simulação, reduzindo o fluxo a duas etapas. Os PRs #61/#62 adotaram roxo preenchido para todos os botões de ação. O PR #47 adicionou build e publicação no GitHub Pages. Inclua `npm run build`
 na verificação de alterações que afetem a aplicação publicada. O
 [histórico](docs/historico-desenvolvimento.md) distingue implementação,
 integração, publicação e avaliação. Os arquivos executáveis do Beto continuam preservados.
+
+## Documentação e artigo
+
+O [estado atual](docs/estado-atual.md) distingue o preset do Beto do cenário LRU
+das ajudas/testes. Atualize READMEs e decisões quando alterar o comportamento;
+relatórios datados e capturas anteriores devem continuar identificados como
+históricos. Não atribua uma execução Chromium antiga à revisão atual.
+
+O fonte revisável do artigo fica em `tcc/artigo/`; `tcc/tcc-atual.zip` é o pacote
+para importar no Overleaf. Após editar o fonte, regenere o ZIP com
+`python3 tcc/empacotar_artigo.py` e siga a [compilação e conferência](tcc/README.md).
+Mantenha implementação, verificação técnica e avaliação externa diferenciadas
+no texto, sem inventar resultados ou marcar critérios acadêmicos como concluídos.

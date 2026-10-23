@@ -1,6 +1,6 @@
 # 004 — Integrar a análise à simulação
 
-Data: 23/10/2026. Estado: proposta implementada para revisão por PR.
+Data: 23/10/2026. Estado: aceita e integrada à `main` pelo [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60).
 
 ## Evidência e decisão
 

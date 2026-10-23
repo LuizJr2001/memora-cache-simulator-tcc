@@ -11,7 +11,7 @@ Endereço padrão: https://luizjr2001.github.io/memora-cache-simulator-tcc/
 O workflow foi integrado à `main` pelo [PR #47](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/47).
 A [execução de publicação](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38663768957)
 terminou com sucesso na noite de **14/10/2026 em Brasília** — **15/10/2026 em UTC**.
-As três telas estão disponíveis no endereço acima; os passos de ativação a
+O fluxo atual no endereço acima é Configurar → Simular, com comparação antes/depois no cartão da cache (PR #60). Os passos de ativação a
 seguir ficam como referência de configuração. O
 [histórico do projeto](historico-desenvolvimento.md) reúne os marcos anteriores.
 
@@ -25,7 +25,7 @@ seguir ficam como referência de configuração. O
    Se a primeira tentativa ocorreu antes de ativar Pages, use **Re-run all jobs**.
    Também é possível iniciar uma publicação em **Run workflow**, escolhendo `main`.
 6. Após a etapa de publicação ficar verde, abra o endereço público e confira
-   Configurar, Simular e Analisar. O domínio `github.io` usa HTTPS.
+   Configurar, Simular e a comparação contextual de um acesso concluído. O domínio `github.io` usa HTTPS.
 
 O workflow usa o `GITHUB_TOKEN` fornecido automaticamente pelo GitHub.
 Nenhum token pessoal ou segredo adicional precisa ser cadastrado.

@@ -128,13 +128,14 @@ npm run check
 npm test
 ```
 
-São 65 testes Node no pacote: 28 de configuração/entradas, 9 do controlador de
-Configurar, 15 de execução, 6 do controlador de Simular e 7 da projeção de Analisar. Cobrem os três
-mapeamentos, FIFO/LRU/Random, vítimas, estatísticas, fontes controladas, snapshots,
-seis fases, relógio, reinício e limites. A regressão visual roda separadamente
-com Playwright, conforme o README do pacote, e agora inclui a Tela 3. A análise
-consome os snapshots já disponíveis; nenhum módulo executável do núcleo foi
-alterado nesta entrega. Integração e avaliação continuam na #35/#33.
+A suíte atual do pacote contém **78 testes Node**, incluindo configuração,
+endereços, controladores, políticas, explicações, apresentação e comparação
+contextual. Cobrem os três mapeamentos, FIFO/LRU/Random, snapshots imutáveis,
+seis fases, relógio, reinício e limites. A interface contém **93 cenários Chromium**,
+executados separadamente. Consulte o [README do pacote](../../README.md#verificar)
+e o [histórico de verificação](../../../../docs/historico-desenvolvimento.md).
+A comparação lê snapshots existentes e não reexecuta a simulação. Verificação
+automatizada não substitui avaliação com estudantes.
 
 Implementação: [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); #25, #26, #27, #31 e #35.
 
