@@ -18,6 +18,13 @@ async function advance(page, count) {
   for (let i = 0; i < count; i++) await page.locator('#sim-next').click();
 }
 
+// As microetapas continuam observáveis na reprodução automática, com relógio controlado.
+async function automaticSteps(page, count = 1) {
+  await page.locator('#sim-play').click();
+  if (count > 1) await page.clock.runFor((count - 1) * 200);
+  await page.locator('#sim-play').click();
+}
+
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/'); await page.evaluate(() => document.fonts.ready);
@@ -48,9 +55,10 @@ test('entrada preparada abre Simular vazio e preserva os assets e o sistema visu
 });
 
 test('seis microetapas não antecipam estatísticas e o próximo acesso não duplica o atual', async ({ page }) => {
+  await page.clock.install();
   await prepare(page);
   for (const label of ['Decompor endereço', 'Buscar tag no conjunto', 'Resultado do acesso', 'Selecionar linha', 'Atualizar cache']) {
-    await page.locator('#sim-step').click(); await expect(page.locator('#sim-status')).toContainText(label);
+    await automaticSteps(page); await expect(page.locator('#sim-status')).toContainText(label);
     await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
   }
   await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(1);
@@ -62,6 +70,7 @@ test('seis microetapas não antecipam estatísticas e o próximo acesso não dup
 });
 
 test('cenário didático reproduz LRU, substituição e conclusão com histórico completo', async ({ page }) => {
+  await page.clock.install();
   await prepare(page); await advance(page, 19);
   await expect(page.locator('#sim-progress')).toHaveText('19 / 21');
   await expect(page.locator('#sim-hits')).toHaveText('12'); await expect(page.locator('#sim-misses')).toHaveText('7');
@@ -73,10 +82,10 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await expect(via1).toContainText('992–1007'); await expect(via1).toContainText('Próx. substituição');
   await expect(via2).toContainText('2016–2031'); await expect(via2).toContainText('Mais recente');
   await screenshot(page, 'acesso-19-lru');
-  for (let i = 0; i < 4; i++) await page.locator('#sim-step').click();
+  await automaticSteps(page, 4);
   await expect(page.locator('#history-state')).toContainText('LRU escolhe a via 1, com o bloco 992–1007');
   await screenshot(page, 'selecao-vitima');
-  await page.locator('#sim-step').click(); await expect(via1).toContainText('3040–3055');
+  await automaticSteps(page); await expect(via1).toContainText('3040–3055');
   await expect(page.locator('#sim-progress')).toHaveText('19 / 21');
   await screenshot(page, 'atualizando-cache');
   await page.locator('#sim-next').click();
@@ -96,13 +105,14 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await expect(page.locator('#sim-hit-rate')).toHaveText('57,1%'); await expect(page.locator('#sim-used-lines')).toHaveText('8 / 32');
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
   await expect(page.locator('#history-table tr[data-access]').first()).toHaveAttribute('data-access', '21');
-  await expect(page.locator('#sim-next')).toBeDisabled(); await expect(page.locator('#sim-step')).toBeDisabled();
+  await expect(page.locator('#sim-next')).toBeDisabled(); await expect(page.locator('#sim-step')).toHaveCount(0);
   await expect(page.locator('#sim-address')).toHaveText('—'); await screenshot(page, 'simulacao-concluida');
 });
 
 test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({ page }) => {
+  await page.clock.install();
   await prepare(page); await advance(page, 19);
-  for (let i = 0; i < 4; i++) await page.locator('#sim-step').click();
+  await automaticSteps(page, 4);
   await expect(page.locator('#history-state')).toContainText('LRU escolhe a via 1');
   await page.getByRole('button', { name: 'Revisar acesso 19', exact: true }).click();
   await expect(page.locator('#history-state')).toContainText('A via 2 é a mais recente');
@@ -324,32 +334,35 @@ test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar
   await page.locator('#sim-play').click();
   await page.locator('#tab-analyze').click();
   await expect(page.locator('#simulation-analysis-warning')).toBeVisible();
-  await page.locator('#sim-step').click();
+  await page.locator('#sim-next').click();
   await expect(page.locator('#simulation-analysis-warning')).toBeHidden();
 });
 
 
-test('Etapas detalhadas muda apresentação e avanço manual sem perder o acesso atual', async ({ page }) => {
+test('Etapas detalhadas mantém descrição fixa e muda reprodução e explicações sem perder o acesso atual', async ({ page }) => {
+  await page.clock.install();
   await prepare(page);
   await expect(page.locator('#access-details')).toBeVisible();
   await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
-  await page.locator('#sim-step').click();
+  await automaticSteps(page);
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Decompor endereço');
   await expect(page.locator('#access-binary')).toContainText('Deslocamento');
   await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
-  await page.locator('#sim-step').click();
+  await automaticSteps(page);
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Nenhuma linha válida');
   await page.locator('#sim-detailed').uncheck();
   await expect(page.locator('#access-details')).toBeHidden();
-  await expect(page.locator('#sim-mode-description')).toHaveText('(avança um acesso completo)');
+  await expect(page.locator('#sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
+  await expect(page.locator('#sim-step')).toHaveCount(0);
   await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (5 acessos/segundo)');
-  await page.locator('#sim-step').click();
+  await page.locator('#sim-next').click();
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await expect(page.locator('#history-table tr[data-access="1"]')).toContainText('Falta compulsória');
   await page.locator('#sim-detailed').check();
+  await expect(page.locator('#sim-step')).toHaveCount(0);
   await expect(page.locator('#access-details')).toBeVisible();
   await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
-  await page.locator('#sim-step').click();
+  await automaticSteps(page);
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await page.locator('#sim-next').click();
   await expect(page.locator('#sim-hits')).toHaveText('1');
@@ -433,3 +446,43 @@ test('uma nova simulação limpa a linha informada e o aviso de paginação ante
   await expect(page.locator('#sim-progress')).toHaveText('0 / 1');
 });
 
+
+
+test('Ir ao final conclui uma microetapa pendente e mantém histórico para revisão e análise', async ({ page }) => {
+  await page.clock.install();
+  await prepare(page);
+  await automaticSteps(page, 5);
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await page.locator('#sim-finish').click();
+  await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#sim-hits')).toHaveText('12');
+  await expect(page.locator('#sim-misses')).toHaveText('9');
+  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
+  await expect(page.locator('#sim-progress-label')).toHaveText('Progresso (finalizado)');
+  await expect(page.locator('#sim-finish')).toBeDisabled();
+  await page.getByRole('button', { name: 'Revisar acesso 1', exact: true }).click();
+  await expect(page.locator('#current-address-heading')).toHaveText('Acesso 1 em revisão');
+  await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await page.locator('#go-analyze').click();
+  await expect(page.locator('#analysis-screen')).toBeVisible();
+  await page.locator('#tab-simulate').click();
+  await page.locator('#sim-restart').click();
+  await expect(page.locator('#sim-finish')).toBeEnabled();
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await screenshot(page, 'ir-ao-final-reiniciado');
+});
+
+test('sem etapas detalhadas há um único avanço de acesso e Ir ao final funciona desde o início', async ({ page }) => {
+  await prepare(page);
+  await page.locator('#sim-detailed').uncheck();
+  await expect(page.locator('#sim-step')).toHaveCount(0);
+  await expect(page.locator('#sim-next')).toBeVisible();
+  await page.locator('#sim-next').click();
+  await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
+  await page.locator('#sim-restart').click();
+  await page.locator('#sim-finish').click();
+  await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
+  await expect(page.locator('#sim-finish')).toBeDisabled();
+  await screenshot(page, 'ir-ao-final-sem-etapas');
+});

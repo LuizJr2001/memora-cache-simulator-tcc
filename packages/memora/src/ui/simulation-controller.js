@@ -52,6 +52,13 @@ export function createSimulationController(input, {
     restart() { stopClock(); engine.reset(); status = 'ready'; selected = null; error = null; return emit(); },
     nextStep: () => manual(!detailed),
     nextAccess: () => manual(true),
+    finish() {
+      if (disposed || engine.view().done) return view();
+      stopClock(); status = 'paused'; selected = null; error = null;
+      // Usa os mesmos acessos e snapshots, notificando a interface apenas ao terminar.
+      do { advance(true); } while (!error && !engine.view().done);
+      return emit();
+    },
     setSpeed(value) {
       if (!Number.isInteger(value) || value < 1 || value > 10) throw new RangeError('Velocidade deve estar entre 1 e 10');
       stopClock(); speed = value; queue(); return emit();
