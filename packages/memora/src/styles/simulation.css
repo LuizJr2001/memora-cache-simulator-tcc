@@ -40,8 +40,6 @@
 .speed-control input { appearance: none; -webkit-appearance: none; width: 94px; height: 6px; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 3px; background: #b3b3b3; }
 .speed-control input::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 0; border-radius: 50%; background: transparent url('../assets/speed-knob.svg') center no-repeat; cursor: pointer; }
 .speed-control input::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: transparent url('../assets/speed-knob.svg') center no-repeat; cursor: pointer; }
-.simulation-status { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 30px; background: #f9f9f9; border: 1px solid var(--sds-color-border-default-default); border-radius: 8px; padding: 3px 10px; font-size: 12px; line-height: 17px; flex-shrink: 0; }
-.simulation-status p { overflow-wrap: anywhere; }
 .set-badge { display: inline-flex; justify-content: center; align-items: center; padding: 4px 10px; border: 1px solid var(--memora-current-set-accent); border-radius: 8px; font-size: 12px; line-height: 16px; color: var(--memora-current-set-accent); background: var(--memora-info-background); white-space: nowrap; }
 .simulation-card { border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: white; padding: 14px 16px; min-width: 0; }
 .simulation-card-heading { display: flex; align-items: center; gap: 12px; min-height: 22px; }
