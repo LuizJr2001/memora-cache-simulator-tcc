@@ -66,7 +66,6 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
     }
     byId('simulation-complete').hidden = !state.done || Boolean(selectedAccess);
     root.classList.toggle('is-complete', state.done && !selectedAccess);
-    byId('sim-status').parentElement.hidden = state.done && !selectedAccess;
     text('completion-detail', `Todos os ${stats.total} acessos foram processados`);
     byId('review-replacements').disabled = !state.history.some(a => a.replaced);
     const step = current ? phaseLabels[state.phase] : stats.processed ? 'Estado atualizado' : 'Pronto para iniciar';
@@ -76,7 +75,8 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
       state.done ? '✓ Simulação concluída' : lastAccess ? `${state.status === 'stopped' ? 'Execução parada · ' : '✓ Acesso concluído · '}${explain(lastAccess)}` :
       'Pronto para iniciar · nenhum acesso foi processado');
     byId('sim-status').classList.toggle('error-text', Boolean(state.error));
-    for (const id of ['status-set', 'address-set', 'cache-set']) {
+    byId('sim-status').classList.toggle('sr-only', !state.error);
+    for (const id of ['address-set', 'cache-set']) {
       byId(id).hidden = currentSet === null; text(id, currentBadge);
     }
 

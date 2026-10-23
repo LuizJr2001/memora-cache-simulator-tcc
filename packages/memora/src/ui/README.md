@@ -176,3 +176,5 @@ Verificação atual: 68 testes Node e 74 cenários Chromium (45 Configurar e 29
 Simular). Layout, formatos, revisão, substituição, avisos e navegação em
 configurações grandes verificados; desktop sem scroll da página nas quatro
 resoluções existentes. Capturas atuais no relatório de revisão geral.
+
+A tela Simular mantém a explicação de cada acesso no histórico, sem uma faixa visual de status duplicada abaixo dos controles. O status continua anunciado por leitores de tela; erros de execução permanecem visíveis. O conjunto/linha em foco continua indicado no cabeçalho da cache.
