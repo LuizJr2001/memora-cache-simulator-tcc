@@ -53,10 +53,8 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
-    byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
-    byId('sim-step').hidden = !state.detailed;
+    byId('sim-next').disabled = state.done;
     byId('sim-finish').disabled = state.done;
-    text('sim-mode-description', state.detailed ? '(avança uma etapa e explica a decisão)' : '(avança um acesso completo)');
     root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
     const unit = state.detailed ? (state.speed === 1 ? 'etapa' : 'etapas') : (state.speed === 1 ? 'acesso' : 'acessos');
@@ -299,10 +297,10 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
       controller.play();
     }
   });
-  for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-step', 'nextStep'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
+  for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
     byId(id).addEventListener('click', () => {
       if (method === 'restart') { cacheStart = 0; lastFocus = null; cellStarts.clear(); }
-      if (controller && ['nextStep', 'nextAccess', 'finish'].includes(method)) byId('simulation-analysis-warning').hidden = true;
+      if (controller && ['nextAccess', 'finish'].includes(method)) byId('simulation-analysis-warning').hidden = true;
       controller?.[method]();
     });
   }
