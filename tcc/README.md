@@ -74,3 +74,15 @@ recebeu inspeção visual em Chromium nesta revisão.
 Consulte o [estado atual](../docs/estado-atual.md), o
 [histórico](../docs/historico-desenvolvimento.md) e a
 [decisão 004](../docs/decisoes/004-analise-contextual.md).
+
+
+## Próxima avaliação — planejamento de 23/10/2026
+
+A [issue #64](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/64)
+acompanha a comparação exploratória com **2 ou 3 alunos que já utilizaram o
+Beto**, mais **Poliana como avaliadora complementar**, analisada separadamente.
+A seção de plano de avaliação no artigo e o instrumento
+`instrumentos/avaliacao_comparativa_memora_beto.md` (relativo a `tcc/artigo/`)
+registram tarefas, questionários, entrevista, ficha e limites, adaptados do
+MedSimples de André Macedo (2025). São instrumentos planejados, sem coleta
+ou resultados comparativos já realizados. O calendário está na issue #22.

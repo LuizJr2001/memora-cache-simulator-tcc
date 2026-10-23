@@ -45,7 +45,7 @@
 
 % Metadados
 \titulo{Avaliação e aprimoramento de um simulador educacional de memória cache para apoio ao ensino de hierarquia de memória}
-% \tituloestrangeiro{Evaluation and improvement of an educational cache memory simulator to support the teaching of memory hierarchy}
+\tituloestrangeiro{Evaluation and improvement of an educational cache memory simulator to support the teaching of memory hierarchy}
 \autor{Luiz Carlos dos Santos Júnior\thanks{Graduando em Engenharia de Computação pelo Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG). E-mail: \url{luizcarlossantosjunior2001@gmail.com}.}}
 \local{Belo Horizonte, MG -- Brasil}
 \data{2026}
@@ -357,7 +357,7 @@ A matriz preserva a análise documental inicial dos simuladores relacionados, na
 \section{Método e evidências do levantamento de requisitos}
 \label{sec:metodo}
 
-O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação \cite{memoraRepositorio2026}.
+O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A avaliação comparativa planejada para a versão funcional é detalhada na Seção~\ref{sec:plano-avaliacao}. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação \cite{memoraRepositorio2026}.
 
 \subsection{Coleta e tratamento do questionário}
 
@@ -492,13 +492,61 @@ O cenário das ajudas e dos testes de substituição mantém 4096 células, bloc
 
 O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 linhas ocupadas. No acesso 20, o endereço 3044 seleciona a tag 11, conjunto 14 e deslocamento 4; a via 1 troca 992--1007 por 3040--3055, enquanto a via 2 mantém 2016--2031. Esses resultados são verificações determinísticas da implementação, não medidas de desempenho real de hardware nem de aprendizagem.
 
+\section{Plano de avaliação comparativa com participantes}
+\label{sec:plano-avaliacao}
+
+A próxima etapa será uma avaliação exploratória da usabilidade e do apoio à compreensão de memória cache no Memora, em comparação com o Beto. O objetivo será identificar melhorias e dificuldades remanescentes, sem assumir previamente a superioridade da versão aprimorada. O procedimento adapta a avaliação do MedSimples, de \citeonline{macedo2025medsimples}, organizada em preparação, execução individual de tarefas e análise, com observação e avaliação pós-teste, em consonância com \citeonline{barbosa2010ihc}. Trata-se de um plano ainda não executado, acompanhado na issue~64 do repositório; não representa resultado ou aprovação externa já obtidos.
+
+\subsection{Participantes e condições de comparação}
+
+Está prevista a participação de dois ou três alunos que já utilizaram o Beto, além de Poliana em uma avaliação complementar. A seleção será por conveniência e disponibilidade, com caracterização do curso, período, conhecimento de cache e frequência e recência de uso do Beto e de outros simuladores. A participação de Poliana será relatada separadamente, com caracterização de sua relação com o projeto e experiência pertinente, sem pressupor especialização em usabilidade e sem incluí-la no denominador dos alunos.
+
+Cada aluno realizará tarefas nas duas ferramentas. A experiência anterior com o Beto não substituirá a observação atual de seu uso. Quando viável, a ordem será alternada: um aluno em cada ordem para dois participantes, ou distribuição de dois para um no caso de três. Essa medida não elimina a familiaridade prévia com o Beto, nem o efeito de prática, que serão discutidos como limitações. Serão registrados versão ou commit, ambiente, data, cenário e ordem de utilização.
+
+Antes das sessões, serão alinhados com a orientação o consentimento, a forma de convite e o tratamento dos dados. A atividade avaliará as ferramentas, não o desempenho acadêmico dos participantes. Serão utilizados códigos como P01 a P03 e AV01 para a contribuição complementar. Não haverá associação automática com os 13 registros do levantamento anterior. Termos, contatos e eventuais gravações identificáveis não integrarão o repositório público.
+
+\subsection{Preparação e tarefas}
+
+Serão preparados cenários determinísticos equivalentes, compatíveis com as duas ferramentas, contendo acertos, faltas e substituições. O pesquisador verificará previamente os parâmetros, as unidades de endereçamento e o gabarito, evitando políticas aleatórias na comparação principal. Os enunciados indicarão objetivos, sem fornecer o caminho por botões ou telas. As tarefas comuns serão:
+
+\begin{enumerate}
+    \item configurar os parâmetros e a sequência de endereços conforme uma ficha;
+    \item iniciar a simulação e acompanhar os primeiros acessos;
+    \item identificar um acerto e uma falta e explicar suas causas;
+    \item relacionar um endereço ao bloco da memória principal e à posição na cache;
+    \item identificar os blocos que saem e entram em uma substituição e explicar seu motivo;
+    \item informar os totais de acertos e faltas e interpretar um resultado observado.
+\end{enumerate}
+
+Recursos exclusivos do Memora, como a comparação contextual por snapshots, poderão ser explorados em uma atividade complementar, sem penalizar o Beto pela ausência de um caminho equivalente. A apresentação inicial e as condições serão padronizadas. O avaliador observará sem ensinar o caminho e registrará qualquer ajuda. Caso seja utilizada verbalização em voz alta, ela será solicitada nas duas ferramentas e considerada na interpretação dos tempos.
+
+\subsection{Instrumentos e registros}
+
+Para cada tarefa serão anotados conclusão sem erro, conclusão com erro ou não conclusão, tempo, ajuda, dificuldades e, quando aplicável, correção da explicação conceitual. Antes da coleta, serão definidos os limites de tempo, as condições para oferecer ajuda e os critérios do gabarito. Respostas conceituais serão classificadas como corretas, parciais ou incorretas conforme os elementos solicitados, sem confundir facilidade de localizar uma informação com compreensão de seu significado.
+
+Após cada ferramenta, será aplicado o mesmo questionário adaptado dos 11 critérios utilizados por \citeonline{macedo2025medsimples}: facilidade de aprendizado, facilidade de uso, flexibilidade, produtividade, tratamento de erros e auxílio, navegabilidade, legibilidade, previsibilidade e consistência, utilidade, segurança de uso e satisfação. As opções serão atende completamente, atende parcialmente, não atende e não se aplica ou não foi possível avaliar. Segurança será entendida como recuperação de ações e preservação do trabalho. O primeiro critério avaliará o entendimento das tarefas, pois não há primeiro uso equivalente para alunos que já conhecem o Beto. Não se trata de uma escala validada, nem de uma aplicação das dez heurísticas de Nielsen como questionário aos alunos.
+
+Duas perguntas adicionais abordarão o apoio percebido à compreensão de acertos/faltas e de substituições, analisadas separadamente dos 11 critérios. Ao final, uma entrevista aberta investigará a experiência em cada ferramenta, dificuldades, acompanhamento dos acessos, localização de informações, elementos confusos, preferência para estudar e aspectos do Beto a preservar ou do Memora a modificar. Serão aceitas equivalência e ausência de preferência. O roteiro e a ficha de observação estarão disponíveis em \texttt{instrumentos/avaliacao\_comparativa\_memora\_beto.md}.
+
+Na avaliação complementar, Poliana poderá utilizar os cenários, acompanhar uma demonstração ou revisar o protocolo, conforme sua familiaridade. O modo efetivamente adotado será registrado. Serão abordadas clareza de instruções e termos, organização das informações, diferenças entre ferramentas, possíveis interpretações equivocadas, adequação das tarefas e prioridades de melhoria. Seus tempos e respostas não serão agregados aos resultados dos alunos.
+
+\subsection{Análise prevista e limites}
+
+Cada aluno será tratado como um caso, comparando-se suas tarefas nas duas ferramentas. A síntese priorizará contagens absolutas, como dois dos três alunos, episódios observados e falas anonimizadas. Os comentários serão agrupados por temas explícitos, preservando divergências; a contribuição complementar será apresentada em seção própria. Tempo será um dado contextual, afetado por familiaridade, verbalização e repetição; abandono rápido não será interpretado como eficiência.
+
+A amostra pequena e por conveniência não sustentará inferência estatística de superioridade nem generalização para todos os estudantes. Preferência, usabilidade, apoio percebido e explicação correta durante a sessão serão tratados como evidências distintas. Sem uma avaliação educacional adicional, os resultados não comprovarão ganho de aprendizagem ou retenção. A análise poderá fundamentar correções rastreáveis e trabalhos futuros.
+
+\subsection{Previsão de execução}
+
+O planejamento interno de 23 de outubro prevê revisão e ensaio do protocolo entre 23 e 25 de outubro; sessões entre 26 de outubro e 1 de novembro; anonimização e análise entre 2 e 8 de novembro; e incorporação dos resultados ao artigo e preparação da defesa entre 9 e 15 de novembro de 2026. São metas de trabalho sujeitas à disponibilidade e à revisão pela orientação, não sessões confirmadas. Os prazos institucionais permanecem os registrados no calendário do projeto.
+
 \section{Discussão, limitações e avaliação pendente}
 
 A implementação atende às lacunas priorizadas de validação, transparência dos estados e ajuda contextual. A presença frequente de pedidos de LRU e documentação no questionário oferece uma justificativa para esses recursos. O relato de excesso de informação motivou a redução de blocos redundantes e a apresentação recolhível da comparação. Entretanto, essa relação entre requisito e solução é uma decisão de projeto: ainda não demonstra que os participantes compreenderão melhor a cache ou perceberão menor carga visual.
 
 O levantamento se limita a 13 respostas e descreve o uso do Beto. A predominância de familiaridade intermediária ou avançada restringe conclusões sobre iniciantes. A comparação bibliográfica mantém os registros documentais consultados na etapa inicial; a disponibilidade e as funcionalidades atuais dos simuladores relacionados não foram integralmente reavaliadas nesta atualização. A verificação técnica não cobre todos os navegadores ou formas de interação, e Firefox/Safari e a nova paleta ainda requerem conferência específica.
 
-A avaliação posterior do Memora deverá registrar versão, participantes, tarefas e instrumento aplicado. Entre os cenários previstos estão configurar e executar o exemplo direto, provocar e corrigir uma entrada inválida, observar uma substituição LRU, revisar o acesso sem executar outro e explicar a comparação antes/depois. A inspeção formal deverá consolidar evidências e severidades. Não há, nesta versão, resultados comparativos de tempo de tarefa, erros, satisfação ou aprendizagem entre Beto e Memora. Os critérios de avaliação permanecem a consolidar com a orientação.
+A avaliação posterior do Memora deverá registrar versão, participantes, tarefas e instrumento aplicado. Entre os cenários previstos estão configurar e executar o exemplo direto, provocar e corrigir uma entrada inválida, observar uma substituição LRU, revisar o acesso sem executar outro e explicar a comparação antes/depois. A inspeção formal deverá consolidar evidências e severidades. Não há, nesta versão, resultados comparativos de tempo de tarefa, erros, satisfação ou aprendizagem entre Beto e Memora. O plano da Seção~\ref{sec:plano-avaliacao} detalha a próxima coleta com dois ou três alunos que conhecem o Beto e uma avaliação complementar de Poliana; o procedimento permanece sujeito à revisão com a orientação.
 
 \section{Considerações finais}
 
