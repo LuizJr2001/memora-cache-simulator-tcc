@@ -8,6 +8,8 @@ A opção agora alterna apresentação e avanço manual/automático. Marcada: se
 
 Na revisão de 23/10/2026, a descrição do modo passou a ficar junto de **Etapas detalhadas**, entre parênteses: **avança uma etapa e explica a decisão** quando marcada e **avança um acesso completo** quando desmarcada. O botão de conclusão mantém o estilo padrão dos botões desabilitados (cinza e branco); o cartão Progresso fica verde ao concluir, com o título **Progresso (finalizado)** e preservando a contagem e voltando ao estilo neutro ao reiniciar. A tabela da cache preenche a altura disponível do cartão, sem o limite de altura do layout anterior, mantendo a rolagem interna.
 
+O controle **Próxima etapa** aparece somente com etapas detalhadas marcadas. Sem elas, **Próximo acesso** é o único avanço manual de um acesso. **Ir ao final** processa os acessos restantes pelo mesmo motor, conclui eventual microetapa pendente, cancela a reprodução e preserva os snapshots do histórico para revisão e análise. O botão é desabilitado na conclusão e reabilitado ao reiniciar.
+
 As descrições distinguem primeira leitura do bloco, acerto, bloco ausente após remoção, linha livre e substituição. FIFO usa ordem de chegada; LRU usa recência; Random usa a escolha já realizada pelo motor. Os textos preservam os intervalos antes e depois da substituição. A classificação compulsória usa os blocos acessados anteriormente, inclusive ao revisar snapshots antigos.
 
 ## Verificação

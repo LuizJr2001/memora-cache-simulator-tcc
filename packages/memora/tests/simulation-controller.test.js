@@ -84,3 +84,42 @@ test('avanço manual segue modo detalhado e troca no meio do acesso sem duplicar
   c.nextAccess(); assert.equal(c.view().statistics.processed, 3);
   assert.equal(c.view().statistics.hits, 1);
 });
+
+
+test('ir ao final preserva snapshots e conclui o acesso pendente sem duplicar nem renderizar cada fase', () => {
+  const expected = createSimulationController(input());
+  while (!expected.view().done) expected.nextAccess();
+  let renders = 0;
+  const c = createSimulationController(input(), { onChange: () => renders++ });
+  for (let i = 0; i < 5; i++) c.nextStep();
+  const before = renders;
+  const final = c.finish();
+  assert.equal(final.status, 'finished'); assert.equal(final.done, true);
+  assert.equal(renders, before + 1);
+  assert.deepEqual(final.history, expected.view().history);
+  assert.deepEqual(final.cache, expected.view().cache);
+  assert.deepEqual(final.statistics, expected.view().statistics);
+  c.finish(); assert.deepEqual(c.view().history, final.history);
+  c.restart(); assert.equal(c.view().statistics.processed, 0);
+  assert.equal(c.finish().history.length, 3);
+});
+
+test('ir ao final cancela reprodução e callbacks antigos, limpa revisão e respeita descarte', () => {
+  const { controller: c, tasks } = setup();
+  c.play(); const stale = tasks.values().next().value.fn;
+  c.finish(); assert.equal(tasks.size, 0);
+  const final = c.view(); stale(); assert.deepEqual(c.view(), final);
+  c.restart(); c.nextAccess(); c.selectAccess(1); c.finish();
+  assert.equal(c.view().selected, null); assert.equal(c.view().history.length, 3);
+  c.restart(); c.dispose(); c.finish(); assert.equal(c.view().statistics.processed, 0);
+});
+
+test('ir ao final interrompe no erro do motor sem entrar em loop ou inventar conclusão', () => {
+  const prepared = prepareSimulationInput({ ...DEFAULT_CONFIGURATION, mapping: 'fully-associative',
+    cacheLines: 1, ways: 1, replacement: 'RANDOM' }, '0, 16').input;
+  const c = createSimulationController(prepared, { random: () => 1 });
+  const state = c.finish();
+  assert.equal(state.done, false); assert.equal(state.status, 'paused');
+  assert.match(state.error, /Random/); assert.equal(state.statistics.processed, 1);
+  assert.equal(state.history.length, 1);
+});
