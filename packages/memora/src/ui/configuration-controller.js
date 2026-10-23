@@ -1,11 +1,11 @@
-import { DEFAULT_CONFIGURATION, decomposeAddress, isPowerOfTwo, validateConfiguration } from '../core/configuration.js';
-import { EXAMPLE_ADDRESSES, generateAddresses, validateAddresses } from '../core/addresses.js';
+import { DEFAULT_CONFIGURATION, EXAMPLE_CONFIGURATION, decomposeAddress, isPowerOfTwo, validateConfiguration } from '../core/configuration.js';
+import { DEFAULT_ADDRESSES, EXAMPLE_ADDRESSES, generateAddresses, validateAddresses } from '../core/addresses.js';
 import { prepareSimulationInput } from '../core/input.js';
 
 /** Estado da Tela 1, sem regras da cache e sem dependência de DOM */
 export function createConfigurationController({ random = Math.random, onPrepared = () => {}, onInvalidated = () => {} } = {}) {
   let raw = { ...DEFAULT_CONFIGURATION };
-  let sequence = '';
+  let sequence = DEFAULT_ADDRESSES.join(', ');
   let preparedInput = null;
 
   function view() {
@@ -30,7 +30,7 @@ export function createConfigurationController({ random = Math.random, onPrepared
       // Estes estados apresentam as normalizações definidas pelo núcleo
       waysValue: String(configuration?.ways ?? (raw.mapping === 'direct' ? 1 :
         raw.mapping === 'fully-associative' ? raw.cacheLines : raw.ways)),
-      replacementValue: raw.mapping === 'direct' ? '' : raw.replacement,
+      replacementValue: raw.replacement,
       waysOptions,
       preview: parameters.ok && addresses.ok ? decomposeAddress(addresses.addresses[0], configuration) : null,
     };
@@ -47,7 +47,7 @@ export function createConfigurationController({ random = Math.random, onPrepared
     },
     setSequence(value) { sequence = value; invalidate(); return view(); },
     loadExample() {
-      raw = { ...DEFAULT_CONFIGURATION };
+      raw = { ...EXAMPLE_CONFIGURATION };
       sequence = EXAMPLE_ADDRESSES.join(', ');
       invalidate();
       return view();

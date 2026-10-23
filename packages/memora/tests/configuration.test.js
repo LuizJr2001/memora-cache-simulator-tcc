@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_CONFIGURATION as base, validateConfiguration, decomposeAddress, isPowerOfTwo } from '../src/core/configuration.js';
+import { EXAMPLE_CONFIGURATION as base, validateConfiguration, decomposeAddress, isPowerOfTwo } from '../src/core/configuration.js';
 import { validateAddresses, generateAddresses, EXAMPLE_ADDRESSES, MAX_ADDRESSES } from '../src/core/addresses.js';
 
 test('o exemplo do Figma produz 12 bits, distribuídos em 4/4/4', () => {

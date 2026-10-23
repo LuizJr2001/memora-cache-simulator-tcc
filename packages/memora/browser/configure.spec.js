@@ -13,11 +13,54 @@ async function screenshot(page, name) {
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator('#configuration-status')).toHaveText('Configuração válida');
+  await expect(page.locator('#configuration-status')).toHaveText('Configuração pronta para simular');
+});
+
+test('abertura usa o cenário do Beto e permite simular seus 21 endereços diretamente', async ({ page }) => {
+  const addresses = [0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996];
+  for (const [field, value] of Object.entries({ bytesPerCell: '1', memoryCells: '4096', cellsPerBlock: '16', cacheLines: '32', mapping: 'direct', ways: '1', replacement: 'FIFO' })) {
+    await expect(page.locator(`#${field}`)).toHaveValue(value);
+  }
+  await expect(page.locator('#ways')).toBeDisabled();
+  await expect(page.locator('#replacement')).toBeDisabled();
+  await expect(page.locator('#replacement-feedback')).toHaveText('Não se aplica ao mapeamento direto');
+  await expect(page.locator('#sequence')).toHaveValue(addresses.join(', '));
+  await expect(page.locator('#tag-label')).toHaveText('Tag · 3 bits');
+  await expect(page.locator('#index-label')).toHaveText('Linha · 5 bits');
+  await expect(page.locator('#offset-label')).toHaveText('Deslocamento · 4 bits');
+  await expect(page.locator('#prepare-input')).toBeEnabled();
+  await screenshot(page, 'configuracao-inicial-beto');
+
+  await page.locator('#open-generator').click();
+  await expect(page.getByLabel('Quantidade de endereços')).toHaveValue('32');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#sequence')).toHaveValue(addresses.join(', '));
+  await page.locator('#mapping').selectOption('fully-associative');
+  await expect(page.locator('#replacement')).toBeEnabled();
+  await expect(page.locator('#replacement')).toHaveValue('FIFO');
+  await page.locator('#mapping').selectOption('direct');
+
+  await page.evaluate(() => document.addEventListener('memora:input-prepared', event => { window.initialInput = event.detail; }));
+  await page.locator('#prepare-input').click();
+  const input = await page.evaluate(() => window.initialInput);
+  expect(input.addresses).toEqual(addresses);
+  expect(input.configuration.mapping).toBe('direct');
+  expect(input.configuration.replacement).toBe(null);
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await expect(page.locator('#sim-speed')).toHaveValue('5');
+  await expect(page.locator('#sim-detailed')).toBeChecked();
+  await expect(page.locator('#history-empty')).toBeVisible();
+  for (let index = 0; index < addresses.length; index++) await page.locator('#sim-next').click();
+  await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#sim-hits')).toHaveText('13');
+  await expect(page.locator('#sim-misses')).toHaveText('8');
+  await expect(page.locator('#sim-used-lines')).toHaveText('3 / 32');
+  await expect(page.locator('#simulation-complete')).toBeVisible();
 });
 
 test('exemplo didático libera uma entrada válida e usa os assets/fontes locais', async ({ page }) => {
   await expect(page.getByRole('button', { name: /Validar parâmetros|Parâmetros validados/ })).toHaveCount(0);
+  await page.locator('#sequence').fill('');
   await expect(page.getByRole('button', { name: 'Iniciar simulação' })).toBeDisabled();
   await page.getByRole('button', { name: 'Carregar exemplo didático' }).click();
   await expect(page.getByLabel('Endereços a acessar', { exact: true })).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
@@ -50,7 +93,7 @@ test('mapeamentos condicionais e escolhas preservadas ao voltar para conjunto', 
   await expect(page.locator('#ways')).toBeDisabled();
   await expect(page.locator('#ways')).toHaveValue('1');
   await expect(page.locator('#replacement')).toBeDisabled();
-  await expect(page.locator('#replacement')).toHaveValue('');
+  await expect(page.locator('#replacement')).toHaveValue('FIFO');
   await expect(page.locator('#index-label')).toHaveText('Linha · 5 bits');
   await screenshot(page, 'mapeamento-direto');
   await page.locator('#mapping').selectOption('fully-associative');
@@ -271,9 +314,11 @@ for (const viewport of [{ width: 801, height: 720 }, { width: 1024, height: 768 
 
 test('prévia mantém origem acessível e não mantém valor antigo após erros', async ({ page }) => {
   const description = page.locator('#preview-address');
+  await page.locator('#sequence').fill('');
   await expect(page.locator('#preview-label')).toHaveCount(0);
   await expect(description).toHaveClass('sr-only');
   await expect(description).toHaveText('Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
+  await page.locator('#load-example').click();
   await page.locator('#sequence').fill('2018, 3044');
   await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 2018');
   await expect(page.locator('#tag-value')).toHaveText('0111');

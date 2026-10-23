@@ -1,17 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createConfigurationController } from '../src/ui/configuration-controller.js';
-import { DEFAULT_CONFIGURATION } from '../src/core/configuration.js';
-import { EXAMPLE_ADDRESSES, MAX_ADDRESSES } from '../src/core/addresses.js';
+import { DEFAULT_CONFIGURATION, EXAMPLE_CONFIGURATION } from '../src/core/configuration.js';
+import { DEFAULT_ADDRESSES, EXAMPLE_ADDRESSES, MAX_ADDRESSES } from '../src/core/addresses.js';
 import { prepareSimulationInput } from '../src/core/input.js';
 
-test('início bloqueado sem sequência; o exemplo restaura parâmetros e todos os 21 endereços', () => {
+test('abertura pronta com os padrões do Beto; apagar a sequência bloqueia o início e o exemplo restaura a referência', () => {
   const screen = createConfigurationController();
+  const initial = screen.view();
+  assert.deepEqual(initial.raw, DEFAULT_CONFIGURATION);
+  assert.deepEqual(initial.addresses.addresses, DEFAULT_ADDRESSES);
+  assert.equal(initial.canStart, true);
+  assert.equal(initial.preparedInput, null);
+  assert.equal(initial.parameters.configuration.mapping, 'direct');
+  assert.equal(initial.parameters.configuration.replacement, null);
+  assert.equal(initial.replacementValue, 'FIFO');
+  assert.equal(initial.replacementEditable, false);
+  assert.deepEqual([initial.parameters.layout.tagBits, initial.parameters.layout.indexBits, initial.parameters.layout.offsetBits], [3, 5, 4]);
+  screen.setSequence('');
   assert.equal(screen.view().canStart, false);
   screen.setField('memoryCells', '100');
   screen.setSequence('-1, abc');
   const view = screen.loadExample();
-  assert.deepEqual(view.raw, DEFAULT_CONFIGURATION);
+  assert.deepEqual(view.raw, EXAMPLE_CONFIGURATION);
   assert.deepEqual(view.addresses.addresses, EXAMPLE_ADDRESSES);
   assert.equal(view.canStart, true);
   assert.deepEqual([view.parameters.layout.tagBits, view.parameters.layout.indexBits, view.parameters.layout.offsetBits], [4, 4, 4]);
@@ -71,6 +82,7 @@ test('quantidades e parâmetros inválidos preservam a sequência durante geraç
 
 test('erros do núcleo aparecem por campo; sequência não usa limite de memória inválida', () => {
   const screen = createConfigurationController();
+  screen.setField('mapping', 'set-associative');
   screen.setField('memoryCells', '100'); screen.setField('ways', '3'); screen.setSequence('-1, 4096, abc');
   const view = screen.view();
   assert.ok(view.parameters.errors.memoryCells); assert.ok(view.parameters.errors.ways);
@@ -84,7 +96,7 @@ test('preparação fornece exatamente a entrada imutável do núcleo sem executa
   const screen = createConfigurationController({ onPrepared: input => deliveries.push(input) });
   screen.loadExample();
   const result = screen.prepare();
-  assert.deepEqual(result, prepareSimulationInput(DEFAULT_CONFIGURATION, EXAMPLE_ADDRESSES.join(', ')));
+  assert.deepEqual(result, prepareSimulationInput(EXAMPLE_CONFIGURATION, EXAMPLE_ADDRESSES.join(', ')));
   assert.equal(deliveries.length, 1); assert.equal(screen.view().preparedInput, deliveries[0]);
   assert.ok(Object.isFrozen(deliveries[0])); assert.ok(Object.isFrozen(deliveries[0].addresses));
   assert.ok(!Object.hasOwn(deliveries[0], 'cache'));

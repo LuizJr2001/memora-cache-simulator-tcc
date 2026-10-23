@@ -70,7 +70,7 @@
               <div class="field">
                 <div class="field-heading"><label for="mapping">Mapeamento</label><button class="help-button" type="button" data-help="mapping" aria-label="Ajuda: Mapeamento">?</button></div>
                 <select id="mapping" name="mapping" aria-describedby="mapping-feedback">
-                  <option value="direct">Direto</option><option value="fully-associative">Totalmente associativo</option><option value="set-associative" selected>Por conjunto</option>
+                  <option value="direct" selected>Direto</option><option value="fully-associative">Totalmente associativo</option><option value="set-associative">Por conjunto</option>
                 </select>
                 <p class="field-feedback" id="mapping-feedback"></p>
               </div>
@@ -82,7 +82,7 @@
               <div class="field">
                 <div class="field-heading"><label for="replacement">Substituição</label><button class="help-button" type="button" data-help="replacement" aria-label="Ajuda: Substituição">?</button></div>
                 <select id="replacement" name="replacement" aria-describedby="replacement-feedback">
-                  <option value="LRU">LRU</option><option value="FIFO">FIFO</option><option value="RANDOM">Random</option><option value="" hidden>Não se aplica</option>
+                  <option value="LRU">LRU</option><option value="FIFO" selected>FIFO</option><option value="RANDOM">Random</option>
                 </select>
                 <p class="field-feedback" id="replacement-feedback"></p>
               </div>
@@ -96,7 +96,7 @@
               <label for="sequence">Endereços a acessar</label>
               <div class="sequence-field-actions"><button class="compact" type="button" id="open-generator">Gerar endereços aleatórios</button><button class="help-button" type="button" data-help="sequence" aria-label="Ajuda: Endereços a acessar">?</button></div>
             </div>
-            <textarea id="sequence" name="sequence" rows="4" aria-describedby="sequence-feedback" spellcheck="false" placeholder="Ex.: 0, 1, 16, 17, 32, 33"></textarea>
+            <textarea id="sequence" name="sequence" rows="4" aria-describedby="sequence-feedback" spellcheck="false" placeholder="Ex.: 0, 1, 16, 17, 32, 33">0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996</textarea>
             <div class="field-feedback" id="sequence-feedback"></div>
           </div>
           <div class="configuration-summary">

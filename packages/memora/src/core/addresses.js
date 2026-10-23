@@ -2,6 +2,10 @@
 export const MAX_ADDRESSES = 1000;
 // 16 dígitos por endereço seguro mais até 2 caracteres de separação.
 export const MAX_SEQUENCE_CHARACTERS = MAX_ADDRESSES * 18;
+export const DEFAULT_GENERATION_COUNT = 32;
+export const DEFAULT_ADDRESSES = Object.freeze([
+  0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996,
+]);
 export const EXAMPLE_ADDRESSES = Object.freeze([
   0, 1, 16, 17, 32, 33, 48, 49, 64, 65, 992, 993, 2016, 2017, 2, 18, 34, 994, 2018, 3044, 96,
 ]);
