@@ -164,7 +164,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       count.id = 'address-count'; count.type = 'text'; count.inputMode = 'numeric'; count.value = String(DEFAULT_GENERATION_COUNT);
       count.setAttribute('aria-describedby', 'generation-feedback');
       const message = document.createElement('p'); message.id = 'generation-feedback'; message.className = 'field-feedback'; message.setAttribute('role', 'status');
-      const submit = document.createElement('button'); submit.type = 'submit'; submit.textContent = 'Gerar endereços aleatórios';
+      const submit = document.createElement('button'); submit.type = 'submit'; submit.className = 'button-primary'; submit.textContent = 'Gerar endereços aleatórios';
       generator.append(hint, label, count, message, submit);
       generator.addEventListener('submit', event => {
         event.preventDefault();
