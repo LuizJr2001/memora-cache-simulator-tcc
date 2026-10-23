@@ -135,7 +135,9 @@ test('Decimal/Binário altera endereço, tag, conjunto, blocos e explicações s
 });
 
 test('play, pause, velocidade e navegação cancelam o relógio e preservam o andamento', async ({ page }) => {
-  await page.clock.install(); await prepare(page); await page.locator('#sim-play').click();
+  await page.clock.install({ time: new Date('2026-10-22T12:00:00Z') });
+  await page.clock.pauseAt(new Date('2026-10-22T13:00:00Z'));
+  await prepare(page); await page.locator('#sim-play').click();
   await expect(page.locator('#sim-status')).toContainText('Decompor endereço');
   await page.clock.runFor(400); await page.locator('#sim-play').click();
   const status = await page.locator('#sim-status').textContent();
@@ -260,6 +262,10 @@ test('endereços de 52 bits e cache enorme mantêm renderização paginada', asy
 
 
 test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ page }) => {
+  await page.locator('#tab-simulate').click();
+  await expect(page.locator('#navigation-warning')).toHaveText('Configuração pronta. Clique em Iniciar simulação para continuar.');
+  await expect(page.locator('#simulation-screen')).toBeHidden();
+  await page.locator('#sequence').fill('');
   await page.locator('#tab-simulate').click();
   await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
   await expect(page.locator('#simulation-screen')).toBeHidden();

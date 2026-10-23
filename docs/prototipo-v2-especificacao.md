@@ -372,6 +372,11 @@ A estrutura permanece em **18 side sheets e 34 Cards**, com os estilos SDS, Inte
 
 ## Cenário didático de referência
 
+Desde 22/10, a abertura da aplicação funcional usa os [valores iniciais do
+Beto](../packages/memora/README.md#configuração-inicial), com mapeamento direto e
+sua sequência original. Carregar exemplo didático continua selecionando o
+cenário de comparação descrito abaixo, usado nas ajudas e nos pontos de controle.
+
 O cenário de comparação continua o da V1.2: 4096 células de 1 byte, blocos de 16 células, 32 linhas, mapeamento associativo por conjunto, 2 vias e LRU. São 12 bits de endereço: 4 de tag, 4 de conjunto e 4 de deslocamento.
 
 A sequência é `0, 1, 16, 17, 32, 33, 48, 49, 64, 65, 992, 993, 2016, 2017, 2, 18, 34, 994, 2018, 3044, 96`.

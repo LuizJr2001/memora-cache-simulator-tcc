@@ -42,11 +42,21 @@ inválidos. Esses módulos não criam ou modificam uma cache.
 | Por conjunto | Valor que divide o total de linhas | FIFO, LRU ou RANDOM |
 
 A decomposição usa divisão e resto, sem operações bit a bit limitadas a 32 bits.
-O cenário didático mantém 4096 células, blocos de 16, 32 linhas, 2 vias e LRU:
+`DEFAULT_CONFIGURATION` define a abertura com 1 byte por célula, 4096 células,
+blocos de 16, 32 linhas, mapeamento direto e 1 via. FIFO é a preferência de
+substituição; a normalização do direto continua retornando `null`. Esse cenário
+tem 12 bits de endereço: 3 de tag, 5 de linha e 4 de deslocamento.
+
+`EXAMPLE_CONFIGURATION` define o cenário didático com 4096 células, blocos de 16, 32 linhas, 2 vias e LRU:
 12 bits de endereço divididos em 4 de tag, 4 de conjunto e 4 de deslocamento.
 O endereço 3044 corresponde a bloco 190, tag 11, conjunto 14 e deslocamento 4.
 
 ## Sequências e geração
+
+`DEFAULT_ADDRESSES` contém os 21 acessos iniciais do Beto;
+`EXAMPLE_ADDRESSES` mantém a sequência do exemplo didático. São listas imutáveis
+com cenários próprios. `DEFAULT_GENERATION_COUNT = 32` define a quantidade
+inicial apresentada pelo gerador. Ver [configuração inicial e sequência](../../README.md#configuração-inicial).
 
 Aceitam vírgulas, espaços e quebras de linha. Itens vazios entre vírgulas,
 negativos, frações, texto, notação hexadecimal/exponencial e valores fora de

@@ -1,5 +1,5 @@
 import { DEFAULT_CONFIGURATION } from '../core/configuration.js';
-import { EXAMPLE_ADDRESSES, MAX_ADDRESSES } from '../core/addresses.js';
+import { DEFAULT_GENERATION_COUNT, MAX_ADDRESSES } from '../core/addresses.js';
 import { createConfigurationController } from './configuration-controller.js';
 import { createSideSheet } from './side-sheet.js';
 
@@ -69,7 +69,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       c.mapping === 'fully-associative' ? `${c.ways} vias · 1 conjunto · valor fixo` :
       `${c.ways} vias · ${l.setCount} conjuntos · valor ajustável` : 'Revise os parâmetros';
     feedback('ways', wayHint, errors.ways);
-    feedback('replacement', raw.mapping === 'direct' ? 'Cada bloco possui uma única linha possível' :
+    feedback('replacement', raw.mapping === 'direct' ? 'Não se aplica ao mapeamento direto' :
       raw.replacement === 'LRU' ? 'Estado LRU visível na simulação' : 'A política escolhe a linha a substituir', errors.replacement);
 
     const showSequenceErrors = !addresses.ok && (sequenceEdited || view.sequence.length > 0);
@@ -161,7 +161,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       const label = document.createElement('label');
       label.htmlFor = 'address-count'; label.textContent = 'Quantidade de endereços';
       const count = document.createElement('input');
-      count.id = 'address-count'; count.type = 'text'; count.inputMode = 'numeric'; count.value = String(EXAMPLE_ADDRESSES.length);
+      count.id = 'address-count'; count.type = 'text'; count.inputMode = 'numeric'; count.value = String(DEFAULT_GENERATION_COUNT);
       count.setAttribute('aria-describedby', 'generation-feedback');
       const message = document.createElement('p'); message.id = 'generation-feedback'; message.className = 'field-feedback'; message.setAttribute('role', 'status');
       const submit = document.createElement('button'); submit.type = 'submit'; submit.textContent = 'Gerar endereços aleatórios';

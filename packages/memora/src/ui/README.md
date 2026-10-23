@@ -11,6 +11,14 @@ são compartilhados entre as três telas.
 
 ## Configurar
 
+O controlador abre com `DEFAULT_CONFIGURATION` e `DEFAULT_ADDRESSES`: cenário
+direto do Beto, com os 21 acessos preenchidos. FIFO permanece selecionado e
+desabilitado no direto; o núcleo normaliza a política para `null`. Ao trocar
+para um mapeamento associativo, a preferência FIFO fica editável. O gerador
+usa `DEFAULT_GENERATION_COUNT = 32`. Carregar exemplo didático usa
+`EXAMPLE_CONFIGURATION` e `EXAMPLE_ADDRESSES`, mantendo a referência de 2 vias
+e LRU das ajudas. Ver [valores iniciais](../../README.md#configuração-inicial).
+
 `configuration-controller.js` mantém os dados editáveis e consome validação,
 geração, decomposição e `prepareSimulationInput` de `src/core`, sem criar cache.
 `configure-screen.js` apresenta os resultados e emite `memora:input-prepared`
