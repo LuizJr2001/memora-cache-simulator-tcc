@@ -54,7 +54,7 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
     text('sim-step', state.detailed ? 'Próxima etapa' : 'Avançar acesso');
-    text('sim-mode-description', state.detailed ? 'Detalhado: avança uma etapa e explica a decisão' : 'Resumido: avança um acesso completo');
+    text('sim-mode-description', state.detailed ? '(avança uma etapa e explica a decisão)' : '(avança um acesso completo)');
     root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
     const unit = state.detailed ? (state.speed === 1 ? 'etapa' : 'etapas') : (state.speed === 1 ? 'acesso' : 'acessos');

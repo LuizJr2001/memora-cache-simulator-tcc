@@ -55,6 +55,7 @@
 .simulation-cache { display: flex; flex-direction: column; flex: 1; min-height: 238px; }
 .table-scroll { overflow: auto; min-width: 0; scrollbar-width: thin; scrollbar-color: #b3b3b3 transparent; }
 .table-scroll:focus-visible { outline-offset: 2px; }
+/* A tabela preenche a altura disponível do cartão, com rolagem interna. */
 .cache-scroll { height: 188px; min-height: 150px; flex: 1; margin-top: 12px; position: relative; }
 .simulation-screen table { border-collapse: separate; border-spacing: 0 4px; width: 100%; font-size: 12px; line-height: 16px; table-layout: fixed; }
 .simulation-screen th { position: sticky; top: 0; background: #f9f9f9; z-index: 1; color: #475569; font-weight: 600; text-align: left; }
@@ -80,7 +81,6 @@
 .simulation-history { display: flex; flex-direction: column; min-height: 0; }
 .history-scroll { height: 340px; min-height: 150px; flex: 1; margin-top: 10px; }
 .history-scroll { max-height: clamp(240px, calc(100dvh - 420px), 650px); }
-.cache-scroll { max-height: clamp(180px, calc(100dvh - 560px), 480px); }
 #history-table { min-width: 360px; }
 #history-table th:nth-child(1) { width: 56px; }
 #history-table th:nth-child(2) { width: 14%; }
@@ -201,4 +201,4 @@
 #cache-table th:last-child { width: 12%; }
 
 
-#sim-play.is-finished:disabled { background: var(--memora-hit-background); color: var(--memora-hit-text); border-color: var(--memora-hit-border); opacity: 1; }
+#sim-play.is-finished:disabled { background: #ababab; color: var(--memora-hit-text); border-color: #ababab; opacity: 1; }
