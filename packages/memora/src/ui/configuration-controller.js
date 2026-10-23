@@ -1,5 +1,5 @@
-import { DEFAULT_CONFIGURATION, EXAMPLE_CONFIGURATION, decomposeAddress, isPowerOfTwo, validateConfiguration } from '../core/configuration.js';
-import { DEFAULT_ADDRESSES, EXAMPLE_ADDRESSES, generateAddresses, validateAddresses } from '../core/addresses.js';
+import { DEFAULT_CONFIGURATION, decomposeAddress, isPowerOfTwo, validateConfiguration } from '../core/configuration.js';
+import { DEFAULT_ADDRESSES, generateAddresses, validateAddresses } from '../core/addresses.js';
 import { prepareSimulationInput } from '../core/input.js';
 
 /** Estado da Tela 1, sem regras da cache e sem dependência de DOM */
@@ -47,8 +47,8 @@ export function createConfigurationController({ random = Math.random, onPrepared
     },
     setSequence(value) { sequence = value; invalidate(); return view(); },
     loadExample() {
-      raw = { ...EXAMPLE_CONFIGURATION };
-      sequence = EXAMPLE_ADDRESSES.join(', ');
+      raw = { ...DEFAULT_CONFIGURATION };
+      sequence = DEFAULT_ADDRESSES.join(', ');
       invalidate();
       return view();
     },
@@ -77,3 +77,4 @@ export function createConfigurationController({ random = Math.random, onPrepared
     },
   };
 }
+

@@ -15,9 +15,11 @@ O controlador abre com `DEFAULT_CONFIGURATION` e `DEFAULT_ADDRESSES`: cenário
 direto do Beto, com os 21 acessos preenchidos. FIFO permanece selecionado e
 desabilitado no direto; o núcleo normaliza a política para `null`. Ao trocar
 para um mapeamento associativo, a preferência FIFO fica editável. O gerador
-usa `DEFAULT_GENERATION_COUNT = 32`. Carregar exemplo didático usa
-`EXAMPLE_CONFIGURATION` e `EXAMPLE_ADDRESSES`, mantendo a referência de 2 vias
-e LRU das ajudas. Ver [valores iniciais](../../README.md#configuração-inicial).
+usa `DEFAULT_GENERATION_COUNT = 32`. Carregar exemplo didático restaura
+`DEFAULT_CONFIGURATION` e `DEFAULT_ADDRESSES`, os mesmos valores da abertura,
+e invalida qualquer entrada preparada. O cenário associativo de referência
+é configurado explicitamente nos testes de políticas. Ver
+[valores iniciais](../../README.md#configuração-inicial).
 
 `configuration-controller.js` mantém os dados editáveis e consome validação,
 geração, decomposição e `prepareSimulationInput` de `src/core`, sem criar cache.
@@ -186,3 +188,4 @@ configurações grandes verificados; desktop sem scroll da página nas quatro
 resoluções existentes. Capturas atuais no relatório de revisão geral.
 
 A tela Simular mantém a explicação de cada acesso no histórico, sem uma faixa visual de status duplicada abaixo dos controles. O status continua anunciado por leitores de tela; erros de execução permanecem visíveis. O conjunto/linha em foco continua indicado no cabeçalho da cache.
+

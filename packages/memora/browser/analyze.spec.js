@@ -1,3 +1,4 @@
+import { configureReferenceScenario } from './reference-scenario.js';
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -10,7 +11,7 @@ async function capture(page, name) {
 }
 async function advance(page, count) { for (let i = 0; i < count; i++) await page.locator('#sim-next').click(); }
 async function prepare(page, count = 20) {
-  await page.locator('#load-example').click(); await page.locator('#prepare-input').click(); await advance(page, count);
+  await configureReferenceScenario(page); await page.locator('#prepare-input').click(); await advance(page, count);
 }
 async function open(page) { await page.locator('#go-analyze').click(); await expect(page.locator('#analysis-screen')).toBeVisible(); }
 const before = (page, way) => page.locator(`#analysis-before-table tr[data-way="${way}"]`);
@@ -234,3 +235,4 @@ test('muitas vias têm rolagem local navegável por teclado e conservam a págin
   await expect.poll(() => scroll.evaluate(n => n.scrollTop)).toBeGreaterThan(0); expect(await page.evaluate(() => scrollY)).toBe(0);
   await capture(page, 'muitas-vias');
 });
+

@@ -5,7 +5,12 @@ import { DEFAULT_CONFIGURATION, EXAMPLE_CONFIGURATION } from '../src/core/config
 import { DEFAULT_ADDRESSES, EXAMPLE_ADDRESSES, MAX_ADDRESSES } from '../src/core/addresses.js';
 import { prepareSimulationInput } from '../src/core/input.js';
 
-test('abertura pronta com os padrões do Beto; apagar a sequência bloqueia o início e o exemplo restaura a referência', () => {
+function configureReference(screen) {
+  for (const [field, value] of Object.entries(EXAMPLE_CONFIGURATION)) screen.setField(field, value);
+  return screen.setSequence(EXAMPLE_ADDRESSES.join(', '));
+}
+
+test('abertura pronta com os padrões do Beto; apagar a sequência bloqueia o início e o exemplo restaura os mesmos padrões', () => {
   const screen = createConfigurationController();
   const initial = screen.view();
   assert.deepEqual(initial.raw, DEFAULT_CONFIGURATION);
@@ -22,14 +27,21 @@ test('abertura pronta com os padrões do Beto; apagar a sequência bloqueia o in
   screen.setField('memoryCells', '100');
   screen.setSequence('-1, abc');
   const view = screen.loadExample();
-  assert.deepEqual(view.raw, EXAMPLE_CONFIGURATION);
-  assert.deepEqual(view.addresses.addresses, EXAMPLE_ADDRESSES);
+  assert.deepEqual(view.raw, DEFAULT_CONFIGURATION);
+  assert.deepEqual(view.addresses.addresses, DEFAULT_ADDRESSES);
   assert.equal(view.canStart, true);
-  assert.deepEqual([view.parameters.layout.tagBits, view.parameters.layout.indexBits, view.parameters.layout.offsetBits], [4, 4, 4]);
+  assert.equal(view.replacementValue, 'FIFO');
+  assert.equal(view.waysValue, '1');
+  screen.prepare();
+  screen.loadExample();
+  assert.equal(screen.view().preparedInput, null);
+  assert.deepEqual(screen.view().raw, initial.raw);
+  assert.equal(screen.view().sequence, initial.sequence);
+  assert.deepEqual([view.parameters.layout.tagBits, view.parameters.layout.indexBits, view.parameters.layout.offsetBits], [3, 5, 4]);
 });
 
 test('trocar mapeamentos apresenta os valores normalizados e preserva as escolhas ajustáveis', () => {
-  const screen = createConfigurationController(); screen.loadExample();
+  const screen = createConfigurationController(); configureReference(screen);
   screen.setField('ways', '4'); screen.setField('replacement', 'FIFO');
   let view = screen.setField('mapping', 'direct');
   assert.equal(view.waysEditable, false); assert.equal(view.replacementEditable, false);
@@ -44,7 +56,7 @@ test('trocar mapeamentos apresenta os valores normalizados e preserva as escolha
 });
 
 test('totalmente associativo acompanha alterações no número de linhas', () => {
-  const screen = createConfigurationController(); screen.loadExample();
+  const screen = createConfigurationController(); configureReference(screen);
   screen.setField('mapping', 'fully-associative');
   const view = screen.setField('cacheLines', '64');
   assert.equal(view.waysValue, '64'); assert.equal(view.parameters.configuration.ways, 64);
@@ -52,7 +64,7 @@ test('totalmente associativo acompanha alterações no número de linhas', () =>
 });
 
 test('reduzir linhas não corrige silenciosamente vias inválidas nem libera o início', () => {
-  const screen = createConfigurationController(); screen.loadExample();
+  const screen = createConfigurationController(); configureReference(screen);
   screen.setField('ways', '4');
   const view = screen.setField('cacheLines', '2');
   assert.equal(view.waysValue, '4'); assert.equal(view.canStart, false);
@@ -62,7 +74,7 @@ test('reduzir linhas não corrige silenciosamente vias inválidas nem libera o i
 
 test('geração usa a memória atual e valida automaticamente após editar parâmetros', () => {
   const screen = createConfigurationController({ random: () => .999 });
-  screen.loadExample(); screen.setField('memoryCells', '256');
+  configureReference(screen); screen.setField('memoryCells', '256');
   assert.equal(screen.view().parameters.ok, true);
   assert.equal(screen.view().canStart, false); // a sequência anterior ultrapassa a nova memória
   const generated = screen.generate(3);
@@ -71,7 +83,7 @@ test('geração usa a memória atual e valida automaticamente após editar parâ
 });
 
 test('quantidades e parâmetros inválidos preservam a sequência durante geração', () => {
-  const screen = createConfigurationController(); screen.loadExample();
+  const screen = createConfigurationController(); configureReference(screen);
   const original = screen.view().sequence;
   for (const count of [0, MAX_ADDRESSES + 1, 1.5, NaN]) {
     assert.equal(screen.generate(count).ok, false); assert.equal(screen.view().sequence, original);
@@ -94,7 +106,7 @@ test('erros do núcleo aparecem por campo; sequência não usa limite de memóri
 test('preparação fornece exatamente a entrada imutável do núcleo sem executar acessos', () => {
   const deliveries = [];
   const screen = createConfigurationController({ onPrepared: input => deliveries.push(input) });
-  screen.loadExample();
+  configureReference(screen);
   const result = screen.prepare();
   assert.deepEqual(result, prepareSimulationInput(EXAMPLE_CONFIGURATION, EXAMPLE_ADDRESSES.join(', ')));
   assert.equal(deliveries.length, 1); assert.equal(screen.view().preparedInput, deliveries[0]);
@@ -106,9 +118,10 @@ test('preparação fornece exatamente a entrada imutável do núcleo sem executa
 });
 
 test('alterar configuração invalida a entrada preparada e atualiza a decomposição', () => {
-  const screen = createConfigurationController(); screen.loadExample(); screen.setSequence('2018'); screen.prepare();
+  const screen = createConfigurationController(); configureReference(screen); screen.setSequence('2018'); screen.prepare();
   assert.deepEqual([screen.view().preview.tag, screen.view().preview.set, screen.view().preview.offset], [7, 14, 2]);
   const view = screen.setField('mapping', 'direct');
   assert.equal(view.preparedInput, null);
   assert.deepEqual([view.preview.tag, view.preview.set, view.preview.offset], [3, 30, 2]);
 });
+

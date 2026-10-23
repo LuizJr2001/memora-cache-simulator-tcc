@@ -1,3 +1,4 @@
+import { configureReferenceScenario } from './reference-scenario.js';
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -10,7 +11,7 @@ async function screenshot(page, name) {
   await page.screenshot({ path: resolve(process.env.MEMORA_SIMULATION_SCREENSHOT_DIR, `${name}.png`), fullPage: true });
 }
 async function prepare(page) {
-  await page.locator('#load-example').click(); await page.locator('#prepare-input').click();
+  await configureReferenceScenario(page); await page.locator('#prepare-input').click();
   await expect(page.locator('#simulation-screen')).toBeVisible();
 }
 async function advance(page, count) {
@@ -273,7 +274,7 @@ test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ p
   await page.locator('#tab-analyze').click();
   await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
   await expect(page.locator('#navigation-warning')).toHaveCSS('color', 'rgb(185, 28, 28)');
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await expect(page.locator('#navigation-warning')).toContainText('Clique em Iniciar simulação');
   await page.locator('#tab-simulate').click();
   await expect(page.locator('#simulation-screen')).toBeHidden();
@@ -402,3 +403,4 @@ test('uma nova simulação limpa a linha informada e o aviso de paginação ante
   await expect(page.locator('#cache-jump-error')).toBeEmpty();
   await expect(page.locator('#sim-progress')).toHaveText('0 / 1');
 });
+

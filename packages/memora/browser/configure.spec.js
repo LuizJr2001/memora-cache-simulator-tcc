@@ -1,7 +1,8 @@
+import { configureReferenceScenario } from './reference-scenario.js';
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { EXAMPLE_ADDRESSES, MAX_ADDRESSES, MAX_SEQUENCE_CHARACTERS } from '../src/core/addresses.js';
+import { DEFAULT_ADDRESSES, EXAMPLE_ADDRESSES, MAX_ADDRESSES, MAX_SEQUENCE_CHARACTERS } from '../src/core/addresses.js';
 import { HELP_CONTENT } from '../src/ui/help-content.js';
 
 async function screenshot(page, name) {
@@ -40,6 +41,9 @@ test('abertura usa o cenário do Beto e permite simular seus 21 endereços diret
   await expect(page.locator('#replacement')).toHaveValue('FIFO');
   await page.locator('#mapping').selectOption('direct');
 
+  await page.locator('#load-example').click();
+  await expect(page.locator('#sequence')).toHaveValue(addresses.join(', '));
+  await expect(page.locator('#mapping')).toHaveValue('direct');
   await page.evaluate(() => document.addEventListener('memora:input-prepared', event => { window.initialInput = event.detail; }));
   await page.locator('#prepare-input').click();
   const input = await page.evaluate(() => window.initialInput);
@@ -60,13 +64,23 @@ test('abertura usa o cenário do Beto e permite simular seus 21 endereços diret
 
 test('exemplo didático libera uma entrada válida e usa os assets/fontes locais', async ({ page }) => {
   await expect(page.getByRole('button', { name: /Validar parâmetros|Parâmetros validados/ })).toHaveCount(0);
+  await configureReferenceScenario(page);
+  await page.locator('#memoryCells').fill('100');
   await page.locator('#sequence').fill('');
   await expect(page.getByRole('button', { name: 'Iniciar simulação' })).toBeDisabled();
   await page.getByRole('button', { name: 'Carregar exemplo didático' }).click();
-  await expect(page.getByLabel('Endereços a acessar', { exact: true })).toHaveValue(EXAMPLE_ADDRESSES.join(', '));
+  await expect(page.getByLabel('Endereços a acessar', { exact: true })).toHaveValue(DEFAULT_ADDRESSES.join(', '));
   await expect(page.locator('#sequence-feedback')).toContainText('21 endereços válidos');
   await expect(page.locator('#prepare-input')).toBeEnabled();
-  await expect(page.locator('#tag-label')).toHaveText('Tag · 4 bits');
+  await expect(page.locator('#tag-label')).toHaveText('Tag · 3 bits');
+  await expect(page.locator('#mapping')).toHaveValue('direct');
+  await expect(page.locator('#ways')).toHaveValue('1');
+  await expect(page.locator('#ways')).toBeDisabled();
+  await expect(page.locator('#replacement')).toHaveValue('FIFO');
+  await expect(page.locator('#replacement')).toBeDisabled();
+  await expect(page.locator('#memoryCells')).toHaveValue('4096');
+  await page.locator('#load-example').click();
+  await expect(page.locator('#sequence')).toHaveValue(DEFAULT_ADDRESSES.join(', '));
   await page.evaluate(() => document.fonts.ready);
   const assets = await page.evaluate(() => ({
     font: document.fonts.check('14px Inter'),
@@ -86,7 +100,7 @@ test('exemplo didático libera uma entrada válida e usa os assets/fontes locais
 });
 
 test('mapeamentos condicionais e escolhas preservadas ao voltar para conjunto', async ({ page }) => {
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await page.getByLabel('Vias por conjunto', { exact: true }).selectOption('4');
   await page.getByLabel('Substituição', { exact: true }).selectOption('FIFO');
   await page.getByLabel('Mapeamento', { exact: true }).selectOption('direct');
@@ -113,7 +127,7 @@ test('mapeamentos condicionais e escolhas preservadas ao voltar para conjunto', 
 });
 
 test('erros próximos aos campos bloqueiam inclusive a preparação via submit', async ({ page }) => {
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await page.locator('#ways').selectOption('4');
   await page.locator('#cacheLines').fill('2');
   await page.locator('#memoryCells').fill('100');
@@ -133,7 +147,7 @@ test('erros próximos aos campos bloqueiam inclusive a preparação via submit',
   expect(await page.evaluate(() => window.preparedCount)).toBe(0);
   await expect(page.locator('#memoryCells')).toBeFocused();
   await screenshot(page, 'casos-invalidos');
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await expect(page.locator('#error-summary')).toBeHidden();
   await expect(page.locator('#prepare-input')).toBeEnabled();
 });
@@ -141,7 +155,7 @@ test('erros próximos aos campos bloqueiam inclusive a preparação via submit',
 test('geração usa o limite recém-editado e erros preservam a sequência', async ({ page }) => {
   await page.addInitScript(() => { Math.random = () => .999; });
   await page.reload();
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await page.locator('#memoryCells').fill('512');
   await page.locator('#open-generator').click();
   await page.getByLabel('Quantidade de endereços').fill('1001');
@@ -184,7 +198,7 @@ test('limites do núcleo bloqueiam a interface sem truncar a entrada colada', as
 });
 
 test('entrada preparada usa o contrato do núcleo e abre a Tela 2 sem executar acessos', async ({ page }) => {
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await page.evaluate(() => document.addEventListener('memora:input-prepared', event => {
     window.prepared = { input: event.detail, frozen: Object.isFrozen(event.detail) && Object.isFrozen(event.detail.addresses) };
   }));
@@ -252,7 +266,7 @@ test('ajuda contextual acessível por teclado e com retorno do foco', async ({ p
 });
 
 test('fechar pelo botão e pelo scrim preserva dados e foco', async ({ page }) => {
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   const opener = page.locator('[data-help="ways"]');
   await opener.click(); await page.locator('#close-sheet').click(); await expect(opener).toBeFocused();
   await opener.click(); await page.mouse.click(20, 300); await expect(page.getByRole('dialog')).toBeHidden();
@@ -284,7 +298,7 @@ for (const viewport of [{ width: 801, height: 720 }, { width: 1024, height: 768 
       expect(geometry.outside).toEqual([]);
     }
     await fits();
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     if (viewport.width <= 1180) await screenshot(page, `layout-${viewport.width}x${viewport.height}`);
     for (const mapping of ['set-associative', 'direct', 'fully-associative']) {
       await page.locator('#mapping').selectOption(mapping); await fits();
@@ -318,7 +332,7 @@ test('prévia mantém origem acessível e não mantém valor antigo após erros'
   await expect(page.locator('#preview-label')).toHaveCount(0);
   await expect(description).toHaveClass('sr-only');
   await expect(description).toHaveText('Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await page.locator('#sequence').fill('2018, 3044');
   await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 2018');
   await expect(page.locator('#tag-value')).toHaveText('0111');
@@ -333,7 +347,7 @@ test('prévia mantém origem acessível e não mantém valor antigo após erros'
   await page.locator('#sequence').fill('2018');
   await page.locator('#memoryCells').fill('100');
   await expect(description).not.toContainText('2018');
-  await page.locator('#load-example').click();
+  await configureReferenceScenario(page);
   await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 0');
 });
 
@@ -381,7 +395,7 @@ test('zero bits e entradas sem inteiros válidos não geram dados fictícios', a
 for (const width of [768, 390, 320]) {
   test(`layout e ajudas sem sobreposição ou scroll horizontal em ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     const panels = await page.locator('.panel').evaluateAll(nodes => nodes.map(n => ({ top: n.getBoundingClientRect().top, bottom: n.getBoundingClientRect().bottom })));
     expect(panels[1].top).toBeGreaterThanOrEqual(panels[0].bottom);
@@ -408,7 +422,7 @@ for (const viewport of [
 ]) {
   test(`distribuição horizontal fluida em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     const readBounds = () => page.evaluate(() => {
       const rect = selector => {
         const r = document.querySelector(selector).getBoundingClientRect();
@@ -515,7 +529,7 @@ for (const viewport of [
       expect(g.width).toBeLessThanOrEqual(viewport.width);
     }
     await check();
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     for (const mapping of ['direct', 'fully-associative', 'set-associative']) {
       await page.locator('#mapping').selectOption(mapping);
       await check();
@@ -534,7 +548,7 @@ for (const viewport of [
 test('respiro discreto entre rótulo, input e dica sem scroll no desktop', async ({ page }) => {
   for (const viewport of [{ width: 1280, height: 720 }, { width: 1920, height: 1080 }]) {
     await page.setViewportSize(viewport);
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     const measure = () => page.evaluate(() => {
       const gap = (a, b) => {
         const one = document.querySelector(a).getBoundingClientRect();
@@ -573,7 +587,7 @@ for (const viewport of [
 ]) {
   test(`prévia junto dos botões e seções bem distribuídas em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     const inspect = () => page.evaluate(() => {
       const rect = selector => document.querySelector(selector).getBoundingClientRect();
       const cards = rect('.decomposition-grid');
@@ -628,7 +642,7 @@ for (const viewport of [
 ]) {
   test(`erros localizados sem banner redundante em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     await page.locator('#memoryCells').fill('100');
     await page.locator('#sequence').fill('-1, 4096, abc, 20');
     await expect(page.locator('#intro-description')).toBeVisible();
@@ -660,7 +674,7 @@ for (const viewport of [
 ]) {
   test(`ícone de erro centralizado no resumo em ${viewport.width} × ${viewport.height}`, async ({ page }) => {
     await page.setViewportSize(viewport);
-    await page.locator('#load-example').click();
+    await configureReferenceScenario(page);
     await page.locator('#memoryCells').fill('100');
     await expect(page.locator('#configuration-status')).toHaveText('Configuração com erros');
     const geometry = await page.evaluate(() => {
@@ -684,3 +698,4 @@ for (const viewport of [
     await screenshot(page, `alerta-centralizado-${viewport.width}x${viewport.height}`);
   });
 }
+

@@ -36,7 +36,7 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
 | 18/10 | Refinamento do título e das ações da sequência | Título completo da divisão de acordo com o mapeamento; geração à esquerda da interrogação de Endereços a acessar; Iniciar simulação centralizado. [Relatório](../packages/memora/docs/verificacao-acoes-enderecos.md) |
 | 18/10 | Espaçamento do gerador e largura da ação principal | Gerador separado da ajuda por 16 px, rótulo Primeiro endereço removido e Iniciar simulação ocupando a largura disponível, com texto centralizado. [Relatório](../packages/memora/docs/verificacao-largura-iniciar.md) |
 | 22/10 | Mais espaço lateral no botão de geração | Padding horizontal ampliado de 4 para 16 px em cada lado, com distância de 16 px até a ajuda e encaixe conferido de 320 a 1920 px. [Relatório atualizado](../packages/memora/docs/verificacao-largura-iniciar.md#refinamento-do-gerador--22102026) |
-| 22/10 | Configuração inicial baseada no Beto | Abertura com mapeamento direto, 21 acessos originais, FIFO como preferência e quantidade inicial 32 no gerador. Cenário didático por conjunto/LRU disponível no botão de exemplo. [Verificação](../packages/memora/docs/verificacao-configuracao-inicial.md) |
+| 22/10 | Configuração inicial baseada no Beto | Abertura com mapeamento direto, 21 acessos originais, FIFO como preferência e quantidade inicial 32 no gerador. O botão inicialmente carregava por conjunto/LRU; em 23/10 foi unificado com os valores de abertura do Beto. [Verificação](../packages/memora/docs/verificacao-configuracao-inicial.md) |
 
 ## Comportamentos consolidados
 
@@ -104,3 +104,4 @@ executar as suítes e registrar novas verificações separadamente.
 
 A existência da implementação e da publicação não fecha automaticamente as
 issues de pesquisa, avaliação ou regressão com critérios adicionais.
+
