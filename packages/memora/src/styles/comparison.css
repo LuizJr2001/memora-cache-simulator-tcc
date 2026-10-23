@@ -1,0 +1,51 @@
+/* Comparação contextual: usa o espaço da tabela, sem criar uma terceira etapa. */
+.cache-comparison { position: relative; margin-top: 4px; min-height: 0; font-size: 12px; line-height: 17px; }
+.cache-comparison > summary { cursor: pointer; color: var(--memora-current-set-accent); font-weight: 600; padding: 3px 0; border-radius: 4px; }
+#comparison-access-label { font-weight: 400; overflow-wrap: anywhere; }
+.cache-comparison[open] { flex: 1; height: 0; overflow: auto; scrollbar-width: thin; }
+.simulation-cache:has(.cache-comparison[open]) > .cache-scroll,
+.simulation-cache:has(.cache-comparison[open]) > .cache-navigation,
+.simulation-cache:has(.cache-comparison[open]) > #cache-description { display: none; }
+.comparison-content { padding: 8px 2px 2px; }
+.comparison-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.comparison-toolbar h3 { margin-right: auto; font-size: 13px; line-height: 18px; }
+.comparison-navigation { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.comparison-navigation button { flex: 1; min-height: 30px; font-size: 11px; padding: 5px 8px; }
+.comparison-description { color: var(--sds-color-text-default-secondary); margin: 4px 0 12px; }
+.analysis-snapshots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.analysis-snapshot { min-width: 0; padding: 10px; }
+.analysis-snapshot h2 { font-size: 14px; line-height: 19px; }
+.analysis-snapshot .simulation-card-heading { align-items: start; gap: 8px; }
+.analysis-snapshot .simulation-description { margin-top: 4px; }
+.analysis-snapshot .table-scroll { margin-top: 6px; }
+.analysis-result { min-width: 104px; text-align: center; font-size: 12px; line-height: 18px; padding: 4px 12px; border: 1px solid var(--memora-miss-border); border-radius: 8px; color: var(--memora-miss-text); background: var(--memora-miss-background); }
+.analysis-result.is-hit { color: var(--memora-hit-text); border-color: var(--memora-hit-border); background: var(--memora-hit-background); }
+.analysis-snapshot table { border-collapse: separate; border-spacing: 0 4px; width: 100%; min-width: 550px; table-layout: fixed; font-size: 12px; line-height: 16px; }
+.analysis-snapshot th { background: white; position: sticky; top: 0; z-index: 1; font-weight: 600; color: #475569; text-align: left; }
+.analysis-snapshot td, .analysis-snapshot th { border: 1px solid var(--sds-color-border-default-default); border-left: 0; padding: 5px 7px; overflow-wrap: anywhere; }
+.analysis-snapshot th:first-child { width: 7%; }
+.analysis-snapshot th:nth-child(2) { width: 10%; }
+.analysis-snapshot th:nth-child(3) { width: 12%; }
+.analysis-snapshot th:nth-child(4) { width: 29%; }
+.analysis-snapshot th:last-child { width: 20%; }
+.analysis-snapshot td:first-child { border-left: 1px solid var(--sds-color-border-default-default); border-radius: 6px 0 0 6px; }
+.analysis-snapshot td:last-child { border-radius: 0 6px 6px 0; }
+.analysis-snapshot .analysis-victim td { background: var(--memora-miss-background); border-color: var(--memora-miss-border); }
+.analysis-victim td:last-child { color: var(--memora-miss-text); }
+.analysis-snapshot .analysis-updated td { background: var(--memora-hit-background); }
+.analysis-updated td:last-child { color: var(--memora-hit-text); }
+.analysis-snapshot .analysis-chosen td { background: var(--memora-info-background); }
+.analysis-lru-column .help-button { width: 18px; height: 18px; min-height: 18px; font-size: 11px; vertical-align: middle; }
+.analysis-blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.analysis-blocks > div { padding: 10px 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); min-width: 0; }
+.analysis-blocks p { font-size: 13px; line-height: 18px; margin-top: 12px; overflow-wrap: anywhere; }
+
+.cache-comparison .analysis-snapshot table { min-width: 480px; }
+.cache-comparison .analysis-snapshot th { font-size: 11px; }
+.cache-comparison .analysis-snapshot td { font-size: 11px; }
+.analysis-blocks { gap: 12px; margin-top: 12px; }
+.analysis-blocks h3 { font-size: 13px; }
+.analysis-blocks p { margin-top: 6px; font-size: 12px; }
+@media (max-width: 1700px) { .analysis-snapshots { grid-template-columns: 1fr; } }
+@media (max-width: 800px) { .cache-comparison[open] { max-height: 65dvh; } }
+@media (max-width: 480px) { .analysis-blocks { grid-template-columns: 1fr; } }

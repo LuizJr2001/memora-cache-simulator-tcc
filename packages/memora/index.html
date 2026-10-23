@@ -8,7 +8,7 @@
     <link rel="preload" href="./src/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./src/styles/base.css">
     <link rel="stylesheet" href="./src/styles/simulation.css">
-    <link rel="stylesheet" href="./src/styles/analysis.css">
+    <link rel="stylesheet" href="./src/styles/comparison.css">
   </head>
   <body>
     <a class="skip-link" href="#configurar">Ir para a configuração</a>
@@ -26,7 +26,6 @@
       <ol class="stage-tabs" aria-label="Etapas do Memora" role="tablist">
         <li class="stage-tab current" aria-current="step" role="presentation"><button id="tab-configure" type="button" role="tab" aria-selected="true" aria-controls="configuration-screen">1 Configurar</button></li>
         <li class="stage-tab" role="presentation"><button id="tab-simulate" type="button" role="tab" aria-selected="false" aria-controls="simulation-screen" tabindex="-1" title="Prepare a configuração para simular">2 Simular</button></li>
-        <li class="stage-tab" role="presentation"><button id="tab-analyze" type="button" role="tab" aria-controls="analysis-screen" aria-selected="false" tabindex="-1" title="Processe um acesso para analisar">3 Analisar</button></li>
       </ol>
       <div id="configuration-screen" class="configuration-screen" role="tabpanel" aria-labelledby="tab-configure">
       <div class="intro">
@@ -127,7 +126,7 @@
       </div>
       <section id="simulation-screen" class="simulation-screen" role="tabpanel" aria-labelledby="tab-simulate" hidden>
         <div class="simulation-intro">
-          <div><h1 id="simulation-title" tabindex="-1">Acompanhe a simulação</h1><p id="simulation-subtitle">Pronto para iniciar</p><p id="simulation-analysis-warning" role="alert" hidden></p></div>
+          <div><h1 id="simulation-title" tabindex="-1">Acompanhe a simulação</h1><p id="simulation-subtitle">Pronto para iniciar</p></div>
           <div class="number-format" role="group" aria-label="Formato dos endereços"><span>Exibir em:</span><button type="button" id="format-decimal" aria-pressed="true">✓ Decimal</button><button type="button" id="format-binary" aria-pressed="false">Binário</button></div>
         </div>
         <div class="simulation-grid">
@@ -153,31 +152,11 @@
               <div class="simulation-card-heading"><h2 id="cache-heading">Memória cache</h2><span id="cache-set" class="set-badge" hidden></span><button type="button" class="help-button" data-help="cache" aria-label="Ajuda: Memória cache">?</button></div>
               <p class="simulation-description" id="cache-description">A cache começa vazia. As linhas aparecerão conforme os blocos forem carregados</p>
               <div id="cache-navigation" class="cache-navigation" hidden><span id="cache-page-summary"></span><div><button id="cache-prev" type="button">← Anteriores</button><button id="cache-next" type="button">Próximas →</button></div><form id="cache-jump-form"><label for="cache-line-jump">Ir à linha</label><input id="cache-line-jump" type="text" inputmode="numeric" aria-describedby="cache-jump-error"><button type="submit">Ir</button></form><p id="cache-jump-error" class="error-text" role="status"></p></div>
-              <div id="cache-scroll" class="table-scroll cache-scroll" tabindex="0" aria-label="Linhas da memória cache, incluindo vazias"><table id="cache-table"><caption class="sr-only">Linhas da cache com validade, tag e células do bloco; local consultado primeiro</caption><thead></thead><tbody></tbody></table><div id="cache-empty" class="simulation-empty"><strong>Nenhuma linha ocupada</strong><p>Inicie a simulação para ver os blocos entrando na cache</p></div></div>
-            </section>
-          </div>
-          <section class="simulation-history simulation-card" aria-labelledby="history-heading">
-            <div class="simulation-card-heading"><h2 id="history-heading">Histórico de acessos</h2><button type="button" class="help-button" data-help="history" aria-label="Ajuda: Histórico de acessos">?</button></div>
-            <p id="history-description" class="simulation-description">Os acessos aparecerão aqui após o início da simulação</p>
-            <div class="table-scroll history-scroll" tabindex="0" aria-label="Histórico completo de acessos"><table id="history-table"><caption class="sr-only">Acessos do mais recente ao mais antigo; selecione o número para revisar</caption><thead><tr><th scope="col">Nº</th><th scope="col">End.</th><th scope="col">Resultado</th><th scope="col">Explicação</th></tr></thead><tbody></tbody></table><div id="history-empty" class="simulation-empty"><strong>Nenhum acesso processado</strong><p>Clique em Iniciar para processar o primeiro endereço da sequência</p></div></div>
-            <div class="history-summary" id="history-summary"><h3 id="history-state-title">Estado atual</h3><p id="history-state">A cache está vazia e os contadores estão zerados</p></div>
-            <section id="access-details" class="access-details" aria-labelledby="access-details-heading"><h3 id="access-details-heading">Passo a passo do acesso</h3><p id="access-details-empty">Inicie a simulação para acompanhar a decomposição, a consulta e a decisão da cache.</p><div id="access-binary" class="access-binary" aria-label="Endereço binário dividido em campos"></div><ol id="access-detail-steps"></ol></section>
-            <button type="button" id="go-analyze" disabled title="Processe um acesso para analisar">Analisar decisão de substituição →</button>
-          </section>
-        </div>
-      </section>
-      <section id="analysis-screen" class="analysis-screen" role="tabpanel" aria-labelledby="tab-analyze" hidden>
-        <div class="simulation-intro">
-          <div><h1 id="analysis-title" tabindex="-1">Analise a decisão da cache</h1><p id="analysis-subtitle">Processe um acesso para analisar</p></div>
-          <div class="number-format" role="group" aria-label="Formato dos endereços na análise"><span>Exibir em:</span><button type="button" id="analysis-decimal" aria-pressed="true">✓ Decimal</button><button type="button" id="analysis-binary" aria-pressed="false">Binário</button></div>
-        </div>
-        <p id="analysis-empty">Processe um acesso na simulação para comparar os estados antes e depois</p>
-        <div id="analysis-content" class="analysis-content" hidden>
-          <section class="analysis-event simulation-card" aria-labelledby="analysis-event-title"><h2 id="analysis-event-title" tabindex="-1"></h2><span id="analysis-result" class="analysis-result"></span><p id="analysis-event-description"></p></section>
-          <section class="analysis-decomposition simulation-card" aria-labelledby="analysis-decomposition-title">
-            <div class="simulation-card-heading"><h2 id="analysis-decomposition-title">1 · Decompor o endereço</h2><p id="analysis-decomposition-description"></p><button type="button" class="help-button" data-help="analysis-decomposition" aria-label="Ajuda: Decomposição do endereço">?</button></div>
-            <dl class="analysis-parts"><div><dd id="analysis-tag">—</dd><dt id="analysis-tag-label">Tag</dt></div><div><dd id="analysis-set">—</dd><dt id="analysis-set-label">Conjunto</dt></div><div><dd id="analysis-offset">—</dd><dt id="analysis-offset-label">Deslocamento</dt></div></dl>
-          </section>
+              <details id="access-comparison" class="cache-comparison" hidden>
+                <summary>Comparar antes e depois <span id="comparison-access-label"></span></summary>
+                <div class="comparison-content" tabindex="0" aria-label="Comparação da cache antes e depois do acesso">
+                  <div class="comparison-toolbar"><h3 id="analysis-event-title" class="sr-only"></h3><span id="analysis-result" class="analysis-result"></span><div class="comparison-navigation" role="group" aria-label="Navegar pelos acessos já realizados"><button type="button" id="comparison-previous">← Acesso anterior</button><button type="button" id="comparison-next">Acesso seguinte →</button></div></div>
+                  <p id="analysis-event-description" class="sr-only"></p>
           <div class="analysis-snapshots">
             <section class="analysis-snapshot simulation-card" aria-labelledby="analysis-before-title">
               <div class="simulation-card-heading"><h2 id="analysis-before-title">Antes da substituição</h2><button type="button" class="help-button" data-help="analysis-snapshots" aria-label="Ajuda: Estado antes × depois">?</button></div>
@@ -190,10 +169,19 @@
               <div class="table-scroll" tabindex="0" aria-label="Cache depois do acesso analisado"><table id="analysis-after-table"><caption class="sr-only">Vias do conjunto consultado · depois do acesso</caption><thead><tr><th scope="col">Via</th><th scope="col">Válido</th><th scope="col">Tag</th><th scope="col">Bloco armazenado</th><th scope="col" class="analysis-lru-column">LRU <button type="button" class="help-button" data-help="analysis-lru" aria-label="Ajuda: LRU na decisão">?</button></th><th scope="col">Decisão</th></tr></thead><tbody></tbody></table></div>
             </section>
           </div>
-          <div class="analysis-bottom">
-            <section class="analysis-steps simulation-card" aria-labelledby="analysis-steps-title"><div class="simulation-card-heading"><h2 id="analysis-steps-title">Como ocorre uma substituição?</h2><button type="button" class="help-button" data-help="analysis-decision" aria-label="Ajuda: Decisão de substituição">?</button></div><ol class="analysis-step-grid"><li><span class="analysis-step-number" aria-hidden="true">1</span><div><h3 id="analysis-step-1-title">Localizar conjunto</h3><p id="analysis-step-1"></p></div></li><li><span class="analysis-step-number" aria-hidden="true">2</span><div><h3 id="analysis-step-2-title">Verificar acerto</h3><p id="analysis-step-2"></p></div></li><li><span class="analysis-step-number" aria-hidden="true">3</span><div><h3 id="analysis-step-3-title">Aplicar política</h3><p id="analysis-step-3"></p></div></li><li><span class="analysis-step-number" aria-hidden="true">4</span><div><h3 id="analysis-step-4-title">Atualizar cache</h3><p id="analysis-step-4"></p></div></li></ol></section>
-            <div class="analysis-outcome"><div class="analysis-blocks"><div><h2>Sai</h2><p id="analysis-out"></p></div><div><h2>Entra</h2><p id="analysis-in"></p></div></div><div class="analysis-actions"><button type="button" id="analysis-return">← Voltar à simulação</button><button type="button" id="analysis-next">Próximo acesso</button></div></div>
+                  <div class="analysis-blocks"><div><h3>Sai</h3><p id="analysis-out"></p></div><div><h3>Entra</h3><p id="analysis-in"></p></div></div>
+                </div>
+              </details>
+              <div id="cache-scroll" class="table-scroll cache-scroll" tabindex="0" aria-label="Linhas da memória cache, incluindo vazias"><table id="cache-table"><caption class="sr-only">Linhas da cache com validade, tag e células do bloco; local consultado primeiro</caption><thead></thead><tbody></tbody></table><div id="cache-empty" class="simulation-empty"><strong>Nenhuma linha ocupada</strong><p>Inicie a simulação para ver os blocos entrando na cache</p></div></div>
+            </section>
           </div>
+          <section class="simulation-history simulation-card" aria-labelledby="history-heading">
+            <div class="simulation-card-heading"><h2 id="history-heading">Histórico de acessos</h2><button type="button" class="help-button" data-help="history" aria-label="Ajuda: Histórico de acessos">?</button></div>
+            <p id="history-description" class="simulation-description">Os acessos aparecerão aqui após o início da simulação</p>
+            <div class="table-scroll history-scroll" tabindex="0" aria-label="Histórico completo de acessos"><table id="history-table"><caption class="sr-only">Acessos do mais recente ao mais antigo; selecione o número para revisar</caption><thead><tr><th scope="col">Nº</th><th scope="col">End.</th><th scope="col">Resultado</th><th scope="col">Explicação</th></tr></thead><tbody></tbody></table><div id="history-empty" class="simulation-empty"><strong>Nenhum acesso processado</strong><p>Clique em Iniciar para processar o primeiro endereço da sequência</p></div></div>
+            <div class="history-summary" id="history-summary"><h3 id="history-state-title">Estado atual</h3><p id="history-state">A cache está vazia e os contadores estão zerados</p></div>
+            <section id="access-details" class="access-details" aria-labelledby="access-details-heading"><h3 id="access-details-heading">Passo a passo do acesso</h3><p id="access-details-empty">Inicie a simulação para acompanhar a decomposição, a consulta e a decisão da cache.</p><div id="access-binary" class="access-binary" aria-label="Endereço binário dividido em campos"></div><ol id="access-detail-steps"></ol></section>
+          </section>
         </div>
       </section>
       <footer class="attribution">Baseado no <a href="https://github.com/leo150250/simuladorCache" target="_blank" rel="noopener noreferrer">simulador educacional de memória cache Beto</a>, de Leandro Gabriel e colaboradores · Licença MIT</footer>

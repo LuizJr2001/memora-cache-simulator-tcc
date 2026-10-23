@@ -1,5 +1,7 @@
 # Memora — Especificação visual do protótipo v2
 
+> Revisão de implementação em 23/10/2026: o fluxo publicado passa a Configurar → Simular. A comparação antes/depois está integrada à revisão do histórico, conforme [decisão 004](decisoes/004-analise-contextual.md). As três telas descritas abaixo registram o protótipo anterior.
+
 **Consolidação documental:** 18/10/2026
 
 **Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  

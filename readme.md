@@ -2,7 +2,7 @@
 
 O **Memora** é um simulador educacional de memória cache, gratuito e de código aberto, baseado no **Beto**, de Leandro Gabriel e colaboradores. Apoia disciplinas de Arquitetura e Organização de Computadores com configuração validada, execução passo a passo e análise das decisões da cache.
 
-**[Abrir o Memora](https://luizjr2001.github.io/memora-cache-simulator-tcc/)** · As três telas — Configurar, Simular e Analisar — estão implementadas e integradas à `main`. A avaliação externa e a atualização do artigo continuam em andamento.
+**[Abrir o Memora](https://luizjr2001.github.io/memora-cache-simulator-tcc/)** · O fluxo tem duas etapas — Configurar e Simular — com comparação antes/depois integrada à revisão de acessos. A avaliação externa e a atualização do artigo continuam em andamento.
 
 O Memora é a nova identidade do projeto de avaliação e aprimoramento do simulador **Beto**, preservando sua origem acadêmica e seu legado técnico, mas distinguindo a proposta revisada do sistema original.
 
@@ -37,8 +37,8 @@ As principais frentes do trabalho são:
 |---|---|
 | **Configurar** | Três mapeamentos, vias e substituição condicionais, validação ao editar, sequência manual, geração aleatória e exemplo didático de 21 endereços. A prévia calcula a divisão a partir do primeiro endereço, sem exibir um rótulo adicional para ele. |
 | **Simular** | Direto, totalmente associativo e por conjunto; FIFO, LRU e Random; seis etapas por acesso ou avanço resumido; início, pausa, parada e reinício; velocidade inicial 5; estatísticas, cache com linhas vazias/células e histórico revisável. |
-| **Analisar** | Snapshots antes/depois, blocos Sai/Entra e quatro passos que explicam acerto, carga em via livre ou substituição, com o critério de cada política. Revisão sem executar novamente o acesso. |
-| **Recursos compartilhados** | Decimal/Binário em Simular/Analisar, navegação com preservação do estado, 18 ajudas contextuais, Glossário, Ajuda rápida, teclado/foco e layout responsivo. |
+| **Comparação em Simular** | Ao selecionar um acesso no histórico, expanda Comparar antes e depois no cartão da cache. Mostra snapshots, Sai/Entra e política; a navegação percorre somente acessos já realizados. |
+| **Recursos compartilhados** | Decimal/Binário compartilhado pela simulação e comparação, navegação com preservação do estado, 16 ajudas contextuais, Glossário, Ajuda rápida, teclado/foco e layout responsivo. |
 
 **Gerar endereços aleatórios** preenche o campo **Endereços a acessar**,
 substituindo a sequência atual. O botão fica junto ao rótulo desse campo,
@@ -141,9 +141,9 @@ A Tela 2 conecta essa entrada à execução real, com controles,
 cache, LRU, histórico e revisão por snapshots, preservando o Beto em `docs/`.
 O [relatório da Tela 2](packages/memora/docs/verificacao-tela-2.md) registra a
 verificação e a correção dos números de via no cenário estático do Figma.
-A Tela 3 acrescenta Analisar: comparação antes/depois,
+Historicamente, a Tela 3 acrescentou Analisar: comparação antes/depois,
 blocos Sai/Entra, quatro passos didáticos, acerto/linha livre/substituição e
-quatro ajudas. O [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md)
+quatro ajudas. Em 23/10, a comparação foi incorporada ao cartão da cache em Simular, sem repetir decomposição e roteiro. A [decisão 004](docs/decisoes/004-analise-contextual.md) registra a mudança. O [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md)
 registra a regressão e a sincronização das vias no Figma. O motor foi preservado.
 
 Use Node.js 22 ou superior e npm:
@@ -159,7 +159,7 @@ npm run dev
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
 Use **Iniciar simulação** com os valores iniciais ou carregue o exemplo na Tela 1 para abrir Simular.
-As três telas estão na `main`; não é necessário usar as antigas branches de implementação.
+As duas etapas e a comparação integrada partem da `main`; não é necessário usar as antigas branches de implementação.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
 `npm test` executa **75 testes Node**, incluindo execução, controladores, apresentação e análise,
