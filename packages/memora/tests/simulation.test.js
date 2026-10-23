@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_CONFIGURATION } from '../src/core/configuration.js';
+import { EXAMPLE_CONFIGURATION } from '../src/core/configuration.js';
 import { EXAMPLE_ADDRESSES } from '../src/core/addresses.js';
 import { prepareSimulationInput } from '../src/core/input.js';
 import { createSimulation, lruState, SIMULATION_PHASES } from '../src/core/simulation.js';
 
-const input = (addresses, changes = {}) => prepareSimulationInput({ ...DEFAULT_CONFIGURATION, ...changes }, addresses.join(', ')).input;
+const input = (addresses, changes = {}) => prepareSimulationInput({ ...EXAMPLE_CONFIGURATION, ...changes }, addresses.join(', ')).input;
 function run(addresses, changes = {}, options = {}) {
   const engine = createSimulation(input(addresses, changes), options);
   while (!engine.view().done) engine.nextAccess();
@@ -126,9 +126,9 @@ test('Random inválido falha antes de modificar a linha ou contabilizar o acesso
 });
 
 test('entrada forjada ou inválida não cria simulação e layout recebido não substitui a validação', () => {
-  for (const bad of [null, {}, { configuration: DEFAULT_CONFIGURATION, addresses: [] },
-    { configuration: DEFAULT_CONFIGURATION, addresses: [4096] },
-    { configuration: { ...DEFAULT_CONFIGURATION, memoryCells: 100 }, addresses: [0] }]) {
+  for (const bad of [null, {}, { configuration: EXAMPLE_CONFIGURATION, addresses: [] },
+    { configuration: EXAMPLE_CONFIGURATION, addresses: [4096] },
+    { configuration: { ...EXAMPLE_CONFIGURATION, memoryCells: 100 }, addresses: [0] }]) {
     assert.throws(() => createSimulation(bad), RangeError);
   }
   const state = createSimulation({ ...input([0]), layout: { tagBits: 99 } }).view();

@@ -44,9 +44,17 @@ As principais frentes do trabalho são:
 substituindo a sequência atual. O botão fica junto ao rótulo desse campo,
 com 16 px de distância da ajuda; **Iniciar simulação** ocupa a largura disponível
 abaixo da prévia, com o texto centralizado.
-A quantidade pode variar de 1 a 1000; cada valor
+A quantidade começa em 32 e pode variar de 1 a 1000; cada valor
 é sorteado entre 0 e total de células − 1, com possíveis repetições. O exemplo didático é fixo;
 a geração aleatória não garante acertos ou substituições específicos.
+
+Ao abrir, o Memora usa os valores iniciais do Beto: 1 byte por célula,
+4096 células, blocos de 16, 32 linhas e mapeamento direto. Os 21 endereços
+originais já vêm preenchidos, liberando **Iniciar simulação**. FIFO aparece
+selecionado e desabilitado no direto; fica disponível ao escolher um mapeamento
+associativo. A execução começa com velocidade 5 e etapas detalhadas.
+Os [padrões completos e a sequência](packages/memora/README.md#configuração-inicial)
+estão documentados no pacote.
 
 | Mapeamento | Como o endereço será dividido |
 |---|---|
@@ -150,12 +158,12 @@ npm run dev
 
 Memora: http://127.0.0.1:5173/ — Beto para comparação: http://127.0.0.1:5173/legado/.
 
-Carregue o exemplo na Tela 1 e use **Iniciar simulação** para abrir Simular.
+Use **Iniciar simulação** com os valores iniciais ou carregue o exemplo na Tela 1 para abrir Simular.
 As três telas estão na `main`; não é necessário usar as antigas branches de implementação.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
 `npm test` executa **75 testes Node**, incluindo execução, controladores, apresentação e análise,
-e `npm run test:ui --workspace @memora/simulator` executa **96 cenários Chromium**
+e `npm run test:ui --workspace @memora/simulator` executa **97 cenários Chromium**
 na versão integrada. Instale antes o navegador com `npx playwright install chromium`.
 A [revisão geral do PR #44](packages/memora/docs/revisao-pr44.md) registra o fluxo verificado, as correções finais e capturas atuais.
 A [verificação da Tela 3](packages/memora/docs/verificacao-tela-3.md) registra sua regressão e integração com a Tela 2. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.

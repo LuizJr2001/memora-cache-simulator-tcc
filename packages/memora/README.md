@@ -63,7 +63,7 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A versão integrada contém **96 cenários Chromium**: 45 Configurar,
+A versão integrada contém **97 cenários Chromium**: 46 Configurar,
 29 Simular e 22 Analisar. A regressão da Tela 1 inclui
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
@@ -101,9 +101,40 @@ APIs, regras e limites: [src/core/README.md](src/core/README.md).
 A sequência está limitada a 1000 endereços e 18000 caracteres; a interface deve
 consumir esses limites e apresentar os erros próximos aos campos.
 
+## Configuração inicial
+
+Ao abrir o Memora, o formulário recebe os valores iniciais do Beto:
+
+| Campo | Valor inicial |
+|---|---|
+| Bytes por célula | 1 |
+| Total de células | 4096 |
+| Células por bloco | 16 |
+| Linhas da cache | 32 |
+| Mapeamento | Direto, com 1 via |
+| Substituição | FIFO selecionado; desabilitado no direto, que tem uma única linha possível |
+| Quantidade no gerador aleatório | 32 |
+| Velocidade e modo | 5 etapas/segundo; etapas detalhadas |
+
+**Endereços a acessar** já contém:
+
+```text
+0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996
+```
+
+São 21 acessos válidos; **Iniciar simulação** fica disponível ao abrir.
+A divisão inicial tem 3 bits de tag, 5 de linha e 4 de deslocamento. O botão
+prepara a entrada e abre Simular em 0/21, aguardando o primeiro avanço.
+Essa sequência completa resulta em 13 acertos, 8 faltas e 3/32 linhas usadas.
+
+**Carregar exemplo didático** carrega o cenário fixo das ajudas: por conjunto,
+2 vias e LRU, com sua sequência de 21 endereços e resultado de 12 acertos e
+9 faltas. Os [testes e capturas da configuração inicial](docs/verificacao-configuracao-inicial.md)
+registram os dois cenários.
+
 ## Fluxo entre Configurar e Simular
 
-**Gerar endereços aleatórios** abre um painel que solicita de 1 a 1000
+**Gerar endereços aleatórios** abre um painel com quantidade inicial 32, que aceita de 1 a 1000
 endereços. O botão fica ao lado esquerdo da interrogação no cabeçalho de
 **Endereços a acessar**. A ação sorteia valores entre 0 e total de células − 1, pode repetir
 endereços e substitui o conteúdo de **Endereços a acessar**. O painel explicita
@@ -178,7 +209,7 @@ não aloca uma tabela com todas as vias possíveis de uma configuração enorme.
 
 A [Tela 3 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473)
 e suas variantes orientam a análise. O [relatório da Tela 3](docs/verificacao-tela-3.md)
-registra a revisão atual com **75 testes Node e 96 cenários Chromium**, além do histórico de validação,
+registra a revisão de 14/10 com **75 testes Node e 96 cenários Chromium**, além do histórico de validação,
 16 capturas e as 58 correções de textos de via na seção Analisar do Figma.
 
 

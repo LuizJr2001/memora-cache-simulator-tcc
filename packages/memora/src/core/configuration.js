@@ -8,6 +8,17 @@ export const DEFAULT_CONFIGURATION = Object.freeze({
   memoryCells: 4096,
   cellsPerBlock: 16,
   cacheLines: 32,
+  mapping: 'direct',
+  ways: 1,
+  replacement: 'FIFO',
+});
+
+// Cenário fixo das ajudas e da ação Carregar exemplo didático.
+export const EXAMPLE_CONFIGURATION = Object.freeze({
+  bytesPerCell: 1,
+  memoryCells: 4096,
+  cellsPerBlock: 16,
+  cacheLines: 32,
   mapping: 'set-associative',
   ways: 2,
   replacement: 'LRU',

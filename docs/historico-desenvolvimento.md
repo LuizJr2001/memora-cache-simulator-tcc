@@ -1,6 +1,6 @@
 # Memora — histórico de desenvolvimento
 
-**Consolidação:** 22/10/2026. As datas usam o horário de Brasília
+**Consolidação:** 23/10/2026. As datas usam o horário de Brasília
 (`America/Sao_Paulo`, UTC−3). Atividades relatadas nas conversas são registradas
 pela data em que ocorreram; integração e publicação são conferidas no Git.
 O horário UTC do GitHub pode cair no dia seguinte.
@@ -36,9 +36,14 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
 | 18/10 | Refinamento do título e das ações da sequência | Título completo da divisão de acordo com o mapeamento; geração à esquerda da interrogação de Endereços a acessar; Iniciar simulação centralizado. [Relatório](../packages/memora/docs/verificacao-acoes-enderecos.md) |
 | 18/10 | Espaçamento do gerador e largura da ação principal | Gerador separado da ajuda por 16 px, rótulo Primeiro endereço removido e Iniciar simulação ocupando a largura disponível, com texto centralizado. [Relatório](../packages/memora/docs/verificacao-largura-iniciar.md) |
 | 22/10 | Mais espaço lateral no botão de geração | Padding horizontal ampliado de 4 para 16 px em cada lado, com distância de 16 px até a ajuda e encaixe conferido de 320 a 1920 px. [Relatório atualizado](../packages/memora/docs/verificacao-largura-iniciar.md#refinamento-do-gerador--22102026) |
+| 22/10 | Configuração inicial baseada no Beto | Abertura com mapeamento direto, 21 acessos originais, FIFO como preferência e quantidade inicial 32 no gerador. Cenário didático por conjunto/LRU disponível no botão de exemplo. [Verificação](../packages/memora/docs/verificacao-configuracao-inicial.md) |
 
 ## Comportamentos consolidados
 
+- **Abertura:** 1 byte por célula, 4096 células, blocos de 16, 32 linhas e
+  mapeamento direto. Os 21 acessos do Beto já vêm preenchidos; Iniciar simulação
+  fica disponível. FIFO fica selecionado e desabilitado no direto, e o gerador
+  apresenta quantidade 32. A reprodução mantém velocidade 5 e etapas detalhadas.
 - **Configurar:** parâmetros e sequência são validados ao editar. Iniciar
   simulação prepara a entrada imutável e abre Simular, sem executar um acesso
   automaticamente. Editar depois invalida a simulação anterior.
@@ -78,6 +83,7 @@ passaram. Os relatórios mantêm os registros originais.
 | Analisar e fluxo completo do PR #45 | 75 testes Node e 96 cenários Chromium, incluindo as três telas | [Tela 3](../packages/memora/docs/verificacao-tela-3.md) |
 | Preparação e publicação do PR #47 | Sintaxe, 75 testes Node, build e deploy com sucesso | [Guia de publicação](publicacao-github-pages.md) e [GitHub Actions](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/38663768957) |
 | Textos e documentação, 18/10 | Sintaxe, 75 testes Node, 96 cenários Chromium e build aprovados localmente | [Relatório e cinco capturas](../packages/memora/docs/verificacao-textos-configuracao.md) |
+| Configuração inicial, 22–23/10 | Sintaxe, 75 testes Node, 97 cenários Chromium verificados, incluindo reexecução isolada de dois timeouts, e build aprovado | [Relatório e quatro capturas](../packages/memora/docs/verificacao-configuracao-inicial.md) |
 
 Firefox/Safari e avaliação com participantes não são comprovados por esses
 testes Chromium. O [guia de contribuição](../CONTRIBUTING.md) descreve como

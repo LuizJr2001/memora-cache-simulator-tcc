@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { prepareSimulationInput } from '../src/core/input.js';
-import { DEFAULT_CONFIGURATION } from '../src/core/configuration.js';
+import { EXAMPLE_CONFIGURATION } from '../src/core/configuration.js';
 import { EXAMPLE_ADDRESSES } from '../src/core/addresses.js';
 import { createSimulation } from '../src/core/simulation.js';
 import { createAnalysisModel } from '../src/ui/analysis-model.js';
 
 function engine(addresses = EXAMPLE_ADDRESSES, changes = {}, options) {
-  return createSimulation(prepareSimulationInput({ ...DEFAULT_CONFIGURATION, ...changes }, addresses.join(', ')).input, options);
+  return createSimulation(prepareSimulationInput({ ...EXAMPLE_CONFIGURATION, ...changes }, addresses.join(', ')).input, options);
 }
 function finish(sim) { while (!sim.view().done) sim.nextAccess(); return sim.view(); }
 

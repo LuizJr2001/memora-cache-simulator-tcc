@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_CONFIGURATION, decomposeAddress } from '../src/core/configuration.js';
+import { DEFAULT_CONFIGURATION, EXAMPLE_CONFIGURATION, decomposeAddress } from '../src/core/configuration.js';
 import { EXAMPLE_ADDRESSES } from '../src/core/addresses.js';
 import { prepareSimulationInput } from '../src/core/input.js';
 
 test('prepara o cenário didático completo sem criar estado de cache', () => {
-  const result = prepareSimulationInput(DEFAULT_CONFIGURATION, EXAMPLE_ADDRESSES.join(', '));
+  const result = prepareSimulationInput(EXAMPLE_CONFIGURATION, EXAMPLE_ADDRESSES.join(', '));
   assert.equal(result.ok, true);
   assert.deepEqual(result.errors, { fields: {}, sequence: [] });
   assert.equal(result.input.addresses.length, 21);
