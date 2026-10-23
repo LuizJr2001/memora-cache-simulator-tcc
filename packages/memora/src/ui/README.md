@@ -28,25 +28,25 @@ Erros ficam junto aos campos, com borda e texto específicos. O resumo global
 sem repetir a lista de campos no aviso de navegação. O símbolo de Configuração com erros é
 centralizado verticalmente, sem deslocar os textos.
 
-A prévia binária identifica o primeiro endereço de uma sequência integralmente
-válida; campos de zero bits usam traço. `#preview-label` identifica o endereço
-em decimal e a descrição acessível conserva seu valor completo. Entrada inválida
-mostra Prévia indisponível. Erros extensos têm rolagem local por teclado nas
+A prévia binária usa o primeiro endereço de uma sequência integralmente
+válida; campos de zero bits usam traço. A origem permanece na descrição acessível
+`#preview-address`, sem um rótulo visível de Primeiro endereço. Entrada inválida
+limpa os valores dos cartões. Erros extensos têm rolagem local por teclado nas
 larguras intermediárias, conforme o relatório da Tela 1.
 
 `#decomposition-mapping` identifica o mapeamento atual. Os cartões mostram Tag/Linha/Deslocamento no
 direto, Tag/Conjunto/Deslocamento por conjunto e Tag/Deslocamento no totalmente
 associativo. O título é COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO.
-A linha de contexto reúne mapeamento e primeiro endereço, com quebra nas telas
-menores. A descrição é associada aos cartões por `aria-describedby` e atualizada
+A linha de contexto mostra o mapeamento. A descrição acessível é associada aos
+cartões por `aria-describedby` e atualizada
 com os parâmetros. O rodapé e Como funciona?
 identificam o Memora como aprimoramento do simulador educacional Beto;
 a licença do código permanece MIT.
 
 `#open-generator` fica em `.sequence-field-actions`, antes da ajuda do campo
-Endereços a acessar. Os dois controles permanecem alinhados; em telas pequenas,
+Endereços a acessar, com 16 px entre os controles. Em telas pequenas,
 o grupo pode ir para a linha abaixo do rótulo. `.sequence-actions` contém apenas
-`#prepare-input`, centralizado e limitado a 364 px. O gerador mantém o mesmo
+`#prepare-input`, ocupando 100% da largura disponível e com o texto centralizado. O gerador mantém o mesmo
 listener, a validação e o retorno de foco após fechar o painel.
 
 ## Simular

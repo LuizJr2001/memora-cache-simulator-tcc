@@ -269,33 +269,33 @@ for (const viewport of [{ width: 801, height: 720 }, { width: 1024, height: 768 
   });
 }
 
-test('prévia identifica o primeiro endereço e não mantém valor antigo após erros', async ({ page }) => {
-  const label = page.locator('#preview-label');
-  await expect(label).toBeVisible();
-  await expect(label).toHaveText('Prévia indisponível');
+test('prévia mantém origem acessível e não mantém valor antigo após erros', async ({ page }) => {
+  const description = page.locator('#preview-address');
+  await expect(page.locator('#preview-label')).toHaveCount(0);
+  await expect(description).toHaveClass('sr-only');
+  await expect(description).toHaveText('Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
   await page.locator('#sequence').fill('2018, 3044');
-  await expect(label).toHaveText('Primeiro endereço: 2.018');
-  await expect(page.locator('#preview-address')).toHaveText('Decomposição binária do primeiro endereço da sequência: 2018');
+  await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 2018');
   await expect(page.locator('#tag-value')).toHaveText('0111');
   await expect(page.locator('#index-value')).toHaveText('1110');
   await expect(page.locator('#offset-value')).toHaveText('0010');
   await screenshot(page, 'previa-endereco');
   await page.locator('#sequence').fill('3044, 2018');
-  await expect(label).toHaveText('Primeiro endereço: 3.044');
+  await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 3044');
   await page.locator('#sequence').fill('abc, 2018');
-  await expect(label).toHaveText('Prévia indisponível');
+  await expect(description).toHaveText('Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
   await expect(page.locator('#tag-value')).toHaveText('—');
   await page.locator('#sequence').fill('2018');
   await page.locator('#memoryCells').fill('100');
-  await expect(label).toHaveText('Prévia indisponível');
+  await expect(description).not.toContainText('2018');
   await page.locator('#load-example').click();
-  await expect(label).toHaveText('Primeiro endereço: 0');
+  await expect(description).toHaveText('Decomposição binária do primeiro endereço da sequência: 0');
 });
 
 test('endereço válido de 52 bits mantém todos os bits e ações dentro do desktop', async ({ page }) => {
   await page.locator('#memoryCells').fill('4503599627370496');
   await page.locator('#sequence').fill('4503599627370495');
-  await expect(page.locator('#preview-label')).toHaveText('Primeiro endereço: 4.503.599.627.370.495');
+  await expect(page.locator('#preview-address')).toHaveText('Decomposição binária do primeiro endereço da sequência: 4503599627370495');
   for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768 }, { width: 1480, height: 742 }, { width: 1920, height: 1080 }]) {
     await page.setViewportSize(viewport);
     for (const mapping of ['set-associative', 'direct', 'fully-associative']) {

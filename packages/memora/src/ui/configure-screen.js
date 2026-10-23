@@ -122,7 +122,6 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       setText(`${part}-label`, !l ? `${label} indisponível` : width === 0 ? `Sem bits de ${label.toLowerCase()}` : `${label} · ${bits(width)}`);
     }
     setText('preview-address', preview ? `Decomposição binária do primeiro endereço da sequência: ${preview.address}` : 'Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
-    setText('preview-label', preview ? `Primeiro endereço: ${number(preview.address)}` : 'Prévia indisponível');
     byId('note-ring').src = './src/assets/information-ring.svg';
     setText('note-symbol', 'i');
     byId('note-symbol').classList.remove('error-text');

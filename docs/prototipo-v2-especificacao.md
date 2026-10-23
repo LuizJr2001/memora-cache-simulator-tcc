@@ -93,7 +93,7 @@ endereços e informa o intervalo da memória atual. Repetições são possíveis
 o exemplo didático permanece fixo.
 
 O título completo é **COMO O ENDEREÇO SERÁ DIVIDIDO DE ACORDO COM O MAPEAMENTO**.
-A linha abaixo identifica o mapeamento atual e o primeiro endereço da sequência;
+A linha abaixo identifica o mapeamento atual, sem exibir Primeiro endereço;
 os cartões apresentam sua divisão:
 
 | Mapeamento | Cartões |
@@ -104,7 +104,12 @@ os cartões apresentam sua divisão:
 
 No totalmente associativo, o cartão central continua indicando **Sem bits de
 conjunto**. As larguras dos demais campos vêm dos parâmetros válidos; a prévia
-identifica o primeiro endereço. A ajuda Mapeamento detalha onde procurar o bloco.
+usa o primeiro endereço da sequência válida. A ajuda Mapeamento detalha onde procurar o bloco.
+
+O intervalo entre **Gerar endereços aleatórios** e a interrogação é de **16 px**.
+**Iniciar simulação** ocupa toda a largura disponível do painel, alinhado ao
+campo de endereços, com seu texto centralizado. A origem da prévia permanece
+na descrição acessível, sem o rótulo visível de Primeiro endereço.
 
 O rodapé identifica a origem no **simulador educacional de memória cache Beto**,
 de Leandro Gabriel e colaboradores. **Como funciona?** explica que o Memora
@@ -413,6 +418,7 @@ As associações registram decisões do redesign. A inspeção formal com severi
 | 14/10 | Três telas integradas à `main`; publicação concluída no GitHub Pages à noite, com registro em 15/10 UTC | PRs #43, #44, #45 e #47 |
 | 18/10 | Textos da aplicação explicitam geração aleatória, destino da sequência, divisão conforme o mapeamento e origem no Beto; documentação consolidada | #35, #37 e [histórico](historico-desenvolvimento.md) |
 | 18/10 | Título completo da divisão; geração junto ao campo de endereços, à esquerda da ajuda; Iniciar simulação centralizado | [Relatório do refinamento](../packages/memora/docs/verificacao-acoes-enderecos.md) |
+| 18/10 | Distância de 16 px entre gerador e ajuda; remoção do rótulo Primeiro endereço; Iniciar simulação com largura total e texto centralizado | [Relatório](../packages/memora/docs/verificacao-largura-iniciar.md) |
 
 ## Implementação e avaliação
 
