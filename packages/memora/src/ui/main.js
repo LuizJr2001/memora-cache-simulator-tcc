@@ -25,7 +25,7 @@ const analyzer = mountAnalyzeScreen(document, {
   },
 });
 const simulator = mountSimulateScreen(document, {
-  onConfigure: () => navigate('configure'), onAnalyze: () => navigate('analyze'),
+  onAnalyze: () => navigate('analyze'),
   onChange(state) {
     analyzer.render(state);
   },
@@ -76,3 +76,4 @@ document.querySelector('.stage-tabs').addEventListener('keydown', event => {
     available[(index + (event.key === 'ArrowRight' ? 1 : -1) + available.length) % available.length];
   next.click(); next.focus();
 });
+

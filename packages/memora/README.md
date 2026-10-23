@@ -127,10 +127,12 @@ A divisão inicial tem 3 bits de tag, 5 de linha e 4 de deslocamento. O botão
 prepara a entrada e abre Simular em 0/21, aguardando o primeiro avanço.
 Essa sequência completa resulta em 13 acertos, 8 faltas e 3/32 linhas usadas.
 
-**Carregar exemplo didático** carrega o cenário fixo das ajudas: por conjunto,
-2 vias e LRU, com sua sequência de 21 endereços e resultado de 12 acertos e
-9 faltas. Os [testes e capturas da configuração inicial](docs/verificacao-configuracao-inicial.md)
-registram os dois cenários.
+**Carregar exemplo didático** restaura os mesmos parâmetros e os 21 endereços
+do Beto usados na abertura, inclusive após edições inválidas. A ação invalida
+a simulação anterior e exige uma nova preparação. O cenário por conjunto/LRU
+permanece como referência das ajudas e dos testes, configurado explicitamente.
+Os [testes e capturas da configuração inicial](docs/verificacao-configuracao-inicial.md)
+registram a implementação anterior a essa unificação.
 
 ## Fluxo entre Configurar e Simular
 
@@ -176,8 +178,9 @@ Abrir ajuda ou revisar um acesso pausa a execução.
 O número de cada acesso no histórico permite revisar a cache após aquele acesso.
 Os contadores permanecem os da execução atual, identificada no subtítulo.
 Voltar à execução restaura a visualização atual, sem reprocessar acessos.
-Revisar substituições filtra o histórico após a conclusão; Mostrar todos retira
-o filtro. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
+Ao concluir, o controle de reprodução mostra **✓ Concluído** em verde e fica
+desabilitado, sem um balão separado de conclusão. Reiniciar restaura o estado
+inicial. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
 
 Abrir/fechar ajuda preserva dados; Escape, botão de fechar e scrim restauram o
 foco. As ajudas Estado LRU, Memória cache e Histórico de acessos usam os textos
@@ -265,4 +268,5 @@ O Memora é baseado no [Beto, simulador educacional de memória cache de Leandro
 O rodapé e a ajuda Como funciona? explicitam essa origem. MIT identifica a licença do código.
 O código do legado permanece em `docs/`. A extração e adaptação do motor deve
 preservar essa atribuição e a [licença MIT do repositório](../../LICENSE).
+
 

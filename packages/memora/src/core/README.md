@@ -47,14 +47,14 @@ blocos de 16, 32 linhas, mapeamento direto e 1 via. FIFO é a preferência de
 substituição; a normalização do direto continua retornando `null`. Esse cenário
 tem 12 bits de endereço: 3 de tag, 5 de linha e 4 de deslocamento.
 
-`EXAMPLE_CONFIGURATION` define o cenário didático com 4096 células, blocos de 16, 32 linhas, 2 vias e LRU:
+`EXAMPLE_CONFIGURATION` define o cenário de referência das ajudas e testes, configurado explicitamente, com 4096 células, blocos de 16, 32 linhas, 2 vias e LRU:
 12 bits de endereço divididos em 4 de tag, 4 de conjunto e 4 de deslocamento.
 O endereço 3044 corresponde a bloco 190, tag 11, conjunto 14 e deslocamento 4.
 
 ## Sequências e geração
 
 `DEFAULT_ADDRESSES` contém os 21 acessos iniciais do Beto;
-`EXAMPLE_ADDRESSES` mantém a sequência do exemplo didático. São listas imutáveis
+`EXAMPLE_ADDRESSES` mantém a sequência associativa de referência das ajudas e testes. São listas imutáveis
 com cenários próprios. `DEFAULT_GENERATION_COUNT = 32` define a quantidade
 inicial apresentada pelo gerador. Ver [configuração inicial e sequência](../../README.md#configuração-inicial).
 
@@ -137,3 +137,4 @@ consome os snapshots já disponíveis; nenhum módulo executável do núcleo foi
 alterado nesta entrega. Integração e avaliação continuam na #35/#33.
 
 Implementação: [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); #25, #26, #27, #31 e #35.
+

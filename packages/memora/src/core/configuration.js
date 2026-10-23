@@ -13,7 +13,7 @@ export const DEFAULT_CONFIGURATION = Object.freeze({
   replacement: 'FIFO',
 });
 
-// Cenário fixo das ajudas e da ação Carregar exemplo didático.
+// Cenário de referência das ajudas e dos testes de políticas.
 export const EXAMPLE_CONFIGURATION = Object.freeze({
   bytesPerCell: 1,
   memoryCells: 4096,
@@ -124,3 +124,4 @@ export function decomposeAddress(address, rawConfiguration) {
     blockStart: block * cellsPerBlock, blockEnd: (block + 1) * cellsPerBlock - 1,
   });
 }
+

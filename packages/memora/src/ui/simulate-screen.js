@@ -7,10 +7,10 @@ const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no co
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 
-export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyze = () => {}, onChange = () => {}, random = Math.random } = {}) {
+export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange = () => {}, random = Math.random } = {}) {
   const byId = id => document.getElementById(id);
   const root = byId('simulation-screen');
-  let controller = null, onlyReplacements = false, previousDone = false;
+  let controller = null;
   let cacheStart = 0, lastFocus = null;
   const cellStarts = new Map();
   function text(id, value) { const node = byId(id); if (node.textContent !== value) node.textContent = value; }
@@ -48,6 +48,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
     text('sim-play', state.done ? '✓ Concluído' : state.status === 'running' ? 'Ⅱ Pausar' :
       state.status === 'ready' ? '▶ Iniciar' : '▶ Continuar');
     byId('sim-play').disabled = state.done;
+    byId('sim-play').classList.toggle('is-finished', state.done);
     byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
@@ -64,10 +65,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
       byId(`format-${format}`).setAttribute('aria-pressed', String(state.format === format));
       text(`format-${format}`, `${state.format === format ? '✓ ' : ''}${format === 'decimal' ? 'Decimal' : 'Binário'}`);
     }
-    byId('simulation-complete').hidden = !state.done || Boolean(selectedAccess);
     root.classList.toggle('is-complete', state.done && !selectedAccess);
-    text('completion-detail', `Todos os ${stats.total} acessos foram processados`);
-    byId('review-replacements').disabled = !state.history.some(a => a.replaced);
     const step = current ? phaseLabels[state.phase] : stats.processed ? 'Estado atualizado' : 'Pronto para iniciar';
     const resultText = current?.result === 'hit' ? 'ACERTO' : current?.result === 'miss' ? 'FALTA' : '';
     text('sim-status', state.error ? `⚠ ${state.error}` : selectedAccess ? `Revisão do acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
@@ -84,7 +82,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
       state.done ? 'Nenhum acesso em andamento' : 'Próximo acesso');
     text('current-address-description', selectedAccess ? `Cache após o acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
       address ? `Veja como ${numeric(address.address)} é decomposto antes da consulta` : state.done ?
-        'A execução terminou. Consulte o histórico ou revise uma substituição' :
+        'A execução terminou. Consulte o histórico ou abra Analisar' :
         'O primeiro endereço será decomposto quando a simulação começar');
     byId('show-live').hidden = !selectedAccess;
     const parts = address?.decomposition;
@@ -194,8 +192,8 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
 
     const historyBody = byId('history-table').tBodies[0], historyRows = document.createDocumentFragment();
     const activeReview = document.activeElement?.dataset.review;
-    const visible = [...state.history].reverse().filter(a => !onlyReplacements || a.replaced);
-    if (current && !onlyReplacements) {
+    const visible = [...state.history].reverse();
+    if (current) {
       const tr = element('tr', undefined, 'pending-row'); tr.dataset.pending = 'true';
       for (const value of [current.number, numeric(current.address), current.result ? resultText : '→ Lendo', state.detailed ? explainSimulationAccess(current, config, layout, state.history, state.format).steps.find(item => item.phase === state.phase)?.body ?? step : step]) tr.append(element('td', String(value)));
       historyRows.append(tr);
@@ -212,9 +210,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
     historyBody.replaceChildren(historyRows);
     if (activeReview) historyBody.querySelector(`[data-review="${activeReview}"]`)?.focus({ preventScroll: true });
     byId('history-empty').hidden = state.history.length !== 0 || Boolean(current);
-    byId('show-all-history').hidden = !onlyReplacements;
-    text('history-description', onlyReplacements ? `${visible.length} ${visible.length === 1 ? 'substituição' : 'substituições'} · selecione para revisar` :
-      state.history.length ? 'Selecione um acesso para revisar · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
+    text('history-description', state.history.length ? 'Selecione um acesso para revisar · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
     text('history-state-title', selectedAccess ? `Estado após o acesso ${selectedAccess.number}` : 'Estado atual');
     let summary = focus ? explain(focus) : 'A cache está vazia e os contadores estão zerados';
     if (current && !['update'].includes(state.phase)) {
@@ -261,8 +257,6 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
       }
     }
     byId('access-details').dataset.phase = detailPhase;
-    if (state.done && !previousDone && !root.hidden) byId('completion-title').focus({ preventScroll: true });
-    previousDone = state.done;
     onChange(state);
   }
 
@@ -305,7 +299,7 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
   });
   for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-step', 'nextStep'], ['sim-next', 'nextAccess'], ['show-live', 'showLive']]) {
     byId(id).addEventListener('click', () => {
-      if (method === 'restart') { onlyReplacements = false; cacheStart = 0; lastFocus = null; cellStarts.clear(); }
+      if (method === 'restart') { cacheStart = 0; lastFocus = null; cellStarts.clear(); }
       if (controller && ['nextStep', 'nextAccess'].includes(method)) byId('simulation-analysis-warning').hidden = true;
       controller?.[method]();
     });
@@ -313,18 +307,12 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
   for (const format of ['decimal', 'binary']) byId(`format-${format}`).addEventListener('click', () => controller?.setFormat(format));
   byId('sim-speed').addEventListener('input', () => controller?.setSpeed(Number(byId('sim-speed').value)));
   byId('sim-detailed').addEventListener('change', () => controller?.setDetailed(byId('sim-detailed').checked));
-  byId('new-simulation').addEventListener('click', onConfigure);
   byId('go-analyze').addEventListener('click', onAnalyze);
-  byId('review-replacements').addEventListener('click', () => {
-    const last = controller?.view().history.findLast(a => a.replaced);
-    if (last) { onlyReplacements = true; controller.selectAccess(last.number); byId('current-address-heading').focus({ preventScroll: true }); }
-  });
-  byId('show-all-history').addEventListener('click', () => { onlyReplacements = false; if (controller) render(controller.view()); });
   document.addEventListener('memora:help-open', () => { if (!root.hidden) controller?.pause(); });
   return {
     prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear(); byId('simulation-analysis-warning').hidden = true;
       byId('cache-line-jump').value = ''; byId('cache-line-jump').setAttribute('aria-invalid', 'false'); text('cache-jump-error', '');
-      controller?.dispose(); onlyReplacements = false; previousDone = false;
+      controller?.dispose();
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
     showAnalysisWarning() {
       text('simulation-analysis-warning', 'Processe ao menos um acesso para analisar a decisão da cache. Clique em Iniciar ou Próximo acesso.');
@@ -338,3 +326,4 @@ export function mountSimulateScreen(document, { onConfigure = () => {}, onAnalyz
     view() { return controller?.view() ?? null; },
   };
 }
+
