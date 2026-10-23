@@ -342,8 +342,13 @@ test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar
 test('Etapas detalhadas mantém descrição fixa e muda reprodução e explicações sem perder o acesso atual', async ({ page }) => {
   await page.clock.install();
   await prepare(page);
+  await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (5 passos/segundo)');
+  await page.locator('#sim-speed').fill('1');
+  await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (1 passo/segundo)');
+  await expect(page.locator('#sim-speed')).toHaveAttribute('aria-valuetext', '1 passo/segundo');
+  await page.locator('#sim-speed').fill('5');
   await expect(page.locator('#access-details')).toBeVisible();
-  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
+  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(mostra o passo a passo e explica cada decisão)');
   await automaticSteps(page);
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Decompor endereço');
   await expect(page.locator('#access-binary')).toContainText('Deslocamento');
@@ -352,16 +357,20 @@ test('Etapas detalhadas mantém descrição fixa e muda reprodução e explicaç
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Nenhuma linha válida');
   await page.locator('#sim-detailed').uncheck();
   await expect(page.locator('#access-details')).toBeHidden();
-  await expect(page.locator('#sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
+  await expect(page.locator('#sim-mode-description')).toHaveText('(mostra o passo a passo e explica cada decisão)');
   await expect(page.locator('#sim-step')).toHaveCount(0);
   await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (5 acessos/segundo)');
+  await page.locator('#sim-speed').fill('1');
+  await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (1 acesso/segundo)');
+  await expect(page.locator('#sim-speed')).toHaveAttribute('aria-valuetext', '1 acesso/segundo');
+  await page.locator('#sim-speed').fill('5');
   await page.locator('#sim-next').click();
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await expect(page.locator('#history-table tr[data-access="1"]')).toContainText('Falta compulsória');
   await page.locator('#sim-detailed').check();
   await expect(page.locator('#sim-step')).toHaveCount(0);
   await expect(page.locator('#access-details')).toBeVisible();
-  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
+  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(mostra o passo a passo e explica cada decisão)');
   await automaticSteps(page);
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await page.locator('#sim-next').click();
@@ -485,4 +494,29 @@ test('sem etapas detalhadas há um único avanço de acesso e Ir ao final funcio
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
   await expect(page.locator('#sim-finish')).toBeDisabled();
   await screenshot(page, 'ir-ao-final-sem-etapas');
+});
+
+
+test('Parar só fica habilitado enquanto a reprodução automática está rodando', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-23T12:00:00Z') });
+  await page.clock.pauseAt(new Date('2026-10-23T13:00:00Z'));
+  await prepare(page);
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-next').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-play').click();
+  await expect(page.locator('#sim-stop')).toBeEnabled();
+  await page.locator('#sim-play').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-play').click();
+  await page.locator('#sim-stop').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-play').click();
+  await page.locator('#sim-next').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-play').click();
+  await page.locator('#sim-finish').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await page.locator('#sim-restart').click();
+  await expect(page.locator('#sim-stop')).toBeDisabled();
 });
