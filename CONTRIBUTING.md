@@ -93,9 +93,9 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
-nativo do Node. A versão integrada contém **75 testes Node** de
+nativo do Node. A versão integrada contém **78 testes Node** de
 configuração/entradas, controladores, execução, políticas, estatísticas e
-snapshots, explicações e apresentação da cache. A interface tem **97 cenários Chromium**, executados separadamente:
+snapshots, explicações e apresentação da cache. A interface tem **93 cenários Chromium**, executados separadamente:
 
 ```bash
 npx playwright install chromium

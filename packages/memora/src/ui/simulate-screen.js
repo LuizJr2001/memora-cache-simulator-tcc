@@ -7,7 +7,7 @@ const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no co
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 
-export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange = () => {}, random = Math.random } = {}) {
+export function mountSimulateScreen(document, { onChange = () => {}, random = Math.random } = {}) {
   const byId = id => document.getElementById(id);
   const root = byId('simulation-screen');
   let controller = null;
@@ -50,7 +50,6 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     byId('sim-play').disabled = state.done;
     byId('sim-progress').parentElement.classList.toggle('metric-complete', state.done);
     text('sim-progress-label', state.done ? 'Progresso (finalizado)' : 'Progresso');
-    byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status !== 'running';
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-next').disabled = state.done;
@@ -82,7 +81,7 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
       state.done ? 'Nenhum acesso em andamento' : 'Próximo acesso');
     text('current-address-description', selectedAccess ? `Cache após o acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
       address ? `Veja como ${numeric(address.address)} é decomposto antes da consulta` : state.done ?
-        'A execução terminou. Consulte o histórico ou abra Analisar' :
+        'A execução terminou. Selecione um acesso no histórico para revisar ou comparar os estados' :
         'O primeiro endereço será decomposto quando a simulação começar');
     byId('show-live').hidden = !selectedAccess;
     const parts = address?.decomposition;
@@ -293,31 +292,24 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
   byId('sim-play').addEventListener('click', () => {
     if (controller?.view().status === 'running') controller.pause();
     else if (controller && !controller.view().done) {
-      byId('simulation-analysis-warning').hidden = true;
       controller.play();
     }
   });
   for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
     byId(id).addEventListener('click', () => {
       if (method === 'restart') { cacheStart = 0; lastFocus = null; cellStarts.clear(); }
-      if (controller && ['nextAccess', 'finish'].includes(method)) byId('simulation-analysis-warning').hidden = true;
       controller?.[method]();
     });
   }
   for (const format of ['decimal', 'binary']) byId(`format-${format}`).addEventListener('click', () => controller?.setFormat(format));
   byId('sim-speed').addEventListener('input', () => controller?.setSpeed(Number(byId('sim-speed').value)));
   byId('sim-detailed').addEventListener('change', () => controller?.setDetailed(byId('sim-detailed').checked));
-  byId('go-analyze').addEventListener('click', onAnalyze);
   document.addEventListener('memora:help-open', () => { if (!root.hidden) controller?.pause(); });
   return {
-    prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear(); byId('simulation-analysis-warning').hidden = true;
+    prepare(input) { cacheStart = 0; lastFocus = null; cellStarts.clear();
       byId('cache-line-jump').value = ''; byId('cache-line-jump').setAttribute('aria-invalid', 'false'); text('cache-jump-error', '');
       controller?.dispose();
       controller = createSimulationController(input, { random, onChange: render }); render(controller.view()); },
-    showAnalysisWarning() {
-      text('simulation-analysis-warning', 'Processe ao menos um acesso para analisar a decisão da cache. Clique em Iniciar ou Próximo acesso.');
-      byId('simulation-analysis-warning').hidden = false;
-    },
     pause() { controller?.pause(); },
     selectAccess(number) { controller?.selectAccess(number); },
     nextAccess() { controller?.nextAccess(); },

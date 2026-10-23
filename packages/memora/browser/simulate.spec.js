@@ -38,7 +38,7 @@ test('entrada preparada abre Simular vazio e preserva os assets e o sistema visu
   await expect(page.locator('#cache-table tbody tr[data-valid="1"]')).toHaveCount(0); await expect(page.locator('#history-empty')).toBeVisible();
   await expect(page.locator('#sim-address')).toHaveText('—');
   await expect(page.locator('#tab-simulate')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.getByRole('tab', { name: '3 Analisar' })).toBeEnabled();
+  await expect(page.getByRole('tab')).toHaveCount(2);
   await expect.poll(() => page.evaluate(() => performance.getEntriesByType('resource').some(entry => entry.initiatorType === 'css' && entry.name.endsWith('/src/assets/speed-knob.svg')))).toBe(true);
   const assets = await page.evaluate(async () => {
     const response = await fetch('./src/assets/speed-knob.svg');
@@ -308,7 +308,7 @@ test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ p
   await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
   await expect(page.locator('#simulation-screen')).toBeHidden();
   await page.locator('#memoryCells').fill('');
-  await page.locator('#tab-analyze').click();
+  await page.locator('#tab-simulate').click();
   await expect(page.locator('#navigation-warning')).toHaveText('Configuração pendente. Complete ou corrija os campos destacados para continuar.');
   await expect(page.locator('#navigation-warning')).toHaveCSS('color', 'rgb(185, 28, 28)');
   await configureReferenceScenario(page);
@@ -319,25 +319,14 @@ test('abas orientam campos pendentes e exigem iniciar a simulação', async ({ p
   await expect(page.locator('#simulation-screen')).toBeVisible();
 });
 
-test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar', async ({ page }) => {
-  await page.clock.install();
+test('comparação fica recolhida e indisponível antes do primeiro acesso', async ({ page }) => {
   await prepare(page);
-  await page.locator('#tab-analyze').click();
-  await expect(page.locator('#simulation-screen')).toBeVisible();
-  await expect(page.locator('#configuration-screen')).toBeHidden();
-  await expect(page.locator('#tab-simulate')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('#simulation-analysis-warning')).toBeVisible();
-  await expect(page.locator('#simulation-analysis-warning')).toContainText('Processe ao menos um acesso');
-  await expect(page.locator('#navigation-warning')).toBeHidden();
-  await page.locator('#sim-play').click();
-  await expect(page.locator('#simulation-analysis-warning')).toBeHidden();
-  await page.locator('#sim-play').click();
-  await page.locator('#tab-analyze').click();
-  await expect(page.locator('#simulation-analysis-warning')).toBeVisible();
+  await expect(page.locator('#access-comparison')).toBeHidden();
   await page.locator('#sim-next').click();
-  await expect(page.locator('#simulation-analysis-warning')).toBeHidden();
+  await expect(page.locator('#access-comparison')).toBeVisible();
+  await expect(page.locator('#access-comparison')).not.toHaveAttribute('open');
+  await expect(page.locator('#tab-analyze')).toHaveCount(0);
 });
-
 
 test('Etapas detalhadas mantém descrição fixa e muda reprodução e explicações sem perder o acesso atual', async ({ page }) => {
   await page.clock.install();
@@ -457,7 +446,7 @@ test('uma nova simulação limpa a linha informada e o aviso de paginação ante
 
 
 
-test('Ir ao final conclui uma microetapa pendente e mantém histórico para revisão e análise', async ({ page }) => {
+test('Ir ao final conclui uma microetapa pendente e mantém histórico para revisão e comparação', async ({ page }) => {
   await page.clock.install();
   await prepare(page);
   await automaticSteps(page, 5);
@@ -472,9 +461,9 @@ test('Ir ao final conclui uma microetapa pendente e mantém histórico para revi
   await page.getByRole('button', { name: 'Revisar acesso 1', exact: true }).click();
   await expect(page.locator('#current-address-heading')).toHaveText('Acesso 1 em revisão');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
-  await page.locator('#go-analyze').click();
-  await expect(page.locator('#analysis-screen')).toBeVisible();
-  await page.locator('#tab-simulate').click();
+  await page.locator('#access-comparison summary').click();
+  await expect(page.locator('#analysis-event-title')).toContainText('Acesso 1 de 21');
+  await expect(page.locator('#simulation-screen')).toBeVisible();
   await page.locator('#sim-restart').click();
   await expect(page.locator('#sim-finish')).toBeEnabled();
   await expect(page.locator('#sim-progress')).toHaveText('0 / 21');

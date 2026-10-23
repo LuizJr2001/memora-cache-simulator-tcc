@@ -95,7 +95,6 @@
 .pending-row td { background: var(--memora-info-background); }
 .history-summary { margin-top: 12px; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
 .history-summary h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-#go-analyze { width: 100%; margin-top: 12px; min-height: 42px; padding-inline: 12px; font-size: 12px; }
 #show-live { min-height: 28px; padding: 5px 12px; font-size: 12px; }
 .sheet-glossary { margin-top: 24px; width: 100%; }
 .set-badge { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
@@ -154,7 +153,6 @@
   .playback-preferences { gap: 12px; }
 }
 
-.simulation-intro #simulation-analysis-warning { color: var(--memora-error); margin-top: 6px; font-size: 13px; line-height: 18px; }
 
 /* Detalhamento usa rolagem local, mantendo os controles e a página estáveis. */
 .simulation-mode-description { font-size: 12px; line-height: 17px; color: var(--sds-color-text-default-secondary); }

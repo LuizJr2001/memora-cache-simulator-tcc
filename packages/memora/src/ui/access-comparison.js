@@ -1,22 +1,25 @@
 import { createAnalysisModel } from './analysis-model.js';
 
-export function mountAnalyzeScreen(document, { onReturn = () => {}, onNext = () => {}, onFormat = () => {} } = {}) {
+export function mountAccessComparison(document, { onOpen = () => {}, onSelect = () => {} } = {}) {
+  const root = document.getElementById('access-comparison');
+  let state = null;
   const byId = id => document.getElementById(id);
   function text(id, value) { const node = byId(id); if (node.textContent !== value) node.textContent = value; }
-  function render(state) {
+  function render(value) {
+    state = value;
     const model = createAnalysisModel(state);
-    byId('analysis-empty').hidden = Boolean(model); byId('analysis-content').hidden = !model;
+    root.hidden = !model;
+    if (!model || state.status === 'running') root.open = false;
     if (!model) return;
     const { access: a, config, layout, kind, useLru } = model;
     const numeric = (value, width = layout.addressBits) => state.format === 'binary' ?
       value.toString(2).padStart(Math.max(1, width), '0') : String(value);
     const range = line => line.blockStart === line.blockEnd ? numeric(line.blockStart) : `${numeric(line.blockStart)}–${numeric(line.blockEnd)}`;
-    const part = (value, width) => width === 0 ? '—' : numeric(value, width);
     const direct = config.mapping === 'direct';
     const place = `${direct ? 'linha' : 'conjunto'} ${numeric(a.decomposition.set, layout.indexBits)}`;
     const policy = a.reason === 'RANDOM' ? 'Random' : a.reason;
     const via = `via ${a.way + 1}`;
-    text('analysis-subtitle', `Acompanhe ${kind === 'hit' ? 'o acerto' : 'a falta'} no endereço ${numeric(a.address)} e veja exatamente o que muda`);
+    text('comparison-access-label', `· acesso ${a.number} · endereço ${numeric(a.address)}`);
     text('analysis-event-title', `Acesso ${a.number} de ${state.statistics.total} · endereço ${numeric(a.address)}`);
     text('analysis-result', kind === 'hit' ? '✓ ACERTO' : '✕ FALTA');
     byId('analysis-result').classList.toggle('is-hit', kind === 'hit');
@@ -25,20 +28,6 @@ export function mountAnalyzeScreen(document, { onReturn = () => {}, onNext = () 
       kind === 'free' ? `Tag ${numeric(a.decomposition.tag, layout.tagBits)} não está no ${place} · a ${via} está livre e recebe o bloco` :
         direct ? `O novo bloco usa a ${place} · o mapeamento direto determina a única via a substituir` :
           `Tag ${numeric(a.decomposition.tag, layout.tagBits)} não está no ${place} · sem via livre, ${policy} escolhe a ${via}`);
-    for (const format of ['decimal', 'binary']) {
-      const selected = state.format === format;
-      byId(`analysis-${format}`).setAttribute('aria-pressed', String(selected));
-      text(`analysis-${format}`, `${selected ? '✓ ' : ''}${format === 'decimal' ? 'Decimal' : 'Binário'}`);
-    }
-    text('analysis-decomposition-description', `${numeric(a.address)} → tag ${part(a.decomposition.tag, layout.tagBits)} · ${place} · deslocamento ${part(a.decomposition.offset, layout.offsetBits)}`);
-    for (const [id, label, value, width] of [
-      ['tag', 'Tag', a.decomposition.tag, layout.tagBits],
-      ['set', direct ? 'Linha' : 'Conjunto', a.decomposition.set, layout.indexBits],
-      ['offset', 'Deslocamento', a.decomposition.offset, layout.offsetBits],
-    ]) {
-      text(`analysis-${id}`, part(value, width));
-      text(`analysis-${id}-label`, width ? `${label} · ${width} ${width === 1 ? 'bit' : 'bits'}` : `Sem bits de ${label.toLowerCase()}`);
-    }
     text('analysis-before-title', kind === 'replacement' ? 'Antes da substituição' : 'Antes do acesso');
     text('analysis-after-title', kind === 'replacement' ? 'Depois da substituição' : 'Depois do acesso');
     const choice = kind === 'hit' ? `A ${via} já contém o bloco e será mantida` : kind === 'free' ?
@@ -73,19 +62,17 @@ export function mountAnalyzeScreen(document, { onReturn = () => {}, onNext = () 
     text('analysis-out', kind === 'replacement' ? `${range(a.lineBefore)} · tag ${numeric(a.lineBefore.tag, layout.tagBits)} · ${via}` : 'Nenhum bloco removido');
     text('analysis-in', kind === 'hit' ? `Nenhum bloco carregado · ${range(a.lineAfter)} mantido` :
       `${range(a.lineAfter)} · tag ${numeric(a.lineAfter.tag, layout.tagBits)} · ${via}`);
-    text('analysis-steps-title', kind === 'replacement' ? 'Como ocorre uma substituição?' : kind === 'hit' ? 'Como ocorre um acerto?' : 'Como um bloco entra na cache?');
-    text('analysis-step-1-title', direct ? 'Localizar linha' : 'Localizar conjunto');
-    text('analysis-step-1', `Identifique o ${place} a partir do endereço`);
-    text('analysis-step-2', kind === 'hit' ? 'A tag coincide com uma via válida · o acesso é um acerto' : 'Nenhuma tag coincide com uma via válida · o acesso é uma falta');
-    text('analysis-step-3-title', kind === 'hit' ? 'Manter bloco' : kind === 'free' ? 'Usar via livre' : direct ? 'Usar linha mapeada' : 'Aplicar política');
-    text('analysis-step-3', choice);
-    text('analysis-step-4', kind === 'hit' ? useLru ? 'Mantenha o bloco e atualize sua recência' : 'Mantenha o bloco e registre o acerto' :
-      `Carregue ${range(a.lineAfter)} na ${via} e atualize os metadados`);
-    byId('analysis-next').disabled = !model.canNext;
+    byId('comparison-previous').disabled = !model.canPrevious;
+    byId('comparison-next').disabled = !model.canNext;
   }
-  byId('analysis-return').addEventListener('click', onReturn);
-  byId('analysis-next').addEventListener('click', onNext);
-  for (const format of ['decimal', 'binary']) byId(`analysis-${format}`).addEventListener('click', () => onFormat(format));
+  root.querySelector('summary').addEventListener('click', () => { if (!root.open) onOpen(); });
+  for (const [id, offset] of [['comparison-previous', -1], ['comparison-next', 1]]) {
+    byId(id).addEventListener('click', () => {
+      const access = state?.selectedAccess ?? state?.lastAccess;
+      const target = access?.number + offset;
+      if (target >= 1 && target <= state.history.length) onSelect(target);
+    });
+  }
   render(null);
   return { render };
 }

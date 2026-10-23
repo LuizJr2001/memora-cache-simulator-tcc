@@ -20,5 +20,5 @@ export function createAnalysisModel(state) {
   }
   return Object.freeze({ access, config, layout: state.layout, useLru, kind,
     beforeRows: rows(access.before, true), afterRows: rows(access.after, false),
-    canNext: access.number < state.history.length || !state.done });
+    canPrevious: access.number > 1, canNext: access.number < state.history.length });
 }

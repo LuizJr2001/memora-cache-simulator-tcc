@@ -1,14 +1,6 @@
 // Textos da v2 do Figma; esclarecimentos de Configurar e origem em 18/10/2026
 // Descrição explica a regra; o exemplo é fixo e não usa a configuração atual
 export const HELP_CONTENT = {
-  "analysis-decision": {
-    "title": "Decisão de substituição",
-    "node": "311:6786",
-    "body": [
-      "Revise a política e a via escolhida quando uma falta exige substituir um bloco\n\nOs passos mostram a escolha da vítima e a atualização da cache",
-      "Endereço 3044 → conjunto 14 cheio → LRU escolhe o bloco 992–1007 → entra o bloco 3040–3055"
-    ]
-  },
   "analysis-snapshots": {
     "title": "Estado antes × depois",
     "node": "311:6956",
@@ -23,14 +15,6 @@ export const HELP_CONTENT = {
     "body": [
       "Com o conjunto cheio, uma falta substitui a via que ficou há mais tempo sem ser acessada\n\nA escolha considera a ordem de uso em Antes, anterior à atualização da cache",
       "A via 2 foi acessada depois da via 1. Sem via livre, a próxima falta substitui a via 1"
-    ]
-  },
-  "analysis-decomposition": {
-    "title": "Decomposição do endereço",
-    "node": "311:7296",
-    "body": [
-      "Tag: usada para identificar o bloco\nConjunto: indica onde procurar\nDeslocamento: seleciona a célula dentro do bloco\n\nA quantidade de bits depende da arquitetura e do mapeamento",
-      "2018 = 0111 | 1110 | 0010\nTag 7 · Conjunto 14 · Deslocamento 2\nSão 4 bits para cada parte"
     ]
   },
   "bytesPerCell": {
@@ -140,7 +124,7 @@ export const HELP_CONTENT = {
     "title": "Ajuda rápida",
     "node": "311:8070",
     "body": [
-      "1 · Configurar\nDefina a arquitetura e os endereços, ou carregue o exemplo didático\n\n2 · Simular\nAcompanhe os acessos, a cache e o histórico\n\n3 · Analisar\nCompare a cache antes e depois de uma substituição"
+      "1 · Configurar\nDefina a arquitetura e os endereços, ou carregue o exemplo didático\n\n2 · Simular\nAcompanhe os acessos, a cache e o histórico\nSelecione um acesso no histórico e abra Comparar antes e depois para ver o que mudou"
     ]
   }
 };

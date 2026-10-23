@@ -38,7 +38,8 @@ test('histórico selecionado prevalece sobre o último acesso e a etapa pendente
   assert.equal(model.access, record); assert.equal(model.kind, 'hit');
   assert.equal(model.afterRows.find(r => r.way === 0).line.blockStart, 992);
   assert.equal(state.cache.find(l => l.set === 14 && l.way === 0).blockStart, 3040);
-  assert.equal(state.statistics.processed, 19); assert.equal(model.canNext, true);
+  assert.equal(state.statistics.processed, 19); assert.equal(model.canNext, false);
+  assert.equal(model.canPrevious, true);
 });
 
 test('linha livre tem uma vaga inválida projetada e não uma remoção fictícia', () => {
