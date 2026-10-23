@@ -27,8 +27,8 @@
 .simulation-metrics > div { min-width: 0; min-height: 58px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: white; padding: 8px 12px; }
 .simulation-metrics dt { font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); }
 .simulation-metrics dd { margin: 3px 0 0; font-size: 18px; line-height: 22px; font-weight: 600; overflow-wrap: anywhere; }
-.simulation-metrics .metric-hit { background: var(--memora-hit-background); border-color: var(--memora-hit-border); }
-.metric-hit dd { color: var(--memora-hit-text); }
+.simulation-metrics .metric-hit, .simulation-metrics .metric-complete { background: var(--memora-hit-background); border-color: var(--memora-hit-border); }
+.metric-hit dd, .metric-complete dd { color: var(--memora-hit-text); }
 .simulation-metrics .metric-miss { background: var(--memora-miss-background); border-color: var(--memora-miss-border); }
 .metric-miss dd { color: var(--memora-miss-text); }
 .simulation-controls { border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: white; padding: 10px 12px 8px; flex-shrink: 0; }
@@ -199,6 +199,3 @@
 #cache-table th:nth-child(4) { width: 8%; }
 #cache-table th:nth-child(5) { width: 47%; }
 #cache-table th:last-child { width: 12%; }
-
-
-#sim-play.is-finished:disabled { background: #ababab; color: var(--memora-hit-text); border-color: #ababab; opacity: 1; }

@@ -48,7 +48,8 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     text('sim-play', state.done ? '✓ Concluído' : state.status === 'running' ? 'Ⅱ Pausar' :
       state.status === 'ready' ? '▶ Iniciar' : '▶ Continuar');
     byId('sim-play').disabled = state.done;
-    byId('sim-play').classList.toggle('is-finished', state.done);
+    byId('sim-progress').parentElement.classList.toggle('metric-complete', state.done);
+    text('sim-progress-label', state.done ? 'Progresso (finalizado)' : 'Progresso');
     byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
