@@ -1,6 +1,6 @@
 # Memora — histórico de desenvolvimento
 
-**Consolidação:** 18/10/2026. As datas usam o horário de Brasília
+**Consolidação:** 22/10/2026. As datas usam o horário de Brasília
 (`America/Sao_Paulo`, UTC−3). Atividades relatadas nas conversas são registradas
 pela data em que ocorreram; integração e publicação são conferidas no Git.
 O horário UTC do GitHub pode cair no dia seguinte.
@@ -35,6 +35,7 @@ artigo continuam em andamento ou pendentes nas issues correspondentes.
 | 18/10 | Revisão dos textos de Configurar e da documentação | Geração identificada como aleatória, destino da sequência explícito, divisão por mapeamento e apresentação da origem no simulador educacional Beto |
 | 18/10 | Refinamento do título e das ações da sequência | Título completo da divisão de acordo com o mapeamento; geração à esquerda da interrogação de Endereços a acessar; Iniciar simulação centralizado. [Relatório](../packages/memora/docs/verificacao-acoes-enderecos.md) |
 | 18/10 | Espaçamento do gerador e largura da ação principal | Gerador separado da ajuda por 16 px, rótulo Primeiro endereço removido e Iniciar simulação ocupando a largura disponível, com texto centralizado. [Relatório](../packages/memora/docs/verificacao-largura-iniciar.md) |
+| 22/10 | Mais espaço lateral no botão de geração | Padding horizontal ampliado de 4 para 16 px em cada lado, com distância de 16 px até a ajuda e encaixe conferido de 320 a 1920 px. [Relatório atualizado](../packages/memora/docs/verificacao-largura-iniciar.md#refinamento-do-gerador--22102026) |
 
 ## Comportamentos consolidados
 

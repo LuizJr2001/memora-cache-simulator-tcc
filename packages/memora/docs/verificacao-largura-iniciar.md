@@ -40,3 +40,21 @@ permaneceu. Geração e retorno de foco foram conferidos, sem erros JavaScript.
 | 1280 × 720 | [Captura](screenshots/largura-iniciar/configurar-1280x720.png) |
 | 801 × 720 | [Captura](screenshots/largura-iniciar/configurar-801x720.png) |
 | 320 px, fluxo vertical | [Captura](screenshots/largura-iniciar/configurar-320px.png) |
+
+## Refinamento do gerador — 22/10/2026
+
+O botão **Gerar endereços aleatórios** recebeu **16 px de espaço interno em
+cada lateral**, antes 4 px, para afastar o texto das bordas. O botão ficou
+24 px mais largo; a distância até a interrogação permanece em 16 px.
+
+Sintaxe, 75 testes Node, 45 cenários Chromium de Configurar e build foram
+verificados novamente. Os três mapeamentos foram inspecionados nas nove
+dimensões acima, com 16 px de padding lateral, sem overflow horizontal e sem
+rolagem da página no desktop. A geração e o retorno de foco também passaram,
+sem erros JavaScript.
+
+| Layout atualizado | Evidência |
+|---|---|
+| 1280 × 720 | [Captura](screenshots/gerador-espacamento/configurar-1280x720.png) |
+| 801 × 720 | [Captura](screenshots/gerador-espacamento/configurar-801x720.png) |
+| 320 px, fluxo vertical | [Captura](screenshots/gerador-espacamento/configurar-320px.png) |

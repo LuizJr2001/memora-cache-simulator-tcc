@@ -131,7 +131,7 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .sequence-field .field-heading { margin-bottom: 8px; }
 .sequence-field-heading { flex-wrap: wrap; column-gap: 4px; }
 .sequence-field-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; max-width: 100%; }
-.sequence-field-actions #open-generator { min-height: 28px; padding: 4px; font-size: 12px; line-height: 18px; }
+.sequence-field-actions #open-generator { min-height: 28px; padding: 4px 16px; font-size: 12px; line-height: 18px; }
 .sequence-field .field-feedback { margin-top: 8px; }
 .configuration-summary { display: flex; align-items: start; gap: 16px; margin-top: 16px; padding: 14px 18px; min-height: 74px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: var(--memora-info-background); }
 /* Centraliza somente o símbolo, sem deslocar o título e a descrição do estado. */
