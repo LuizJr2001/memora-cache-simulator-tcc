@@ -59,7 +59,9 @@ test('abertura usa o cenário do Beto e permite simular seus 21 endereços diret
   await expect(page.locator('#sim-hits')).toHaveText('13');
   await expect(page.locator('#sim-misses')).toHaveText('8');
   await expect(page.locator('#sim-used-lines')).toHaveText('3 / 32');
-  await expect(page.locator('#simulation-complete')).toBeVisible();
+  await expect(page.locator('#simulation-complete')).toHaveCount(0);
+  await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
+  await expect(page.locator('#sim-play')).toBeDisabled();
 });
 
 test('exemplo didático libera uma entrada válida e usa os assets/fontes locais', async ({ page }) => {

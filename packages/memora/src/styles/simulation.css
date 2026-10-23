@@ -96,12 +96,7 @@
 .history-summary { margin-top: 12px; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
 .history-summary h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
 #go-analyze { width: 100%; margin-top: 12px; min-height: 42px; padding-inline: 12px; font-size: 12px; }
-#show-live, #show-all-history { min-height: 28px; padding: 5px 12px; font-size: 12px; }
-.simulation-complete { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 1px solid var(--memora-hit-border); border-radius: var(--sds-size-radius-400); background: var(--memora-hit-background); flex-shrink: 0; }
-.simulation-complete h2 { font-size: 14px; line-height: 20px; color: var(--memora-hit-text); }
-.simulation-complete p { font-size: 12px; line-height: 17px; margin-top: 4px; }
-.simulation-complete > div:last-child { display: flex; gap: 8px; }
-.simulation-complete button { min-height: 32px; padding: 6px 14px; font-size: 12px; }
+#show-live { min-height: 28px; padding: 5px 12px; font-size: 12px; }
 .sheet-glossary { margin-top: 24px; width: 100%; }
 .set-badge { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 @media (min-width: 801px) and (max-height: 800px) {
@@ -124,7 +119,6 @@
   .simulation-cache { min-height: 232px; }
   .cache-scroll { min-height: 160px; margin-top: 6px; }
   .history-summary { padding: 10px; margin-top: 8px; }
-  .simulation-complete { padding: 8px 12px; }
 }
 @media (min-width: 1101px) {
   main.is-simulating { height: calc(100dvh - 52px); min-height: 0; }
@@ -134,7 +128,6 @@
   .simulation-metrics { gap: 6px; }
   .simulation-metrics > div { padding-inline: 6px; }
   .simulation-card-heading { flex-wrap: wrap; gap: 6px; }
-  .simulation-complete { flex-wrap: wrap; }
   .current-address-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .playback-actions button { padding-inline: 10px; }
 }
@@ -148,7 +141,6 @@
   .history-scroll { flex: 0 0 auto; height: 280px; }
   .simulation-metrics { gap: 8px; }
   .simulation-metrics > div { padding-inline: 8px; }
-  .simulation-complete { flex-wrap: wrap; }
 }
 @media (max-width: 480px) {
   .simulation-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -159,7 +151,6 @@
   .simulation-card { padding: 14px 12px; }
   .simulation-card-heading { flex-wrap: wrap; }
   .current-address-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .simulation-complete > div:last-child { flex-wrap: wrap; }
   .playback-preferences { gap: 12px; }
 }
 
@@ -208,3 +199,6 @@
 #cache-table th:nth-child(4) { width: 8%; }
 #cache-table th:nth-child(5) { width: 47%; }
 #cache-table th:last-child { width: 12%; }
+
+
+#sim-play.is-finished:disabled { background: var(--memora-hit-background); color: var(--memora-hit-text); border-color: var(--memora-hit-border); opacity: 1; }

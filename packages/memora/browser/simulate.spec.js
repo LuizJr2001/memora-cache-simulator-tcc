@@ -82,7 +82,11 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await page.locator('#sim-next').click();
   await expect(page.locator('#history-table tr[data-access="20"]')).toContainText('Substitui o bloco 992–1007 da via 1 pelo bloco 3040–3055');
   await expect(page.locator('#sim-misses')).toHaveText('8');
-  await page.locator('#sim-next').click(); await expect(page.locator('#simulation-complete')).toBeVisible();
+  await page.locator('#sim-next').click(); await expect(page.locator('#simulation-complete')).toHaveCount(0);
+  await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
+  await expect(page.locator('#sim-play')).toBeDisabled();
+  await expect(page.locator('#sim-play')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
+  await expect(page.locator('#sim-play')).toHaveCSS('opacity', '1');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   await expect(page.locator('#sim-hits')).toHaveText('12'); await expect(page.locator('#sim-misses')).toHaveText('9');
   await expect(page.locator('#sim-hit-rate')).toHaveText('57,1%'); await expect(page.locator('#sim-used-lines')).toHaveText('8 / 32');
@@ -92,7 +96,7 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await expect(page.locator('#sim-address')).toHaveText('—'); await screenshot(page, 'simulacao-concluida');
 });
 
-test('revisão e filtro usam snapshots sem reexecutar ou mudar as estatísticas', async ({ page }) => {
+test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({ page }) => {
   await prepare(page); await advance(page, 19);
   for (let i = 0; i < 4; i++) await page.locator('#sim-step').click();
   await expect(page.locator('#history-state')).toContainText('LRU escolhe a via 1');
@@ -112,12 +116,15 @@ test('revisão e filtro usam snapshots sem reexecutar ou mudar as estatísticas'
   await expect(page.locator('#cache-table tr[data-set="14"][data-way="2"]')).toContainText('2016–2031');
   await screenshot(page, 'revisao-acesso');
   await page.locator('#show-live').click(); await expect(page.locator('#sim-address')).toHaveText('—');
-  await page.locator('#review-replacements').click();
-  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(1);
-  await expect(page.locator('#history-description')).toHaveText('1 substituição · selecione para revisar');
+  await page.getByRole('button', { name: 'Revisar acesso 20', exact: true }).click();
+  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
   await expect(page.locator('#current-address-heading')).toHaveText('Acesso 20 em revisão');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
-  await page.locator('#show-all-history').click(); await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
+  await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
+  await page.locator('#sim-restart').click();
+  await expect(page.locator('#sim-play')).toHaveText('▶ Iniciar');
+  await expect(page.locator('#sim-play')).toBeEnabled();
+  await expect(page.locator('#sim-play')).not.toHaveClass(/is-finished/);
 });
 
 test('Decimal/Binário altera endereço, tag, conjunto, blocos e explicações sem reiniciar', async ({ page }) => {

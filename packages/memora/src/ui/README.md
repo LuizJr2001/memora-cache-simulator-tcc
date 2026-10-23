@@ -89,9 +89,10 @@ histórico preservam intervalos e estatísticas anteriores à mutação (#30).
 
 O número do acesso é um botão de revisão: mostra a cache de `after`, sem mudar
 os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
-restaura o estado atual, sem avançar o motor. Revisar substituições filtra os
-registros após a conclusão; Mostrar todos remove o filtro. Esses controles
-funcionam na Tela 2. A terceira aba abre a análise do acesso selecionado ou do último concluído.
+restaura o estado atual, sem avançar o motor. Ao terminar, o controle de reprodução
+mostra ✓ Concluído em verde e permanece desabilitado, sem um balão separado.
+Reiniciar restaura a aparência inicial. O histórico permanece completo.
+A terceira aba abre a análise do acesso selecionado ou do último concluído.
 Antes do primeiro acesso, orienta a iniciar/avançar na própria Tela 2.
 
 O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm

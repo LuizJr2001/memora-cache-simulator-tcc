@@ -178,8 +178,9 @@ Abrir ajuda ou revisar um acesso pausa a execução.
 O número de cada acesso no histórico permite revisar a cache após aquele acesso.
 Os contadores permanecem os da execução atual, identificada no subtítulo.
 Voltar à execução restaura a visualização atual, sem reprocessar acessos.
-Revisar substituições filtra o histórico após a conclusão; Mostrar todos retira
-o filtro. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
+Ao concluir, o controle de reprodução mostra **✓ Concluído** em verde e fica
+desabilitado, sem um balão separado de conclusão. Reiniciar restaura o estado
+inicial. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
 
 Abrir/fechar ajuda preserva dados; Escape, botão de fechar e scrim restauram o
 foco. As ajudas Estado LRU, Memória cache e Histórico de acessos usam os textos
