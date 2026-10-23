@@ -27,8 +27,8 @@
 .simulation-metrics > div { min-width: 0; min-height: 58px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: white; padding: 8px 12px; }
 .simulation-metrics dt { font-size: 12px; line-height: 16px; color: var(--sds-color-text-default-secondary); }
 .simulation-metrics dd { margin: 3px 0 0; font-size: 18px; line-height: 22px; font-weight: 600; overflow-wrap: anywhere; }
-.simulation-metrics .metric-hit { background: var(--memora-hit-background); border-color: var(--memora-hit-border); }
-.metric-hit dd { color: var(--memora-hit-text); }
+.simulation-metrics .metric-hit, .simulation-metrics .metric-complete { background: var(--memora-hit-background); border-color: var(--memora-hit-border); }
+.metric-hit dd, .metric-complete dd { color: var(--memora-hit-text); }
 .simulation-metrics .metric-miss { background: var(--memora-miss-background); border-color: var(--memora-miss-border); }
 .metric-miss dd { color: var(--memora-miss-text); }
 .simulation-controls { border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: white; padding: 10px 12px 8px; flex-shrink: 0; }
@@ -55,6 +55,7 @@
 .simulation-cache { display: flex; flex-direction: column; flex: 1; min-height: 238px; }
 .table-scroll { overflow: auto; min-width: 0; scrollbar-width: thin; scrollbar-color: #b3b3b3 transparent; }
 .table-scroll:focus-visible { outline-offset: 2px; }
+/* A tabela preenche a altura disponível do cartão, com rolagem interna. */
 .cache-scroll { height: 188px; min-height: 150px; flex: 1; margin-top: 12px; position: relative; }
 .simulation-screen table { border-collapse: separate; border-spacing: 0 4px; width: 100%; font-size: 12px; line-height: 16px; table-layout: fixed; }
 .simulation-screen th { position: sticky; top: 0; background: #f9f9f9; z-index: 1; color: #475569; font-weight: 600; text-align: left; }
@@ -80,7 +81,6 @@
 .simulation-history { display: flex; flex-direction: column; min-height: 0; }
 .history-scroll { height: 340px; min-height: 150px; flex: 1; margin-top: 10px; }
 .history-scroll { max-height: clamp(240px, calc(100dvh - 420px), 650px); }
-.cache-scroll { max-height: clamp(180px, calc(100dvh - 560px), 480px); }
 #history-table { min-width: 360px; }
 #history-table th:nth-child(1) { width: 56px; }
 #history-table th:nth-child(2) { width: 14%; }
@@ -199,6 +199,3 @@
 #cache-table th:nth-child(4) { width: 8%; }
 #cache-table th:nth-child(5) { width: 47%; }
 #cache-table th:last-child { width: 12%; }
-
-
-#sim-play.is-finished:disabled { background: var(--memora-hit-background); color: var(--memora-hit-text); border-color: var(--memora-hit-border); opacity: 1; }

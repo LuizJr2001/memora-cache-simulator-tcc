@@ -133,7 +133,7 @@
         <div class="simulation-grid">
           <div class="simulation-workspace">
             <dl class="simulation-metrics" aria-label="Estatísticas da simulação">
-              <div><dt>Progresso</dt><dd id="sim-progress">0 / 0</dd></div>
+              <div><dt id="sim-progress-label">Progresso</dt><dd id="sim-progress">0 / 0</dd></div>
               <div class="metric-hit"><dt>Acertos</dt><dd id="sim-hits">0</dd></div>
               <div class="metric-miss"><dt>Faltas</dt><dd id="sim-misses">0</dd></div>
               <div><dt>Taxa de acerto</dt><dd id="sim-hit-rate">—</dd></div>
@@ -141,7 +141,7 @@
             </dl>
             <section class="simulation-controls" aria-label="Controles da simulação">
               <div class="playback-actions"><button type="button" id="sim-play">▶ Iniciar</button><button type="button" id="sim-stop">■ Parar</button><button type="button" id="sim-restart">↻ Reiniciar</button><button type="button" id="sim-step">Próxima etapa</button><button type="button" id="sim-next">Próximo acesso</button></div>
-              <div class="playback-preferences"><label class="detailed-control"><input type="checkbox" id="sim-detailed" aria-describedby="sim-mode-description" checked>Etapas detalhadas</label><label class="speed-control" for="sim-speed"><span aria-hidden="true" title="Diminuir velocidade">−</span><input type="range" id="sim-speed" min="1" max="10" value="5" aria-valuetext="5 etapas por segundo" aria-describedby="speed-direction"><span aria-hidden="true" title="Aumentar velocidade">+</span><span id="sim-speed-label">Velocidade (5 etapas/segundo)</span></label><span id="sim-mode-description" class="simulation-mode-description">Detalhado: avança uma etapa e explica a decisão</span><span id="speed-direction" class="sr-only">Mova para a esquerda para diminuir a velocidade ou para a direita para aumentar.</span></div>
+              <div class="playback-preferences"><label class="detailed-control"><input type="checkbox" id="sim-detailed" aria-describedby="sim-mode-description" checked><span>Etapas detalhadas <span id="sim-mode-description" class="simulation-mode-description">(avança uma etapa e explica a decisão)</span></span></label><label class="speed-control" for="sim-speed"><span aria-hidden="true" title="Diminuir velocidade">−</span><input type="range" id="sim-speed" min="1" max="10" value="5" aria-valuetext="5 etapas por segundo" aria-describedby="speed-direction"><span aria-hidden="true" title="Aumentar velocidade">+</span><span id="sim-speed-label">Velocidade (5 etapas/segundo)</span></label><span id="speed-direction" class="sr-only">Mova para a esquerda para diminuir a velocidade ou para a direita para aumentar.</span></div>
             </section>
             <p id="sim-status" class="sr-only" role="status" aria-live="polite">Pronto para iniciar · nenhum acesso foi processado</p>
             <section class="simulation-address simulation-card" aria-labelledby="current-address-heading">

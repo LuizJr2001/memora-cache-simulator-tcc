@@ -85,9 +85,13 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await page.locator('#sim-next').click(); await expect(page.locator('#simulation-complete')).toHaveCount(0);
   await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
   await expect(page.locator('#sim-play')).toBeDisabled();
-  await expect(page.locator('#sim-play')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
-  await expect(page.locator('#sim-play')).toHaveCSS('opacity', '1');
+  await expect(page.locator('#sim-play')).toHaveCSS('background-color', 'rgb(44, 44, 44)');
+  await expect(page.locator('#sim-play')).toHaveCSS('opacity', '0.4');
+  await expect(page.locator('#sim-play')).toHaveCSS('color', 'rgb(245, 245, 245)');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
+  await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
+  await expect(page.locator('#sim-progress-label')).toHaveText('Progresso (finalizado)');
   await expect(page.locator('#sim-hits')).toHaveText('12'); await expect(page.locator('#sim-misses')).toHaveText('9');
   await expect(page.locator('#sim-hit-rate')).toHaveText('57,1%'); await expect(page.locator('#sim-used-lines')).toHaveText('8 / 32');
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
@@ -112,6 +116,9 @@ test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({
   await page.getByRole('button', { name: 'Revisar acesso 19', exact: true }).click();
   await expect(page.locator('#current-address-heading')).toHaveText('Acesso 19 em revisão');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
+  await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
+  await expect(page.locator('#sim-progress-label')).toHaveText('Progresso (finalizado)');
   await expect(page.locator('#cache-table tr[data-set="14"][data-way="1"]')).toContainText('992–1007');
   await expect(page.locator('#cache-table tr[data-set="14"][data-way="2"]')).toContainText('2016–2031');
   await screenshot(page, 'revisao-acesso');
@@ -120,11 +127,16 @@ test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
   await expect(page.locator('#current-address-heading')).toHaveText('Acesso 20 em revisão');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
+  await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
+  await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
+  await expect(page.locator('#sim-progress-label')).toHaveText('Progresso (finalizado)');
   await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
   await page.locator('#sim-restart').click();
   await expect(page.locator('#sim-play')).toHaveText('▶ Iniciar');
   await expect(page.locator('#sim-play')).toBeEnabled();
-  await expect(page.locator('#sim-play')).not.toHaveClass(/is-finished/);
+  await expect(page.locator('.simulation-metrics .metric-complete')).toHaveCount(0);
+  await expect(page.locator('#sim-progress-label')).toHaveText('Progresso');
+  await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
 });
 
 test('Decimal/Binário altera endereço, tag, conjunto, blocos e explicações sem reiniciar', async ({ page }) => {
@@ -222,12 +234,20 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
       const data = await page.evaluate(() => ({ width: document.documentElement.scrollWidth,
         height: document.documentElement.scrollHeight, overflow: getComputedStyle(document.body).overflow,
         cacheHeight: document.querySelector('.cache-scroll').clientHeight,
+        cacheUnusedSpace: (() => {
+          const card = document.querySelector('.simulation-cache');
+          const scroll = card.querySelector('.cache-scroll');
+          const style = getComputedStyle(card);
+          return card.getBoundingClientRect().bottom - scroll.getBoundingClientRect().bottom
+            - parseFloat(style.paddingBottom) - parseFloat(style.borderBottomWidth);
+        })(),
         outside: [...document.querySelectorAll('#simulation-screen button, #simulation-screen input, .attribution')].filter(n => {
           const r = n.getBoundingClientRect(); if (!r.width || !r.height || n.closest('.table-scroll')) return false;
           return r.x < 0 || r.right > innerWidth + 1 || r.bottom > innerHeight + 1;
         }).map(n => n.id) }));
       expect(data.width).toBeLessThanOrEqual(viewport.width); expect(data.height).toBeLessThanOrEqual(viewport.height);
       expect(data.overflow).not.toBe('hidden'); expect(data.outside).toEqual([]); expect(data.cacheHeight).toBeGreaterThanOrEqual(160);
+      expect(Math.abs(data.cacheUnusedSpace)).toBeLessThanOrEqual(1);
     }
     await fits(); await advance(page, 19); await fits(); await screenshot(page, `layout-${viewport.width}x${viewport.height}`);
     await advance(page, 2); await fits(); await screenshot(page, `concluida-${viewport.width}x${viewport.height}`);
@@ -312,6 +332,7 @@ test('aviso de análise permanece em Simular e desaparece ao iniciar ou avançar
 test('Etapas detalhadas muda apresentação e avanço manual sem perder o acesso atual', async ({ page }) => {
   await prepare(page);
   await expect(page.locator('#access-details')).toBeVisible();
+  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
   await page.locator('#sim-step').click();
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Decompor endereço');
   await expect(page.locator('#access-binary')).toContainText('Deslocamento');
@@ -320,13 +341,14 @@ test('Etapas detalhadas muda apresentação e avanço manual sem perder o acesso
   await expect(page.locator('#access-detail-steps [aria-current="step"]')).toContainText('Nenhuma linha válida');
   await page.locator('#sim-detailed').uncheck();
   await expect(page.locator('#access-details')).toBeHidden();
-  await expect(page.locator('#sim-mode-description')).toContainText('Resumido');
+  await expect(page.locator('#sim-mode-description')).toHaveText('(avança um acesso completo)');
   await expect(page.locator('#sim-speed-label')).toHaveText('Velocidade (5 acessos/segundo)');
   await page.locator('#sim-step').click();
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await expect(page.locator('#history-table tr[data-access="1"]')).toContainText('Falta compulsória');
   await page.locator('#sim-detailed').check();
   await expect(page.locator('#access-details')).toBeVisible();
+  await expect(page.locator('.detailed-control #sim-mode-description')).toHaveText('(avança uma etapa e explica a decisão)');
   await page.locator('#sim-step').click();
   await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
   await page.locator('#sim-next').click();

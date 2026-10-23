@@ -48,13 +48,14 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     text('sim-play', state.done ? '✓ Concluído' : state.status === 'running' ? 'Ⅱ Pausar' :
       state.status === 'ready' ? '▶ Iniciar' : '▶ Continuar');
     byId('sim-play').disabled = state.done;
-    byId('sim-play').classList.toggle('is-finished', state.done);
+    byId('sim-progress').parentElement.classList.toggle('metric-complete', state.done);
+    text('sim-progress-label', state.done ? 'Progresso (finalizado)' : 'Progresso');
     byId('go-analyze').disabled = !state.history.length;
     byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-step').disabled = state.done; byId('sim-next').disabled = state.done;
     text('sim-step', state.detailed ? 'Próxima etapa' : 'Avançar acesso');
-    text('sim-mode-description', state.detailed ? 'Detalhado: avança uma etapa e explica a decisão' : 'Resumido: avança um acesso completo');
+    text('sim-mode-description', state.detailed ? '(avança uma etapa e explica a decisão)' : '(avança um acesso completo)');
     root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
     const unit = state.detailed ? (state.speed === 1 ? 'etapa' : 'etapas') : (state.speed === 1 ? 'acesso' : 'acessos');
