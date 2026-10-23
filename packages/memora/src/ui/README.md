@@ -155,7 +155,7 @@ Ver [revisão geral do PR #44](../../docs/revisao-pr44.md): 68 testes Node e
 
 ### Orientação ao navegar com configuração pendente
 
-Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Com entrada preparada e nenhum acesso concluído, o aviso vermelho pede processar o primeiro acesso e mantém Simular ativa. Após concluir um acesso, Analisar abre os snapshots reais. Iniciar/Continuar, Próxima etapa ou Próximo acesso removem o aviso; uma nova preparação também o limpa.
+Simular e Analisar aceitam cliques e navegação por teclado mesmo antes de preparar a entrada. A tentativa mantém Configurar visível e mostra um aviso vermelho abaixo da introdução, indicando a configuração pendente sem repetir os nomes dos campos, que já apresentam destaque e legenda próprios. O aviso acompanha a edição e, com dados válidos, pede clicar em Iniciar simulação. A preparação bem-sucedida limpa o aviso. Com entrada preparada e nenhum acesso concluído, o aviso vermelho pede processar o primeiro acesso e mantém Simular ativa. Após concluir um acesso, Analisar abre os snapshots reais. Iniciar/Continuar, Próximo acesso ou Ir ao final removem o aviso; uma nova preparação também o limpa.
 
 No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: memória principal com peso 1 e cache com peso 2, incluindo maior separação entre as duas linhas de campos da cache.
 
@@ -164,7 +164,7 @@ completa de Configurar e na revisão geral do PR #44.
 
 ### Etapas detalhadas — revisão de 14/10/2026
 
-A opção afeta tanto a reprodução automática quanto o avanço manual: marcada percorre as seis fases; desmarcada conclui um acesso por avanço. O botão passa a indicar Avançar acesso no modo resumido. Trocar de modo durante um acesso conclui apenas a entrada pendente, sem duplicar estatísticas. A taxa indica etapas/segundo ou acessos/segundo conforme o modo, com valor inicial 5.
+A opção controla a reprodução automática e as explicações: marcada percorre os seis passos de cada acesso; desmarcada conclui um acesso por avanço automático. A descrição fixa é “mostra o passo a passo e explica cada decisão”. A velocidade indica passos/segundo no modo detalhado e acessos/segundo sem detalhamento, com valor inicial 5 e singular para o valor 1. Próximo acesso é o único avanço manual de um acesso nos dois modos; Ir ao final conclui os restantes preservando o histórico. Trocar de modo mantém a entrada pendente, sem duplicar estatísticas.
 
 O modo detalhado mostra o endereço binário dividido em Tag, Linha/Conjunto e Deslocamento, um roteiro das seis fases e a explicação da fase atual. Durante a consulta, as tags coincidentes e diferentes recebem destaques próprios. O roteiro tem rolagem local e acompanha a fase, sem rolar a página. Ao revisar um acesso, usa o snapshot original. O modo resumido esconde o roteiro e mantém as descrições do histórico.
 

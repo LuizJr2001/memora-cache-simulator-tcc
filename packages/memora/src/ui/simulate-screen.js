@@ -51,13 +51,13 @@ export function mountSimulateScreen(document, { onAnalyze = () => {}, onChange =
     byId('sim-progress').parentElement.classList.toggle('metric-complete', state.done);
     text('sim-progress-label', state.done ? 'Progresso (finalizado)' : 'Progresso');
     byId('go-analyze').disabled = !state.history.length;
-    byId('sim-stop').disabled = state.status === 'ready' || state.status === 'stopped' || state.done;
+    byId('sim-stop').disabled = state.status !== 'running';
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-next').disabled = state.done;
     byId('sim-finish').disabled = state.done;
     root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
-    const unit = state.detailed ? (state.speed === 1 ? 'etapa' : 'etapas') : (state.speed === 1 ? 'acesso' : 'acessos');
+    const unit = state.detailed ? (state.speed === 1 ? 'passo' : 'passos') : (state.speed === 1 ? 'acesso' : 'acessos');
     const speedLabel = `${state.speed} ${unit}/segundo`;
     text('sim-speed-label', `Velocidade (${speedLabel})`);
     byId('sim-speed').setAttribute('aria-valuetext', speedLabel);
