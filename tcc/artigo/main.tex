@@ -1,0 +1,515 @@
+% main.tex - versão ABNT/abnTeX2.
+% Base: modelo canônico de artigo científico com abnTeX2.
+% Consolidação: 23/10/2026; implementação até o PR #62.
+% Levantamento do Beto coletado; avaliação externa do Memora pendente.
+\documentclass[
+    article,
+    12pt,
+    oneside,
+    a4paper,
+    english,
+    brazil,
+    sumario=tradicional
+]{abntex2}
+
+% Pacotes fundamentais
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xurl}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+
+% Configurações do pacote backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backref}{}
+\renewcommand*{\backrefalt}[4]{%
+    \ifcase #1
+        Nenhuma citação no texto.%
+    \or
+        Citado na página #2.%
+    \else
+        Citado #1 vezes nas páginas #2.%
+    \fi}
+
+% Metadados
+\titulo{Avaliação e aprimoramento de um simulador educacional de memória cache para apoio ao ensino de hierarquia de memória}
+% \tituloestrangeiro{Evaluation and improvement of an educational cache memory simulator to support the teaching of memory hierarchy}
+\autor{Luiz Carlos dos Santos Júnior\thanks{Graduando em Engenharia de Computação pelo Centro Federal de Educação Tecnológica de Minas Gerais (CEFET-MG). E-mail: \url{luizcarlossantosjunior2001@gmail.com}.}}
+\local{Belo Horizonte, MG -- Brasil}
+\data{2026}
+
+% Aparência do PDF
+\definecolor{blue}{RGB}{41,5,195}
+\makeatletter
+\hypersetup{
+    pdftitle={\@title},
+    pdfauthor={Luiz Carlos dos Santos Júnior},
+    pdfsubject={Artigo acadêmico em modelo ABNT/abnTeX2},
+    pdfcreator={LaTeX with abnTeX2},
+    pdfkeywords={memória cache, software educacional, IHC, usabilidade, simulador},
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    bookmarksdepth=4
+}
+\makeatother
+
+% Margens e espaçamento conforme modelo canônico abnTeX2
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+\SingleSpacing
+\clubpenalty=10000
+\widowpenalty=10000
+
+% Tabelas e listas
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\setlist[itemize]{leftmargin=*, itemsep=1pt, topsep=2pt}
+\setlist[enumerate]{leftmargin=*, itemsep=1pt, topsep=2pt}
+\urlstyle{same}
+\sloppy
+\emergencystretch=3em
+
+% Marcadores usados nas tabelas comparativas.
+\newcommand{\tem}{\textbf{X}}
+\newcommand{\nao}{--}
+\newcommand{\parcial}{P}
+\newcommand{\rothead}[1]{\rotatebox{90}{\parbox{3.4cm}{\centering #1}}}
+
+\makeindex
+
+\begin{document}
+\frenchspacing
+\maketitle
+
+\begin{resumoumacoluna}
+Este artigo apresenta a avaliação inicial e o aprimoramento do Beto, simulador educacional de memória cache, por meio do desenvolvimento do Memora. O método combina fundamentação em Arquitetura e Organização de Computadores e Interação Humano-Computador, comparação documental com ferramentas relacionadas, levantamento de requisitos com 13 respostas anonimizadas, prototipação e implementação incremental. A versão funcional reúne validação automática, decomposição de endereços, visualização de validade e recência LRU, histórico com estados imutáveis e comparação antes/depois integrada à simulação. O fluxo foi reduzido a Configurar e Simular, preservando a revisão dos acessos sem reexecução. A verificação técnica contempla 78 testes Node e 93 cenários Chromium na revisão da integração; os ajustes posteriores de cor ainda requerem inspeção visual específica. O levantamento descreve necessidades percebidas no Beto e não constitui uma avaliação do Memora. A avaliação com estudantes e a consolidação formal da inspeção heurística permanecem pendentes, sem alegação de ganho de aprendizagem. Operações de escrita, dirty bit, exportação, gráficos e comparação entre configurações são trabalhos futuros. O artigo consolida o estado do projeto até 23 de outubro de 2026.
+\par\vspace{\onelineskip}
+\noindent\textbf{Palavras-chave}: memória cache. software educacional. interação humano-computador. usabilidade. simulador educacional.
+\end{resumoumacoluna}
+
+\renewcommand{\resumoname}{Abstract}
+\begin{resumoumacoluna}
+\begin{otherlanguage*}{english}
+This paper presents the initial evaluation and improvement of Beto, an educational cache memory simulator, through the development of Memora. The method combines Computer Organization and Architecture and Human-Computer Interaction foundations, a documentary comparison with related tools, a requirements survey with 13 anonymized responses, prototyping, and incremental implementation. The functional version provides automatic validation, address decomposition, valid and LRU metadata, immutable access history, and before-and-after comparison within the simulation. The workflow was reduced to Configure and Simulate while retaining access review without re-execution. Technical verification includes 78 Node tests and 93 Chromium scenarios for the comparison integration; subsequent color changes still require a dedicated visual inspection. The survey describes perceived needs in Beto and is not an evaluation of Memora. Student evaluation and consolidated formal heuristic inspection remain pending, and no learning gains are claimed. Write operations, dirty bits, export, charts, and comparison across configurations remain future work. The paper consolidates the project status as of October 23, 2026.
+\par\vspace{\onelineskip}
+\noindent\textbf{Keywords}: cache memory. educational software. human-computer interaction. usability. educational simulator.
+\end{otherlanguage*}
+\end{resumoumacoluna}
+
+\textual
+\section{Introdução}
+
+Os conteúdos relacionados à hierarquia de memória e, em particular, à memória cache costumam apresentar elevado nível de abstração. O estudante precisa compreender, ao mesmo tempo, conceitos como endereçamento, organização em blocos, decomposição de bits, mapeamento direto, mapeamento associativo, mapeamento associativo por conjunto, políticas de substituição e interpretação de acertos e faltas. Nesse contexto, simuladores educacionais podem aproximar teoria e prática ao tornar visíveis etapas que, em exercícios tradicionais, permanecem implícitas.
+
+O simulador Beto foi desenvolvido com esse propósito: apoiar o ensino de memória cache por meio de uma ferramenta web, interativa e em língua portuguesa \cite{gabriel2022beto, betoweb2026}. O repositório do projeto descreve o Beto como um simulador desenvolvido em HTML5, CSS3 e JavaScript, com interface interativa, configurações personalizáveis e execução em tempo real \cite{leogithub2026}. A própria interface pública permite configurar, entre outros parâmetros, bytes por célula, células da memória principal, células por bloco, linhas na memória cache, método de substituição, tipo de mapeamento, endereços de acesso e execução passo a passo \cite{betoweb2026}.
+
+Entretanto, o próprio repositório indica que o simulador ainda possui limitações de validação e atualização de configurações, por exemplo quando valores que deveriam ser potências de dois não são tratados adequadamente \cite{leogithub2026}. Assim, o presente TCC não pretende criar um simulador do zero, mas evoluir criticamente uma ferramenta existente, gratuita, web e de código aberto. A proposta concentra-se em diagnosticar lacunas do Beto, comparar suas funcionalidades com ferramentas relacionadas, implementar melhorias priorizadas e avaliar a experiência de uso da versão aprimorada com estudantes.
+
+A versão aprimorada recebeu o nome Memora em setembro de 2026, preservando a atribuição do Beto e a licença MIT. Até 23 de outubro, o projeto dispõe de implementação funcional publicada na web e de um levantamento de requisitos já coletado. Este artigo distingue esses resultados da avaliação externa da versão aprimorada, que ainda está pendente \cite{memoraRepositorio2026,memoraDados2026}.
+
+\section{Visão geral teórica: memória cache em AOC}
+\label{sec:visao-geral-cache}
+
+Esta seção apresenta a base conceitual necessária para compreender as funcionalidades analisadas ao longo do trabalho e as melhorias propostas para o simulador Beto. O foco está nos conceitos de memória cache em Arquitetura e Organização de Computadores (AOC), especialmente aqueles que aparecem nas tabelas comparativas e na definição das lacunas da ferramenta.
+
+\subsection{Hierarquia de memória e localidade}
+
+A memória cache é um nível intermediário da hierarquia de memória utilizado para reduzir o custo médio de acesso aos dados e instruções. Em termos didáticos, ela explora dois princípios importantes: localidade temporal e localidade espacial. A localidade temporal indica que dados acessados recentemente têm maior probabilidade de serem acessados novamente em breve. A localidade espacial indica que dados próximos ao endereço acessado também têm maior chance de serem utilizados em seguida \cite{hennessy2017computer}.
+
+Por isso, a cache não costuma transferir apenas uma célula isolada da memória principal. Ela transfere blocos ou linhas de cache. Quando um endereço solicitado já se encontra na cache, ocorre um acerto ou \textit{hit}. Quando o endereço não está na cache, ocorre uma falta ou \textit{miss}, exigindo a busca do bloco correspondente na memória principal. A taxa de acertos e a taxa de faltas são métricas importantes para avaliar o comportamento de uma configuração.
+
+\subsection{Decomposição do endereço: tag, índice e deslocamento}
+
+Em simuladores educacionais, um dos pontos mais importantes é explicitar como um endereço de memória é dividido em campos. Considerando uma cache com endereços de $m$ bits, blocos com $B$ bytes e $S$ conjuntos, uma decomposição típica é:
+
+\begin{itemize}
+    \item $b = \log_2(B)$ bits para o deslocamento dentro do bloco;
+    \item $s = \log_2(S)$ bits para o índice do conjunto;
+    \item $t = m - s - b$ bits para a \textit{tag}.
+\end{itemize}
+
+No Beto e no Memora, o endereço identifica uma célula, que pode conter mais de um byte. Nessa convenção, as larguras usam o total de células e a quantidade de células por bloco; bytes por célula participa apenas do cálculo de capacidade. Assim, na implementação, $b = \log_2(C)$, com $C$ células por bloco, e $m = \log_2(M)$, com $M$ células na memória principal. A formulação em bytes acima corresponde ao caso de endereçamento por byte e não deve ser aplicada silenciosamente a essa convenção.
+
+No mapeamento direto, cada bloco da memória principal só pode ocupar uma posição específica da cache. No mapeamento totalmente associativo, um bloco pode ocupar qualquer linha. No mapeamento associativo por conjunto, um bloco é direcionado a um conjunto específico, mas pode ocupar qualquer via dentro desse conjunto. A explicação visual desses campos é essencial porque erros de entendimento sobre \textit{tag}, índice, deslocamento e conjunto costumam prejudicar a interpretação dos resultados da simulação.
+
+\subsection{Formas de mapeamento}
+
+As três formas clássicas de mapeamento são relevantes para o Beto e para os simuladores comparados, pois representam diferentes compromissos entre simplicidade de implementação, flexibilidade de alocação dos blocos e ocorrência de faltas por conflito \cite{hennessy2017computer}:
+
+\begin{itemize}
+    \item \textbf{Mapeamento direto}: cada bloco da memória principal possui apenas uma linha possível na cache. É simples de visualizar, mas pode gerar muitas faltas por conflito.
+    \item \textbf{Mapeamento totalmente associativo}: qualquer bloco pode ser colocado em qualquer linha. Reduz conflitos, mas exige uma política de substituição sempre que a cache está cheia.
+    \item \textbf{Mapeamento associativo por conjunto}: combina as duas abordagens anteriores. O bloco é mapeado para um conjunto, mas pode ser colocado em uma das vias disponíveis desse conjunto.
+\end{itemize}
+
+O Beto já contempla essas formas de mapeamento, o que é um ponto forte da ferramenta. A lacuna a explorar não é apenas adicionar uma forma de mapeamento, mas tornar mais clara a relação entre endereço, conjunto, via, \textit{tag}, bloco, acerto/falta e substituição.
+
+\subsection{Políticas de substituição e metadados LRU}
+
+Quando ocorre uma falta e o conjunto de destino está cheio, o simulador precisa escolher qual linha será removida. Essa escolha depende da política de substituição. Entre as políticas comuns estão FIFO, LRU, LFU, aleatória e variações como MRU. O Beto já oferece FIFO, LRU e aleatória. Entretanto, uma lacuna didática importante é explicitar o estado interno usado pela política.
+
+No caso da LRU (\textit{Least Recently Used}), a ideia é substituir a linha que foi usada há mais tempo. Para isso, o simulador precisa manter algum metadado de recência por linha ou via. Em uma implementação educacional, esse metadado pode aparecer como contador, posição na pilha LRU, carimbo de tempo ou outro valor equivalente. A documentação do Ripes, por exemplo, mostra uma coluna LRU quando há associatividade e a política LRU está ativa. Nessa visualização, a linha acessada recentemente assume valor 0 e a linha mais provável de ser removida assume o maior valor da faixa \cite{ripescache2026}. Essa ideia pode ser aproveitada no Beto para que o estudante não veja apenas o resultado da substituição, mas também a razão pela qual determinada linha foi escolhida.
+
+\subsection{Políticas de escrita, bit de validade e bit de sujeira}
+
+Além de leituras, caches reais também precisam lidar com escritas. Duas dimensões costumam aparecer nesse contexto. A primeira é a política em caso de escrita: \textit{write-through} escreve também na memória principal imediatamente, enquanto \textit{write-back} adia a escrita na memória principal até a remoção do bloco. A segunda é o comportamento em caso de falta de escrita, como \textit{write-allocate} ou \textit{write-around}/\textit{no-write-allocate}.
+
+Essas políticas tornam importantes alguns metadados. O \textbf{bit de validade} indica se determinada linha contém informação válida. O \textbf{bit de sujeira} ou \textit{dirty bit} indica se a linha foi modificada em cache e ainda não foi escrita de volta na memória principal. Ferramentas como ParaCache e Ripes apresentam explicitamente campos relacionados a políticas de escrita e \textit{dirty bit} \cite{paracacheweb2026,ripescache2026}. Para o Beto, essa é uma lacuna relevante, pois a introdução de operações de \textit{load}/\textit{store}, políticas de escrita e bit de sujeira aumentaria o alcance conceitual do simulador.
+
+\subsection{Métricas e interpretação dos resultados}
+
+Além de mostrar acertos e faltas, um simulador educacional pode apoiar a aprendizagem ao apresentar métricas como número de leituras, escritas, \textit{hits}, \textit{misses}, \textit{writebacks}, taxa de acerto, taxa de falta e evolução dessas métricas ao longo do tempo. O Ripes, por exemplo, registra informações por ciclo e permite plotar relações como taxa de acerto ao longo da execução \cite{ripescache2026}. O Beto já mostra acertos e faltas na interface, mas pode ser aprimorado para apresentar histórico, exportação dos acessos, gráficos simples e comparação entre configurações.
+
+\section{Levantamento bibliográfico}
+
+\subsection{Software educacional e qualidade de uso}
+
+A literatura sobre software educacional mostra que a avaliação de artefatos digitais destinados ao ensino não pode ser reduzida à verificação de conteúdo. \citeonline{godoi2009avaliacao} defendem que a avaliação de materiais didáticos digitais deve ser centrada no usuário e considerar usabilidade, instrumentos de avaliação e o contexto de uso por professores. Nessa perspectiva, um software educacional eficaz não é apenas aquele que apresenta conteúdo correto, mas aquele que favorece compreensão, navegação, interpretação das informações e uso compatível com o contexto pedagógico.
+
+Essa compreensão é coerente com estudos que combinam critérios técnicos e pedagógicos. \citeonline{araujo2017protocolo} propõem um protocolo de avaliação de softwares pedagógicos que aproxima dimensões didático-pedagógicas e ergonômicas. Esse ponto é importante para o Beto porque seu aprimoramento deve considerar a corretude da simulação, mas também aspectos como inteligibilidade da interface, previsibilidade das ações, mensagens de erro, feedback e apoio à aprendizagem.
+
+\subsection{Simuladores de cache para apoio ao ensino}
+
+No campo dos simuladores de cache, \citeonline{brais2020survey} apresentam um panorama amplo de ferramentas utilizadas para representar e analisar o comportamento de caches. Embora muitos simuladores tenham foco técnico e não necessariamente educacional, o estudo ajuda a situar a simulação como uma estratégia consolidada para compreender arquiteturas de memória.
+
+Quando o foco é educacional, a visualização e a interação assumem papel central. \citeonline{gabriel2022beto} apresentam o Beto como um simulador web, em português, voltado à visualização interativa e animada de acessos à memória cache. Ferramentas testáveis como ParaCache e Ripes também reforçam a relevância de interfaces que explicitem parâmetros, estados internos da cache e resultados de cada acesso, permitindo que o estudante acompanhe a simulação de modo mais concreto \cite{paracacheweb2026,ripescache2026}.
+
+\subsection{IHC, usabilidade e experiência do usuário}
+
+A área de Interação Humano-Computador fornece fundamentos para transformar um simulador funcional em uma ferramenta educacional mais compreensível. \citeonline{barbosa2010ihc} apresentam a IHC como um campo voltado ao projeto, à implementação e à avaliação de sistemas interativos. Do ponto de vista deste TCC, o Beto deve ser analisado como um sistema que comunica conceitos de AOC por meio de sua interface.
+
+A usabilidade também é um elemento central. \citeonline{nielsen1993usability} discute atributos como facilidade de aprendizagem, eficiência, memorização, prevenção de erros e satisfação. A experiência do usuário amplia essa visão ao considerar percepções, emoções e respostas do usuário antes, durante e depois do uso \cite{hassenzahl2013ux,norman1998definition}. Assim, a avaliação do Beto deve observar não apenas se o simulador calcula corretamente, mas se o estudante entende o que está acontecendo, consegue corrigir erros, interpreta o efeito das configurações e percebe valor didático na ferramenta.
+
+\section{Critérios de seleção dos trabalhos relacionados}
+
+A seleção dos trabalhos relacionados foi orientada pelas observações levantadas em reunião de orientação. Nesta versão, foram mantidas apenas ferramentas gratuitas e testáveis nesta etapa do projeto. Sempre que possível, também foram priorizadas ferramentas de código aberto, pois isso facilita a inspeção da implementação e a identificação de ideias que possam ser adaptadas ao Beto. Entretanto, ferramentas não abertas também foram mantidas quando são gratuitas, testáveis e oferecem funcionalidades relevantes para a comparação técnica.
+
+Foram considerados os seguintes critérios:
+
+\begin{enumerate}
+    \item relação direta com memória cache, hierarquia de memória ou arquitetura de computadores;
+    \item acesso gratuito, acadêmico ou livre para teste;
+    \item preferência por código aberto ou documentação pública;
+    \item presença de interface visual, interação passo a passo ou finalidade educacional;
+    \item existência de funcionalidades que o Beto ainda não oferece ou que pode tornar mais explícitas;
+    \item possibilidade de gerar requisitos de melhoria para o Beto.
+\end{enumerate}
+
+Esta seção apresenta o objetivo, as contribuições e as limitações das ferramentas analisadas, finalizando com o diferencial do TCC em relação às iniciativas comparadas.
+
+\section{Trabalhos relacionados}
+
+\subsection{Beto}
+
+O Beto é o ponto de partida deste TCC. Ele foi desenvolvido como um simulador educacional de memória cache com visualizações interativas e animadas \cite{gabriel2022beto}. A ferramenta é acessível via navegador e seu repositório público informa que a implementação utiliza HTML5, CSS3 e JavaScript \cite{leogithub2026}. Na interface pública, observa-se suporte a diferentes parâmetros de configuração, métodos de substituição FIFO, LRU e aleatório, mapeamento direto, totalmente associativo e associativo por conjunto, além de execução com controles como \textit{play}, \textit{pause}, \textit{stop} e \textit{step} \cite{betoweb2026}.
+
+Como contribuição, o Beto se destaca por ser web, em português, gratuito, interativo e alinhado ao ensino de memória cache. Como lacuna, o repositório relata problemas conhecidos relacionados a entradas que deveriam ser potências de dois e à necessidade de alterar configurações para atualização de novas tabelas de endereços \cite{leogithub2026}. Além disso, a comparação com outros simuladores sugere oportunidades de evolução em políticas de escrita, metadados de cache, exportação de dados, visualização detalhada do LRU e comparação entre configurações.
+
+\subsection{ParaCache}
+
+O ParaCache é um simulador educacional web voltado a cache e memória virtual \cite{paramita2017paracache}. A ferramenta pública oferece módulos separados para cache com mapeamento direto, cache totalmente associativa, cache associativa por conjunto com duas vias, cache associativa por conjunto com quatro vias, análise de tipos de cache, memória virtual e base de conhecimento \cite{paracacheweb2026}. Em suas telas de simulação de cache, aparecem políticas de escrita como \textit{write-back}, \textit{write-through}, \textit{write on allocate} e \textit{write around}, além de operações de \textit{load} e \textit{store} \cite{paracacheweb2026}. Nas telas associativas, também são oferecidas políticas FIFO, LRU e aleatória.
+
+O ParaCache é relevante para o Beto por dois motivos. Primeiro, mostra como funcionalidades como \textit{load}/\textit{store}, \textit{dirty bit} e políticas de escrita podem aparecer em uma interface educacional. Segundo, oferece uma tela de análise de tipos de cache, com comparação entre diferentes configurações. Essas ideias podem orientar a evolução do Beto para além de uma simulação isolada, permitindo que estudantes comparem configurações e percebam como as escolhas arquiteturais afetam os resultados.
+
+\subsection{Ripes}
+
+O Ripes é um simulador visual de arquitetura de computadores e editor de assembly para a ISA RISC-V, com uso educacional e código aberto sob licença MIT \cite{ripesgithub2026}. A documentação informa que, desde a versão 2.1.0, o Ripes inclui simulação de caches L1D e L1I, permitindo configurar o layout e o comportamento de cada cache \cite{ripescache2026}. Entre os parâmetros configuráveis estão associatividade, número de conjuntos, palavras por linha, políticas de escrita e políticas de substituição.
+
+A visualização do Ripes é especialmente relevante para este TCC. A documentação descreve colunas para bit de validade, bit de sujeira, valor LRU, tag e palavras armazenadas. Também informa que o campo LRU aparece quando há associatividade e política LRU ativa, indicando a recência relativa das linhas. Além disso, a ferramenta registra leituras, escritas, acertos, faltas, \textit{writebacks} e contagem de acessos, permitindo gerar gráficos e copiar informações da simulação \cite{ripescache2026}.
+
+Essas funcionalidades são fortes candidatas a inspirar melhorias no Beto. Em especial, a explicitação de \textit{valid bit}, \textit{dirty bit}, valor LRU, decomposição de endereço e estatísticas pode tornar a simulação mais transparente para estudantes.
+
+\subsection{SMPCache}
+
+O SMPCache é um simulador baseado em rastros para análise e ensino de sistemas de memória cache em multiprocessadores simétricos com memória compartilhada. Seu manual indica que a ferramenta permite estudar localidade, número de processadores, protocolos de coerência, arbitragem de barramento, mapeamento, políticas de substituição, tamanho da cache, número de conjuntos e tamanho do bloco \cite{smpcacheManual2026}. A documentação também lista mapeamento direto, associativo por conjunto e totalmente associativo, políticas de substituição aleatória, LRU, FIFO e LFU, protocolos MSI, MESI e DRAGON e políticas de escrita \cite{smpcacheManual2026}.
+
+Apesar de SMPCache ser mais avançado que o escopo imediato do Beto, ele contribui para identificar lacunas técnicas e pedagógicas. Um ponto especialmente útil é a validação de configurações: o manual informa que parâmetros relacionados entre si são verificados de acordo com os modelos teóricos e que o simulador avisa e bloqueia escolhas contraditórias \cite{smpcacheManual2026}. Essa funcionalidade é diretamente aplicável ao Beto, pois a validação de entradas é uma das limitações já observadas.
+
+\subsection{Dinero IV}
+
+O Dinero IV é um simulador de cache orientado por rastros de referência à memória. Sua documentação indica suporte à simulação de caches multiníveis, caches de instrução e dados diferentes, classificação de faltas compulsórias, de capacidade e de conflito, além de múltiplos formatos de entrada \cite{dineroiv2026}. A ferramenta é livre para uso não comercial e disponibiliza código-fonte e documentação para download \cite{dineroiv2026}.
+
+Embora não seja uma ferramenta visual voltada diretamente ao público iniciante, o Dinero IV é relevante como referência técnica. Ele ajuda a mostrar que simuladores de cache podem ir além da visualização imediata, oferecendo análises mais detalhadas de desempenho. Para o Beto, essa referência sugere possíveis extensões futuras, como classificação dos tipos de falta e exportação de rastros, mas essas funcionalidades podem ser priorizadas após melhorias de usabilidade e visualização.
+
+\subsection{Cache Simulator para MIPS}
+
+O pacote \textit{Cache Simulator}, disponível em Python/PyPI, simula cache para a ISA MIPS e possui licença MIT \cite{cacheSimulatorEvans2025}. A documentação informa suporte aos três esquemas fundamentais de cache: mapeamento direto, associativo por conjunto e totalmente associativo. Também informa execução por linha de comando, apresentação de tabela ASCII com endereço, endereço binário, \textit{tag}, índice, deslocamento, resultado de acerto/falta e conteúdo final da cache, além de parâmetros para tamanho da cache, palavras por bloco, bits de endereço e política de substituição LRU ou MRU \cite{cacheSimulatorEvans2025}.
+
+Mesmo sem interface gráfica, essa ferramenta é útil para o TCC porque mostra uma forma simples e didática de relatar o resultado de cada acesso. A tabela textual pode inspirar no Beto uma área de histórico detalhado ou exportação CSV, com as colunas essenciais para que o estudante confira manualmente cada etapa.
+
+\subsection{QtMips}
+
+O QtMips é um simulador educacional de CPU MIPS, com visualizações de \textit{pipeline} e cache, disponibilizado em C++/Qt sob licença GPL-3.0 e com versão WebAssembly experimental \cite{qtmips2026}. Seu escopo é mais amplo que o de cache, mas oferece referência complementar para integrar execução de instruções e estado da memória.
+
+\begin{landscape}
+\small
+\begin{longtable}{P{3.0cm} P{3.8cm} P{5.2cm} P{8.7cm}}
+\caption{Comparação geral dos simuladores e ferramentas selecionadas.}\label{tab:comparacao-geral}\\
+\toprule
+\textbf{Ferramenta} & \textbf{Licença/acesso} & \textbf{Tecnologia e foco} & \textbf{Contribuição para o estudo} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ferramenta} & \textbf{Licença/acesso} & \textbf{Tecnologia e foco} & \textbf{Contribuição para o estudo} \\
+\midrule
+\endhead
+Beto & Código aberto, MIT & HTML, CSS e JavaScript; cache educacional em português & Base do TCC: mapeamentos e políticas existentes, com lacunas de validação, interface e metadados. \\
+\midrule
+ParaCache & Gratuito; código público não identificado & Web; cache e memória virtual & Load/store, escrita, dirty bit e comparação entre configurações. \\
+\midrule
+Ripes & Código aberto, MIT & C++/Qt; arquitetura RISC-V e cache & Validade, dirty bit, LRU, estatísticas, gráficos e exportação. \\
+\midrule
+SMPCache & Gratuito/acadêmico; código público não identificado & Windows; cache em multiprocessadores & Validação de configurações, coerência e análise por rastros. \\
+\midrule
+Dinero IV & Fonte disponível; uso não comercial & C/linha de comando; simulação por rastros & Classificação de faltas e simulação multinível, sem foco visual. \\
+\midrule
+Cache Simulator (Python) & Código aberto, MIT & Python/linha de comando; cache MIPS & Relatório por acesso com binário, tag, índice, deslocamento e acerto/falta. \\
+\midrule
+QtMips & Código aberto, GPL-3.0 & C++/Qt; CPU MIPS, pipeline e cache & Integração visual entre execução de instruções e estado da cache; versão WebAssembly experimental. \\
+\bottomrule
+\end{longtable}
+\end{landscape}
+
+\begin{landscape}
+\section{Tabela técnica de funcionalidades e lacunas do Beto}
+\label{sec:tabela-lacunas}
+
+A Tabela \ref{tab:matriz-funcionalidades} reorganiza a comparação técnica em formato de matriz, com as funcionalidades como colunas e as ferramentas como linhas. Essa organização facilita identificar quais recursos aparecem em outras ferramentas e podem orientar melhorias no Beto. O marcador \tem{} indica que a funcionalidade foi identificada na ferramenta; \parcial{} indica suporte parcial ou dependente de validação durante o teste; e \nao{} indica que a funcionalidade não foi identificada nesta etapa.
+
+\scriptsize
+\begin{longtable}{P{2.8cm} *{15}{c}}
+\caption{Matriz comparativa de funcionalidades observadas nos simuladores selecionados.}\label{tab:matriz-funcionalidades}\\
+\toprule
+\textbf{Ferramenta} &
+\rothead{Mapeamento direto} &
+\rothead{Totalmente associativo} &
+\rothead{Associativo por conjunto} &
+\rothead{FIFO} &
+\rothead{LRU} &
+\rothead{Aleatória} &
+\rothead{LFU/MRU ou política adicional} &
+\rothead{Operações load/store} &
+\rothead{Políticas de escrita} &
+\rothead{Bit de validade} &
+\rothead{Dirty bit} &
+\rothead{Valor/estado LRU visível} &
+\rothead{Decomposição do endereço} &
+\rothead{Histórico/trace por acesso} &
+\rothead{Estatísticas, gráfico ou exportação} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ferramenta} &
+\rothead{Mapeamento direto} &
+\rothead{Totalmente associativo} &
+\rothead{Associativo por conjunto} &
+\rothead{FIFO} &
+\rothead{LRU} &
+\rothead{Aleatória} &
+\rothead{LFU/MRU ou política adicional} &
+\rothead{Operações load/store} &
+\rothead{Políticas de escrita} &
+\rothead{Bit de validade} &
+\rothead{Dirty bit} &
+\rothead{Valor/estado LRU visível} &
+\rothead{Decomposição do endereço} &
+\rothead{Histórico/trace por acesso} &
+\rothead{Estatísticas, gráfico ou exportação} \\
+\midrule
+\endhead
+Beto & \tem & \tem & \tem & \tem & \tem & \tem & \nao & \nao & \nao & \parcial & \nao & \nao & \parcial & \parcial & \parcial \\
+\midrule
+ParaCache & \tem & \tem & \tem & \tem & \tem & \tem & \nao & \tem & \tem & \tem & \tem & \nao & \tem & \tem & \tem \\
+\midrule
+Ripes & \tem & \tem & \tem & \parcial & \tem & \parcial & \parcial & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \tem \\
+\midrule
+SMPCache & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \parcial & \parcial & \tem & \tem \\
+\midrule
+Dinero IV & \tem & \tem & \tem & \tem & \tem & \parcial & \parcial & \tem & \tem & \parcial & \parcial & \nao & \parcial & \tem & \tem \\
+\midrule
+Cache Simulator (Python) & \tem & \tem & \tem & \nao & \tem & \nao & \tem & \parcial & \nao & \parcial & \nao & \nao & \tem & \tem & \parcial \\
+\midrule
+QtMips & \parcial & \parcial & \parcial & \parcial & \parcial & \nao & \nao & \tem & \parcial & \parcial & \parcial & \nao & \parcial & \parcial & \parcial \\
+\bottomrule
+\end{longtable}
+
+A matriz preserva a análise documental inicial dos simuladores relacionados, nas datas das referências, e não apresenta uma nova execução de todas as ferramentas em outubro. O Memora é descrito separadamente nas seções seguintes, para não atribuir seus recursos ao Beto original. A leitura da matriz indica que o Beto já cobre o núcleo conceitual básico de memória cache, principalmente formas de mapeamento e políticas clássicas de substituição. Entretanto, as principais lacunas aparecem na visualização de metadados internos, como bit de validade, \textit{dirty bit} e estado LRU, na distinção entre leitura e escrita, nas políticas de escrita, na validação de configurações e no registro detalhado de cada acesso.
+
+\end{landscape}
+
+\section{Método e evidências do levantamento de requisitos}
+\label{sec:metodo}
+
+O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação \cite{memoraRepositorio2026}.
+
+\subsection{Coleta e tratamento do questionário}
+
+O formulário de levantamento de requisitos do Beto ficou disponível de 20 de maio a 17 de junho de 2026. Foram registradas 13 respostas, entre 29 de maio e 12 de junho. Todos os registros contêm concordância com a participação voluntária e o uso anonimizado para fins acadêmicos. A versão pública remove e-mails e carimbos individuais de data e hora e utiliza os identificadores R01 a R13 \cite{memoraDados2026}. Os enunciados efetivamente aplicados estão preservados no CSV anonimizado; o roteiro preliminar em \texttt{instrumentos/} é um documento histórico, não uma transcrição do formulário aplicado.
+
+A análise apresentada é descritiva: contabiliza respostas e seleções, sem inferência estatística para a população de estudantes. Nas perguntas de múltipla seleção, cada alternativa foi contada uma vez por resposta e o denominador foi 13; por isso, os percentuais não somam necessariamente 100\%. As manifestações abertas foram lidas como indícios de problemas, sem serem convertidas em frequência de um tema mediante codificação não documentada. O perfil reúne sete participantes com familiaridade avançada, cinco intermediária e um com familiaridade básica. Seis cursavam AOCII e LAOCII, seis eram ex-alunos de uma ou ambas e um cursava somente LAOCII.
+
+\subsection{Resultados descritivos}
+
+A Tabela~\ref{tab:levantamento-resultados} reúne seleções relevantes para o escopo implementado e para as extensões adiadas. Os dados dizem respeito ao Beto utilizado no levantamento; não constituem uma avaliação da versão Memora desenvolvida posteriormente.
+
+\begin{longtable}{P{3.0cm} P{7.7cm} P{2.0cm}}
+\caption{Seleções do levantamento de requisitos do Beto, com 13 respostas.}\label{tab:levantamento-resultados}\\
+\toprule
+\textbf{Pergunta} & \textbf{Alternativa selecionada} & \textbf{n (\%)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Pergunta} & \textbf{Alternativa selecionada} & \textbf{n (\%)} \\
+\midrule
+\endhead
+Dificuldades de configuração & Entender o significado dos campos & 5 (38,5) \\
+& Saber quais valores eram válidos & 5 (38,5) \\
+\midrule
+Informações ausentes & Valor ou estado LRU por linha/via & 10 (76,9) \\
+& Histórico passo a passo & 3 (23,1) \\
+\midrule
+Problemas de uso & Excesso de informação na tela & 8 (61,5) \\
+& Falta de ajuda, instruções ou documentação na interface & 5 (38,5) \\
+\midrule
+Melhorias priorizadas pelos respondentes & Exibir valor ou estado LRU & 10 (76,9) \\
+& Melhorar ajuda ou documentação na interface & 9 (69,2) \\
+& Incluir dirty bit e políticas de escrita & 8 (61,5) \\
+& Explicar termos técnicos & 7 (53,8) \\
+& Apresentar mensagens de erro mais claras e didáticas & 7 (53,8) \\
+& Incluir operações de leitura e escrita & 7 (53,8) \\
+& Disponibilizar exemplos prontos & 6 (46,2) \\
+\bottomrule
+\end{longtable}
+
+As respostas abertas registram, entre outros pontos, travamento com zero no tamanho de bloco ou quantidades muito grandes no gerador, perda de funcionamento do gerador após edição manual, quantidades fracionárias de bits e dificuldade para perceber o término e a reutilização de estados da simulação. Esses relatos justificam limites explícitos, rejeição de configurações inconsistentes e controle claro de reinício e conclusão. Na pergunta de utilidade do Beto, cuja escala aplicada vai de 1 a 4, nove respostas indicaram 4 e quatro indicaram 3. Essa percepção favorável não demonstra ganho de aprendizagem nem comparação com o Memora.
+
+A demanda por escrita também foi expressiva, mas sua frequência não determinou sozinha a implementação. Operações de escrita, políticas de escrita e \textit{dirty bit} foram mantidos como trabalhos futuros para concentrar a entrega em robustez, visualização e controle da simulação de acessos. Essa decisão de escopo é distinta da prioridade atribuída pelos respondentes.
+
+\subsection{Prototipação e acompanhamento de IHC}
+
+A elaboração inicial do protótipo foi concluída em 23 de setembro de 2026. A identidade Memora e a referência visual Simple Design System foram adotadas em 25 de setembro, preservando a atribuição ao Beto. Os refinamentos de outubro incluíram organização dos campos, tipografia Inter, linguagem das ajudas, validação localizada e redução de informação duplicada. A implementação prosseguiu em paralelo à consolidação do retorno da orientação.
+
+A inspeção heurística formal, com registro consolidado de problemas e severidades, permanece pendente. O modelo em \texttt{instrumentos/} apoia essa atividade; suas linhas de exemplo não são resultados de uma inspeção realizada. A revisão visual e os testes técnicos registrados no desenvolvimento não substituem esse procedimento, nem a avaliação com estudantes \cite{barbosaSlidesAvalHeuristica,memoraRepositorio2026}.
+
+\section{Implementação do Memora}
+\label{sec:implementacao-memora}
+
+O Memora mantém a base conceitual e a atribuição do Beto, com uma organização modular em HTML, CSS e JavaScript. O núcleo em \texttt{src/core} concentra validação, decomposição, políticas, estatísticas e estados imutáveis, sem dependência do DOM ou de temporizadores. A camada \texttt{src/ui} controla apresentação, reprodução, seleção histórica e ajuda. O pacote privado permanece no mesmo repositório; o Beto executável em \texttt{docs/} foi preservado para comparação local. A aplicação é publicada estaticamente no GitHub Pages e executa a simulação no navegador \cite{memoraRepositorio2026}.
+
+\subsection{Configuração, endereçamento e prevenção de erros}
+
+A etapa Configurar valida parâmetros e sequência a cada edição e repete a validação ao preparar a simulação. Total de células, células por bloco, linhas e vias devem ser potências de dois compatíveis; bytes por célula aceita inteiro positivo. Os endereços identificam células, como no Beto: bytes por célula altera a capacidade em bytes, não a largura do endereço de célula. A decomposição permite campos de zero bits e evita operações limitadas a inteiros de 32 bits.
+
+Entradas inválidas recebem mensagens próximas aos campos, sem substituir os valores silenciosamente por uma configuração corrigida. A sequência é limitada a 1000 endereços e 18000 caracteres. A geração aleatória usa a memória atual, pode repetir endereços e substitui a sequência editável; sua quantidade inicial é 32. Essas decisões limitam o trabalho com entradas excessivas e tornam o efeito da ação explícito.
+
+A abertura e o botão Carregar exemplo didático usam os mesmos parâmetros e os 21 endereços iniciais do Beto. Iniciar simulação prepara uma entrada imutável e abre a etapa Simular com zero acessos processados, aguardando ação do usuário. A prévia apresenta Tag, Linha/Conjunto e Deslocamento conforme o mapeamento, sem um rótulo visual adicional para o primeiro endereço.
+
+\subsection{Execução, histórico e comparação contextual}
+
+A simulação contempla mapeamento direto, totalmente associativo e por conjunto e, nos mapeamentos associativos, as políticas FIFO, LRU e aleatória. A cache é representada de forma esparsa no núcleo. A interface mostra validade, intervalos de blocos e endereços das células, incluindo linhas vazias, com paginação acima de 128 linhas e janelas de até 16 células para blocos maiores. Os valores das células na visualização são endereços da memória principal, não dados arbitrários armazenados.
+
+A reprodução detalhada percorre seis fases: decompor, consultar, determinar o resultado, selecionar a via, atualizar a cache e concluir o acesso. Sem detalhamento, cada pulso conclui um acesso. A velocidade começa em 5, varia de 1 a 10 e informa passos por segundo ou acessos por segundo conforme o modo. Próximo acesso sempre conclui um acesso completo, inclusive se já houver uma fase pendente; Ir ao final conclui os restantes. Parar só fica habilitado durante a reprodução automática. Ao concluir, o controle de reprodução é desabilitado e o cartão Progresso recebe indicação verde de finalização, sem um balão separado que repita o histórico.
+
+Cada acesso concluído conserva estados anteriores e posteriores (\textit{snapshots}). A revisão apresenta os dados registrados sem executar novamente a cache, recalcular os contadores ou sortear outra vítima aleatória. Os metadados LRU são apresentados apenas quando aplicáveis; a posição 1 indica a via mais recente e não deve ser confundida com seu número.
+
+O protótipo e a primeira implementação possuíam três etapas: Configurar, Simular e Analisar. Em 23 de outubro, a comparação antes/depois foi incorporada ao cartão Memória cache em Simular, reduzindo o fluxo a duas etapas. A mudança preserva a comparação dos estados, a identificação dos blocos que saem e entram e o critério de escolha, evitando repetir decomposição e roteiro em outra tela. A comparação fica recolhida e substitui temporariamente a tabela quando aberta. Acesso anterior e Acesso seguinte revisam somente registros já concluídos. Abrir a comparação pausa a reprodução; retomá-la recolhe o componente, preservando eventual fase pendente. A hipótese de maior clareza decorrente dessa reorganização ainda precisa ser avaliada com participantes.
+
+\subsection{Ajuda, navegação e identidade visual}
+
+A aplicação contém 16 ajudas estáticas, incluindo Glossário, Ajuda rápida, campos e comparação. Os painéis laterais permitem fechamento por Escape e retorno de foco. As abas e tabelas oferecem navegação por teclado; mensagens de estado também são anunciadas a leitores de tela. Decimal/Binário é compartilhado pela simulação e pela comparação e altera somente a apresentação.
+
+Os refinamentos de 23 de outubro adotaram botões de ação preenchidos em roxo \texttt{\#75609A} e texto branco, incluindo ajuda e navegação pelos acessos. As abas mantêm o desenho de navegador e os balões informativos permanecem azuis. O contraste calculado entre branco e o roxo principal é de 5,39:1, superior ao mínimo de 4,5:1 para texto comum nas WCAG 2.2 \cite{wcagContraste2026}. Esse resultado verifica apenas o par de cores; não constitui uma declaração de conformidade integral. A nova paleta ainda não recebeu uma inspeção visual em navegador nesta revisão.
+
+\subsection{Rastreabilidade do escopo implementado}
+
+A Tabela~\ref{tab:escopo-memora} relaciona lacunas e entregas disponíveis até 23 de outubro de 2026. Sua situação se refere à implementação, sem presumir validação externa ou ganho educacional comprovado.
+
+\begin{longtable}{P{3.1cm} P{6.9cm} P{2.7cm}}
+\caption{Lacunas e situação da implementação do Memora.}\label{tab:escopo-memora}\\
+\toprule
+\textbf{Requisito} & \textbf{Entrega ou decisão} & \textbf{Situação} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Requisito} & \textbf{Entrega ou decisão} & \textbf{Situação} \\
+\midrule
+\endhead
+Entradas inconsistentes & Validação automática, erros locais e limites para sequência e geração & Implementado \\
+\midrule
+Organização e explicação dos campos & Layout responsivo, ajudas contextuais, Glossário e exemplos estáticos & Implementado \\
+\midrule
+Decomposição e metadados & Tag, linha/conjunto, deslocamento, validade e recência LRU quando aplicável & Implementado \\
+\midrule
+Interpretação dos acessos & Histórico com motivos e snapshots antes/depois, sem reexecução & Implementado \\
+\midrule
+Controle de estado & Seis fases, modo resumido, avanço manual, parada, reinício e conclusão explícita & Implementado \\
+\midrule
+Dados da execução & Acessos, acertos, faltas, taxa de acerto e linhas utilizadas & Implementado \\
+\midrule
+Escrita e análise ampliada & Load/store, políticas de escrita, dirty bit, gráficos, exportação e comparação entre configurações & Trabalho futuro \\
+\midrule
+Qualidade de uso e aprendizagem & Inspeção formal consolidada e avaliação do Memora com estudantes & Pendente \\
+\bottomrule
+\end{longtable}
+
+\section{Verificação técnica e cenários reproduzíveis}
+\label{sec:verificacao}
+
+A verificação combina testes do núcleo e dos controladores no Node, cenários de integração em Chromium e revisão de sintaxe e build. A suíte atual contém 78 testes Node e 93 cenários Chromium: 46 de Configurar, 32 de Simular e 15 da comparação contextual. O PR~60 registra a execução completa de Chromium após a integração da análise. Nas alterações de cor dos PRs~61 e 62, foram executados sintaxe, 78 testes Node e build; a nova verificação visual ficou pendente porque o download do navegador retornou arquivo inválido. Os relatórios datados preservam a origem de cada execução, sem atribuir os resultados de uma revisão anterior às posteriores.
+
+Os testes exercitam políticas e vítimas, snapshots imutáveis, cancelamento de temporizadores, troca de modo, histórico sem reexecução, campos de zero bits, endereços de 52 bits e entradas grandes. O fluxo de publicação verifica sintaxe, testes Node e build antes do deploy da \texttt{main}; não executa automaticamente a suíte Chromium. Pull requests preparam e verificam a aplicação sem publicar a versão proposta em produção.
+
+Há dois cenários distintos que não devem ser confundidos. O cenário de abertura do Beto usa 1 byte por célula, 4096 células, blocos de 16, 32 linhas e mapeamento direto, com uma via. FIFO permanece como preferência visual desabilitada, pois não há escolha de vítima no direto. A sequência é:
+
+\begin{quote}\small
+0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996.
+\end{quote}
+
+Esse cenário termina em 21 acessos, 13 acertos, 8 faltas, taxa de 61,9\% e 3 das 32 linhas ocupadas. Seu endereço de 12 bits se divide em 3 bits de tag, 5 de linha e 4 de deslocamento. Carregar exemplo didático restaura exatamente esse cenário, inclusive após uma edição inválida.
+
+O cenário das ajudas e dos testes de substituição mantém 4096 células, blocos de 16 e 32 linhas, mas usa mapeamento por conjunto, duas vias e LRU. Sua sequência é:
+
+\begin{quote}\small
+0, 1, 16, 17, 32, 33, 48, 49, 64, 65, 992, 993, 2016, 2017, 2, 18, 34, 994, 2018, 3044, 96.
+\end{quote}
+
+O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 linhas ocupadas. No acesso 20, o endereço 3044 seleciona a tag 11, conjunto 14 e deslocamento 4; a via 1 troca 992--1007 por 3040--3055, enquanto a via 2 mantém 2016--2031. Esses resultados são verificações determinísticas da implementação, não medidas de desempenho real de hardware nem de aprendizagem.
+
+\section{Discussão, limitações e avaliação pendente}
+
+A implementação atende às lacunas priorizadas de validação, transparência dos estados e ajuda contextual. A presença frequente de pedidos de LRU e documentação no questionário oferece uma justificativa para esses recursos. O relato de excesso de informação motivou a redução de blocos redundantes e a apresentação recolhível da comparação. Entretanto, essa relação entre requisito e solução é uma decisão de projeto: ainda não demonstra que os participantes compreenderão melhor a cache ou perceberão menor carga visual.
+
+O levantamento se limita a 13 respostas e descreve o uso do Beto. A predominância de familiaridade intermediária ou avançada restringe conclusões sobre iniciantes. A comparação bibliográfica mantém os registros documentais consultados na etapa inicial; a disponibilidade e as funcionalidades atuais dos simuladores relacionados não foram integralmente reavaliadas nesta atualização. A verificação técnica não cobre todos os navegadores ou formas de interação, e Firefox/Safari e a nova paleta ainda requerem conferência específica.
+
+A avaliação posterior do Memora deverá registrar versão, participantes, tarefas e instrumento aplicado. Entre os cenários previstos estão configurar e executar o exemplo direto, provocar e corrigir uma entrada inválida, observar uma substituição LRU, revisar o acesso sem executar outro e explicar a comparação antes/depois. A inspeção formal deverá consolidar evidências e severidades. Não há, nesta versão, resultados comparativos de tempo de tarefa, erros, satisfação ou aprendizagem entre Beto e Memora. Os critérios de avaliação permanecem a consolidar com a orientação.
+
+\section{Considerações finais}
+
+O trabalho evoluiu do diagnóstico do Beto para uma implementação funcional denominada Memora, publicada na web. O levantamento de requisitos foi realizado e seus 13 registros anonimizados apoiam a discussão do escopo. A versão implementada reúne validação automática, decomposição, metadados da cache, histórico por snapshots, explicações e comparação contextual em um fluxo de duas etapas, mantendo a origem e a licença do Beto.
+
+Os resultados disponíveis demonstram os comportamentos verificados nos cenários técnicos e a rastreabilidade das decisões, sem comprovar eficácia educacional. A continuidade concentra-se na avaliação com estudantes, na consolidação da inspeção heurística e na incorporação desses resultados ao artigo. Escrita, dirty bit, exportação, gráficos e comparação entre configurações permanecem como trabalhos futuros.
+
+\postextual
+\begingroup
+\interlinepenalty=10000
+\bibliography{referencias}
+\endgroup
+
+\end{document}

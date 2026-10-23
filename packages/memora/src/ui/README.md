@@ -6,7 +6,7 @@ pelos PRs #43, #44 e #45; a decisão 004 registra a simplificação de 23/10/202
 
 Referência: [especificação v2](../../../../docs/prototipo-v2-especificacao.md)
 e o Figma nela indicado. Refinamentos de UX são acompanhados na #37.
-Os tokens SDS, Inter local, botões em Bold 700, campos retos e balões azuis
+Os tokens SDS, Inter local, botões preenchidos em roxo `#75609A` com texto branco em Bold 700, campos retos e balões azuis
 são compartilhados entre configuração, simulação e comparação.
 
 ## Configurar
@@ -151,7 +151,7 @@ No desktop, os grupos de parâmetros recebem espaço proporcional ao conteúdo: 
 As pendências, seus avisos e os refinamentos do layout foram incluídos na suíte
 completa de Configurar e na revisão geral do PR #44.
 
-### Etapas detalhadas — revisão de 14/10/2026
+### Etapas detalhadas — comportamento vigente em 23/10/2026
 
 A opção controla a reprodução automática e as explicações: marcada percorre os seis passos de cada acesso; desmarcada conclui um acesso por avanço automático. A descrição fixa é “mostra o passo a passo e explica cada decisão”. A velocidade indica passos/segundo no modo detalhado e acessos/segundo sem detalhamento, com valor inicial 5 e singular para o valor 1. Próximo acesso é o único avanço manual de um acesso nos dois modos; Ir ao final conclui os restantes preservando o histórico. Trocar de modo mantém a entrada pendente, sem duplicar estatísticas.
 
@@ -172,10 +172,28 @@ As setas de navegação das células preservam o foco do teclado após redesenha
 a tabela; ao atingir um limite do bloco, o foco segue para a seta disponível.
 Preparar uma nova simulação limpa o campo Ir à linha e seu aviso anterior.
 
-Verificação atual: 68 testes Node e 74 cenários Chromium (45 Configurar e 29
+Verificação histórica de 14/10, no PR #44: 68 testes Node e 74 cenários Chromium (45 Configurar e 29
 Simular). Layout, formatos, revisão, substituição, avisos e navegação em
 configurações grandes verificados; desktop sem scroll da página nas quatro
 resoluções existentes. Capturas atuais no relatório de revisão geral.
 
 A tela Simular mantém a explicação de cada acesso no histórico, sem uma faixa visual de status duplicada abaixo dos controles. O status continua anunciado por leitores de tela; erros de execução permanecem visíveis. O conjunto/linha em foco continua indicado no cabeçalho da cache.
 
+
+## Controles e verificação atuais — 23/10/2026
+
+Parar só fica habilitado com `status === 'running'`. Próximo acesso conclui um
+acesso completo, mesmo no modo detalhado; a reprodução automática usa uma fase
+por pulso com detalhamento e um acesso por pulso no modo resumido. A unidade
+visível é passos/segundo ou acessos/segundo. O modo não muda os resultados.
+Ao concluir, o botão de reprodução fica desabilitado e Progresso recebe o
+estado verde finalizado; não existe um balão separado de conclusão.
+
+Todos os botões de ação e ajuda e os links `.button` usam roxo preenchido e texto
+branco. Hover, seleção, clique e foco usam a mesma família; as abas permanecem
+com aparência de navegador. A regra alcança também os botões gerados no DOM.
+
+A suíte atual contém **78 testes Node e 93 cenários Chromium**. A execução
+Chromium completa foi registrada no PR #60; os PRs #61/#62 não acrescentaram
+verificação visual. Os relatórios datados abaixo descrevem suas respectivas
+entregas, não o estado de aprovação de toda revisão posterior.

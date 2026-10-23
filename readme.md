@@ -2,7 +2,7 @@
 
 O **Memora** é um simulador educacional de memória cache, gratuito e de código aberto, baseado no **Beto**, de Leandro Gabriel e colaboradores. Apoia disciplinas de Arquitetura e Organização de Computadores com configuração validada, execução passo a passo e análise das decisões da cache.
 
-**[Abrir o Memora](https://luizjr2001.github.io/memora-cache-simulator-tcc/)** · O fluxo tem duas etapas — Configurar e Simular — com comparação antes/depois integrada à revisão de acessos. A avaliação externa e a atualização do artigo continuam em andamento.
+**[Abrir o Memora](https://luizjr2001.github.io/memora-cache-simulator-tcc/)** · O fluxo tem duas etapas — Configurar e Simular — com comparação antes/depois integrada à revisão de acessos. A avaliação externa da versão aprimorada continua pendente. O [artigo em LaTeX](tcc/README.md) incorpora o levantamento de requisitos e a implementação até 23/10/2026.
 
 O Memora é a nova identidade do projeto de avaliação e aprimoramento do simulador **Beto**, preservando sua origem acadêmica e seu legado técnico, mas distinguindo a proposta revisada do sistema original.
 
@@ -28,7 +28,7 @@ As principais frentes do trabalho são:
 - registrar o histórico dos acessos e destacar *hits*, *misses* e substituições;
 - exibir metadados internos, como estado LRU e bit de validade;
 - manter operações de leitura/escrita, políticas de escrita e *dirty bit* como trabalho futuro, fora do escopo essencial (#32);
-- oferecer estatísticas, exportação de resultados e comparação entre configurações, conforme a viabilidade técnica;
+- oferecer estatísticas da execução; exportação, gráficos e comparação entre configurações permanecem como trabalhos futuros;
 - avaliar a usabilidade e a experiência de uso por inspeção heurística e levantamento de requisitos com estudantes.
 
 ## Funcionalidades do Memora
@@ -63,9 +63,14 @@ estão documentados no pacote.
 | Por conjunto | Tag · Conjunto · Deslocamento |
 
 A quantidade de bits depende dos parâmetros; campos de zero bits são
-identificados na prévia. O exemplo completo termina em **21 acessos, 12 acertos,
-9 faltas e 57,1% de acerto**. No acesso 20, LRU substitui **992–1007 por
-3040–3055**, na **via 1 do conjunto 14**.
+identificados na prévia. O exemplo de abertura e o botão **Carregar exemplo didático**
+usam os mesmos valores do Beto e terminam em **21 acessos, 13 acertos, 8 faltas,
+61,9% de acerto e 3/32 linhas usadas**.
+
+O cenário por conjunto/LRU das ajudas e dos testes é diferente: usa duas vias e
+termina em **12 acertos, 9 faltas, 57,1% e 8/32 linhas**. No acesso 20 desse cenário,
+a via 1 do conjunto 14 troca **992–1007 por 3040–3055**. Veja os parâmetros e as
+duas sequências no [estado atual](docs/estado-atual.md#cenários-reproduzíveis).
 
 ## Funcionalidades do legado disponível
 
@@ -99,17 +104,17 @@ inicial, conferência local e diagnóstico.
 
 ## Estado atual e referência visual
 
-**Referência vigente:** [especificação do protótipo v2](docs/prototipo-v2-especificacao.md) e [página v2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2). A [V1.2](docs/prototipo-v1-2-especificacao.md) permanece como histórico.
+**Comportamento vigente:** [estado atual da aplicação](docs/estado-atual.md), [decisão 004](docs/decisoes/004-analise-contextual.md) e código da `main`. **Referência visual histórica:** [especificação do protótipo v2](docs/prototipo-v2-especificacao.md) e [página v2 no Figma](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2). A [V1.2](docs/prototipo-v1-2-especificacao.md) permanece como histórico.
 
 | Frente | Situação registrada |
 |---|---|
-| Protótipo | Telas Configurar, Simular e Analisar, variantes e 18 side sheets na v2 |
-| UX | Abas de navegador, botões em pílula, campos de cantos retos, balões azuis, linguagem direta e textos reduzidos; revisão na [#37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37) |
-| Ajuda | 34 Cards: Descrição + Exemplo didático nas ajudas pertinentes; Glossário em lista e Ajuda rápida em um único Card |
+| Protótipo histórico | Três telas e 18 side sheets na v2; a aplicação foi simplificada para Configurar → Simular no PR #60 |
+| UX | Duas abas, botões em pílula preenchidos em roxo com texto branco, campos retos, balões azuis e comparação recolhível; revisão na [#37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37) |
+| Ajuda | 16 ajudas estáticas na aplicação; os 18 side sheets e 34 Cards pertencem ao protótipo histórico |
 | Avaliação | Retorno da orientação em consolidação e avaliação com estudantes pendente na [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33); Figma e imagens são referências do protótipo, e a versão funcional está disponível online |
 | Base do código | Pacote privado e servidor local integrados pelo [PR #36](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/36); estrutura `src/core` / `src/ui` |
-| Implementação | Núcleo no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); Configurar, Simular e Analisar integrados à `main` pelos [PRs #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43), [#44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44) e [#45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45) em 14/10/2026 |
-| Verificação técnica | Entrega integrada documentada com 75 testes Node e 96 cenários Chromium; [relatório da Tela 3](packages/memora/docs/verificacao-tela-3.md). Resultados técnicos não substituem a avaliação externa |
+| Implementação | Núcleo no [PR #41](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/41); Configurar, Simular e Analisar integrados à `main` pelos [PRs #43](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/43), [#44](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/44) e [#45](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/45) em 14/10/2026; comparação integrada em Simular pelo PR #60 em 23/10 |
+| Verificação técnica | Suíte atual: 78 testes Node e 93 cenários Chromium (46 Configurar, 32 Simular, 15 comparação); a execução completa de Chromium está registrada no PR #60. Revisões de cor #61/#62 executaram sintaxe, Node e build, sem nova validação visual |
 | Publicação | GitHub Pages configurado no [PR #47](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/47), com atualização automática na `main` e sintaxe/testes/build antes do deploy |
 
 A revisão de 08–12/10 contempla organização da página, fluxo com setas, pontuação, estados das abas, identidade dos componentes, simplificação dos side sheets, espaçamento da Ajuda rápida, Inter/Bold, rótulo Velocidade e cores semânticas. Informações usam o mesmo azul claro dos side sheets; os indicadores do conjunto consultado compartilham um azul do SDS. A [decisão SDS](docs/decisoes/002-simple-design-system.md) registra os tokens, as justificativas e as propostas de cor ainda em avaliação.
@@ -123,8 +128,9 @@ regressão e as 27 capturas, incluindo erros com rolagem local por teclado.
 A elaboração inicial terminou em 23/09, após demandar mais tempo que o previsto.
 O desenvolvimento seguiu em paralelo à avaliação, conforme a [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22).
 O [histórico de desenvolvimento](docs/historico-desenvolvimento.md) reúne datas,
-decisões, PRs e pendências até 18/10/2026. A avaliação completa e a atualização
-do artigo permanecem como entregas a concluir.
+decisões, PRs e pendências até 23/10/2026. O [artigo](tcc/README.md) foi
+atualizado com o método, as 13 respostas do levantamento do Beto, a implementação
+e os limites da verificação. A avaliação do Memora com estudantes permanece pendente.
 
 ## Base de desenvolvimento do pacote
 
@@ -162,11 +168,11 @@ Use **Iniciar simulação** com os valores iniciais ou carregue o exemplo na Tel
 As duas etapas e a comparação integrada partem da `main`; não é necessário usar as antigas branches de implementação.
 
 `npm run check` verifica a sintaxe dos arquivos JavaScript do pacote.
-`npm test` executa **75 testes Node**, incluindo execução, controladores, apresentação e análise,
-e `npm run test:ui --workspace @memora/simulator` executa **97 cenários Chromium**
+`npm test` executa **78 testes Node**, incluindo execução, controladores, apresentação e análise,
+e `npm run test:ui --workspace @memora/simulator` executa **93 cenários Chromium**
 na versão integrada. Instale antes o navegador com `npx playwright install chromium`.
 A [revisão geral do PR #44](packages/memora/docs/revisao-pr44.md) registra o fluxo verificado, as correções finais e capturas atuais.
-A [verificação da Tela 3](packages/memora/docs/verificacao-tela-3.md) registra sua regressão e integração com a Tela 2. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 orienta a interface funcional da #35.
+A [verificação da Tela 3](packages/memora/docs/verificacao-tela-3.md) registra sua regressão e integração com a Tela 2. Consulte as [APIs e limites](packages/memora/src/core/README.md), incluindo 1000 endereços e 18000 caracteres por sequência. A especificação v2 registra a base visual; as decisões posteriores e o estado atual registram as diferenças da aplicação.
 
 ## Estrutura do repositório
 

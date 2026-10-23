@@ -143,7 +143,7 @@ Classifique os itens usando valor educacional e esforço:
 | Baixo | Baixo | Fazer se houver tempo |
 | Baixo | Alto | Descartar ou registrar como trabalho futuro |
 
-Ordem inicial sugerida para o Memora:
+Ordem inicial adotada para o Memora (registro de planejamento):
 
 1. validação das configurações;
 2. correção de erros e desalinhamentos;
@@ -154,7 +154,7 @@ Ordem inicial sugerida para o Memora:
 7. escrita, dirty bit e políticas de escrita;
 8. exportação e comparação entre configurações.
 
-A ordem deve ser revista após a análise do questionário, a inspeção de IHC e as orientações acadêmicas.
+Situação em 23/10/2026: itens 1–6 estão implementados; escrita/dirty bit, exportação e comparação entre configurações permanecem futuros. O levantamento do Beto já contém 13 respostas; a avaliação externa do Memora e a consolidação formal da inspeção continuam pendentes. O [histórico](docs/historico-desenvolvimento.md) e o [artigo](tcc/README.md) registram o estado das evidências. A prioridade deve ser revista conforme a orientação e a avaliação da versão funcional.
 
 ## 6. Fluxo de desenvolvimento
 

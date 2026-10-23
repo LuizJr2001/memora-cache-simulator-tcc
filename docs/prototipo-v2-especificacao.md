@@ -2,9 +2,11 @@
 
 > Revisão de implementação em 23/10/2026: o fluxo publicado passa a Configurar → Simular. A comparação antes/depois está integrada à revisão do histórico, conforme [decisão 004](decisoes/004-analise-contextual.md). As três telas descritas abaixo registram o protótipo anterior.
 
-**Consolidação documental:** 18/10/2026
+**Consolidação documental:** 23/10/2026
 
-**Figma vigente:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)  
+**Diferenças vigentes da aplicação:** duas etapas e 16 ajudas (PR #60); abertura e Carregar exemplo didático restauram o mesmo preset direto do Beto; velocidade em passos/segundo no detalhado; Parar habilitado apenas durante reprodução; conclusão no cartão Progresso; todos os botões de ação preenchidos em roxo com texto branco (PRs #61/#62). As descrições e contagens históricas do Figma abaixo conservam as datas das respectivas inspeções.
+
+**Figma de referência histórica:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)
 
 A página v2 é a referência provisória para a implementação das telas do Memora. Reúne a organização e os refinamentos de UX realizados em 08–09/10, após a reunião com Glívia em 02/10, as revisões de espaçamento, tipografia e textos de ajuda em 11/10 e a padronização das cores informativas em 12/10. A [V1.2](prototipo-v1-2-especificacao.md) permanece como histórico e referência técnica do cenário didático.
@@ -30,7 +32,7 @@ distingue os marcos técnicos das atividades acadêmicas pendentes.
 | 3 · Analisar | [Tela 3](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-6473) | Acesso selecionado, snapshots antes/depois, bloco removido/inserido, recência e quatro passos didáticos |
 
 O controle de ritmo da Tela 2 usa **Velocidade**, junto à barra de ajuste.
-Na aplicação, o rótulo inclui o valor atual: **Velocidade (5 etapas/segundo)**
+Na aplicação, o rótulo inclui o valor atual: **Velocidade (5 passos/segundo)**
 no modo detalhado e **Velocidade (5 acessos/segundo)** no resumido. O valor
 inicial é 5; a reprodução funcional foi integrada no PR #44.
 

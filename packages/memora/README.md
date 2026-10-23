@@ -53,7 +53,7 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos em `scripts`, `src`, `tests`, `browser` e da configuração Playwright. `test`
-executa **75 testes Node** de configuração/entradas, controladores, execução,
+executa **78 testes Node** de configuração/entradas, controladores, execução,
 explicações e apresentação da cache. A suíte cobre vítimas, contadores,
 snapshots imutáveis, Random controlado, limites, relógio e troca de modo.
 
@@ -115,7 +115,7 @@ Ao abrir o Memora, o formulário recebe os valores iniciais do Beto:
 | Mapeamento | Direto, com 1 via |
 | Substituição | FIFO selecionado; desabilitado no direto, que tem uma única linha possível |
 | Quantidade no gerador aleatório | 32 |
-| Velocidade e modo | 5 etapas/segundo; etapas detalhadas |
+| Velocidade e modo | 5 passos/segundo; etapas detalhadas |
 
 **Endereços a acessar** já contém:
 
@@ -166,7 +166,7 @@ exigindo nova preparação. As abas ativas funcionam por clique, setas, Home e E
 Antes da preparação, Simular mantém Configurar e mostra um aviso vermelho de pendência.
 A comparação aparece após o primeiro acesso concluído e fica recolhida por padrão.
 
-Iniciar/Continuar alterna com Pausar; Parar preserva o ponto atual; Reiniciar
+Iniciar/Continuar alterna com Pausar; Parar fica habilitado somente durante a reprodução automática e preserva o ponto atual; Reiniciar
 zera cache, histórico e contadores. Etapas detalhadas marcada avança uma das
 seis fases por pulso automático; desmarcada avança um acesso
 completo por pulso. Próximo acesso é o único avanço manual e termina a entrada
@@ -177,8 +177,7 @@ Abrir ajuda ou revisar um acesso pausa a execução.
 O número de cada acesso no histórico permite revisar a cache após aquele acesso.
 Os contadores permanecem os da execução atual, identificada no subtítulo.
 Voltar à execução restaura a visualização atual, sem reprocessar acessos.
-Ao concluir, o controle de reprodução mostra **✓ Concluído** no estilo desabilitado; Progresso fica verde e mostra (finalizado) e fica
-desabilitado, sem um balão separado de conclusão. Reiniciar restaura o estado
+Ao concluir, o controle de reprodução mostra **✓ Concluído** no estilo desabilitado; o cartão Progresso fica verde e mostra (finalizado), sem um balão separado de conclusão. Reiniciar restaura o estado
 inicial. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
 
 Abrir/fechar ajuda preserva dados; Escape, botão de fechar e scrim restauram o
@@ -233,9 +232,15 @@ A Tela 1 já foi integrada à `main`; seus refinamentos posteriores fazem parte 
 
 
 A [especificação v2](../../docs/prototipo-v2-especificacao.md) e a issue #37
-registram a referência vigente para #35: abas, controles e ajuda contextual.
+registram a referência visual histórica para #35. O [estado atual](../../docs/estado-atual.md) e as decisões posteriores documentam as diferenças: duas etapas, 16 ajudas, exemplo Beto unificado e botões roxos preenchidos.
 A [Tela 1](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-14),
 suas variantes e os textos visíveis das ajudas na página v2 guiam esta entrega.
+Na implementação, os botões de ação, ajuda e navegação pelos acessos usam
+fundo roxo `#75609A` e texto branco, incluindo links com aparência de botão.
+Hover usa `#655184`; clique e seleção usam `#56436F`; desabilitados mantêm
+opacidade reduzida. As abas de etapas conservam o desenho de navegador.
+Essas cores substituem os controles carvão do Figma, conforme os PRs #61/#62.
+
 Os componentes React de Code Connect foram adaptados para HTML/CSS nativos,
 mantendo a stack e os tokens SDS. Os exemplos das ajudas são estáticos.
 No desktop, os três campos de memória principal ocupam uma linha. O layout

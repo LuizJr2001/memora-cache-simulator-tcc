@@ -3,11 +3,11 @@
 Data: 30/09/2026. Origem: preferência do autor por um novo pacote.
 Issues: #34 (base), #35 (interface), #25–#28, #30 e #31 (regras e testes).
 
-## Estado consolidado — 18/10/2026
+## Estado consolidado — 23/10/2026
 
 A decisão está aplicada: base e núcleo integrados nos PRs #36/#41, três telas
 integradas à `main` nos PRs #43/#44/#45 e publicação estática no GitHub Pages
-adicionada pelo PR #47. `src/core` contém as regras sem DOM; `src/ui` consome
+adicionada pelo PR #47. Em 23/10, o PR #60 reuniu a comparação em Simular e removeu a terceira etapa; os PRs #61/#62 aplicaram roxo preenchido aos botões. `src/core` contém as regras sem DOM; `src/ui` consome
 snapshots reais, com estado, relógio e navegação próprios. Estilos SDS e assets
 locais são compartilhados. O [histórico](../historico-desenvolvimento.md) reúne
 datas, evidências e pendências acadêmicas.
