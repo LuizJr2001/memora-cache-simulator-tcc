@@ -14,8 +14,6 @@
   --sds-color-text-brand-on-brand: #fff;
   --memora-action-hover: #655184;
   --memora-action-active: #56436f;
-  --memora-action-tint: #f3eff8;
-  --memora-action-tint-active: #f0eaf7;
   --sds-color-text-default-default: #1e1e1e;
   --sds-color-text-default-secondary: #757575;
   --sds-color-border-default-default: #d9d9d9;
@@ -42,10 +40,6 @@
 body { margin: 0; }
 button, input, select, textarea { font: inherit; }
 button, .button {
-  --button-background: #fff;
-  --button-hover: var(--memora-action-tint);
-  --button-active: var(--memora-action-tint-active);
-  --button-text: var(--sds-color-background-brand-default);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -54,8 +48,8 @@ button, .button {
   padding: 10px 24px;
   border: 1px solid var(--sds-color-background-brand-default);
   border-radius: var(--sds-size-radius-full);
-  background: var(--button-background);
-  color: var(--button-text);
+  background: var(--sds-color-background-brand-default);
+  color: var(--sds-color-text-brand-on-brand);
   font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
@@ -63,16 +57,9 @@ button, .button {
   text-decoration: none;
   cursor: pointer;
 }
-/* O preenchimento distingue a ação principal dos comandos secundários. */
-.button-primary {
-  --button-background: var(--sds-color-background-brand-default);
-  --button-hover: var(--memora-action-hover);
-  --button-active: var(--memora-action-active);
-  --button-text: var(--sds-color-text-brand-on-brand);
-}
-button[aria-pressed='true'] { background: var(--memora-action-tint-active); }
-button:hover:not(:disabled), .button:hover { background: var(--button-hover); }
-button:active:not(:disabled), .button:active { background: var(--button-active); }
+button[aria-pressed='true'] { background: var(--memora-action-active); }
+button:hover:not(:disabled), .button:hover { background: var(--memora-action-hover); }
+button:active:not(:disabled), .button:active { background: var(--memora-action-active); }
 button:disabled { opacity: .4; cursor: default; }
 :focus-visible { outline: 3px solid var(--memora-current-set-accent); outline-offset: 3px; }
 button:focus-visible, .button:focus-visible { outline-color: var(--sds-color-background-brand-default); }
