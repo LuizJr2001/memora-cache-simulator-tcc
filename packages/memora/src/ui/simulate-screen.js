@@ -73,7 +73,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
       'Pronto para iniciar · nenhum acesso foi processado');
     byId('sim-status').classList.toggle('error-text', Boolean(state.error));
     byId('sim-status').classList.toggle('sr-only', !state.error);
-    for (const id of ['address-set', 'cache-set']) {
+    for (const id of ['address-set']) {
       byId(id).hidden = currentSet === null; text(id, currentBadge);
     }
 
