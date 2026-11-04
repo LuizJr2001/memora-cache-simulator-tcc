@@ -32,6 +32,8 @@ jobs:
         run: npm ci
       - name: Instalar Chromium de testes
         run: npx playwright install --with-deps chromium
+      - name: Validar interface com Playwright
+        run: npm run test:ui --workspace @memora/simulator
       - name: Capturar cenários reais
         run: node packages/memora/scripts/capture-manual.js
       - name: Atualizar capturas na branch

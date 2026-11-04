@@ -1,8 +1,8 @@
 // Gera capturas reais e anotadas para o Manual visual (#83).
 // Rode: npm ci && npx playwright install chromium && node packages/memora/scripts/capture-manual.js
 import { chromium } from '@playwright/test';
-import { spawn } from 'node:child_process';
-import { mkdir } from 'node:fs/promises';
+import { spawn, execFileSync } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { EXAMPLE_CONFIGURATION } from '../src/core/configuration.js';
@@ -108,6 +108,9 @@ try {
   await page.locator('#show-live').click();
   if (await page.locator('#sim-progress').textContent() !== '21 / 21') throw new Error('Conclusão inesperada');
   await capture(page,'conclusao.png',['#sim-progress'],10);
+  const revision = execFileSync('git', ['rev-parse', 'HEAD'], {cwd:root,encoding:'utf8'}).trim();
+  const metadata = { revision, viewport:'1600x900', browser:'Chromium / Playwright', scenario: 'EXAMPLE_CONFIGURATION + EXAMPLE_ADDRESSES; mapeamento por conjunto, 2 vias, LRU, 21 acessos', files:['configurar.png','simular.png','comparacao.png','conclusao.png'], annotations: '1–5 Configurar; 1–6 Simular; 7–9 Comparação; 10 Conclusão' };
+  await writeFile(join(output,'metadata.json'),JSON.stringify(metadata,null,2)+'\\n');
 } finally {
   await browser?.close();
   server.kill('SIGTERM');

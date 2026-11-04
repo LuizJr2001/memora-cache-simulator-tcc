@@ -200,7 +200,7 @@ export function createSideSheet(document) {
     const manual = event.target.closest?.('button[data-manual]');
     if (manual && !manual.disabled) showManual(document.getElementById('simulation-screen').hidden ? 'configure' : 'simulate');
     const section = event.target.closest?.('button[data-manual-tab]');
-    if (section && !section.disabled) { showManual(section.dataset.manualTab); section.closest('dialog')?.querySelector(`[data-manual-tab="${section.dataset.manualTab}"]`)?.focus(); }
+    if (section && !section.disabled) { showManual(section.dataset.manualTab); dialog.querySelector(`[data-manual-tab="${section.dataset.manualTab}"]`)?.focus(); }
   });
   // Escape usa o evento cancel nativo do dialog; a restauração é comum a todas as saídas
   dialog.addEventListener('close', () => {

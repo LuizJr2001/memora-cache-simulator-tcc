@@ -8,6 +8,7 @@ Este manual integra o painel **Manual** da aplicação. As imagens em `src/asset
 - Para a comparação LRU: mapeamento por conjunto, 2 vias e LRU; sequência de 21 endereços. No acesso 20, sai o bloco **992–1007** e entra **3040–3055**.
 - Captura padrão: Chromium headless, 1600 × 900, zoom 100%, interface em português, com mudanças da issue #82 (**Analisar**, **Detalhes do acesso N**).
 - Arquivos: `configurar.png`, `simular.png`, `comparacao.png`, `conclusao.png`.
+- Revisão Git exata utilizada na captura, navegador e cenário: [`metadata.json`](../src/assets/manual/metadata.json), gerado juntamente com as imagens.
 
 ## Capturas para o artigo
 

@@ -20,7 +20,9 @@ test('manual abre na etapa atual, alterna seções e preserva histórico e totai
   await page.locator('#load-example').click();
   await page.locator('#prepare-input').click();
   await page.locator('#sim-next').click();
-  const stats = await page.locator('.simulation-metrics').innerText();
+  const progress = await page.locator('#sim-progress').textContent();
+  const hits = await page.locator('#sim-hits').textContent();
+  const misses = await page.locator('#sim-misses').textContent();
   const rows = await page.locator('#history-table tr[data-access]').count();
   await page.locator('#open-manual').click();
   await expect(page.locator('.manual-title')).toHaveText('2 · Simular');
@@ -31,7 +33,9 @@ test('manual abre na etapa atual, alterna seções e preserva histórico e totai
   await expect(page.locator('.manual-title')).toHaveText('2 · Simular');
   await page.locator('#close-sheet').click();
   await expect(page.locator('#open-manual')).toBeFocused();
-  await expect(page.locator('.simulation-metrics')).toHaveText(stats);
+  await expect(page.locator('#sim-progress')).toHaveText(progress);
+  await expect(page.locator('#sim-hits')).toHaveText(hits);
+  await expect(page.locator('#sim-misses')).toHaveText(misses);
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(rows);
 });
 
