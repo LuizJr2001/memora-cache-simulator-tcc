@@ -690,7 +690,30 @@ Os enunciados foram extraídos do cabeçalho do CSV anonimizado da pesquisa com 
 \item[\textbf{T3 --- Outros mapeamentos.}] Usar a ficha B para modificar o mapeamento e comparar a execução. \emph{(Síntese do objetivo registrado.)}
 \item[\textbf{T4 --- Divisão do endereço.}] Usar a ficha C para alterar a memória principal e observar a decomposição. \emph{(Síntese do objetivo registrado.)}
 \end{description}
-As fichas A/B/C não estão integralmente presentes na base pública; não se reconstruíram parâmetros supostos. A tarefa T1 teve condução imprecisa em P01. O exemplo atual do manual (4096 células, bloco de 16, 32 linhas, 2 vias, LRU, 21 endereços) serve apenas para reprodução técnica da versão posterior (Apêndice~\ref{ap:manual-visual}).
+A ficha de parâmetros encaminhada em 28 de outubro de 2026 para uso na avaliação foi recuperada e é reproduzida, sem identificação do destinatário, na Tabela~\ref{tab:fichas-abc}. As tarefas da rodada original citam as fichas A, B e C, mas as fichas individuais de todos os participantes não foram preservadas no conjunto público; não se pode afirmar documentalmente que todos receberam uma cópia idêntica. A condução inicial de T1 para P01 teve enunciado impreciso, conforme relatado na seção de resultados.
+
+\begin{table}[!htbp]
+\centering
+\caption{Parâmetros das fichas A, B e C recuperadas do material encaminhado para a avaliação.}
+\label{tab:fichas-abc}
+\small
+\begin{tabular}{@{}P{5.0cm}P{2.7cm}P{2.7cm}P{2.7cm}@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{A -- primeira} & \textbf{B -- comparação} & \textbf{C -- inspeção} \\
+\midrule
+Bytes por célula & 1 & 1 & 1 \\
+Total de células da memória principal & 4096 & 4096 & 8192 \\
+Células por bloco & 16 & 16 & 16 \\
+Linhas da cache & 32 & 32 & 32 \\
+Mapeamento & Direto & Por conjunto & Por conjunto \\
+Vias por conjunto & 1 & 2 & 2 \\
+Política de substituição & Não se aplica & LRU & LRU \\
+\bottomrule
+\end{tabular}
+\par\footnotesize Fonte: ficha de parâmetros enviada para a avaliação em 28 out. 2026. Campos transcritos sem dados pessoais.
+\end{table}
+
+A sequência de endereços explicitamente registrada como comum às fichas A e B é \texttt{0, 1, 512, 0, 1024, 512, 0, 1}. Não foi especificada uma sequência própria para C no material recuperado. Essa ficha de oito acessos é distinta do exemplo de 21 acessos usado para capturar o manual da versão posterior (Apêndice~\ref{ap:manual-visual}); não se devem misturar os dois cenários.
 
 \textbf{Entrevista após o uso}
 \begin{enumerate}
