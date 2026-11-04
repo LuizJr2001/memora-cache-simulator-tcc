@@ -1,5 +1,5 @@
 {
-  "revision": "bad3c9f34d6bb1ec7c9361f20ffd1af962f7e5fe",
+  "revision": "3fede5ca23f5ae3c3d6f8eaa4970ca03b6d178a9",
   "viewport": "1600x900",
   "browser": "Chromium / Playwright",
   "scenario": "EXAMPLE_CONFIGURATION + EXAMPLE_ADDRESSES; mapeamento por conjunto, 2 vias, LRU, 21 acessos",
