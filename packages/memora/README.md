@@ -18,6 +18,35 @@ O PR #47 acrescentou a publicação no
 Datas, evidências e pendências estão no
 [histórico de desenvolvimento](../../docs/historico-desenvolvimento.md).
 
+## Manual visual
+
+Abra **Manual** no cabeçalho. O painel abre na etapa atual e permite alternar
+entre **Configurar** e **Simular**. Cada marcador tem uma instrução em texto.
+Use o link abaixo de cada imagem para abrir a captura em tamanho original.
+Se a reprodução estiver em andamento, abrir o painel pausa no ponto atual.
+
+As capturas anotadas estão disponíveis para o apêndice do artigo:
+
+| Etapa | Captura |
+| --- | --- |
+| Configurar | [Parâmetros, endereços e divisão do endereço](src/assets/manual/configurar.png) |
+| Simular | [Controles com a execução pausada](src/assets/manual/simular-controles.png) |
+| Simular | [Cache, histórico e conclusão](src/assets/manual/simular-resultado.png) |
+| Simular | [Antes e depois da substituição](src/assets/manual/simular-substituicao.png) |
+
+**Versão das capturas:** interface destinada à publicação com as issues #82
+e #83, sobre a base `02339e5`. Capturas reais em Chromium, com resolução de
+1440 × 900 (1760 × 900 para mostrar as duas tabelas da comparação lado a lado).
+As imagens foram recortadas e receberam marcadores e setas.
+
+**Cenário:** carregue o exemplo didático e mantenha 1 byte por célula,
+4.096 células, 16 células por bloco, 32 linhas de cache e mapeamento direto.
+Troque a sequência por `0, 1, 512, 513, 16`. Em Simular, clique em **Ir ao
+final** e, no histórico, em **Analisar** abaixo do **Nº 3**. O endereço 512
+substitui o bloco 0–15 pelo bloco 512–527 na linha 0. A execução termina com
+dois acertos e três faltas. Use **Voltar ao estado atual** para sair da
+comparação.
+
 ## Executar
 
 Requer Node.js 22 ou superior e npm. Na raiz do repositório:
