@@ -11,7 +11,9 @@ async function prepare(page, count = 20) {
   for (let i = 0; i < count; i++) await page.locator('#sim-next').click();
 }
 async function open(page) {
-  await page.locator('#access-comparison summary').click();
+  if (!await page.locator('#access-comparison').evaluate(node => node.open)) {
+    await page.locator('#access-comparison summary').click();
+  }
   await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
   await expect(page.locator('#simulation-screen')).toBeVisible();
 }
@@ -33,6 +35,9 @@ test('duas etapas e comparação contextual recolhida preservam a tabela da cach
   await page.locator('#sim-next').click();
   await expect(page.locator('#access-comparison')).not.toHaveAttribute('open');
   await expect(page.locator('#cache-scroll')).toBeVisible();
+  const summary = await page.locator('#access-comparison summary').boundingBox();
+  const cache = await page.locator('#cache-scroll').boundingBox();
+  expect(summary.y + summary.height).toBeLessThanOrEqual(cache.y);
   await open(page);
   await expect(page.locator('#cache-scroll')).toBeHidden();
   await expect(before(page,1)).toContainText('Usar via livre');
@@ -148,6 +153,31 @@ test('comparação é operável por teclado e mantém ajuda e foco', async ({pag
   await help.click(); await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape'); await expect(help).toBeFocused();
   await page.locator('#access-comparison summary').focus(); await page.keyboard.press('Enter');
+  await expect(page.locator('#cache-scroll')).toBeVisible();
+});
+
+test('Revisar é uma ação visível que abre diretamente o antes/depois e mantém o foco', async ({page}) => {
+  await prepare(page, 20);
+  const review = page.getByRole('button', { name: 'Revisar acesso 20', exact: true });
+  await expect(review).toHaveText('Revisar');
+  await expect(page.locator('#history-table tr[data-access="20"] .history-access-number')).toHaveText('20');
+  await review.focus();
+  await page.keyboard.press('Enter');
+  await expect(review).toBeFocused();
+  await expect(review).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
+  await expect(page.locator('#analysis-before-title')).toHaveText('Antes da substituição');
+  await expect(page.locator('#analysis-after-title')).toHaveText('Depois da substituição');
+  await expect(before(page, 1)).toContainText('992–1007');
+  await expect(after(page, 1)).toContainText('3040–3055');
+  await expect(page.locator('#comparison-access-label')).toContainText('substituição');
+  await expect(page.locator('#sim-progress')).toHaveText('20 / 21');
+  await page.locator('#access-comparison summary').click();
+  await review.focus();
+  await page.keyboard.press('Space');
+  await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
+  await page.locator('#show-live').click();
+  await expect(page.locator('#access-comparison')).not.toHaveAttribute('open');
   await expect(page.locator('#cache-scroll')).toBeVisible();
 });
 

@@ -1,8 +1,11 @@
 /* Comparação contextual: usa o espaço da tabela, sem criar uma terceira etapa. */
-.cache-comparison { position: relative; margin-top: 4px; min-height: 0; font-size: 12px; line-height: 17px; }
-.cache-comparison > summary { cursor: pointer; color: var(--memora-current-set-accent); font-weight: 600; padding: 3px 0; border-radius: 4px; }
-#comparison-access-label { font-weight: 400; overflow-wrap: anywhere; }
-.cache-comparison[open] { flex: 1; height: 0; overflow: auto; scrollbar-width: thin; }
+.cache-comparison { position: relative; min-height: 0; flex-shrink: 0; font-size: 12px; line-height: 17px; }
+.cache-comparison > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; cursor: pointer; color: var(--sds-color-text-brand-on-brand); background: var(--sds-color-background-brand-default); font-weight: 700; padding: 7px 12px; min-height: 34px; border-radius: var(--sds-size-radius-400); }
+.cache-comparison > summary::before { content: '▸'; }
+.cache-comparison[open] > summary::before { content: '▾'; }
+.cache-comparison > summary:hover { background: var(--memora-action-hover); }
+#comparison-access-label { min-width: 0; font-size: 11px; font-weight: 400; overflow-wrap: anywhere; }
+.cache-comparison[open] { flex: 1; height: 0; margin-top: 4px; overflow: auto; scrollbar-width: thin; }
 .simulation-cache:has(.cache-comparison[open]) > .cache-scroll,
 .simulation-cache:has(.cache-comparison[open]) > .cache-navigation,
 .simulation-cache:has(.cache-comparison[open]) > #cache-description { display: none; }
@@ -43,7 +46,7 @@
 .cache-comparison .analysis-snapshot table { min-width: 480px; }
 .cache-comparison .analysis-snapshot th { font-size: 11px; }
 .cache-comparison .analysis-snapshot td { font-size: 11px; }
-.analysis-blocks { gap: 12px; margin-top: 12px; }
+.analysis-blocks { gap: 12px; margin-block: 12px; }
 .analysis-blocks h3 { font-size: 13px; }
 .analysis-blocks p { margin-top: 6px; font-size: 12px; }
 @media (max-width: 1700px) { .analysis-snapshots { grid-template-columns: 1fr; } }

@@ -246,6 +246,8 @@ test('todas as ajudas têm textos estáticos, Escape e retorno do foco', async (
     if (key === 'bytesPerCell') await screenshot(page, 'side-sheet');
     if (key === 'quick') {
       await expect(dialog.getByRole('link')).toHaveCount(2);
+      await expect(dialog).toContainText('Reiniciar volta ao início e zera a cache, o histórico e os contadores');
+      await expect(dialog).toContainText('Use Revisar no histórico para abrir o antes e depois');
       await screenshot(page, 'ajuda-rapida');
     }
     await page.keyboard.press('Escape');

@@ -7,7 +7,7 @@ const phaseLabels = { decompose: 'Decompor endereço', search: 'Buscar tag no co
   select: 'Selecionar linha', update: 'Atualizar cache', complete: 'Estado atualizado' };
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 
-export function mountSimulateScreen(document, { onChange = () => {}, random = Math.random } = {}) {
+export function mountSimulateScreen(document, { onChange = () => {}, onReview = () => {}, random = Math.random } = {}) {
   const byId = id => document.getElementById(id);
   const root = byId('simulation-screen');
   let controller = null;
@@ -50,7 +50,6 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
     byId('sim-play').disabled = state.done;
     byId('sim-progress').parentElement.classList.toggle('metric-complete', state.done);
     text('sim-progress-label', state.done ? 'Progresso (finalizado)' : 'Progresso');
-    byId('sim-stop').disabled = state.status !== 'running';
     byId('sim-restart').disabled = state.status === 'ready' && stats.processed === 0;
     byId('sim-next').disabled = state.done;
     byId('sim-finish').disabled = state.done;
@@ -200,8 +199,10 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
     for (const access of visible) {
       const tr = element('tr', undefined, `history-row ${access.result === 'hit' ? 'hit-row' : 'miss-row'}${access.number === state.selected ? ' selected-access' : ''}`);
       tr.dataset.access = access.number;
-      const first = element('td'), button = element('button', String(access.number), 'review-access');
+      const first = element('td'), button = element('button', 'Revisar', 'review-access');
+      first.append(element('span', String(access.number), 'history-access-number'));
       button.type = 'button'; button.dataset.review = access.number; button.setAttribute('aria-label', `Revisar acesso ${access.number}`);
+      button.setAttribute('aria-controls', 'access-comparison');
       button.setAttribute('aria-pressed', String(access.number === state.selected)); first.append(button); tr.append(first);
       tr.append(element('td', numeric(access.address)), element('td', access.result === 'hit' ? '✓ ACERTO' : '✕ FALTA', 'access-result'), element('td', explain(access)));
       historyRows.append(tr);
@@ -209,7 +210,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
     historyBody.replaceChildren(historyRows);
     if (activeReview) historyBody.querySelector(`[data-review="${activeReview}"]`)?.focus({ preventScroll: true });
     byId('history-empty').hidden = state.history.length !== 0 || Boolean(current);
-    text('history-description', state.history.length ? 'Selecione um acesso para revisar · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
+    text('history-description', state.history.length ? 'Use Revisar para abrir o antes/depois · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
     text('history-state-title', selectedAccess ? `Estado após o acesso ${selectedAccess.number}` : 'Estado atual');
     let summary = focus ? explain(focus) : 'A cache está vazia e os contadores estão zerados';
     if (current && !['update'].includes(state.phase)) {
@@ -266,7 +267,10 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
       controller.pause(); render(controller.view());
     }
     const review = event.target.closest?.('button[data-review]');
-    if (review) controller?.selectAccess(Number(review.dataset.review));
+    if (review && controller) {
+      controller.selectAccess(Number(review.dataset.review));
+      onReview();
+    }
   });
   for (const [id, direction] of [['cache-prev', -1], ['cache-next', 1]]) {
     byId(id).addEventListener('click', () => {
@@ -295,7 +299,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, random = Ma
       controller.play();
     }
   });
-  for (const [id, method] of [['sim-stop', 'stop'], ['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
+  for (const [id, method] of [['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
     byId(id).addEventListener('click', () => {
       if (method === 'restart') { cacheStart = 0; lastFocus = null; cellStarts.clear(); }
       controller?.[method]();
