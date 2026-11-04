@@ -87,7 +87,7 @@ significa mais recente; candidata só aparece quando não há via livre. A sele�
 da vítima usa `lineBefore`; a linha inserida usa `lineAfter`. A execução e o
 histórico preservam intervalos e estatísticas anteriores à mutação (#30).
 
-O botão textual Revisar, abaixo do número do acesso, abre a comparação dos
+O botão textual Analisar, abaixo do número do acesso, abre a comparação dos
 snapshots antes/depois, sem mudar os contadores atuais. O subtítulo explicita
 essa diferença. Voltar ao estado atual recolhe a comparação e
 restaura o estado atual, sem avançar o motor. Ao terminar, o controle de reprodução
@@ -116,7 +116,7 @@ O componente é um `details` nativo no cartão Memória cache. Recolhido, manté
 tabela normal; aberto, usa o mesmo espaço e rolagem local. `main.js` integra o
 componente ao controlador: abrir pausa; navegar chama somente `selectAccess`.
 O callback `onReview` abre o painel após a seleção e preserva o foco no botão
-Revisar. Uma nova ativação abre o mesmo acesso mesmo após recolhimento manual.
+Analisar. Uma nova ativação abre o mesmo acesso mesmo após recolhimento manual.
 Os blocos Sai da cache/Entra na cache antecedem as tabelas para destacar a troca.
 A reprodução e Voltar ao estado atual recolhem a comparação; reinício, invalidação e nova preparação limpam
 os dados anteriores. O formato é o seletor global de Simular. A antiga terceira

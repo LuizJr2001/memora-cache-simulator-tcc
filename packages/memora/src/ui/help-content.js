@@ -109,7 +109,7 @@ export const HELP_CONTENT = {
     "title": "Histórico de acessos",
     "node": "311:3082",
     "body": [
-      "Veja a ordem dos acessos, seus resultados e as explicações\n\nUse o botão Revisar, abaixo do número do acesso, para abrir o antes e depois da cache\n\nA revisão pausa a reprodução e preserva o ponto da execução e os totais",
+      "Veja a ordem dos acessos, seus resultados e as explicações\n\nUse o botão Analisar, abaixo do número do acesso, para abrir o antes e depois da cache\n\nConsultar um acesso pausa a reprodução e preserva o ponto da execução e os totais",
       "Endereço 2018 → ACERTO: o bloco 2016–2031 já está na cache"
     ]
   },
@@ -124,7 +124,7 @@ export const HELP_CONTENT = {
     "title": "Ajuda rápida",
     "node": "311:8070",
     "body": [
-      "1 · Configurar\nDefina a arquitetura e os endereços, ou carregue o exemplo didático\n\n2 · Simular\nIniciar, Pausar e Continuar controlam a reprodução e preservam o ponto da execução\nReiniciar volta ao início e zera a cache, o histórico e os contadores\nUse Revisar no histórico para abrir o antes e depois e ver o que mudou"
+      "1 · Configurar\nDefina a arquitetura e os endereços, ou carregue o exemplo didático\n\n2 · Simular\nIniciar, Pausar e Continuar controlam a reprodução e preservam o ponto da execução\nReiniciar volta ao início e zera a cache, o histórico e os contadores\nUse Analisar no histórico para abrir o antes e depois e ver o que mudou"
     ]
   }
 };
