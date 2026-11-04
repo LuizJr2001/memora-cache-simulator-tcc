@@ -140,7 +140,7 @@ A Figura~\ref{fig:rel-beto} apresenta uma vista da interface da ferramenta.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/beto_tela.pdf}
-\caption{Interface do Beto durante uma simulação.}
+\caption{Beto: captura da interface original, anterior aos aprimoramentos do Memora.}
 \label{fig:rel-beto}
 \par\footnotesize Fonte: captura histórica da interface pública, preservada no projeto \cite{betoweb2026}.
 \end{figure}
@@ -151,15 +151,9 @@ O ParaCache é um simulador educacional web voltado a cache e memória virtual \
 
 O ParaCache é relevante para o Beto por dois motivos. Primeiro, mostra como funcionalidades como \textit{load}/\textit{store}, \textit{dirty bit} e políticas de escrita podem aparecer em uma interface educacional. Segundo, oferece uma tela de análise de tipos de cache, com comparação entre diferentes configurações. Esses recursos caracterizam o ParaCache e não foram implementados no Memora; a justificativa de adiamento está na Seção~\ref{sec:futuros}.
 
-A Figura~\ref{fig:rel-paracache} apresenta uma vista da interface da ferramenta.
+A captura complementar está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:rel-paracache}).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/paracache.png}
-\caption{ParaCache no módulo de mapeamento direto.}
-\label{fig:rel-paracache}
-\par\footnotesize Fonte: captura própria da versão web do ParaCache \cite{paracacheweb2026}.
-\end{figure}
+
 
 \subsection{Ripes}
 
@@ -169,15 +163,9 @@ A visualização do Ripes é especialmente relevante para este TCC. A documenta�
 
 A validade, a recência LRU e a decomposição servem como referências de visibilidade no Memora. O \textit{dirty bit}, as escritas e os gráficos pertencem ao Ripes e não devem ser confundidos com entregas deste TCC.
 
-A Figura~\ref{fig:rel-ripes} apresenta uma vista da interface da ferramenta.
+A imagem da documentação oficial está no Anexo~\ref{an:imagens-documentacao} (Figura~\ref{fig:rel-ripes}).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.83\linewidth,height=0.39\textheight,keepaspectratio]{figuras/ripes.png}
-\caption{Ripes com visualização dos conjuntos e das vias da cache.}
-\label{fig:rel-ripes}
-\par\footnotesize Fonte: documentação oficial do Ripes \cite{ripescache2026}.
-\end{figure}
+
 
 \subsection{SMPCache}
 
@@ -185,15 +173,9 @@ O SMPCache é um simulador baseado em rastros para análise e ensino de sistemas
 
 Apesar de SMPCache ser mais avançado que o escopo imediato do Beto, ele contribui para identificar lacunas técnicas e pedagógicas. Um ponto especialmente útil é a validação de configurações: o manual informa que parâmetros relacionados entre si são verificados de acordo com os modelos teóricos e que o simulador avisa e bloqueia escolhas contraditórias \cite{smpcacheManual2026}. Essa funcionalidade é diretamente aplicável ao Beto, pois a validação de entradas é uma das limitações já observadas.
 
-A Figura~\ref{fig:rel-smp} apresenta uma vista da interface da ferramenta.
+A imagem do manual está no Anexo~\ref{an:imagens-documentacao} (Figura~\ref{fig:rel-smp}).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.83\linewidth,height=0.39\textheight,keepaspectratio]{figuras/smp-cache-000.png}
-\caption{Evolução da cache em formato textual no SMPCache.}
-\label{fig:rel-smp}
-\par\footnotesize Fonte: \textit{Getting Started with SMPCache 2.0}, Figura 17 \cite{smpcacheManual2026}.
-\end{figure}
+
 
 \subsection{Dinero IV}
 
@@ -201,15 +183,9 @@ O Dinero IV é um simulador de cache orientado por rastros de referência à mem
 
 Embora não seja uma ferramenta visual voltada diretamente ao público iniciante, o Dinero IV é relevante como referência técnica. Ele ajuda a mostrar que simuladores de cache podem ir além da visualização imediata, oferecendo análises mais detalhadas de desempenho. Para o Beto, essa referência sugere possíveis extensões futuras, como classificação dos tipos de falta e exportação de rastros, mas essas funcionalidades podem ser priorizadas após melhorias de usabilidade e visualização.
 
-A Figura~\ref{fig:rel-dinero} apresenta um exemplo de saída do simulador.
+Uma saída própria da análise está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:rel-dinero}).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/dinero.png}
-\caption{Estatísticas de uma execução do Dinero IV, versão 7.}
-\label{fig:rel-dinero}
-\par\footnotesize Fonte: trecho da saída de execução própria, com seis referências de leitura e cache direta de 16 bytes \cite{dineroiv2026}.
-\end{figure}
+
 
 \subsection{Cache Simulator para MIPS}
 
@@ -217,15 +193,9 @@ O pacote \textit{Cache Simulator}, disponível em Python/PyPI, simula cache para
 
 Mesmo sem interface gráfica, essa ferramenta é útil para o TCC porque mostra uma forma simples e didática de relatar o resultado de cada acesso. A tabela textual é uma referência para a legibilidade do histórico por acesso. A exportação CSV permanece uma extensão futura (Seção~\ref{sec:futuros}).
 
-A Figura~\ref{fig:rel-mips} apresenta um exemplo de saída do simulador.
+Uma saída própria da análise está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:rel-mips}).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/mips.png}
-\caption{Tabela de acessos e estado final da cache no simulador para MIPS.}
-\label{fig:rel-mips}
-\par\footnotesize Fonte: saída de execução própria do Cache Simulator 2.0.2, com seis acessos e cache de oito palavras \cite{cacheSimulatorEvans2025}.
-\end{figure}
+
 
 \subsection{QtMips}
 
@@ -391,23 +361,11 @@ A elaboração inicial do protótipo foi concluída em 23 de setembro de 2026. A
 
 A inspeção heurística formal, com registro consolidado de problemas e severidades, permanece pendente. O modelo em \texttt{instrumentos/} apoia essa atividade; suas linhas de exemplo não são resultados de uma inspeção realizada. A revisão visual e os testes técnicos registrados no desenvolvimento não substituem esse procedimento, nem a avaliação com estudantes \cite{barbosaSlidesAvalHeuristica}.
 
-As Figuras~\ref{fig:figma-configurar} e~\ref{fig:figma-analisar} documentam o protótipo v2. A tela Analisar existia separadamente no protótipo e sua comparação foi integrada a Simular durante a implementação.
+As Figuras~\ref{fig:figma-configurar} e~\ref{fig:figma-analisar}, reunidas no Apêndice~\ref{ap:capturas-complementares}, documentam protótipos do Figma, e não telas da versão funcional. A comparação foi integrada a Simular.
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth]{figuras/figma-configurar.png}
-\caption{Tela Configurar do protótipo v2 no Figma.}
-\label{fig:figma-configurar}
-\par\footnotesize Fonte: elaboração própria, exportação do nó 311:14 do Figma em 3 nov. 2026.
-\end{figure}
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth]{figuras/figma-analisar.png}
-\caption{Tela Analisar do protótipo v2, anterior à integração com Simular.}
-\label{fig:figma-analisar}
-\par\footnotesize Fonte: elaboração própria, exportação do nó 311:6473 do Figma em 3 nov. 2026.
-\end{figure}
+
+
 
 \section{Implementação do Memora}
 \label{sec:implementacao-memora}
@@ -424,6 +382,16 @@ Entradas inválidas recebem mensagens próximas aos campos, sem substituir os va
 
 A abertura e o botão Carregar exemplo didático usam os mesmos parâmetros e os 21 endereços iniciais do Beto. Iniciar simulação prepara uma entrada imutável e abre a etapa Simular com zero acessos processados, aguardando ação do usuário. A prévia apresenta Tag, Linha/Conjunto e Deslocamento conforme o mapeamento, sem um rótulo visual adicional para o primeiro endereço.
 
+A Figura~\ref{fig:memora-configurar-atual} documenta Configurar na versão atual.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/configurar.png}
+\caption{Memora atualizado: Configurar.}
+\label{fig:memora-configurar-atual}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+
 \subsection{Execução, histórico e comparação contextual}
 
 A simulação contempla mapeamento direto, totalmente associativo e por conjunto e, nos mapeamentos associativos, as políticas FIFO, LRU e aleatória. A cache é representada de forma esparsa no núcleo. A interface mostra validade, intervalos de blocos e endereços das células, incluindo linhas vazias, com paginação acima de 128 linhas e janelas de até 16 células para blocos maiores. Os valores das células na visualização são endereços da memória principal, não dados arbitrários armazenados.
@@ -434,9 +402,19 @@ Cada acesso concluído conserva estados anteriores e posteriores (\textit{snapsh
 
 O protótipo e a primeira implementação possuíam três etapas: Configurar, Simular e Analisar. Em 23 de outubro, a comparação antes/depois foi incorporada ao cartão Memória cache em Simular, reduzindo o fluxo a duas etapas. A mudança preserva a comparação dos estados, a identificação dos blocos que saem e entram e o critério de escolha, evitando repetir decomposição e roteiro em outra tela. A comparação fica recolhida e substitui temporariamente a tabela quando aberta. Acesso anterior e Acesso seguinte revisam somente registros já concluídos. Abrir a comparação pausa a reprodução; retomá-la recolhe o componente, preservando eventual fase pendente. A Seção~\ref{sec:plano-avaliacao} apresenta a avaliação exploratória desse fluxo.
 
+A Figura~\ref{fig:memora-simular-atual} documenta Simular na versão atual.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/simular.png}
+\caption{Memora atualizado: Simular.}
+\label{fig:memora-simular-atual}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+
 \subsection{Ajuda, navegação e identidade visual}
 
-A aplicação contém 16 ajudas estáticas, incluindo Glossário, Ajuda rápida, campos e comparação. Os painéis laterais permitem fechamento por Escape e retorno de foco. As abas e tabelas oferecem navegação por teclado; mensagens de estado também são anunciadas a leitores de tela. Decimal/Binário é compartilhado pela simulação e pela comparação e altera somente a apresentação.
+A aplicação contém ajudas estáticas, incluindo Glossário, Ajuda rápida, campos e comparação, além do botão \textit{Manual} com guia visual integrado pelo PR~87 (Apêndice~\ref{ap:manual-visual}). Os painéis laterais permitem fechamento por Escape e retorno de foco. As abas e tabelas oferecem navegação por teclado; mensagens de estado também são anunciadas a leitores de tela. Decimal/Binário é compartilhado pela simulação e pela comparação e altera somente a apresentação.
 
 Os refinamentos de 23 de outubro adotaram botões de ação preenchidos em roxo \texttt{\#75609A} e texto branco, incluindo ajuda e navegação pelos acessos. As abas mantêm o desenho de navegador e os balões informativos permanecem azuis. O contraste calculado entre branco e o roxo principal é de 5,39:1, superior ao mínimo de 4,5:1 para texto comum nas WCAG 2.2 \cite{wcagContraste2026}. Esse resultado verifica apenas o par de cores; não constitui uma declaração de conformidade integral. A inspeção em navegador da versão proposta no PR~71 incluiu a apresentação desses controles.
 
@@ -550,7 +528,7 @@ Em T3, os registros descrevem retorno à configuração e execução de outro ce
 
 As perguntas abertas abordaram o acompanhamento dos acessos, a comparação entre mapeamentos, a divisão do endereço e as prioridades de melhoria. O Apêndice~\ref{ap:roteiro-memora} apresenta os enunciados do roteiro. Na comparação retrospectiva, P01 comentou: “é bem intuitivo e melhor que o Beto”. O entrevistador confirmou a anotação literal. A fala registra a impressão do participante com base na lembrança do uso anterior do Beto.
 
-Após receber a indicação de onde clicar, P02 comentou sobre a revisão do histórico: “se você não falar eu não teria visto isso aí”. P03 descreveu a dificuldade com o mesmo marcador: “Não sabia que era um botão”. Os dois trechos constam das transcrições fornecidas, sem conferência com o áudio original. Os relatos ajudam a explicar a adoção do rótulo explícito \textit{Revisar}.
+Após receber a indicação de onde clicar, P02 comentou sobre a revisão do histórico: “se você não falar eu não teria visto isso aí”. P03 descreveu a dificuldade com o mesmo marcador: “Não sabia que era um botão”. Os dois trechos constam das transcrições fornecidas, sem conferência com o áudio original. Os relatos motivaram o botão \textit{Revisar} (PR~71), depois renomeado para \textit{Analisar} (PR~87), em versões posteriores às entrevistas.
 
 A Tabela~\ref{tab:avaliacao-rapida} apresenta a opção registrada para P01 e sintetiza os relatos qualitativos de P02 e P03.
 
@@ -609,7 +587,15 @@ Em Q4 (prioridade; três respostas), P01 não apontou ajuste, enquanto P02 e P03
 
 \subsection{Ajustes derivados dos achados}
 
-Os episódios de interação orientaram as decisões da Tabela~\ref{tab:achados-ajustes}. A revisão foi implementada e integrada pelo PR~71, com verificação técnica. A Figura~\ref{fig:memora-revisao} mostra a versão do PR~71, posterior às três sessões.
+Os episódios de interação orientaram as decisões da Tabela~\ref{tab:achados-ajustes}. A revisão foi implementada no PR~71 e atualizada no PR~87. A Figura~\ref{fig:memora-revisao} apresenta a versão ajustada, posterior às entrevistas P01--P03. A versão intermediária está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:memora-revisao-historica}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/comparacao.png}
+\caption{Memora atualizado: comando Analisar e comparação dos blocos antes/depois do acesso 20.}
+\label{fig:memora-revisao}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
 
 \begin{table}[!htbp]
 \centering
@@ -620,7 +606,7 @@ Os episódios de interação orientaram as decisões da Tabela~\ref{tab:achados-
 \toprule
 \textbf{Observação} & \textbf{Encaminhamento} \\
 \midrule
-P02 e P03 não reconheceram a ação no marcador do histórico. & Botão textual Revisar junto ao número do acesso (issue~67). \\
+P02 e P03 não reconheceram a ação no marcador do histórico. & Botão textual \textit{Revisar} junto ao número do acesso (issue~67), renomeado para \textit{Analisar} na issue~82. \\
 P03 demorou a localizar o antes/depois em T2. & Abertura direta da comparação ao revisar, com destaque aos blocos que saem e entram (issue~68). \\
 P02 questionou a diferença entre Parar e Pausar. & Unificação do controle de reprodução, com Reiniciar como ação separada (issue~69). \\
 P03 precisou de direcionamento em T4 e sugeriu ajustes de incremento e espaço. & Reavaliar a leitura da divisão do endereço e identificar os controles ou regiões referidos (issue~70). \\
@@ -629,13 +615,7 @@ P03 precisou de direcionamento em T4 e sugeriu ajustes de incremento e espaço. 
 \par\footnotesize Fonte: elaboração própria a partir das fichas e do registro de desenvolvimento.
 \end{table}
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth]{figuras/memora-revisao.png}
-\caption{Revisão do acesso 20 com indicação dos blocos que saem e entram.}
-\label{fig:memora-revisao}
-\par\footnotesize Fonte: captura do Memora, versão do PR~71 (commit \texttt{be06c3c}, 3 nov. 2026), em cenário LRU reproduzível.
-\end{figure}
+
 
 \section{Discussão e limitações}
 
@@ -669,43 +649,16 @@ Exportação de rastros e resultados, gráficos da evolução da execução e co
 
 \clearpage
 \appendix
+\newcommand{\apendicemanual}[2]{\clearpage\refstepcounter{section}\section*{Apêndice \Alph{section} --- #1}\label{#2}}
+\newcommand{\anexomanual}[2]{\clearpage\refstepcounter{section}\section*{Anexo \Alph{section} --- #1}\label{#2}}
 
-\section{Perguntas do roteiro de avaliação do Memora}
-\label{ap:roteiro-memora}
 
-\textbf{Perfil inicial}
-\begin{enumerate}
-\item Qual curso e período você está cursando?
-\item Você já utilizou o Beto? Se sim, quando e para qual atividade?
-\item Você já utilizou o Memora antes?
-\end{enumerate}
+\apendicemanual{Perguntas efetivamente aplicadas no levantamento sobre o Beto}{ap:levantamento-beto}
 
-\textbf{Entrevista após o uso}
-\begin{enumerate}
-\item O que mais ajudou ou dificultou usar o Memora e acompanhar o que acontecia nos acessos?
-\item Depois de mudar o mapeamento, o que você conseguiu perceber na organização da cache ou no histórico? A interface ajudou ou dificultou comparar as duas execuções?
-\item Como a tela mostrou o efeito de aumentar a quantidade de células da memória principal? A apresentação ajudou ou dificultou perceber a relação com a divisão do endereço?
-\item O que você mudaria primeiro no Memora? Por quê? Para quem já usou o Beto e se lembrava dele, o roteiro acrescentou: comparado ao que você lembra do Beto, o que ficou mais fácil, mais difícil ou igual? Há algo de lá que gostaria de manter?
-\end{enumerate}
-
-\textbf{Avaliação rápida}
-
-O roteiro previa as opções C (atende completamente), P (atende parcialmente), N (não atende) e X (não conseguiu avaliar) para os quatro itens seguintes.
+Os enunciados foram extraídos do cabeçalho do CSV anonimizado da pesquisa com 13 respostas, incluindo o consentimento. A escala aplicada foi de 1 a 4, diferente da versão preliminar do formulário.
 
 \begin{enumerate}
-\item[\textbf{C1.}] Facilidade para começar e utilizar os controles.
-\item[\textbf{C2.}] Clareza e organização das informações na tela.
-\item[\textbf{C3.}] Apoio para visualizar efeitos dos mapeamentos e parâmetros.
-\item[\textbf{C4.}] Satisfação com a experiência de uso.
-\end{enumerate}
-
-\clearpage
-\section{Perguntas do levantamento de requisitos sobre o Beto}
-\label{ap:levantamento-beto}
-
-Os enunciados abaixo foram extraídos do cabeçalho da base anonimizada do questionário aplicado (base anonimizada produzida neste estudo).
-
-\begin{enumerate}
+\item Li as informações apresentadas acima e concordo em participar voluntariamente deste levantamento de requisitos, autorizando o uso anonimizado das minhas respostas para fins acadêmicos. \emph{(Consentimento.)}
 \item Qual a sua familiaridade com o conteúdo de projeto de memória cache (normalmente visto nas disciplinas de AOC1 e AOC2)?
 \item Você está cursando Arquitetura e Organização de Computadores II, seja laboratório ou teórica, ou é ex-aluno(a) da(s) disciplina(s)?
 \item Durante a configuração de uma simulação no Beto, quais dificuldades você encontrou?
@@ -717,5 +670,208 @@ Os enunciados abaixo foram extraídos do cabeçalho da base anonimizada do quest
 \end{enumerate}
 
 
+
+
+
+\apendicemanual{Roteiro aplicado na avaliação do Memora}{ap:roteiro-memora}
+
+\textbf{Perfil inicial}
+\begin{enumerate}
+\item Qual curso e período você está cursando?
+\item Você já utilizou o Beto? Se sim, quando e para qual atividade?
+\item Você já utilizou o Memora antes?
+\end{enumerate}
+
+
+\textbf{Tarefas T1--T4}
+\begin{description}[leftmargin=0pt,style=nextline,itemsep=3pt]
+\item[\textbf{T1 --- Configuração e ajuda.}] \emph{Carregue o exemplo pronto e substitua a sequência de endereços pela sequência da ficha A. Confira os demais parâmetros da ficha. Antes de abrir a simulação, procure na própria tela uma explicação sobre um dos campos.}
+\item[\textbf{T2 --- Execução e histórico.}] \emph{Abra a simulação. Ative as etapas detalhadas e use velocidade 2. Inicie a reprodução, acompanhe um acesso, pause e conte o que a tela mostrou. Retome e depois vá ao final da execução. No histórico, localize uma troca de blocos e mostre antes/depois. Por fim, encontre os totais de acertos/faltas e a indicação de que terminou.}
+\item[\textbf{T3 --- Outros mapeamentos.}] Usar a ficha B para modificar o mapeamento e comparar a execução. \emph{(Síntese do objetivo registrado.)}
+\item[\textbf{T4 --- Divisão do endereço.}] Usar a ficha C para alterar a memória principal e observar a decomposição. \emph{(Síntese do objetivo registrado.)}
+\end{description}
+A ficha de parâmetros encaminhada em 28 de outubro de 2026 para uso na avaliação foi recuperada e é reproduzida, sem identificação do destinatário, na Tabela~\ref{tab:fichas-abc}. As tarefas da rodada original citam as fichas A, B e C, mas as fichas individuais de todos os participantes não foram preservadas no conjunto público; não se pode afirmar documentalmente que todos receberam uma cópia idêntica. A condução inicial de T1 para P01 teve enunciado impreciso, conforme relatado na seção de resultados.
+
+\begin{table}[!htbp]
+\centering
+\caption{Parâmetros das fichas A, B e C recuperadas do material encaminhado para a avaliação.}
+\label{tab:fichas-abc}
+\small
+\begin{tabular}{@{}P{5.0cm}P{2.7cm}P{2.7cm}P{2.7cm}@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{A -- primeira} & \textbf{B -- comparação} & \textbf{C -- inspeção} \\
+\midrule
+Bytes por célula & 1 & 1 & 1 \\
+Total de células da memória principal & 4096 & 4096 & 8192 \\
+Células por bloco & 16 & 16 & 16 \\
+Linhas da cache & 32 & 32 & 32 \\
+Mapeamento & Direto & Por conjunto & Por conjunto \\
+Vias por conjunto & 1 & 2 & 2 \\
+Política de substituição & Não se aplica & LRU & LRU \\
+\bottomrule
+\end{tabular}
+\par\footnotesize Fonte: ficha de parâmetros enviada para a avaliação em 28 out. 2026. Campos transcritos sem dados pessoais.
+\end{table}
+
+A sequência de endereços explicitamente registrada como comum às fichas A e B é \texttt{0, 1, 512, 0, 1024, 512, 0, 1}. Não foi especificada uma sequência própria para C no material recuperado. Essa ficha de oito acessos é distinta do exemplo de 21 acessos usado para capturar o manual da versão posterior (Apêndice~\ref{ap:manual-visual}); não se devem misturar os dois cenários.
+
+\textbf{Entrevista após o uso}
+\begin{enumerate}
+\item O que mais ajudou ou dificultou usar o Memora e acompanhar o que acontecia nos acessos?
+\item Depois de mudar o mapeamento, o que você conseguiu perceber na organização da cache ou no histórico? A interface ajudou ou dificultou comparar as duas execuções?
+\item Como a tela mostrou o efeito de aumentar a quantidade de células da memória principal? A apresentação ajudou ou dificultou perceber a relação com a divisão do endereço?
+\item O que você mudaria primeiro no Memora? Por quê? Para quem já usou o Beto e se lembrava dele, o roteiro acrescentou: comparado ao que você lembra do Beto, o que ficou mais fácil, mais difícil ou igual? Há algo de lá que gostaria de manter?
+\end{enumerate}
+
+\textbf{Avaliação rápida}
+
+A escala previa C (atende completamente), P (atende parcialmente), N (não atende) e X (não conseguiu avaliar). Somente P01 possui códigos registrados; comentários de P02/P03 permanecem SR.
+
+\begin{enumerate}
+\item[\textbf{C1.}] Facilidade para começar e utilizar os controles.
+\item[\textbf{C2.}] Clareza e organização das informações na tela.
+\item[\textbf{C3.}] Apoio para visualizar efeitos dos mapeamentos e parâmetros.
+\item[\textbf{C4.}] Satisfação com a experiência de uso.
+\end{enumerate}
+
+
+
+\apendicemanual{Protótipos e capturas complementares}{ap:capturas-complementares}
+Os protótipos do Figma não representam o software funcional. A captura do PR~71 registra uma versão intermediária; as saídas das ferramentas externas aqui foram produzidas pelo autor.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/figma-configurar.png}
+\caption{Figma v2: protótipo Configurar, não versão funcional.}
+\label{fig:figma-configurar}
+\par\footnotesize Fonte: elaboração própria, exportação do nó 311:14 do Figma em 3 nov. 2026.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/figma-analisar.png}
+\caption{Figma v2: protótipo Analisar, antes da integração com Simular.}
+\label{fig:figma-analisar}
+\par\footnotesize Fonte: elaboração própria, exportação do nó 311:6473 do Figma em 3 nov. 2026.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/memora-revisao.png}
+\caption{Versão intermediária do PR~71: revisão antes do novo comando Analisar.}
+\label{fig:memora-revisao-historica}
+\par\footnotesize Fonte: captura do Memora, versão do PR~71 (commit \texttt{be06c3c}, 3 nov. 2026), em cenário LRU reproduzível.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/paracache.png}
+\caption{ParaCache: captura própria de ferramenta externa.}
+\label{fig:rel-paracache}
+\par\footnotesize Fonte: captura própria da versão web do ParaCache \cite{paracacheweb2026}.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/dinero.png}
+\caption{Dinero IV: saída gerada durante a investigação.}
+\label{fig:rel-dinero}
+\par\footnotesize Fonte: trecho da saída de execução própria, com seis referências de leitura e cache direta de 16 bytes \cite{dineroiv2026}.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/mips.png}
+\caption{Cache Simulator para MIPS: saída gerada durante a investigação.}
+\label{fig:rel-mips}
+\par\footnotesize Fonte: saída de execução própria do Cache Simulator 2.0.2, com seis acessos e cache de oito palavras \cite{cacheSimulatorEvans2025}.
+\end{figure}
+
+\apendicemanual{Manual visual do Memora atualizado}{ap:manual-visual}
+Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, posteriores às entrevistas. O arquivo \texttt{packages/memora/src/assets/manual/metadata.json} identifica a revisão \texttt{3fede5c} e o cenário.
+
+\subsection*{Configurar, passos 1--5}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/configurar.png}
+\caption{Manual de Configurar: passos 1--5.}
+\label{fig:manual-configurar}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+\begin{enumerate}
+\item Carregar exemplo didático.
+\item Conferir memória, cache e ajuda dos campos.
+\item Escolher mapeamento por conjunto, duas vias e LRU.
+\item Editar endereços e conferir a prévia da divisão.
+\item Iniciar simulação.
+\end{enumerate}
+
+\clearpage
+\subsection*{Simular, passos 1--6}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/simular.png}
+\caption{Manual de Simular: passos 1--6.}
+\label{fig:manual-simular}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+\begin{enumerate}
+\item Iniciar, pausar e continuar.
+\item Avançar, ir ao final ou reiniciar.
+\item Ativar etapas detalhadas.
+\item Regular a velocidade.
+\item Examinar o estado da cache e LRU.
+\item Selecionar Analisar abaixo de Nº N no histórico.
+\end{enumerate}
+
+\clearpage
+\subsection*{Analisar, passos 7--9}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/comparacao.png}
+\caption{Manual: comparação do acesso 20, passos 7--9.}
+\label{fig:manual-comparacao}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+\begin{enumerate}
+\item Selecionar Analisar no acesso 20.
+\item Comparar a saída do bloco 992--1007 com a entrada do bloco 3040--3055.
+\item Voltar ao estado atual sem alterar contadores.
+\end{enumerate}
+
+\clearpage
+\subsection*{Conclusão, passo 10}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/conclusao.png}
+\caption{Manual: conclusão 21/21, passo 10.}
+\label{fig:manual-conclusao}
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\end{figure}
+O histórico e os totais permanecem disponíveis após o progresso chegar a 21/21.
+
+
+\clearpage
+\setcounter{section}{0}
+\anexomanual{Imagens reproduzidas de documentação externa}{an:imagens-documentacao}
+As imagens pertencem à documentação de Ripes e SMPCache. Suas fontes originais foram preservadas nas legendas.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.83\linewidth,height=0.39\textheight,keepaspectratio]{figuras/ripes.png}
+\caption{Ripes: imagem reproduzida da documentação oficial.}
+\label{fig:rel-ripes}
+\par\footnotesize Fonte: documentação oficial do Ripes \cite{ripescache2026}.
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.83\linewidth,height=0.39\textheight,keepaspectratio]{figuras/smp-cache-000.png}
+\caption{SMPCache: imagem reproduzida do manual oficial.}
+\label{fig:rel-smp}
+\par\footnotesize Fonte: \textit{Getting Started with SMPCache 2.0}, Figura 17 \cite{smpcacheManual2026}.
+\end{figure}
 
 \end{document}
