@@ -80,7 +80,6 @@
 .simulation-empty p { margin-top: 12px; }
 .simulation-history { display: flex; flex-direction: column; min-height: 0; }
 .history-scroll { height: 340px; min-height: 150px; flex: 1; margin-top: 10px; }
-.history-scroll { max-height: clamp(240px, calc(100dvh - 420px), 650px); }
 #history-table { min-width: 360px; }
 #history-table th:nth-child(1) { width: 82px; }
 #history-table th:nth-child(2) { width: 14%; }
@@ -94,7 +93,7 @@
 .history-access-number { display: block; margin-bottom: 3px; font-weight: 600; text-align: center; }
 .review-access { min-height: 28px; width: 100%; padding: 4px 6px; font-size: 11px; white-space: nowrap; box-shadow: 0 2px 4px rgb(43 29 70 / 22%); }
 .pending-row td { background: var(--memora-info-background); }
-.history-summary { margin-top: 12px; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
+.history-summary { margin-top: 12px; flex-shrink: 0; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
 .history-summary h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
 #show-live { min-height: 28px; padding: 5px 12px; font-size: 12px; }
 .sheet-glossary { margin-top: 24px; width: 100%; }
@@ -138,7 +137,7 @@
   .simulation-cache { min-height: 280px; }
   .cache-scroll { flex: 0 0 auto; height: 200px; }
   .simulation-history { min-height: 480px; }
-  .history-scroll { flex: 0 0 auto; height: 280px; }
+  .history-scroll { flex: 1 0 280px; }
   .simulation-metrics { gap: 8px; }
   .simulation-metrics > div { padding-inline: 8px; }
 }
