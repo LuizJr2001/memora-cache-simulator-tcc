@@ -1,4 +1,5 @@
 import { HELP_CONTENT } from './help-content.js';
+import { MANUAL_PAGES } from './manual-content.js';
 
 export function createSideSheet(document) {
   const dialog = document.getElementById('side-sheet');
@@ -16,6 +17,7 @@ export function createSideSheet(document) {
     title.textContent = name;
     close.setAttribute('aria-label', `Fechar: ${name}`);
     dialog.classList.toggle('wide', wide);
+    dialog.classList.toggle('manual', name === 'Manual do Memora');
     content.replaceChildren();
     build(content);
     content.scrollTop = 0;
@@ -124,10 +126,81 @@ export function createSideSheet(document) {
     }, ['how', 'glossary', 'quick'].includes(key));
   }
 
+
+  function showManual(screen = 'configure') {
+    const current = screen === 'simulate' ? 'simulate' : 'configure';
+    const page = MANUAL_PAGES[current];
+    open('Manual do Memora', parent => {
+      const intro = document.createElement('p');
+      intro.className = 'manual-intro';
+      intro.textContent = 'Siga as capturas numeradas ou leia os passos na ordem. O manual não altera sua simulação.';
+      parent.append(intro);
+      const nav = document.createElement('nav');
+      nav.className = 'manual-nav';
+      nav.setAttribute('aria-label', 'Seções do manual');
+      for (const [key, label] of [['configure', 'Configurar'], ['simulate', 'Simular']]) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.manualTab = key;
+        button.setAttribute('aria-pressed', String(key === current));
+        button.textContent = label;
+        nav.append(button);
+      }
+      parent.append(nav);
+      const h = document.createElement('h3');
+      h.className = 'manual-title';
+      h.textContent = page.title;
+      parent.append(h);
+      paragraphs(parent, page.introduction);
+      for (const frame of page.frames) {
+        const section = document.createElement('section');
+        section.className = 'manual-frame';
+        const figure = document.createElement('figure');
+        const link = document.createElement('a');
+        link.href = frame.image;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', 'Abrir captura ampliada em nova aba: ' + frame.alt);
+        const img = document.createElement('img');
+        img.src = frame.image;
+        img.alt = frame.alt;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        link.append(img);
+        const caption = document.createElement('figcaption');
+        caption.textContent = frame.caption + ' Selecione a imagem para ampliar.';
+        figure.append(link, caption);
+        section.append(figure);
+        const steps = document.createElement('ol');
+        steps.className = 'manual-steps';
+        steps.start = frame.start ?? 1;
+        for (const [heading, explanation] of frame.steps) {
+          const li = document.createElement('li');
+          const strong = document.createElement('strong');
+          strong.textContent = heading;
+          const p = document.createElement('p');
+          p.textContent = explanation;
+          li.append(strong, p);
+          steps.append(li);
+        }
+        section.append(steps);
+        parent.append(section);
+      }
+      const note = document.createElement('p');
+      note.className = 'manual-footnote';
+      note.textContent = 'Capturas de cenário didático, geradas com Chromium na versão desta interface. Os marcadores são complementados por instruções em texto; Glossário e Ajuda rápida continuam disponíveis na barra superior.';
+      parent.append(note);
+    }, true);
+  }
+
   close.addEventListener('click', () => dialog.close());
   document.addEventListener('click', event => {
     const button = event.target.closest?.('button[data-help]');
     if (button && !button.disabled) showHelp(button.dataset.help);
+    const manual = event.target.closest?.('button[data-manual]');
+    if (manual && !manual.disabled) showManual(document.getElementById('simulation-screen').hidden ? 'configure' : 'simulate');
+    const section = event.target.closest?.('button[data-manual-tab]');
+    if (section && !section.disabled) { showManual(section.dataset.manualTab); section.closest('dialog')?.querySelector(`[data-manual-tab="${section.dataset.manualTab}"]`)?.focus(); }
   });
   // Escape usa o evento cancel nativo do dialog; a restauração é comum a todas as saídas
   dialog.addEventListener('close', () => {
@@ -149,5 +222,5 @@ export function createSideSheet(document) {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
 
-  return { open, showHelp, close: () => dialog.close() };
+  return { open, showHelp, showManual, close: () => dialog.close() };
 }
