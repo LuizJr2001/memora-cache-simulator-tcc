@@ -200,7 +200,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
       const tr = element('tr', undefined, `history-row ${access.result === 'hit' ? 'hit-row' : 'miss-row'}${access.number === state.selected ? ' selected-access' : ''}`);
       tr.dataset.access = access.number;
       const first = element('td'), button = element('button', 'Revisar', 'review-access');
-      first.append(element('span', String(access.number), 'history-access-number'));
+      first.append(element('span', `Nº ${access.number}`, 'history-access-number'));
       button.type = 'button'; button.dataset.review = access.number; button.setAttribute('aria-label', `Revisar acesso ${access.number}`);
       button.setAttribute('aria-controls', 'access-comparison');
       button.setAttribute('aria-pressed', String(access.number === state.selected)); first.append(button); tr.append(first);
