@@ -123,6 +123,7 @@
   main.is-simulating { height: calc(100dvh - 52px); min-height: 0; }
 }
 @media (min-width: 801px) and (max-width: 1100px) {
+  .history-scroll { max-height: clamp(240px, calc(100dvh - 420px), 650px); }
   .simulation-grid { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 16px; }
   .simulation-metrics { gap: 6px; }
   .simulation-metrics > div { padding-inline: 6px; }
