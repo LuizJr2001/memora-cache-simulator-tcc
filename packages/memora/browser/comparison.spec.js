@@ -80,6 +80,8 @@ test('comparação e navegação possuem destaque consistente com Analisar e est
   await expect(next).toHaveCSS('box-shadow', 'none');
   await expect(next).toHaveCSS('opacity', '1');
 
+  // A marcação :focus-visible ocorre ao navegar pelo teclado, não ao focar por script.
+  await page.keyboard.press('Tab');
   await previous.focus();
   await expect(previous).toBeFocused();
   await expect(previous).toHaveCSS('outline-style', 'solid');
