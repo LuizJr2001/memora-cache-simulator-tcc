@@ -8,7 +8,7 @@ def main():
     base = Path(__file__).resolve().parent
     source = base / "artigo"
     output = base / "tcc-atual.zip"
-    extensions = {".tex", ".bib", ".md", ".txt", ".png", ".jpg", ".jpeg", ".svg"}
+    extensions = {".tex", ".bib", ".md", ".txt", ".png", ".jpg", ".jpeg", ".svg", ".sty", ".bst", ".csv", ".py"}
     files = [
         path
         for path in sorted(source.rglob("*"))
