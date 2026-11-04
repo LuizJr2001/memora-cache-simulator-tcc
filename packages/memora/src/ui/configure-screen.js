@@ -122,7 +122,7 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
       setText(`${part}-label`, !l ? `${label} indisponível` : width === 0 ? `Sem bits de ${label.toLowerCase()}` : `${label} · ${bits(width)}`);
     }
     setText('preview-address', preview ? `Decomposição binária do primeiro endereço da sequência: ${preview.address}` : 'Os bits são calculados com os parâmetros válidos; os valores aparecem após informar endereços válidos');
-    byId('note-ring').src = './src/assets/information-ring.svg';
+    byId('note-ring').src = new URL('../assets/information-ring.svg', import.meta.url).href;
     setText('note-symbol', 'i');
     byId('note-symbol').classList.remove('error-text');
     setText('note-text', 'As interrogações abrem ajuda contextual sem tirar você desta etapa');
