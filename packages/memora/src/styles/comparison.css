@@ -58,6 +58,12 @@
   border-color: #d2cbdc;
   box-shadow: none;
 }
+/* Reforça o foco para o cabeçalho e os botões de navegação via teclado. */
+.cache-comparison > summary:focus-visible,
+.comparison-navigation button:focus-visible {
+  outline: 3px solid var(--memora-current-set-accent);
+  outline-offset: 2px;
+}
 @media (prefers-reduced-motion: reduce) {
   .cache-comparison > summary,
   .comparison-navigation button { transition: none; }
