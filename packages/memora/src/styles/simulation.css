@@ -91,8 +91,8 @@
 .history-row.hit-row .access-result { color: var(--memora-hit-text); font-weight: 600; }
 .history-row.miss-row .access-result { color: var(--memora-miss-text); font-weight: 600; }
 .history-row.selected-access td { border-block-color: var(--memora-current-set-accent); }
-.history-access-number { display: block; margin-bottom: 3px; font-weight: 600; }
-.review-access { min-height: 28px; width: 100%; padding: 4px 6px; font-size: 11px; white-space: nowrap; }
+.history-access-number { display: block; margin-bottom: 3px; font-weight: 600; text-align: center; }
+.review-access { min-height: 28px; width: 100%; padding: 4px 6px; font-size: 11px; white-space: nowrap; box-shadow: 0 2px 4px rgb(43 29 70 / 22%); }
 .pending-row td { background: var(--memora-info-background); }
 .history-summary { margin-top: 12px; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
 .history-summary h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
