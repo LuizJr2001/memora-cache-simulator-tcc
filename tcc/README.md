@@ -1,3 +1,7 @@
+# Revisão atual — 04/11/2026
+
+O artigo usa agora SBC de uma coluna; a V1 e as entrevistas P01–P03 foram reconciliadas. Consulte [artigo/README.md](artigo/README.md) e [decisão do template](artigo/TEMPLATE.md). Os registros abaixo são históricos e não definem o estado editorial atual.
+
 # Artigo do TCC — Memora
 
 Consolidação: **23/10/2026**, com implementação até o PR #62. O artigo mantém

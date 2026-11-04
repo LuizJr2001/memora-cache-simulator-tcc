@@ -56,3 +56,17 @@ mas não demonstram descoberta autônoma ou melhoria de usabilidade.
   Não atualizar as fichas originais para representar a interface modificada.
 
 Rastreabilidade: avaliação #64; implementação #67–#69; verificação posterior #70.
+
+## Apuração editorial — 04/11/2026 (#81)
+
+As fichas P01 (revisada), P02 e P03 foram conferidas para a revisão do artigo.
+A [matriz anonimizada](../../tcc/artigo/dados/avaliacao-rapida.csv) registra C
+nos quatro critérios apenas para P01 e SR (sem código registrado) para P02/P03.
+Por critério, C=1/3 (33,3%) e SR=2/3 (66,7%); P, N e X têm zero registros.
+As respostas qualitativas não foram convertidas em C. SR é diferente de X.
+
+O [registro editorial](../../tcc/artigo/TEMPLATE.md) documenta a codificação por
+pergunta, as fontes das falas e a ausência de versão/ambiente nas sessões.
+O artigo preserva a rodada original; não atribui a ela um commit presumido nem
+considera as alterações do PR #71 uma validação com participantes. O PR #71 já
+foi integrado; a reobservação com usuários permanece vinculada à #70.
