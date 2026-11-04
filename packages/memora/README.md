@@ -8,7 +8,7 @@ Iniciar simulação prepara uma entrada válida e abre a **Tela 2 — Simular**,
 estado inicial, sem executar acessos automaticamente. A Tela 2 implementa os
 três mapeamentos, FIFO/LRU/Random, controles, microetapas, histórico, revisão por
 snapshot e Decimal/Binário. A comparação antes/depois fica no cartão Memória
-cache e abre diretamente ao usar Revisar no histórico.
+cache e abre diretamente ao usar Analisar no histórico.
 O fluxo atual tem somente Configurar e Simular; a antiga Tela 3 foi integrada
 sem repetir a decomposição do endereço e o passo a passo.
 
@@ -165,7 +165,7 @@ a execução e preserva o estado; qualquer edição invalida a simulação anter
 exigindo nova preparação. As abas ativas funcionam por clique, setas, Home e End.
 Antes da preparação, Simular mantém Configurar e mostra um aviso vermelho de pendência.
 A comparação aparece após o primeiro acesso concluído e fica recolhida durante
-a execução normal. Revisar no histórico abre o antes/depois automaticamente.
+a execução normal. Analisar no histórico abre o antes/depois automaticamente.
 
 Iniciar/Continuar alterna com Pausar, que preserva o ponto atual; Reiniciar
 zera cache, histórico e contadores. Etapas detalhadas marcada avança uma das
@@ -175,7 +175,7 @@ pendente. Ir ao final conclui os restantes. A velocidade começa em 5 e varia de
 acessos/segundo no rótulo conforme o modo.
 Abrir ajuda ou revisar um acesso pausa a execução.
 
-Cada acesso tem um botão textual Revisar, abaixo de seu número. Ele abre os
+Cada acesso tem um botão textual Analisar, abaixo de seu número. Ele abre os
 snapshots antes/depois e destaca os blocos que saem e entram quando há substituição.
 Os contadores permanecem os da execução atual, identificada no subtítulo.
 Voltar ao estado atual recolhe a comparação sem reprocessar acessos.
@@ -203,7 +203,7 @@ O passo a passo e a decomposição continuam nos componentes existentes de Simul
 **Acesso anterior** e **Acesso seguinte** selecionam apenas registros já concluídos,
 sincronizando cache, histórico e comparação. O último registro desabilita Acesso
 seguinte mesmo que a simulação esteja incompleta. Não há execução por esses controles.
-Abrir a comparação pausa a reprodução; retomá-la recolhe a comparação. Revisar não
+Abrir a comparação pausa a reprodução; retomá-la recolhe a comparação. Analisar não
 altera contadores nem perde uma microetapa pendente. Reiniciar ou editar a configuração
 limpa os dados antigos. Decimal/Binário usa o seletor global de Simular.
 

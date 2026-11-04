@@ -72,7 +72,7 @@ test('navegação compara só acessos realizados e sincroniza histórico, sem ex
   await expect(page.locator('#comparison-next')).toBeDisabled();
   await page.locator('#comparison-previous').click();
   await expect(page.locator('#analysis-event-title')).toContainText('Acesso 1 de 21');
-  await expect(page.getByRole('button', {name:'Revisar acesso 1',exact:true})).toHaveAttribute('aria-pressed','true');
+  await expect(page.getByRole('button', {name:'Analisar acesso 1',exact:true})).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('#comparison-previous')).toBeDisabled();
   await page.locator('#comparison-next').click();
   await expect(page.locator('#analysis-event-title')).toContainText('Acesso 2 de 21');
@@ -88,7 +88,7 @@ test('seleção de várias substituições e Decimal/Binário usam o mesmo acess
   await page.locator('#replacement').selectOption('LRU');
   await page.locator('#sequence').fill('0, 16, 32, 48, 0, 64, 16, 80, 32, 96, 48, 112, 64, 128, 80, 144');
   await page.locator('#prepare-input').click(); await page.locator('#sim-finish').click();
-  await page.getByRole('button', {name:'Revisar acesso 6',exact:true}).click();
+  await page.getByRole('button', {name:'Analisar acesso 6',exact:true}).click();
   await open(page);
   await expect(page.locator('#analysis-out')).toContainText('32–47');
   await expect(page.locator('#analysis-in')).toContainText('64–79');
@@ -156,10 +156,10 @@ test('comparação é operável por teclado e mantém ajuda e foco', async ({pag
   await expect(page.locator('#cache-scroll')).toBeVisible();
 });
 
-test('Revisar é uma ação visível que abre diretamente o antes/depois e mantém o foco', async ({page}) => {
+test('Analisar é uma ação visível que abre diretamente o antes/depois e mantém o foco', async ({page}) => {
   await prepare(page, 20);
-  const review = page.getByRole('button', { name: 'Revisar acesso 20', exact: true });
-  await expect(review).toHaveText('Revisar');
+  const review = page.getByRole('button', { name: 'Analisar acesso 20', exact: true });
+  await expect(review).toHaveText('Analisar');
   await expect(page.locator('#history-table tr[data-access="20"] .history-access-number')).toHaveText('Nº 20');
   await review.focus();
   await page.keyboard.press('Enter');
