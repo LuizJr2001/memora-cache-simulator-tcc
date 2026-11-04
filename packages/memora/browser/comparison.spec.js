@@ -67,6 +67,26 @@ test('comparação LRU conserva antes/depois, vítima e recência sem repetir o 
   await capture(page, 'comparacao-lru');
 });
 
+test('comparação e navegação possuem destaque consistente com Analisar e estados acessíveis', async ({page}) => {
+  await prepare(page, 2);
+  await open(page);
+  const summary = page.locator('#access-comparison summary');
+  const previous = page.locator('#comparison-previous');
+  const next = page.locator('#comparison-next');
+
+  await expect(summary).not.toHaveCSS('box-shadow', 'none');
+  await expect(previous).not.toHaveCSS('box-shadow', 'none');
+  await expect(next).toBeDisabled();
+  await expect(next).toHaveCSS('box-shadow', 'none');
+  await expect(next).toHaveCSS('opacity', '1');
+
+  // A marcação :focus-visible ocorre ao navegar pelo teclado, não ao focar por script.
+  await page.keyboard.press('Tab');
+  await previous.focus();
+  await expect(previous).toBeFocused();
+  await expect(previous).toHaveCSS('outline-style', 'solid');
+});
+
 test('navegação compara só acessos realizados e sincroniza histórico, sem executar o seguinte', async ({page}) => {
   await prepare(page, 2); await open(page);
   await expect(page.locator('#comparison-next')).toBeDisabled();
