@@ -1,3 +1,9 @@
+# Artigo Memora — revisão SBC baseada no modelo acadêmico de André
+
+**Esta versão preserva o template SBC oficial de uma coluna.** A revisão de conteúdo reorganiza fundamentação, metodologia, resultados do levantamento, desenvolvimento e avaliação para seguir um percurso acadêmico semelhante ao estudo de André Guilherme de Almeida Macedo (MedSimples), mantendo o tema, os dados e as contribuições do Memora.
+
+Veja [REVISAO-EDITORIAL.md](REVISAO-EDITORIAL.md) para o registro das mudanças. O projeto pode ser compilado no Overleaf com pdfLaTeX/BibTeX.
+
 # Artigo Memora — SBC (#84)
 
 Fechamento #84 sobre a revisão #78–#81 de 04/11/2026 e as capturas do PR #87. As figuras principais do Memora atual ficam no corpo, os instrumentos nos Apêndices A/B, os protótipos e capturas complementares no C, o manual visual no D e as reproduções documentais no Anexo A. A V1 foi reconciliada com o repositório; este diretório é a fonte única do artigo. Consulte [TEMPLATE.md](TEMPLATE.md) para decisão do modelo, fontes, origem do código e limites das entrevistas.

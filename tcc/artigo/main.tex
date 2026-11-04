@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english,brazil]{babel}
-\usepackage{graphicx,microtype,needspace,xurl,booktabs,array,longtable,pdflscape,ragged2e,enumitem}
+\usepackage{graphicx,microtype,needspace,xurl,booktabs,array,longtable,pdflscape,ragged2e,enumitem,float}
 \usepackage[table]{xcolor}
 \usepackage{hyperref}
 \newcommand{\citeonline}{\cite}
@@ -25,10 +25,10 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-This work improves the usability of Beto through Memora, developed from its code base. The method combines a 13-response requirements survey, prototyping, incremental implementation and exploratory sessions with three students. The interface emphasizes validation, cache state and access history. Two participants needed guidance to discover history review. The findings informed interface changes that still require user evaluation; they do not establish superiority over Beto or learning gains.
+This work improves the usability of Beto through Memora, developed from its code base. The method combines technical comparison, a 13-response requirements survey, prototyping, incremental implementation and exploratory sessions with three students. The interface emphasizes validation, cache state and access history. Two participants needed guidance to discover history review. The findings informed interface changes that still require user evaluation; they do not establish superiority over Beto or learning gains.
 \end{abstract}
 \begin{resumo}
-Este trabalho aprimora a usabilidade do Beto por meio do Memora, desenvolvido a partir de seu código-base. O método combina levantamento com 13 respostas, prototipação, implementação incremental e sessões exploratórias com três estudantes. A interface enfatiza validação, estado da cache e histórico de acessos. Dois participantes precisaram de indicação para descobrir a revisão do histórico. Os achados orientaram ajustes que ainda exigem avaliação com usuários; não demonstram superioridade sobre o Beto ou ganho de aprendizagem.
+Este trabalho aprimora a usabilidade do Beto por meio do Memora, desenvolvido a partir de seu código-base. A metodologia combina comparação técnica, levantamento com 13 respostas, prototipação, implementação incremental e avaliação exploratória com três estudantes. A interface enfatiza validação, estado da cache e histórico de acessos. Dois participantes precisaram de indicação para descobrir a revisão do histórico. Os achados orientaram ajustes que ainda exigem avaliação com usuários; não demonstram superioridade sobre o Beto ou ganho de aprendizagem.
 \end{resumo}
 
 \section{Introdução}
@@ -41,10 +41,13 @@ Entretanto, o próprio repositório indica que o simulador ainda possui limitaç
 
 O código-base do Beto serviu como ponto de partida para o desenvolvimento do Memora, nome adotado em setembro de 2026. A evolução preserva a atribuição aos autores e a licença MIT (Seção~\ref{sec:implementacao-memora}). O artigo apresenta o diagnóstico, a implementação e os resultados das sessões com três estudantes, incluindo as decisões de interface derivadas da observação.
 
-\section{Visão geral teórica: memória cache em AOC}
+De modo específico, este estudo busca: (i) caracterizar recursos e limitações do Beto e de simuladores relacionados; (ii) identificar necessidades por meio de levantamento com estudantes; (iii) implementar uma interface de configuração, execução e revisão mais explícita; e (iv) investigar exploratoriamente a experiência de uso do Memora. Seguindo a organização de artigos de desenvolvimento e avaliação de software educacional, apresentam-se fundamentação, ferramentas relacionadas, metodologia, resultados do levantamento, implementação, avaliação, discussão e conclusões. Os instrumentos e registros visuais complementares permanecem nos apêndices.
+
+
+\section{Fundamentação teórica}
 \label{sec:visao-geral-cache}
 
-Esta seção apresenta a base conceitual necessária para compreender as funcionalidades analisadas ao longo do trabalho e as melhorias propostas para o simulador Beto. O foco está nos conceitos de memória cache em Arquitetura e Organização de Computadores (AOC), especialmente aqueles que aparecem nas tabelas comparativas e na definição das lacunas da ferramenta.
+Esta seção reúne os fundamentos de memória cache em Arquitetura e Organização de Computadores (AOC) e os princípios de Interação Humano-Computador (IHC) utilizados no diagnóstico e no aprimoramento da ferramenta. A abordagem técnica esclarece as operações simuladas, enquanto os fundamentos de qualidade de uso orientam a análise da interface.
 
 \subsection{Hierarquia de memória e localidade}
 
@@ -90,27 +93,28 @@ O bit de validade indica se uma linha contém um bloco válido. No Memora, ele �
 
 Acertos, faltas e taxa de acerto descrevem a sequência simulada, e não o desempenho de hardware real nem a aprendizagem. O Beto já exibe esses resultados. O Memora reorganiza sua apresentação e permite revisar estados antes/depois de cada acesso. Contagens de escritas e \textit{writebacks} e gráficos temporais, documentados no Ripes \cite{ripescache2026}, pertencem ao escopo daquela ferramenta; as extensões consideradas para o Memora estão na Seção~\ref{sec:futuros}.
 
-\section{Levantamento bibliográfico}
+\subsection{Software educacional e interação humano-computador}
 
-\subsection{Software educacional e qualidade de uso}
+\subsubsection{Software educacional e qualidade de uso}
 
 A literatura sobre software educacional mostra que a avaliação de artefatos digitais destinados ao ensino não pode ser reduzida à verificação de conteúdo. \citeonline{godoi2009avaliacao} defendem que a avaliação de materiais didáticos digitais deve ser centrada no usuário e considerar usabilidade, instrumentos de avaliação e o contexto de uso por professores. Nessa perspectiva, um software educacional eficaz não é apenas aquele que apresenta conteúdo correto, mas aquele que favorece compreensão, navegação, interpretação das informações e uso compatível com o contexto pedagógico.
 
 Essa compreensão é coerente com estudos que combinam critérios técnicos e pedagógicos. \citeonline{araujo2017protocolo} propõem um protocolo de avaliação de softwares pedagógicos que aproxima dimensões didático-pedagógicas e ergonômicas. Esse ponto é importante para o Beto porque seu aprimoramento deve considerar a corretude da simulação, mas também aspectos como inteligibilidade da interface, previsibilidade das ações, mensagens de erro, feedback e apoio à aprendizagem.
 
-\subsection{Simuladores de cache para apoio ao ensino}
+\subsubsection{Simuladores de cache para apoio ao ensino}
 
 No campo dos simuladores de cache, \citeonline{brais2020survey} apresentam um panorama amplo de ferramentas utilizadas para representar e analisar o comportamento de caches. Embora muitos simuladores tenham foco técnico e não necessariamente educacional, o estudo ajuda a situar a simulação como uma estratégia consolidada para compreender arquiteturas de memória.
 
 Quando o foco é educacional, a visualização e a interação assumem papel central. \citeonline{gabriel2022beto} apresentam o Beto como um simulador web, em português, voltado à visualização interativa e animada de acessos à memória cache. Ferramentas testáveis como ParaCache e Ripes também reforçam a relevância de interfaces que explicitem parâmetros, estados internos da cache e resultados de cada acesso, permitindo que o estudante acompanhe a simulação de modo mais concreto \cite{paracacheweb2026,ripescache2026}.
 
-\subsection{IHC, usabilidade e experiência do usuário}
+\subsubsection{IHC, usabilidade e experiência do usuário}
 
 A área de Interação Humano-Computador fornece fundamentos para transformar um simulador funcional em uma ferramenta educacional mais compreensível. \citeonline{barbosa2010ihc} apresentam a IHC como um campo voltado ao projeto, à implementação e à avaliação de sistemas interativos. Do ponto de vista deste TCC, o Beto deve ser analisado como um sistema que comunica conceitos de AOC por meio de sua interface.
 
 A usabilidade também é um elemento central. \citeonline{nielsen1993usability} discute atributos como facilidade de aprendizagem, eficiência, memorização, prevenção de erros e satisfação. A experiência do usuário amplia essa visão ao considerar percepções, emoções e respostas do usuário antes, durante e depois do uso \cite{hassenzahl2013ux,norman1998definition}. Assim, a avaliação do Beto deve observar não apenas se o simulador calcula corretamente, mas se o estudante entende o que está acontecendo, consegue corrigir erros, interpreta o efeito das configurações e percebe valor didático na ferramenta.
 
-\section{Critérios de seleção dos trabalhos relacionados}
+\section{Trabalhos relacionados}
+\subsection{Critérios de seleção}
 
 A seleção dos trabalhos relacionados foi orientada pelas observações levantadas em reunião de orientação. Nesta versão, foram mantidas apenas ferramentas gratuitas e testáveis nesta etapa do projeto. Sempre que possível, também foram priorizadas ferramentas de código aberto, pois isso facilita a inspeção da implementação e a identificação de ideias que possam ser adaptadas ao Beto. Entretanto, ferramentas não abertas também foram mantidas quando são gratuitas, testáveis e oferecem funcionalidades relevantes para a comparação técnica.
 
@@ -127,9 +131,9 @@ Foram considerados os seguintes critérios:
 
 Esta seção apresenta o objetivo, as contribuições e as limitações das ferramentas analisadas, finalizando com o diferencial do TCC em relação às iniciativas comparadas.
 
-\section{Trabalhos relacionados}
+\subsection{Ferramentas analisadas}
 
-\subsection{Beto}
+\subsubsection{Beto}
 
 O Beto é o ponto de partida deste TCC. Ele foi desenvolvido como um simulador educacional de memória cache com visualizações interativas e animadas \cite{gabriel2022beto}. O simulador original\footnote{\url{https://simuladorcache.leandrogabriel.net/}} é acessível via navegador e seu repositório original\footnote{\url{https://github.com/leo150250/simuladorCache}} informa que a implementação utiliza HTML5, CSS3 e JavaScript \cite{leogithub2026}. Na interface pública, observa-se suporte a diferentes parâmetros de configuração, métodos de substituição FIFO, LRU e aleatório, mapeamento direto, totalmente associativo e associativo por conjunto, além de execução com controles como \textit{play}, \textit{pause}, \textit{stop} e \textit{step} \cite{betoweb2026}.
 
@@ -145,7 +149,7 @@ A Figura~\ref{fig:rel-beto} apresenta uma vista da interface da ferramenta.
 \par\footnotesize Fonte: captura histórica da interface pública, preservada no projeto \cite{betoweb2026}.
 \end{figure}
 
-\subsection{ParaCache}
+\subsubsection{ParaCache}
 
 O ParaCache é um simulador educacional web voltado a cache e memória virtual \cite{paramita2017paracache}. A ferramenta pública oferece módulos separados para cache com mapeamento direto, cache totalmente associativa, cache associativa por conjunto com duas vias, cache associativa por conjunto com quatro vias, análise de tipos de cache, memória virtual e base de conhecimento \cite{paracacheweb2026}. Em suas telas de simulação de cache, aparecem políticas de escrita como \textit{write-back}, \textit{write-through}, \textit{write on allocate} e \textit{write around}, além de operações de \textit{load} e \textit{store} \cite{paracacheweb2026}. Nas telas associativas, também são oferecidas políticas FIFO, LRU e aleatória.
 
@@ -155,7 +159,7 @@ A captura complementar está no Apêndice~\ref{ap:capturas-complementares} (Figu
 
 
 
-\subsection{Ripes}
+\subsubsection{Ripes}
 
 O Ripes é um simulador visual de arquitetura de computadores e editor de assembly para a ISA RISC-V, com uso educacional e código aberto sob licença MIT \cite{ripesgithub2026}. A documentação informa que, desde a versão 2.1.0, o Ripes inclui simulação de caches L1D e L1I, permitindo configurar o layout e o comportamento de cada cache \cite{ripescache2026}. Entre os parâmetros configuráveis estão associatividade, número de conjuntos, palavras por linha, políticas de escrita e políticas de substituição.
 
@@ -167,7 +171,7 @@ A imagem da documentação oficial está no Anexo~\ref{an:imagens-documentacao} 
 
 
 
-\subsection{SMPCache}
+\subsubsection{SMPCache}
 
 O SMPCache é um simulador baseado em rastros para análise e ensino de sistemas de memória cache em multiprocessadores simétricos com memória compartilhada. Seu manual indica que a ferramenta permite estudar localidade, número de processadores, protocolos de coerência, arbitragem de barramento, mapeamento, políticas de substituição, tamanho da cache, número de conjuntos e tamanho do bloco \cite{smpcacheManual2026}. A documentação também lista mapeamento direto, associativo por conjunto e totalmente associativo, políticas de substituição aleatória, LRU, FIFO e LFU, protocolos MSI, MESI e DRAGON e políticas de escrita \cite{smpcacheManual2026}.
 
@@ -177,7 +181,7 @@ A imagem do manual está no Anexo~\ref{an:imagens-documentacao} (Figura~\ref{fig
 
 
 
-\subsection{Dinero IV}
+\subsubsection{Dinero IV}
 
 O Dinero IV é um simulador de cache orientado por rastros de referência à memória. Sua documentação indica suporte à simulação de caches multiníveis, caches de instrução e dados diferentes, classificação de faltas compulsórias, de capacidade e de conflito, além de múltiplos formatos de entrada \cite{dineroiv2026}. A ferramenta é livre para uso não comercial e disponibiliza código-fonte e documentação para download \cite{dineroiv2026}.
 
@@ -187,7 +191,7 @@ Uma saída própria da análise está no Apêndice~\ref{ap:capturas-complementar
 
 
 
-\subsection{Cache Simulator para MIPS}
+\subsubsection{Cache Simulator para MIPS}
 
 O pacote \textit{Cache Simulator}, disponível em Python/PyPI, simula cache para a ISA MIPS e possui licença MIT \cite{cacheSimulatorEvans2025}. A documentação informa suporte aos três esquemas fundamentais de cache: mapeamento direto, associativo por conjunto e totalmente associativo. Também informa execução por linha de comando, apresentação de tabela ASCII com endereço, endereço binário, \textit{tag}, índice, deslocamento, resultado de acerto/falta e conteúdo final da cache, além de parâmetros para tamanho da cache, palavras por bloco, bits de endereço e política de substituição LRU ou MRU \cite{cacheSimulatorEvans2025}.
 
@@ -197,7 +201,7 @@ Uma saída própria da análise está no Apêndice~\ref{ap:capturas-complementar
 
 
 
-\subsection{QtMips}
+\subsubsection{QtMips}
 
 O QtMips é um simulador educacional de CPU MIPS, com visualizações de \textit{pipeline} e cache, disponibilizado em C++/Qt sob licença GPL-3.0 e com versão WebAssembly experimental \cite{qtmips2026}. Seu escopo é mais amplo que o de cache, mas oferece referência complementar para integrar execução de instruções e estado da memória.
 
@@ -231,7 +235,7 @@ QtMips & Código aberto, GPL-3.0 & C++/Qt; CPU MIPS, pipeline e cache & Integra�
 \end{landscape}
 
 \begin{landscape}
-\section{Tabela técnica de funcionalidades e lacunas do Beto}
+\subsection{Matriz de funcionalidades e lacunas do Beto}
 \label{sec:tabela-lacunas}
 
 A Tabela \ref{tab:matriz-funcionalidades} reorganiza a comparação técnica em formato de matriz, com as funcionalidades como colunas e as ferramentas como linhas. Essa organização facilita identificar quais recursos aparecem em outras ferramentas e podem orientar melhorias no Beto. O marcador \tem{} indica que a funcionalidade foi identificada na ferramenta; \parcial{} indica suporte parcial ou dependente de validação durante o teste; e \nao{} indica que a funcionalidade não foi identificada nesta etapa.
@@ -297,10 +301,33 @@ A matriz preserva a análise documental inicial dos simuladores relacionados, na
 
 \end{landscape}
 
-\section{Método e evidências do levantamento de requisitos}
+\section{Metodologia}
 \label{sec:metodo}
 
 O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A avaliação exploratória realizada com três estudantes é detalhada na Seção~\ref{sec:plano-avaliacao}. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação (Seção~\ref{sec:implementacao-memora}).
+
+O percurso foi organizado em seis etapas (Tabela~\ref{tab:etapas-metodo}). Como no estudo do MedSimples \cite{macedo2025medsimples}, separam-se a preparação da avaliação, sua execução com participantes e a análise dos registros. Essa aproximação é metodológica: o objetivo, a população e as tarefas do Memora são próprios deste trabalho. O estudo não incluiu experimento controlado de aprendizagem nem comparação simultânea entre Beto e Memora.
+
+\begin{table}[!htbp]
+\centering
+\caption{Etapas da metodologia adotada no desenvolvimento e na avaliação do Memora.}
+\label{tab:etapas-metodo}
+\small
+\begin{tabular}{@{}P{1.1cm}P{4.2cm}P{7.0cm}@{}}
+\toprule
+\textbf{Etapa} & \textbf{Procedimento} & \textbf{Evidências e produtos do estudo} \\
+\midrule
+1 & Estudo do Beto e caracterização de simuladores & Inspeção documental e comparação técnica dos recursos disponíveis. \\
+2 & Levantamento de requisitos & Questionário do Beto com 13 respostas anonimizadas; contagem descritiva de seleções. \\
+3 & Prototipação iterativa & Protótipo Figma v2 e ajustes de interação acompanhados pela orientação. \\
+4 & Implementação incremental & Código do Memora, decisões, \textit{issues}, \textit{pull requests} e registro de versões. \\
+5 & Verificação técnica & Testes de núcleo e interface e execução de cenários reproduzíveis. \\
+6 & Avaliação exploratória & Três sessões individuais com tarefas T1--T4, observação, entrevista e avaliação rápida. \\
+\bottomrule
+\end{tabular}
+\par\footnotesize Fonte: elaboração própria, com base nos instrumentos e no histórico de desenvolvimento.
+\end{table}
+
 
 \subsection{Coleta e tratamento do questionário}
 
@@ -308,7 +335,21 @@ O formulário de levantamento de requisitos do Beto ficou disponível de 20 de m
 
 A análise apresentada é descritiva: contabiliza respostas e seleções, sem inferência estatística para a população de estudantes. Nas perguntas de múltipla seleção, cada alternativa foi contada uma vez por resposta e o denominador foi 13; por isso, os percentuais não somam necessariamente 100\%. As manifestações abertas foram lidas como indícios de problemas, sem serem convertidas em frequência de um tema mediante codificação não documentada. O perfil reúne sete participantes com familiaridade avançada, cinco intermediária e um com familiaridade básica. Seis cursavam AOCII e LAOCII, seis eram ex-alunos de uma ou ambas e um cursava somente LAOCII.
 
-\subsection{Resultados descritivos}
+\subsection{Prototipação e acompanhamento de IHC}
+
+A elaboração inicial do protótipo foi concluída em 23 de setembro de 2026. A identidade Memora e a referência visual Simple Design System foram adotadas em 25 de setembro, preservando a atribuição ao Beto. Os refinamentos de outubro incluíram organização dos campos, tipografia Inter, linguagem das ajudas, validação localizada e redução de informação duplicada. A implementação prosseguiu em paralelo à consolidação do retorno da orientação.
+
+A inspeção heurística formal, com registro consolidado de problemas e severidades, permanece pendente. O modelo em \texttt{instrumentos/} apoia essa atividade; suas linhas de exemplo não são resultados de uma inspeção realizada. A revisão visual e os testes técnicos registrados no desenvolvimento não substituem esse procedimento, nem a avaliação com estudantes \cite{barbosaSlidesAvalHeuristica}.
+
+As Figuras~\ref{fig:figma-configurar} e~\ref{fig:figma-analisar}, reunidas no Apêndice~\ref{ap:capturas-complementares}, documentam protótipos do Figma, e não telas da versão funcional. A comparação foi integrada a Simular.
+
+\subsection{Preparação da avaliação com estudantes}
+
+O roteiro de avaliação foi organizado em caracterização inicial, execução orientada de T1--T4, observação durante o uso, entrevista pós-teste e uma avaliação rápida de quatro critérios. As tarefas e fichas de parâmetros preservadas são apresentadas no Apêndice~\ref{ap:roteiro-memora}. Os resultados são discutidos na Seção~\ref{sec:plano-avaliacao}. As sessões foram individuais e tiveram caráter exploratório, sem aplicação de pré-teste e pós-teste de conhecimento.
+
+\section{Resultados do levantamento de requisitos}
+\label{sec:resultados-levantamento}
+
 
 Os enunciados do questionário aplicado constam no Apêndice~\ref{ap:levantamento-beto}. A Tabela~\ref{tab:levantamento-resultados} reúne seleções relevantes para o escopo implementado e para as extensões adiadas. Os dados dizem respeito ao Beto utilizado no levantamento; não constituem uma avaliação da versão Memora desenvolvida posteriormente.
 
@@ -354,18 +395,6 @@ A Figura~\ref{fig:prioridades-beto} sintetiza as melhorias mais selecionadas no 
 \label{fig:prioridades-beto}
 \par\footnotesize Fonte: elaboração própria a partir das 13 respostas anonimizadas. Questão de múltipla seleção (base anonimizada produzida neste estudo).
 \end{figure}
-
-\subsection{Prototipação e acompanhamento de IHC}
-
-A elaboração inicial do protótipo foi concluída em 23 de setembro de 2026. A identidade Memora e a referência visual Simple Design System foram adotadas em 25 de setembro, preservando a atribuição ao Beto. Os refinamentos de outubro incluíram organização dos campos, tipografia Inter, linguagem das ajudas, validação localizada e redução de informação duplicada. A implementação prosseguiu em paralelo à consolidação do retorno da orientação.
-
-A inspeção heurística formal, com registro consolidado de problemas e severidades, permanece pendente. O modelo em \texttt{instrumentos/} apoia essa atividade; suas linhas de exemplo não são resultados de uma inspeção realizada. A revisão visual e os testes técnicos registrados no desenvolvimento não substituem esse procedimento, nem a avaliação com estudantes \cite{barbosaSlidesAvalHeuristica}.
-
-As Figuras~\ref{fig:figma-configurar} e~\ref{fig:figma-analisar}, reunidas no Apêndice~\ref{ap:capturas-complementares}, documentam protótipos do Figma, e não telas da versão funcional. A comparação foi integrada a Simular.
-
-
-
-
 
 \section{Implementação do Memora}
 \label{sec:implementacao-memora}
@@ -450,7 +479,8 @@ Qualidade de uso e aprendizagem & Três sessões exploratórias; inspeção form
 \bottomrule
 \end{longtable}
 
-\section{Verificação técnica e cenários reproduzíveis}
+\section{Avaliação e resultados do Memora}
+\subsection{Verificação técnica e cenários reproduzíveis}
 \label{sec:verificacao}
 
 A verificação combina testes do núcleo e dos controladores no Node, cenários de integração em Chromium e checagem de sintaxe e geração do site. No commit \texttt{be06c3c} do PR~71, foram aprovados 78 testes Node e 94 cenários Chromium. Os cenários incluem uso por teclado, preservação do estado ao revisar um acesso e comportamento em diferentes dimensões de tela.
@@ -473,14 +503,35 @@ O cenário das ajudas e dos testes de substituição mantém 4096 células, bloc
 
 O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 linhas ocupadas. No acesso 20, o endereço 3044 seleciona a tag 11, conjunto 14 e deslocamento 4; a via 1 troca 992--1007 por 3040--3055, enquanto a via 2 mantém 2016--2031. Esses resultados são verificações determinísticas da implementação, não medidas de desempenho real de hardware nem de aprendizagem.
 
-\section{Avaliação exploratória com estudantes}
+\subsection{Avaliação exploratória com estudantes}
 \label{sec:plano-avaliacao}
 
 O procedimento foi inspirado na avaliação do MedSimples de \citeonline{macedo2025medsimples}, que organiza a coleta em preparação, execução individual de tarefas, observação e avaliação posterior. O plano inicial previa tarefas equivalentes nas duas ferramentas. Nas três sessões documentadas nesta rodada, a execução observada ocorreu no Memora. O Beto foi abordado retrospectivamente por quem já o conhecia. As sessões avaliaram a interação com o simulador em tarefas de AOC.
 
-\subsection{Participantes, tarefas e registros}
+A preparação reuniu um roteiro com objetivos observáveis e fichas de configuração; a execução registrou a interação com os controles e os tempos das tarefas; a análise examinou anotações e respostas abertas, sem transformar comentários em códigos da escala que não foram assinalados. As intervenções do entrevistador e a ausência de registro de versão em cada sessão constituem limites explícitos para a interpretação dos dados.
 
-Participaram três estudantes do quinto período de Engenharia de Computação, identificados como P01, P02 e P03. Era o primeiro uso do Memora para os três. P01 e P02 haviam usado o Beto no semestre anterior, enquanto P03 não tinha experiência prévia com o Beto. As fichas consolidadas registram tempo, comportamento observado, intervenções e comentários. Esta é a rodada original P01--P03, anterior às mudanças do PR~71. O commit, o dispositivo e o navegador usados em cada sessão não foram registrados; não é possível atribuir retrospectivamente um hash à versão avaliada. Novas sessões devem registrar esses dados e ser analisadas separadamente, conforme as issues~64 e~70. Os participantes receberam fichas com parâmetros e sequências para as tarefas seguintes.
+
+\subsubsection{Método e participantes}
+
+Participaram três estudantes do quinto período de Engenharia de Computação, identificados como P01, P02 e P03. Era o primeiro uso do Memora para os três. P01 e P02 haviam usado o Beto no semestre anterior, enquanto P03 não tinha experiência prévia com o Beto.
+
+\begin{table}[H]
+\centering
+\caption{Perfil da rodada exploratória de avaliação, com identificadores anônimos.}
+\label{tab:perfil-participantes}
+\small
+\begin{tabular}{@{}P{1.6cm}P{4.0cm}P{5.9cm}@{}}
+\toprule
+\textbf{Código} & \textbf{Curso e período} & \textbf{Experiência prévia} \\
+\midrule
+P01 & Engenharia de Computação, 5º período & Beto no semestre anterior; primeiro uso do Memora. \\
+P02 & Engenharia de Computação, 5º período & Beto no semestre anterior; primeiro uso do Memora. \\
+P03 & Engenharia de Computação, 5º período & Sem uso prévio do Beto; primeiro uso do Memora. \\
+\bottomrule
+\end{tabular}
+\par\footnotesize Fonte: fichas anonimizadas de caracterização dos participantes.
+\end{table}
+ As fichas consolidadas registram tempo, comportamento observado, intervenções e comentários. Esta é a rodada original P01--P03, anterior às mudanças do PR~71. O commit, o dispositivo e o navegador usados em cada sessão não foram registrados; não é possível atribuir retrospectivamente um hash à versão avaliada. Novas sessões devem registrar esses dados e ser analisadas separadamente, conforme as issues~64 e~70. Os participantes receberam fichas com parâmetros e sequências para as tarefas seguintes.
 
 \begin{enumerate}
 \item[\textbf{T1.}] Carregar o exemplo, configurar a sequência conforme a ficha A, conferir os parâmetros e localizar uma explicação da interface.
@@ -489,7 +540,7 @@ Participaram três estudantes do quinto período de Engenharia de Computação, 
 \item[\textbf{T4.}] Alterar a memória principal conforme a ficha C e observar seus efeitos na divisão do endereço.
 \end{enumerate}
 
-\subsection{Resultados por tarefa}
+\subsubsection{Execução das tarefas e resultados observados}
 
 A Tabela~\ref{tab:tempos-entrevista} registra os tempos por participante e a Figura~\ref{fig:tempos-tarefas} os apresenta graficamente. A duração de T4 de P01 ficou sem registro. Para P02, há tempo anotado em T4, mas o registro descreve apenas parte do objetivo, incluindo um teste com valor inválido. Em T1, P01 avançou à simulação sob um enunciado impreciso. Os tempos contextualizam episódios de uso e devem ser lidos junto das anotações sobre ajuda e condução.
 
@@ -524,7 +575,7 @@ Na configuração, os três casos documentam edição dos parâmetros ou da sequ
 Em T3, os registros descrevem retorno à configuração e execução de outro cenário. Em T4, P03 percebeu que a tela mudou ao alterar o total de células, mas precisou de direcionamento para identificar o que havia mudado. Os relatos sobre a organização da interface foram em geral favoráveis, com ressalvas localizadas na descoberta da revisão, na distinção entre comandos e na percepção das mudanças de parâmetros. Os comentários sobre o Beto em P01 e P02 refletem lembranças de uso anterior.
 
 
-\subsection{Entrevista pós-uso e avaliação rápida}
+\subsubsection{Entrevista pós-uso e avaliação rápida}
 
 As perguntas abertas abordaram o acompanhamento dos acessos, a comparação entre mapeamentos, a divisão do endereço e as prioridades de melhoria. O Apêndice~\ref{ap:roteiro-memora} apresenta os enunciados do roteiro. Na comparação retrospectiva, P01 comentou: “é bem intuitivo e melhor que o Beto”. O entrevistador confirmou a anotação literal. A fala registra a impressão do participante com base na lembrança do uso anterior do Beto.
 
@@ -585,7 +636,7 @@ Em Q2 (mapeamentos; três respostas), os três relataram facilidade para acompan
 
 Em Q4 (prioridade; três respostas), P01 não apontou ajuste, enquanto P02 e P03 indicaram a descoberta da revisão (2/3, 66,7\%). P02 também questionou Parar/Pausar; P03 sugeriu incremento por unidade e espaço, sem identificar o controle ou região. A síntese textual preserva essas diferenças em vez de criar gráficos de categorias não comparáveis. A comparação retrospectiva com Beto restringe-se a P01/P02; não se aplica a P03.
 
-\subsection{Ajustes derivados dos achados}
+\subsubsection{Ajustes derivados dos achados}
 
 Os episódios de interação orientaram as decisões da Tabela~\ref{tab:achados-ajustes}. A revisão foi implementada no PR~71 e atualizada no PR~87. A Figura~\ref{fig:memora-revisao} apresenta a versão ajustada, posterior às entrevistas P01--P03. A versão intermediária está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:memora-revisao-historica}).
 
@@ -854,6 +905,7 @@ O histórico e os totais permanecem disponíveis após o progresso chegar a 21/2
 
 \clearpage
 \setcounter{section}{0}
+\renewcommand*{\theHsection}{anexo.\Alph{section}}
 \anexomanual{Imagens reproduzidas de documentação externa}{an:imagens-documentacao}
 As imagens pertencem à documentação de Ripes e SMPCache. Suas fontes originais foram preservadas nas legendas.
 
