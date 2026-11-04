@@ -6,10 +6,11 @@ export function mountAccessComparison(document, { onOpen = () => {}, onSelect = 
   const byId = id => document.getElementById(id);
   function text(id, value) { const node = byId(id); if (node.textContent !== value) node.textContent = value; }
   function render(value) {
+    const leavingReview = state?.selectedAccess && !value?.selectedAccess;
     state = value;
     const model = createAnalysisModel(state);
     root.hidden = !model;
-    if (!model || state.status === 'running') root.open = false;
+    if (!model || state.status === 'running' || leavingReview) root.open = false;
     if (!model) return;
     const { access: a, config, layout, kind, useLru } = model;
     const numeric = (value, width = layout.addressBits) => state.format === 'binary' ?
@@ -19,7 +20,7 @@ export function mountAccessComparison(document, { onOpen = () => {}, onSelect = 
     const place = `${direct ? 'linha' : 'conjunto'} ${numeric(a.decomposition.set, layout.indexBits)}`;
     const policy = a.reason === 'RANDOM' ? 'Random' : a.reason;
     const via = `via ${a.way + 1}`;
-    text('comparison-access-label', `· acesso ${a.number} · endereço ${numeric(a.address)}`);
+    text('comparison-access-label', `Acesso ${a.number} · endereço ${numeric(a.address)}${kind === 'replacement' ? ' · substituição' : ''}`);
     text('analysis-event-title', `Acesso ${a.number} de ${state.statistics.total} · endereço ${numeric(a.address)}`);
     text('analysis-result', kind === 'hit' ? '✓ ACERTO' : '✕ FALTA');
     byId('analysis-result').classList.toggle('is-hit', kind === 'hit');
@@ -74,5 +75,9 @@ export function mountAccessComparison(document, { onOpen = () => {}, onSelect = 
     });
   }
   render(null);
-  return { render };
+  return { render, open() {
+    if (root.hidden) return;
+    root.open = true;
+    root.scrollTop = 0;
+  } };
 }

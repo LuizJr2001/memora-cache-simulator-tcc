@@ -7,8 +7,8 @@ por esta etapa. A interface usa as APIs de configuração/endereços do PR #41.
 Iniciar simulação prepara uma entrada válida e abre a **Tela 2 — Simular**, em
 estado inicial, sem executar acessos automaticamente. A Tela 2 implementa os
 três mapeamentos, FIFO/LRU/Random, controles, microetapas, histórico, revisão por
-snapshot e Decimal/Binário. A comparação antes/depois fica recolhida no cartão
-Memória cache da própria simulação e acompanha o acesso selecionado no histórico.
+snapshot e Decimal/Binário. A comparação antes/depois fica no cartão Memória
+cache e abre diretamente ao usar Revisar no histórico.
 O fluxo atual tem somente Configurar e Simular; a antiga Tela 3 foi integrada
 sem repetir a decomposição do endereço e o passo a passo.
 
@@ -164,9 +164,10 @@ O callback cria a simulação e libera seu conteúdo. Voltar a Configurar pausa
 a execução e preserva o estado; qualquer edição invalida a simulação anterior,
 exigindo nova preparação. As abas ativas funcionam por clique, setas, Home e End.
 Antes da preparação, Simular mantém Configurar e mostra um aviso vermelho de pendência.
-A comparação aparece após o primeiro acesso concluído e fica recolhida por padrão.
+A comparação aparece após o primeiro acesso concluído e fica recolhida durante
+a execução normal. Revisar no histórico abre o antes/depois automaticamente.
 
-Iniciar/Continuar alterna com Pausar; Parar fica habilitado somente durante a reprodução automática e preserva o ponto atual; Reiniciar
+Iniciar/Continuar alterna com Pausar, que preserva o ponto atual; Reiniciar
 zera cache, histórico e contadores. Etapas detalhadas marcada avança uma das
 seis fases por pulso automático; desmarcada avança um acesso
 completo por pulso. Próximo acesso é o único avanço manual e termina a entrada
@@ -174,9 +175,10 @@ pendente. Ir ao final conclui os restantes. A velocidade começa em 5 e varia de
 acessos/segundo no rótulo conforme o modo.
 Abrir ajuda ou revisar um acesso pausa a execução.
 
-O número de cada acesso no histórico permite revisar a cache após aquele acesso.
+Cada acesso tem um botão textual Revisar, abaixo de seu número. Ele abre os
+snapshots antes/depois e destaca os blocos que saem e entram quando há substituição.
 Os contadores permanecem os da execução atual, identificada no subtítulo.
-Voltar à execução restaura a visualização atual, sem reprocessar acessos.
+Voltar ao estado atual recolhe a comparação sem reprocessar acessos.
 Ao concluir, o controle de reprodução mostra **✓ Concluído** no estilo desabilitado; o cartão Progresso fica verde e mostra (finalizado), sem um balão separado de conclusão. Reiniciar restaura o estado
 inicial. Decimal/Binário muda somente a apresentação e é preservado ao navegar.
 

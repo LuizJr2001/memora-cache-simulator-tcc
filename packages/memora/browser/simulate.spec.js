@@ -94,9 +94,9 @@ test('cenário didático reproduz LRU, substituição e conclusão com históric
   await page.locator('#sim-next').click(); await expect(page.locator('#simulation-complete')).toHaveCount(0);
   await expect(page.locator('#sim-play')).toHaveText('✓ Concluído');
   await expect(page.locator('#sim-play')).toBeDisabled();
-  await expect(page.locator('#sim-play')).toHaveCSS('background-color', 'rgb(44, 44, 44)');
+  await expect(page.locator('#sim-play')).toHaveCSS('background-color', 'rgb(117, 96, 154)');
   await expect(page.locator('#sim-play')).toHaveCSS('opacity', '0.4');
-  await expect(page.locator('#sim-play')).toHaveCSS('color', 'rgb(245, 245, 245)');
+  await expect(page.locator('#sim-play')).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
   await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
@@ -243,16 +243,16 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
     async function fits() {
       const data = await page.evaluate(() => ({ width: document.documentElement.scrollWidth,
         height: document.documentElement.scrollHeight, overflow: getComputedStyle(document.body).overflow,
-        cacheHeight: document.querySelector('.cache-scroll').clientHeight,
+        cacheHeight: document.querySelector('#access-comparison[open], .cache-scroll').clientHeight,
         cacheUnusedSpace: (() => {
           const card = document.querySelector('.simulation-cache');
-          const scroll = card.querySelector('.cache-scroll');
+          const scroll = card.querySelector('#access-comparison[open], .cache-scroll');
           const style = getComputedStyle(card);
           return card.getBoundingClientRect().bottom - scroll.getBoundingClientRect().bottom
             - parseFloat(style.paddingBottom) - parseFloat(style.borderBottomWidth);
         })(),
         outside: [...document.querySelectorAll('#simulation-screen button, #simulation-screen input, .attribution')].filter(n => {
-          const r = n.getBoundingClientRect(); if (!r.width || !r.height || n.closest('.table-scroll')) return false;
+          const r = n.getBoundingClientRect(); if (!r.width || !r.height || n.closest('.table-scroll, .comparison-content')) return false;
           return r.x < 0 || r.right > innerWidth + 1 || r.bottom > innerHeight + 1;
         }).map(n => n.id) }));
       expect(data.width).toBeLessThanOrEqual(viewport.width); expect(data.height).toBeLessThanOrEqual(viewport.height);
@@ -461,7 +461,7 @@ test('Ir ao final conclui uma microetapa pendente e mantém histórico para revi
   await page.getByRole('button', { name: 'Revisar acesso 1', exact: true }).click();
   await expect(page.locator('#current-address-heading')).toHaveText('Acesso 1 em revisão');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
-  await page.locator('#access-comparison summary').click();
+  await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
   await expect(page.locator('#analysis-event-title')).toContainText('Acesso 1 de 21');
   await expect(page.locator('#simulation-screen')).toBeVisible();
   await page.locator('#sim-restart').click();
@@ -486,26 +486,32 @@ test('sem etapas detalhadas há um único avanço de acesso e Ir ao final funcio
 });
 
 
-test('Parar só fica habilitado enquanto a reprodução automática está rodando', async ({ page }) => {
+test('Pausar e Continuar preservam a microetapa; Reiniciar limpa a execução', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-10-23T12:00:00Z') });
   await page.clock.pauseAt(new Date('2026-10-23T13:00:00Z'));
   await prepare(page);
-  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Parar/ })).toHaveCount(0);
+  await page.locator('#sim-play').click();
+  await page.clock.runFor(400);
+  await expect(page.locator('#sim-play')).toHaveText('Ⅱ Pausar');
+  await page.locator('#sim-play').click();
+  await expect(page.locator('#sim-play')).toHaveText('▶ Continuar');
+  const phase = await page.locator('#access-detail-steps [aria-current="step"]').textContent();
+  const cache = await page.locator('#cache-table tbody').textContent();
+  await page.clock.runFor(2000);
+  await expect(page.locator('#access-detail-steps [aria-current="step"]')).toHaveText(phase);
+  await expect(page.locator('#cache-table tbody')).toHaveText(cache);
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await page.locator('#sim-play').click();
+  await expect(page.locator('#access-detail-steps [aria-current="step"]')).not.toHaveText(phase);
   await page.locator('#sim-next').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
-  await page.locator('#sim-play').click();
-  await expect(page.locator('#sim-stop')).toBeEnabled();
-  await page.locator('#sim-play').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
-  await page.locator('#sim-play').click();
-  await page.locator('#sim-stop').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
-  await page.locator('#sim-play').click();
-  await page.locator('#sim-next').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
-  await page.locator('#sim-play').click();
-  await page.locator('#sim-finish').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await expect(page.locator('#sim-progress')).toHaveText('1 / 21');
+  await expect(page.locator('#sim-play')).toHaveText('▶ Continuar');
   await page.locator('#sim-restart').click();
-  await expect(page.locator('#sim-stop')).toBeDisabled();
+  await expect(page.locator('#sim-play')).toHaveText('▶ Iniciar');
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
+  await expect(page.locator('#history-table tr[data-access]')).toHaveCount(0);
+  await expect(page.locator('#cache-table tr[data-valid="1"]')).toHaveCount(0);
+  await page.clock.runFor(2000);
+  await expect(page.locator('#sim-progress')).toHaveText('0 / 21');
 });

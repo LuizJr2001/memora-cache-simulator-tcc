@@ -11,7 +11,10 @@ const comparison = mountAccessComparison(document, {
   onOpen: () => simulator.pause(),
   onSelect: number => simulator.selectAccess(number),
 });
-const simulator = mountSimulateScreen(document, { onChange: state => comparison.render(state) });
+const simulator = mountSimulateScreen(document, {
+  onChange: state => comparison.render(state),
+  onReview: () => comparison.open(),
+});
 
 function navigate(screen) {
   const index = screens.indexOf(screen), state = simulator.view();

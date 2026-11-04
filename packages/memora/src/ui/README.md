@@ -87,13 +87,13 @@ significa mais recente; candidata só aparece quando não há via livre. A sele�
 da vítima usa `lineBefore`; a linha inserida usa `lineAfter`. A execução e o
 histórico preservam intervalos e estatísticas anteriores à mutação (#30).
 
-O número do acesso é um botão de revisão: mostra a cache de `after`, sem mudar
-os contadores atuais. O subtítulo explicita essa diferença. Voltar à execução
+O botão textual Revisar, abaixo do número do acesso, abre a comparação dos
+snapshots antes/depois, sem mudar os contadores atuais. O subtítulo explicita
+essa diferença. Voltar ao estado atual recolhe a comparação e
 restaura o estado atual, sem avançar o motor. Ao terminar, o controle de reprodução
-mostra ✓ Concluído em verde e permanece desabilitado, sem um balão separado.
+mostra ✓ Concluído e permanece desabilitado; o cartão Progresso fica verde.
 Reiniciar restaura a aparência inicial. O histórico permanece completo.
-A terceira aba abre a análise do acesso selecionado ou do último concluído.
-Antes do primeiro acesso, orienta a iniciar/avançar na própria Tela 2.
+Antes do primeiro acesso, a comparação fica indisponível.
 
 O motor mantém a cache esparsa; a interface apresenta também linhas vazias com V=0 e células de cada bloco. Cache e histórico têm
 scroll local acessível por teclado. O desktop foi verificado sem scroll da
@@ -115,7 +115,10 @@ enormes. Acerto e via livre não são apresentados como substituição.
 O componente é um `details` nativo no cartão Memória cache. Recolhido, mantém a
 tabela normal; aberto, usa o mesmo espaço e rolagem local. `main.js` integra o
 componente ao controlador: abrir pausa; navegar chama somente `selectAccess`.
-A reprodução recolhe a comparação; reinício, invalidação e nova preparação limpam
+O callback `onReview` abre o painel após a seleção e preserva o foco no botão
+Revisar. Uma nova ativação abre o mesmo acesso mesmo após recolhimento manual.
+Os blocos Sai da cache/Entra na cache antecedem as tabelas para destacar a troca.
+A reprodução e Voltar ao estado atual recolhem a comparação; reinício, invalidação e nova preparação limpam
 os dados anteriores. O formato é o seletor global de Simular. A antiga terceira
 etapa, a navegação que executava acessos na análise e seu aviso foram removidos.
 
@@ -180,9 +183,12 @@ resoluções existentes. Capturas atuais no relatório de revisão geral.
 A tela Simular mantém a explicação de cada acesso no histórico, sem uma faixa visual de status duplicada abaixo dos controles. O status continua anunciado por leitores de tela; erros de execução permanecem visíveis. O conjunto/linha em foco continua indicado no cabeçalho da cache.
 
 
-## Controles e verificação atuais — 23/10/2026
+## Controles atuais — revisão de 03/11/2026
 
-Parar só fica habilitado com `status === 'running'`. Próximo acesso conclui um
+O botão Iniciar/Continuar alterna com Pausar. O antigo comando visual Parar foi
+retirado por repetir a preservação do ponto atual; `stop()` permanece disponível
+no controlador para compatibilidade. Reiniciar zera cache, histórico e contadores.
+A Ajuda rápida e as descrições acessíveis explicam essa diferença. Próximo acesso conclui um
 acesso completo, mesmo no modo detalhado; a reprodução automática usa uma fase
 por pulso com detalhamento e um acesso por pulso no modo resumido. A unidade
 visível é passos/segundo ou acessos/segundo. O modo não muda os resultados.

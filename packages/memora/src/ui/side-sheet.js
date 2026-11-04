@@ -76,12 +76,12 @@ export function createSideSheet(document) {
       } else if (key === 'quick') {
         const flow = card(parent, '', '');
         for (const step of help.body[0].split('\n\n')) {
-          const [heading, text] = step.split('\n');
+          const [heading, ...lines] = step.split('\n');
           const group = document.createElement('div');
           const h = document.createElement('h3');
           h.textContent = heading;
           group.append(h);
-          paragraphs(group, text);
+          paragraphs(group, lines.join('\n'));
           flow.append(group);
         }
         flow.classList.add('quick-flow');
