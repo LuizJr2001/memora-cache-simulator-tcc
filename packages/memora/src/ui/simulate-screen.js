@@ -40,7 +40,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
     text('sim-misses', number(stats.misses)); text('sim-hit-rate', stats.hitRate === null ? '—' :
       new Intl.NumberFormat('pt-BR', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(stats.hitRate));
     text('sim-used-lines', `${number(stats.usedLines)} / ${number(stats.totalLines)}`);
-    text('simulation-subtitle', selectedAccess ? `Revisando acesso ${selectedAccess.number} de ${stats.total} · execução preservada em ${stats.processed} / ${stats.total}` :
+    text('simulation-subtitle', selectedAccess ? `Acesso ${selectedAccess.number} de ${stats.total} selecionado · execução preservada em ${stats.processed} / ${stats.total}` :
       state.done ? `${stats.total} de ${stats.total} · simulação concluída` : focus ?
         `Acesso ${focus.number} de ${stats.total} · endereço atual: ${numeric(focus.address)}` :
         `Pronto para iniciar · ${stats.total} endereços carregados`);
@@ -66,7 +66,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
     root.classList.toggle('is-complete', state.done && !selectedAccess);
     const step = current ? phaseLabels[state.phase] : stats.processed ? 'Estado atualizado' : 'Pronto para iniciar';
     const resultText = current?.result === 'hit' ? 'ACERTO' : current?.result === 'miss' ? 'FALTA' : '';
-    text('sim-status', state.error ? `⚠ ${state.error}` : selectedAccess ? `Revisão do acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
+    text('sim-status', state.error ? `⚠ ${state.error}` : selectedAccess ? `Detalhes do acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
       current ? `${step}${resultText ? ` · ${resultText}` : ''} · endereço ${numeric(current.address)}` :
       state.done ? '✓ Simulação concluída' : lastAccess ? `${state.status === 'stopped' ? 'Execução parada · ' : '✓ Acesso concluído · '}${explain(lastAccess)}` :
       'Pronto para iniciar · nenhum acesso foi processado');
@@ -76,11 +76,11 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
       byId(id).hidden = currentSet === null; text(id, currentBadge);
     }
 
-    text('current-address-heading', selectedAccess ? `Acesso ${selectedAccess.number} em revisão` : address ? 'Endereço atual' :
+    text('current-address-heading', selectedAccess ? `Detalhes do acesso ${selectedAccess.number}` : address ? 'Endereço atual' :
       state.done ? 'Nenhum acesso em andamento' : 'Próximo acesso');
     text('current-address-description', selectedAccess ? `Cache após o acesso ${selectedAccess.number} · ${explain(selectedAccess)}` :
       address ? `Veja como ${numeric(address.address)} é decomposto antes da consulta` : state.done ?
-        'A execução terminou. Selecione um acesso no histórico para revisar ou comparar os estados' :
+        'A execução terminou. Selecione um acesso no histórico para analisar os detalhes e comparar os estados' :
         'O primeiro endereço será decomposto quando a simulação começar');
     byId('show-live').hidden = !selectedAccess;
     const parts = address?.decomposition;
@@ -199,9 +199,9 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
     for (const access of visible) {
       const tr = element('tr', undefined, `history-row ${access.result === 'hit' ? 'hit-row' : 'miss-row'}${access.number === state.selected ? ' selected-access' : ''}`);
       tr.dataset.access = access.number;
-      const first = element('td'), button = element('button', 'Revisar', 'review-access');
+      const first = element('td'), button = element('button', 'Analisar', 'review-access');
       first.append(element('span', `Nº ${access.number}`, 'history-access-number'));
-      button.type = 'button'; button.dataset.review = access.number; button.setAttribute('aria-label', `Revisar acesso ${access.number}`);
+      button.type = 'button'; button.dataset.review = access.number; button.setAttribute('aria-label', `Analisar acesso ${access.number}`);
       button.setAttribute('aria-controls', 'access-comparison');
       button.setAttribute('aria-pressed', String(access.number === state.selected)); first.append(button); tr.append(first);
       tr.append(element('td', numeric(access.address)), element('td', access.result === 'hit' ? '✓ ACERTO' : '✕ FALTA', 'access-result'), element('td', explain(access)));
@@ -210,7 +210,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
     historyBody.replaceChildren(historyRows);
     if (activeReview) historyBody.querySelector(`[data-review="${activeReview}"]`)?.focus({ preventScroll: true });
     byId('history-empty').hidden = state.history.length !== 0 || Boolean(current);
-    text('history-description', state.history.length ? 'Use Revisar para abrir o antes/depois · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
+    text('history-description', state.history.length ? 'Use Analisar para abrir o antes/depois · mais recente primeiro' : 'Os acessos aparecerão aqui após o início da simulação');
     text('history-state-title', selectedAccess ? `Estado após o acesso ${selectedAccess.number}` : 'Estado atual');
     let summary = focus ? explain(focus) : 'A cache está vazia e os contadores estão zerados';
     if (current && !['update'].includes(state.phase)) {

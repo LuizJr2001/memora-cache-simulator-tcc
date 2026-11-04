@@ -1,4 +1,5 @@
 import { HELP_CONTENT } from './help-content.js';
+import { renderVisualManual } from './visual-manual.js';
 
 export function createSideSheet(document) {
   const dialog = document.getElementById('side-sheet');
@@ -55,6 +56,11 @@ export function createSideSheet(document) {
   }
 
   function showHelp(key) {
+    if (key === 'manual') {
+      const stage = document.getElementById('simulation-screen').hidden ? 'configure' : 'simulate';
+      open('Manual visual do Memora', parent => renderVisualManual(parent, stage));
+      return;
+    }
     const help = HELP_CONTENT[key];
     if (!help) return;
     open(help.title, parent => {

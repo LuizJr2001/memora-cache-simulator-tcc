@@ -13,7 +13,7 @@ relatórios datados continuam como registros históricos.
    decomposição e estatísticas. A comparação antes/depois fica recolhida no
    cartão Memória cache e usa os snapshots do acesso selecionado.
 
-Revisar o histórico ou navegar pela comparação não processa acessos nem altera
+Analisar o histórico ou navegar pela comparação não processa acessos nem altera
 os contadores. A vítima Random permanece a mesma do registro original. Acesso
 anterior/seguinte percorrem somente acessos concluídos. Abrir a comparação ou
 a ajuda pausa a reprodução; retomar recolhe a comparação. Reiniciar ou editar

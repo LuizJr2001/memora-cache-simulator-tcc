@@ -36,6 +36,12 @@ não mudam. A interface conserva o padrão de ações preenchidas em roxo.
 
 ## Próxima verificação
 
+A #82 altera o rótulo do botão para **Analisar** e a consulta passa a mostrar
+**Detalhes do acesso N**. Na próxima rodada da #70, pedir a tarefa de localizar
+e comparar uma substituição antes de indicar o botão ou apresentar o Manual.
+Registrar se o participante encontrou a ação sozinho, consultou a ajuda ou
+precisou de intervenção. Identificar a versão pelo commit publicado.
+
 A #70 acompanha a descoberta dos recursos, a compreensão dos controles e as
 sugestões ainda imprecisas. Pedir a revisão de uma substituição sem dizer onde
 clicar e registrar qualquer ajuda. Anotar versão/commit, ambiente e data de cada

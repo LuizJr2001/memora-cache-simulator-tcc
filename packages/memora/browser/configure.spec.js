@@ -247,7 +247,7 @@ test('todas as ajudas têm textos estáticos, Escape e retorno do foco', async (
     if (key === 'quick') {
       await expect(dialog.getByRole('link')).toHaveCount(2);
       await expect(dialog).toContainText('Reiniciar volta ao início e zera a cache, o histórico e os contadores');
-      await expect(dialog).toContainText('Use Revisar no histórico para abrir o antes e depois');
+      await expect(dialog).toContainText('Use Analisar no histórico para abrir o antes e depois');
       await screenshot(page, 'ajuda-rapida');
     }
     await page.keyboard.press('Escape');
@@ -279,7 +279,7 @@ test('fechar pelo botão e pelo scrim preserva dados e foco', async ({ page }) =
 
 test('GitHub fica na Ajuda rápida, sem ação duplicada no cabeçalho', async ({ page }) => {
   await expect(page.locator('.global-actions').getByRole('link', { name: /GitHub/ })).toHaveCount(0);
-  await expect(page.locator('.global-actions button')).toHaveCount(2);
+  await expect(page.locator('.global-actions button')).toHaveText(['Glossário', 'Ajuda rápida', 'Manual']);
   await page.locator('[data-help="quick"]').click();
   await expect(page.getByRole('dialog').getByRole('link', { name: /Abrir GitHub/ })).toBeVisible();
 });

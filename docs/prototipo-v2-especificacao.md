@@ -4,7 +4,7 @@
 
 **Consolidação documental:** 23/10/2026
 
-**Diferenças vigentes da aplicação:** duas etapas e 16 ajudas (PR #60); abertura e Carregar exemplo didático restauram o mesmo preset direto do Beto; velocidade em passos/segundo no detalhado; um único controle Iniciar/Pausar/Continuar e Reiniciar para zerar; Revisar textual no histórico abre o antes/depois (#67–#69); conclusão no cartão Progresso; todos os botões de ação preenchidos em roxo com texto branco (PRs #61/#62). As descrições e contagens históricas do Figma abaixo conservam as datas das respectivas inspeções. A revisão das entrevistas está documentada em [research/evaluation-2026](../research/evaluation-2026/README.md); integração e validação com novos participantes são etapas distintas.
+**Diferenças vigentes da aplicação:** duas etapas e 16 ajudas (PR #60); abertura e Carregar exemplo didático restauram o mesmo preset direto do Beto; velocidade em passos/segundo no detalhado; um único controle Iniciar/Pausar/Continuar e Reiniciar para zerar; Analisar textual no histórico abre o antes/depois (#67–#69); conclusão no cartão Progresso; todos os botões de ação preenchidos em roxo com texto branco (PRs #61/#62). As descrições e contagens históricas do Figma abaixo conservam as datas das respectivas inspeções. A revisão das entrevistas está documentada em [research/evaluation-2026](../research/evaluation-2026/README.md); integração e validação com novos participantes são etapas distintas.
 
 **Figma de referência histórica:** [página v2](https://www.figma.com/design/Zm8dzyoG0yhkbEkC01Zvu0?node-id=311-2)
 **Revisões e evidências:** [issue #37](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/37)

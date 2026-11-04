@@ -114,7 +114,7 @@ test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({
   await prepare(page); await advance(page, 19);
   await automaticSteps(page, 4);
   await expect(page.locator('#history-state')).toContainText('LRU escolhe a via 1');
-  await page.getByRole('button', { name: 'Revisar acesso 19', exact: true }).click();
+  await page.getByRole('button', { name: 'Analisar acesso 19', exact: true }).click();
   await expect(page.locator('#history-state')).toContainText('A via 2 é a mais recente');
   await expect(page.locator('#cache-table tr[data-set="14"][data-way="2"]')).toContainText('Mantida');
   await expect(page.locator('#history-table [data-pending]')).toHaveCount(0);
@@ -123,8 +123,8 @@ test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({
   await expect(page.locator('#history-state')).toContainText('LRU escolhe a via 1');
   await expect(page.locator('#history-table [data-pending]')).toHaveCount(1);
   await advance(page, 2);
-  await page.getByRole('button', { name: 'Revisar acesso 19', exact: true }).click();
-  await expect(page.locator('#current-address-heading')).toHaveText('Acesso 19 em revisão');
+  await page.getByRole('button', { name: 'Analisar acesso 19', exact: true }).click();
+  await expect(page.locator('#current-address-heading')).toHaveText('Detalhes do acesso 19');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
   await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
@@ -133,9 +133,9 @@ test('revisão usa snapshots sem reexecutar ou mudar as estatísticas', async ({
   await expect(page.locator('#cache-table tr[data-set="14"][data-way="2"]')).toContainText('2016–2031');
   await screenshot(page, 'revisao-acesso');
   await page.locator('#show-live').click(); await expect(page.locator('#sim-address')).toHaveText('—');
-  await page.getByRole('button', { name: 'Revisar acesso 20', exact: true }).click();
+  await page.getByRole('button', { name: 'Analisar acesso 20', exact: true }).click();
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
-  await expect(page.locator('#current-address-heading')).toHaveText('Acesso 20 em revisão');
+  await expect(page.locator('#current-address-heading')).toHaveText('Detalhes do acesso 20');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   await expect(page.locator('#sim-progress').locator('..')).toHaveCSS('background-color', 'rgb(236, 253, 245)');
   await expect(page.locator('#sim-progress')).toHaveCSS('color', 'rgb(4, 120, 87)');
@@ -264,7 +264,7 @@ for (const viewport of [{ width: 1280, height: 720 }, { width: 1366, height: 768
     await page.locator('.history-scroll').focus(); await page.keyboard.press('End');
     await expect.poll(() => page.locator('.history-scroll').evaluate(n => n.scrollTop)).toBeGreaterThan(0);
     expect(await page.evaluate(() => scrollY)).toBe(0);
-    await page.getByRole('button', { name: 'Revisar acesso 1', exact: true }).click();
+    await page.getByRole('button', { name: 'Analisar acesso 1', exact: true }).click();
     await fits(); await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   });
 }
@@ -275,7 +275,7 @@ for (const width of [1024, 801, 768, 390, 320]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     await page.locator('#format-binary').click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-    const review = page.getByRole('button', { name: 'Revisar acesso 20', exact: true });
+    const review = page.getByRole('button', { name: 'Analisar acesso 20', exact: true });
     expect(await review.evaluate(n => n.getBoundingClientRect().height)).toBeLessThanOrEqual(30);
     expect(await review.evaluate(n => n.scrollWidth <= n.clientWidth)).toBe(true);
     if (width === 390) await screenshot(page, 'mobile-binario');
@@ -383,7 +383,7 @@ test('cache mostra 32 linhas com V=0 e células, e revisão recupera o bloco ant
   await expect(line.locator('.cache-cell').last()).toHaveText('1007');
   await expect(line.locator('.accessed-cell')).toHaveText('996');
   await advance(page, 2);
-  await page.getByRole('button', { name: 'Revisar acesso 2', exact: true }).click();
+  await page.getByRole('button', { name: 'Analisar acesso 2', exact: true }).click();
   await expect(line.locator('.cache-cell').first()).toHaveText('2016');
   await expect(line.locator('.accessed-cell')).toHaveText('2017');
   await expect(page.locator('#sim-progress')).toHaveText('3 / 3');
@@ -458,8 +458,8 @@ test('Ir ao final conclui uma microetapa pendente e mantém histórico para revi
   await expect(page.locator('#history-table tr[data-access]')).toHaveCount(21);
   await expect(page.locator('#sim-progress-label')).toHaveText('Progresso (finalizado)');
   await expect(page.locator('#sim-finish')).toBeDisabled();
-  await page.getByRole('button', { name: 'Revisar acesso 1', exact: true }).click();
-  await expect(page.locator('#current-address-heading')).toHaveText('Acesso 1 em revisão');
+  await page.getByRole('button', { name: 'Analisar acesso 1', exact: true }).click();
+  await expect(page.locator('#current-address-heading')).toHaveText('Detalhes do acesso 1');
   await expect(page.locator('#sim-progress')).toHaveText('21 / 21');
   await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
   await expect(page.locator('#analysis-event-title')).toContainText('Acesso 1 de 21');
