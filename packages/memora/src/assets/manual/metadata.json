@@ -1,0 +1,13 @@
+{
+  "revision": "bad3c9f34d6bb1ec7c9361f20ffd1af962f7e5fe",
+  "viewport": "1600x900",
+  "browser": "Chromium / Playwright",
+  "scenario": "EXAMPLE_CONFIGURATION + EXAMPLE_ADDRESSES; mapeamento por conjunto, 2 vias, LRU, 21 acessos",
+  "files": [
+    "configurar.png",
+    "simular.png",
+    "comparacao.png",
+    "conclusao.png"
+  ],
+  "annotations": "1–5 Configurar; 1–6 Simular; 7–9 Comparação; 10 Conclusão"
+}\n
