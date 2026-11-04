@@ -1,9 +1,32 @@
 /* Comparação contextual: usa o espaço da tabela, sem criar uma terceira etapa. */
 .cache-comparison { position: relative; min-height: 0; flex-shrink: 0; font-size: 12px; line-height: 17px; }
-.cache-comparison > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; cursor: pointer; color: var(--sds-color-text-brand-on-brand); background: var(--sds-color-background-brand-default); font-weight: 700; padding: 7px 12px; min-height: 34px; border-radius: var(--sds-size-radius-400); }
+/* Repete a elevação discreta do botão Analisar do histórico. */
+.cache-comparison > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  cursor: pointer;
+  color: var(--sds-color-text-brand-on-brand);
+  background: var(--sds-color-background-brand-default);
+  border: 1px solid var(--memora-action-hover);
+  font-weight: 700;
+  padding: 7px 12px;
+  min-height: 34px;
+  border-radius: var(--sds-size-radius-400);
+  box-shadow: 0 3px 7px rgb(43 29 70 / 24%);
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
 .cache-comparison > summary::before { content: '▸'; }
 .cache-comparison[open] > summary::before { content: '▾'; }
-.cache-comparison > summary:hover { background: var(--memora-action-hover); }
+.cache-comparison > summary:hover {
+  background: var(--memora-action-hover);
+  box-shadow: 0 4px 10px rgb(43 29 70 / 28%);
+}
+.cache-comparison > summary:active {
+  background: var(--memora-action-active);
+  box-shadow: 0 1px 3px rgb(43 29 70 / 24%);
+}
 #comparison-access-label { min-width: 0; font-size: 11px; font-weight: 400; overflow-wrap: anywhere; }
 .cache-comparison[open] { flex: 1; height: 0; margin-top: 4px; overflow: auto; scrollbar-width: thin; }
 .simulation-cache:has(.cache-comparison[open]) > .cache-scroll,
@@ -13,7 +36,32 @@
 .comparison-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .comparison-toolbar h3 { margin-right: auto; font-size: 13px; line-height: 18px; }
 .comparison-navigation { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
-.comparison-navigation button { flex: 1; min-height: 30px; font-size: 11px; padding: 5px 8px; }
+.comparison-navigation button {
+  flex: 1;
+  min-height: 30px;
+  font-size: 11px;
+  padding: 5px 8px;
+  box-shadow: 0 2px 4px rgb(43 29 70 / 22%);
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+.comparison-navigation button:hover:not(:disabled) {
+  box-shadow: 0 3px 8px rgb(43 29 70 / 28%);
+}
+.comparison-navigation button:active:not(:disabled) {
+  box-shadow: 0 1px 2px rgb(43 29 70 / 20%);
+}
+/* Sem a sombra de ação nos limites do histórico: desabilitado é claramente neutro. */
+.comparison-navigation button:disabled {
+  opacity: 1;
+  background: #e9e5ee;
+  color: #625c6d;
+  border-color: #d2cbdc;
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cache-comparison > summary,
+  .comparison-navigation button { transition: none; }
+}
 .comparison-description { color: var(--sds-color-text-default-secondary); margin: 4px 0 12px; }
 .analysis-snapshots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .analysis-snapshot { min-width: 0; padding: 10px; }
