@@ -203,3 +203,8 @@ A suíte atual contém **78 testes Node e 93 cenários Chromium**. A execução
 Chromium completa foi registrada no PR #60; os PRs #61/#62 não acrescentaram
 verificação visual. Os relatórios datados abaixo descrevem suas respectivas
 entregas, não o estado de aprovação de toda revisão posterior.
+
+
+## Manual visual — 04/11/2026
+
+O botão **Manual** abre o diálogo `#side-sheet` na etapa que está visível. `src/ui/manual-content.js` concentra imagens, textos numerados e cenários; `side-sheet.js` usa o mesmo ciclo de foco, fechamento por Escape e bloqueio de rolagem da ajuda contextual. A navegação interna do manual não troca a etapa de execução. Os quatro arquivos em `src/assets/manual/` são gerados e anotados por `scripts/capture-manual.js` e têm cenário/revisão registrados em `metadata.json`.

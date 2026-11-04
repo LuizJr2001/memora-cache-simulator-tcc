@@ -110,7 +110,7 @@ try {
   await capture(page,'conclusao.png',['#sim-progress'],10);
   const revision = execFileSync('git', ['rev-parse', 'HEAD'], {cwd:root,encoding:'utf8'}).trim();
   const metadata = { revision, viewport:'1600x900', browser:'Chromium / Playwright', scenario: 'EXAMPLE_CONFIGURATION + EXAMPLE_ADDRESSES; mapeamento por conjunto, 2 vias, LRU, 21 acessos', files:['configurar.png','simular.png','comparacao.png','conclusao.png'], annotations: '1–5 Configurar; 1–6 Simular; 7–9 Comparação; 10 Conclusão' };
-  await writeFile(join(output,'metadata.json'),JSON.stringify(metadata,null,2)+'\\n');
+  await writeFile(join(output,'metadata.json'),JSON.stringify(metadata,null,2)+String.fromCharCode(10));
 } finally {
   await browser?.close();
   server.kill('SIGTERM');

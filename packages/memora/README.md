@@ -278,3 +278,12 @@ O código do legado permanece em `docs/`. A extração e adaptação do motor de
 preservar essa atribuição e a [licença MIT do repositório](../../LICENSE).
 
 
+
+
+## Manual visual integrado (issues #82 e #83)
+
+A barra superior agora oferece **Manual** em ambas as etapas. O painel lateral abre na tela atual e permite alternar entre **Configurar** e **Simular** sem perder parâmetros, histórico, contadores ou a seleção de acesso. Os quatro quadros são imagens reais e numeradas de Chromium; clicar na imagem abre a versão ampliada. A explicação de cada marcador também aparece em texto, permitindo uso por teclado e leitores de tela.
+
+No histórico, o botão **Analisar** abre detalhes e comparação da cache. **Voltar ao estado atual** encerra a consulta sem alterar a execução. A Ajuda rápida, as interrogações contextuais e o Glossário permanecem disponíveis.
+
+Para o roteiro reproduzível, as capturas para o artigo e a versão do código utilizada, consulte [Manual visual](docs/manual-visual.md). As capturas são regeneradas com `node packages/memora/scripts/capture-manual.js` (após instalar Playwright e Chromium).
