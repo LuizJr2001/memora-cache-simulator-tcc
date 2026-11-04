@@ -87,7 +87,7 @@ significa mais recente; candidata só aparece quando não há via livre. A sele�
 da vítima usa `lineBefore`; a linha inserida usa `lineAfter`. A execução e o
 histórico preservam intervalos e estatísticas anteriores à mutação (#30).
 
-O botão textual Revisar, abaixo do número do acesso, abre a comparação dos
+O botão textual Analisar, abaixo do número do acesso, abre a comparação dos
 snapshots antes/depois, sem mudar os contadores atuais. O subtítulo explicita
 essa diferença. Voltar ao estado atual recolhe a comparação e
 restaura o estado atual, sem avançar o motor. Ao terminar, o controle de reprodução
@@ -116,7 +116,7 @@ O componente é um `details` nativo no cartão Memória cache. Recolhido, manté
 tabela normal; aberto, usa o mesmo espaço e rolagem local. `main.js` integra o
 componente ao controlador: abrir pausa; navegar chama somente `selectAccess`.
 O callback `onReview` abre o painel após a seleção e preserva o foco no botão
-Revisar. Uma nova ativação abre o mesmo acesso mesmo após recolhimento manual.
+Analisar. Uma nova ativação abre o mesmo acesso mesmo após recolhimento manual.
 Os blocos Sai da cache/Entra na cache antecedem as tabelas para destacar a troca.
 A reprodução e Voltar ao estado atual recolhem a comparação; reinício, invalidação e nova preparação limpam
 os dados anteriores. O formato é o seletor global de Simular. A antiga terceira
@@ -203,3 +203,8 @@ A suíte atual contém **78 testes Node e 93 cenários Chromium**. A execução
 Chromium completa foi registrada no PR #60; os PRs #61/#62 não acrescentaram
 verificação visual. Os relatórios datados abaixo descrevem suas respectivas
 entregas, não o estado de aprovação de toda revisão posterior.
+
+
+## Manual visual — 04/11/2026
+
+O botão **Manual** abre o diálogo `#side-sheet` na etapa que está visível. `src/ui/manual-content.js` concentra imagens, textos numerados e cenários; `side-sheet.js` usa o mesmo ciclo de foco, fechamento por Escape e bloqueio de rolagem da ajuda contextual. A navegação interna do manual não troca a etapa de execução. Os quatro arquivos em `src/assets/manual/` são gerados e anotados por `scripts/capture-manual.js` e têm cenário/revisão registrados em `metadata.json`.

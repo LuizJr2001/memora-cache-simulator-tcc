@@ -1,0 +1,47 @@
+name: Capturas do manual visual
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/memora/index.html'
+      - 'packages/memora/src/**'
+      - 'packages/memora/scripts/capture-manual.js'
+      - '.github/workflows/manual-screenshots.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  manual:
+    name: Capturar e atualizar imagens do manual
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Obter branch de implementação
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      - name: Preparar Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Instalar dependências
+        run: npm ci
+      - name: Instalar Chromium de testes
+        run: npx playwright install --with-deps chromium
+      - name: Validar interface com Playwright
+        run: npm run test:ui --workspace @memora/simulator
+      - name: Capturar cenários reais
+        run: node packages/memora/scripts/capture-manual.js
+      - name: Atualizar capturas na branch
+        run: |
+          if [ -n "$(git status --porcelain -- packages/memora/src/assets/manual/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add packages/memora/src/assets/manual/
+            git commit -m "docs(manual): capturas reais anotadas do Memora (#83)"
+            git push origin HEAD:"${{ github.event.pull_request.head.ref || github.ref_name }}"
+          fi

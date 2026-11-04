@@ -18,6 +18,7 @@
         <div><strong>Memora</strong><span>Simulador de memória cache</span></div>
       </div>
       <nav class="global-actions" aria-label="Ajuda e referências">
+        <button type="button" id="open-manual" data-manual>Manual</button>
         <button type="button" data-help="glossary">Glossário</button>
         <button type="button" data-help="quick">Ajuda rápida</button>
       </nav>
@@ -179,7 +180,7 @@
           <section class="simulation-history simulation-card" aria-labelledby="history-heading">
             <div class="simulation-card-heading"><h2 id="history-heading">Histórico de acessos</h2><button type="button" class="help-button" data-help="history" aria-label="Ajuda: Histórico de acessos">?</button></div>
             <p id="history-description" class="simulation-description">Os acessos aparecerão aqui após o início da simulação</p>
-            <div class="table-scroll history-scroll" tabindex="0" aria-label="Histórico completo de acessos"><table id="history-table"><caption class="sr-only">Acessos do mais recente ao mais antigo; use Revisar para abrir o antes e depois</caption><thead><tr><th scope="col">Acesso</th><th scope="col">End.</th><th scope="col">Resultado</th><th scope="col">Explicação</th></tr></thead><tbody></tbody></table><div id="history-empty" class="simulation-empty"><strong>Nenhum acesso processado</strong><p>Clique em Iniciar para processar o primeiro endereço da sequência</p></div></div>
+            <div class="table-scroll history-scroll" tabindex="0" aria-label="Histórico completo de acessos"><table id="history-table"><caption class="sr-only">Acessos do mais recente ao mais antigo; use Analisar para abrir o antes e depois</caption><thead><tr><th scope="col">Acesso</th><th scope="col">End.</th><th scope="col">Resultado</th><th scope="col">Explicação</th></tr></thead><tbody></tbody></table><div id="history-empty" class="simulation-empty"><strong>Nenhum acesso processado</strong><p>Clique em Iniciar para processar o primeiro endereço da sequência</p></div></div>
             <div class="history-summary" id="history-summary"><h3 id="history-state-title">Estado atual</h3><p id="history-state">A cache está vazia e os contadores estão zerados</p></div>
             <section id="access-details" class="access-details" aria-labelledby="access-details-heading"><h3 id="access-details-heading">Passo a passo do acesso</h3><p id="access-details-empty">Inicie a simulação para acompanhar a decomposição, a consulta e a decisão da cache.</p><div id="access-binary" class="access-binary" aria-label="Endereço binário dividido em campos"></div><ol id="access-detail-steps"></ol></section>
           </section>
