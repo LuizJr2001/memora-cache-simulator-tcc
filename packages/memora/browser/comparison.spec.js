@@ -160,7 +160,7 @@ test('Revisar é uma ação visível que abre diretamente o antes/depois e mant�
   await prepare(page, 20);
   const review = page.getByRole('button', { name: 'Revisar acesso 20', exact: true });
   await expect(review).toHaveText('Revisar');
-  await expect(page.locator('#history-table tr[data-access="20"] .history-access-number')).toHaveText('20');
+  await expect(page.locator('#history-table tr[data-access="20"] .history-access-number')).toHaveText('Nº 20');
   await review.focus();
   await page.keyboard.press('Enter');
   await expect(review).toBeFocused();
