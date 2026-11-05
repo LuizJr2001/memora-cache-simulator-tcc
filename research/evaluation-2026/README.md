@@ -3,7 +3,9 @@
 Síntese de encaminhamento em **03/11/2026**, baseada nas versões atuais das
 fichas internas `Ficha_Avaliacao_Memora_P01.pdf`,
 `Ficha_Avaliacao_Memora_P02.pdf` e `Ficha_Avaliacao_Memora_P03.pdf`.
-As fichas identificadas e as transcrições não integram o repositório público.
+As fichas originais identificadas e as transcrições completas não integram o repositório público.
+Versões públicas das fichas, com os nomes dos participantes removidos, estão em
+[`fichas/`](fichas/README.md).
 Os códigos abaixo são os usados nos resultados; não relacioná-los a contatos.
 
 ## Evidências e decisões
@@ -70,3 +72,11 @@ pergunta, as fontes das falas e a ausência de versão/ambiente nas sessões.
 O artigo preserva a rodada original; não atribui a ela um commit presumido nem
 considera as alterações do PR #71 uma validação com participantes. O PR #71 já
 foi integrado; a reobservação com usuários permanece vinculada à #70.
+
+## Arquivo das fichas — 05/11/2026
+
+Foram arquivadas as versões públicas de P01–P04 em [`fichas/`](fichas/README.md).
+P04 é um registro adicional à rodada P01–P03 analisada acima. Seu arquivamento
+não atualiza automaticamente a matriz, os gráficos nem os resultados do artigo.
+As cópias mantêm os tempos, respostas, intervenções e lacunas documentadas;
+os nomes foram removidos do conteúdo e os metadados dos PDFs foram revisados.
