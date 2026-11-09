@@ -299,12 +299,16 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
       controller.play();
     }
   });
-  for (const [id, method] of [['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish'], ['show-live', 'showLive']]) {
+  for (const [id, method] of [['sim-restart', 'restart'], ['sim-next', 'nextAccess'], ['sim-finish', 'finish']]) {
     byId(id).addEventListener('click', () => {
       if (method === 'restart') { cacheStart = 0; lastFocus = null; cellStarts.clear(); }
       controller?.[method]();
     });
   }
+  byId('show-live').addEventListener('click', () => {
+    controller?.showLive();
+    byId('cache-heading').focus({ preventScroll: true });
+  });
   for (const format of ['decimal', 'binary']) byId(`format-${format}`).addEventListener('click', () => controller?.setFormat(format));
   byId('sim-speed').addEventListener('input', () => controller?.setSpeed(Number(byId('sim-speed').value)));
   byId('sim-detailed').addEventListener('change', () => controller?.setDetailed(byId('sim-detailed').checked));

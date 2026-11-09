@@ -95,7 +95,7 @@
 .pending-row td { background: var(--memora-info-background); }
 .history-summary { margin-top: 12px; flex-shrink: 0; padding: 12px; border: 1px solid var(--sds-color-border-default-default); border-radius: var(--sds-size-radius-400); background: #f9f9f9; font-size: 12px; line-height: 17px; }
 .history-summary h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-#show-live { min-height: 28px; padding: 5px 12px; font-size: 12px; }
+#show-live { min-height: 34px; padding: 6px 14px; font-size: 13px; box-shadow: 0 2px 4px rgb(43 29 70 / 22%); }
 .sheet-glossary { margin-top: 24px; width: 100%; }
 .set-badge { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 @media (min-width: 801px) and (max-height: 800px) {
@@ -151,6 +151,7 @@
   .number-format button { padding-inline: 14px; }
   .simulation-card { padding: 14px 12px; }
   .simulation-card-heading { flex-wrap: wrap; }
+  #show-live { width: 100%; }
   .current-address-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .playback-preferences { gap: 12px; }
 }

@@ -179,6 +179,10 @@ test('comparação é operável por teclado e mantém ajuda e foco', async ({pag
 test('Analisar é uma ação visível que abre diretamente o antes/depois e mantém o foco', async ({page}) => {
   await prepare(page, 20);
   const review = page.getByRole('button', { name: 'Analisar acesso 20', exact: true });
+  const cache = page.getByRole('region', { name: 'Memória cache', exact: true });
+  const returnToLive = cache.getByRole('button', { name: 'Voltar ao estado atual', exact: true });
+  const statistics = await page.locator('.simulation-metrics dd').allTextContents();
+  await expect(returnToLive).toBeHidden();
   await expect(review).toHaveText('Analisar');
   await expect(page.locator('#history-table tr[data-access="20"] .history-access-number')).toHaveText('Nº 20');
   await review.focus();
@@ -196,9 +200,16 @@ test('Analisar é uma ação visível que abre diretamente o antes/depois e mant
   await review.focus();
   await page.keyboard.press('Space');
   await expect(page.locator('#access-comparison')).toHaveAttribute('open', '');
-  await page.locator('#show-live').click();
+  await expect(returnToLive).toBeVisible();
+  await expect(returnToLive).not.toHaveCSS('box-shadow', 'none');
+  await returnToLive.focus();
+  await page.keyboard.press('Enter');
+  await expect(returnToLive).toBeHidden();
+  await expect(cache.getByRole('heading', { name: 'Memória cache', exact: true })).toBeFocused();
+  await expect(review).toHaveAttribute('aria-pressed', 'false');
   await expect(page.locator('#access-comparison')).not.toHaveAttribute('open');
   await expect(page.locator('#cache-scroll')).toBeVisible();
+  expect(await page.locator('.simulation-metrics dd').allTextContents()).toEqual(statistics);
 });
 
 for (const [width,height] of [[1280,720],[1366,768],[1920,1080],[801,900],[390,900],[320,900]]) {

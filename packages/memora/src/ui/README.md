@@ -89,8 +89,9 @@ histórico preservam intervalos e estatísticas anteriores à mutação (#30).
 
 O botão textual Analisar, abaixo do número do acesso, abre a comparação dos
 snapshots antes/depois, sem mudar os contadores atuais. O subtítulo explicita
-essa diferença. Voltar ao estado atual recolhe a comparação e
-restaura o estado atual, sem avançar o motor. Ao terminar, o controle de reprodução
+essa diferença. Voltar ao estado atual aparece no cabeçalho de Memória cache
+enquanto um acesso do histórico está selecionado. A ação recolhe a comparação,
+restaura a visão da execução e devolve o foco ao cabeçalho sem avançar o motor. Ao terminar, o controle de reprodução
 mostra ✓ Concluído e permanece desabilitado; o cartão Progresso fica verde.
 Reiniciar restaura a aparência inicial. O histórico permanece completo.
 Antes do primeiro acesso, a comparação fica indisponível.
