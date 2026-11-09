@@ -1,92 +1,32 @@
-# Revisão atual — 04/11/2026
-
-O artigo usa agora SBC de uma coluna; a V1 e as entrevistas P01–P03 foram reconciliadas. Consulte [artigo/README.md](artigo/README.md) e [decisão do template](artigo/TEMPLATE.md). Os registros abaixo são históricos e não definem o estado editorial atual.
-
 # Artigo do TCC — Memora
 
-Consolidação: **23/10/2026**, com implementação até o PR #62. O artigo mantém
-o título acadêmico, autoria, fundamentação e comparação documental com o Beto
-e os simuladores relacionados. Incorpora o levantamento de requisitos já
-coletado, a implementação e os limites das evidências disponíveis.
+A revisão de 09/11/2026 consolida sete sessões exploratórias com estudantes, de P01 a P07. O artigo preserva o formato SBC de uma coluna e reúne a comparação técnica, o levantamento de 13 respostas sobre o Beto, a implementação do Memora e os resultados da avaliação funcional.
 
 ## Fontes e pacote para Overleaf
 
-- [`artigo/main.tex`](artigo/main.tex): fonte principal revisável no GitHub.
-- [`artigo/referencias.bib`](artigo/referencias.bib): referências autor-data.
-- [`artigo/instrumentos/`](artigo/instrumentos/): roteiro preliminar e modelo
-  de inspeção, identificados como instrumentos, não resultados.
-- [`tcc-atual.zip`](tcc-atual.zip): cópia sincronizada de `artigo/`, pronta para
-  importar no Overleaf; `main.tex` está na raiz interna do ZIP.
+- [Fonte LaTeX](artigo/main.tex) e [bibliografia](artigo/referencias.bib).
+- [Pacote para importar no Overleaf](tcc-atual.zip), com `main.tex` na raiz.
+- [Guia do artigo](artigo/README.md) e [decisão do template SBC](artigo/TEMPLATE.md).
+- [Dados, proveniência e critérios de apuração](artigo/dados/PROVENIENCIA.md).
+- [Síntese da avaliação](../research/evaluation-2026/README.md) e [fichas públicas](../research/evaluation-2026/fichas/README.md).
 
-Edite os arquivos em `artigo/`. Após a edição, execute **na raiz do repositório**:
+Edite o fonte em `tcc/artigo/`. Da raiz do repositório, execute:
 
 ```bash
 python3 tcc/empacotar_artigo.py
 ```
 
-O empacotador inclui apenas fontes e recursos, com ordem e datas fixas para
-evitar diferenças artificiais no ZIP. Não inclui PDF compilado, logs ou caches.
-O PDF original do Beto em `figuras/` é um recurso histórico de entrada.
+O ZIP reúne os fontes, as figuras, os dados anonimizados e os instrumentos. O PDF compilado e os arquivos auxiliares ficam fora do pacote.
 
 ## Compilação
 
-No Overleaf, importe o ZIP em um projeto novo ou atualize os arquivos do projeto
-existente. Selecione **pdfLaTeX**, **main.tex** e compilação da bibliografia com
-BibTeX. O modelo usa `abntex2`, `abntex2cite` e português brasileiro.
-
-Localmente, com TeX Live e os pacotes abnTeX2 e de português instalados:
+No Overleaf, importe o ZIP, selecione `main.tex` e pdfLaTeX. A bibliografia é processada com BibTeX. Localmente, use TeX Live com suporte a português brasileiro e os pacotes listados no [workflow do artigo](../.github/workflows/artigo-overleaf.yml).
 
 ```bash
 cd tcc/artigo
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-Alternativa: pdfLaTeX → BibTeX → pdfLaTeX → pdfLaTeX. Confira no log referências
-e citações indefinidas, caixas que ultrapassem as margens e mensagens de erro;
-renderize o PDF e inspecione também as páginas das tabelas em paisagem.
-Os arquivos compilados são locais; não devem ser incluídos no pacote fonte.
+## Avaliação e acompanhamento
 
-## O que foi atualizado
-
-- Resumo e abstract passam de proposta preliminar a relato do estado atual.
-- O levantamento sobre o Beto é descrito como realizado: 13 respostas,
-  datas, anonimização, contagens e percentuais derivados do CSV público.
-- A implementação modular, validação, limites, snapshots, controles, cache e
-  ajuda contextual são descritos com seu comportamento atual.
-- O fluxo vigente tem duas etapas, com comparação recolhível em Simular;
-  três telas e 18 ajudas são identificadas como histórico do protótipo.
-- O artigo diferencia o exemplo direto do Beto do cenário associativo/LRU e
-  registra resultados determinísticos próprios de cada sequência.
-- As cores dos botões e o alcance do cálculo de contraste estão registrados.
-- Testes Node, cenários Chromium, build e execução no CI são diferenciados de
-  avaliação com estudantes, aprendizagem e conformidade de acessibilidade.
-
-## Evidências e pendências
-
-Os números do questionário vêm de
-[`research/survey-2026/respostas-anonimizadas.csv`](../research/survey-2026/respostas-anonimizadas.csv).
-As questões de múltipla seleção usam denominador 13; uma pessoa pode marcar
-várias alternativas. A escala de utilidade efetivamente aplicada vai de 1 a 4.
-O roteiro preliminar guardado em `instrumentos/` não substitui o CSV aplicado.
-
-A avaliação posterior do Memora com estudantes e a inspeção formal consolidada
-com severidades permanecem pendentes. A comparação bibliográfica preserva as
-datas das fontes originais; ela não implica um novo teste de todos os simuladores.
-Os registros de execução técnica são datados. A nova paleta dos PRs #61/#62 não
-recebeu inspeção visual em Chromium nesta revisão.
-
-Consulte o [estado atual](../docs/estado-atual.md), o
-[histórico](../docs/historico-desenvolvimento.md) e a
-[decisão 004](../docs/decisoes/004-analise-contextual.md).
-
-
-## Próxima avaliação — planejamento de 23/10/2026
-
-A [issue #64](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/64)
-acompanha a comparação exploratória com **2 ou 3 alunos que já utilizaram o
-Beto**, mais **Poliana como avaliadora complementar**, analisada separadamente.
-A seção de plano de avaliação no artigo e o instrumento
-`instrumentos/avaliacao_comparativa_memora_beto.md` (relativo a `tcc/artigo/`)
-registram tarefas, questionários, entrevista, ficha e limites, adaptados do
-MedSimples de André Macedo (2025). São instrumentos planejados, sem coleta
-ou resultados comparativos já realizados. O calendário está na issue #22.
+A [#64](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/64) registra o plano inicial e a execução exploratória efetiva. As tarefas observadas ocorreram no Memora e as referências ao Beto foram retrospectivas. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a descoberta da comparação e do retorno ao estado atual. A [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22) mantém o calendário do TCC.

@@ -1,4 +1,19 @@
-# Avaliação funcional do Memora — encaminhamentos de P01–P03
+# Avaliação funcional do Memora
+
+## Consolidação de 09/11/2026
+
+O [artigo](../../tcc/README.md) integra os sete casos P01–P07. As sessões P01–P03 compõem a rodada inicial e P04–P07 são complementares. Os sete estudantes usaram o Memora pela primeira vez. Cinco conheciam o Beto. As referências à ferramenta anterior descrevem lembranças de uso.
+
+| Evidência | Resultado ou encaminhamento |
+| --- | --- |
+| P04 confirmou localizar uma substituição e a comparação. P05 abriu Analisar espontaneamente. P07 reconheceu a ação e consultou a comparação depois da indicação do acesso 3. | Registrar separadamente descoberta do botão, seleção do acesso e orientação. |
+| P06 explicou uma falta com apoio do texto e pediu ajuda para retornar da revisão. | Dar destaque ao retorno no cartão Memória cache. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a reobservação. |
+| P05 considerou rápida a velocidade 2 e sugeriu edição de endereços em blocos. P06 sugeriu ajudas breves de mapeamento. | Registrar as sugestões para investigação. |
+| P07 valorizou a validação em tempo real e associou a ferramenta a relembrar o conteúdo. | Descrever a utilidade percebida para revisão. |
+
+C1–C3 têm 5/7 respostas C (71,4%). C4 tem 4/7 (57,1%), com um relato de satisfação sem alternativa registrada em P07. Os [dados de apuração](../../tcc/artigo/dados/PROVENIENCIA.md) explicitam a cobertura e as intervenções. As [fichas públicas](fichas/README.md) contêm apenas registros por código.
+
+## Encaminhamentos originais de P01–P03
 
 Síntese de encaminhamento em **03/11/2026**, baseada nas versões atuais das
 fichas internas `Ficha_Avaliacao_Memora_P01.pdf`,

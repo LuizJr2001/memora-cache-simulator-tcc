@@ -1,0 +1,8 @@
+participante,rodada,T1_s,T2_s,T3_s,T4_s,nota
+P01,original,94,90,60,,T4 sem registro
+P02,original,60,60,30,60,T4 parcialmente documentada
+P03,original,117,223,120,80,
+P04,complementar,60,150,60,60,T2 sem etapas detalhadas por orientacao
+P05,complementar,50,90,90,70,T2 sem etapas detalhadas por orientacao
+P06,complementar,50,180,110,30,T3 com orientacao sobre etapas detalhadas e acesso
+P07,complementar,102,163,80,96,T2 com indicacao do acesso 3 e T3 sem etapas detalhadas

@@ -128,9 +128,10 @@ regressão e as 27 capturas, incluindo erros com rolagem local por teclado.
 A elaboração inicial terminou em 23/09, após demandar mais tempo que o previsto.
 O desenvolvimento seguiu em paralelo à avaliação, conforme a [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22).
 O [histórico de desenvolvimento](docs/historico-desenvolvimento.md) reúne datas,
-decisões, PRs e pendências até 23/10/2026. O [artigo](tcc/README.md) foi
-atualizado com o método, as 13 respostas do levantamento do Beto, a implementação
-e os limites da verificação. A avaliação do Memora com estudantes permanece pendente.
+decisões e PRs. O [artigo](tcc/README.md) reúne o levantamento com 13 respostas
+sobre o Beto, a implementação do Memora e as sete sessões exploratórias com
+estudantes. A [síntese da avaliação](research/evaluation-2026/README.md)
+relaciona as fichas aos ajustes da interface.
 
 ## Base de desenvolvimento do pacote
 

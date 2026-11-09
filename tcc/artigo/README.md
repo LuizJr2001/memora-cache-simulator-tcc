@@ -1,27 +1,31 @@
-# Artigo Memora — revisão SBC baseada no modelo acadêmico de André
+# Artigo Memora — revisão de 09/11/2026
 
-**Esta versão preserva o template SBC oficial de uma coluna.** A revisão de conteúdo reorganiza fundamentação, metodologia, resultados do levantamento, desenvolvimento e avaliação para seguir um percurso acadêmico semelhante ao estudo de André Guilherme de Almeida Macedo (MedSimples), mantendo o tema, os dados e as contribuições do Memora.
+O projeto usa o template SBC de uma coluna e a organização acadêmica inspirada no estudo MedSimples de André Macedo. Esta revisão integra as sete fichas P01–P07, com quatro casos complementares à rodada original. O levantamento anterior sobre o Beto tem 13 respostas e é analisado separadamente.
 
-Veja [REVISAO-EDITORIAL.md](REVISAO-EDITORIAL.md) para o registro das mudanças. O projeto pode ser compilado no Overleaf com pdfLaTeX/BibTeX.
+## Abrir no Overleaf
 
-# Artigo Memora — SBC (#84)
+Importe `tcc-atual.zip` como projeto. Selecione `main.tex` e o compilador pdfLaTeX. A bibliografia usa BibTeX. Veja [APENDICES.md](APENDICES.md) para a organização de figuras e instrumentos e [TEMPLATE.md](TEMPLATE.md) para a decisão do modelo.
 
-Fechamento #84 sobre a revisão #78–#81 de 04/11/2026 e as capturas do PR #87. As figuras principais do Memora atual ficam no corpo, os instrumentos nos Apêndices A/B, os protótipos e capturas complementares no C, o manual visual no D e as reproduções documentais no Anexo A. A V1 foi reconciliada com o repositório; este diretório é a fonte única do artigo. Consulte [TEMPLATE.md](TEMPLATE.md) para decisão do modelo, fontes, origem do código e limites das entrevistas.
-
-No Overleaf: importar `tcc/tcc-atual.zip`, usar pdfLaTeX, `main.tex` e BibTeX. O estilo SBC e quatro capturas anotadas em `figuras/manual/` estão incluídos após empacotamento. Consulte `APENDICES.md` e o workflow `artigo-overleaf.yml`.
+Compilação local neste diretório:
 
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-Para regenerar o gráfico (Python com matplotlib):
+Regeneração dos gráficos, com Python e matplotlib:
 
 ```bash
 python3 scripts/gerar_avaliacao_rapida.py
+python3 scripts/gerar_tempos_tarefas.py
 ```
 
-Na raiz do repositório, regenere o pacote com `python3 tcc/empacotar_artigo.py`.
+Na raiz do repositório, gere o pacote com `python3 tcc/empacotar_artigo.py`. O workflow do artigo compila o PDF e prepara o ZIP como artefatos do GitHub Actions.
 
-O levantamento do Beto tem 13 respostas; a rodada exploratória do Memora tem três participantes, apenas um com códigos C/P/N/X. Comentários não viram notas. Os hashes das versões das sessões não foram registrados; não atribuir a elas a captura posterior do PR 71. Instrumentos em `instrumentos/` são planejamento histórico; enunciados aplicados e limitações estão no artigo.
+## Dados da avaliação
 
-O workflow **Artigo SBC e Overleaf (#84)** publica PDF e ZIP em um único artefato do GitHub Actions após compilação. A interface com **Analisar** e o manual é posterior às entrevistas P01–P03; não atribuir a nova versão aos participantes.
+- C1–C3 têm cinco respostas C em sete participantes. C4 tem quatro respostas C em sete. A satisfação de P07 foi registrada em texto.
+- Os tempos descrevem as tarefas. As sessões diferiram em condução e tiveram lacunas de versão e ambiente.
+- As fichas públicas estão indexadas em `research/evaluation-2026/fichas/` no repositório. O ZIP contém matrizes e gráficos anonimizados.
+- Os instrumentos preservam o planejamento. O artigo descreve o procedimento efetivamente documentado.
+
+Veja [dados/PROVENIENCIA.md](dados/PROVENIENCIA.md) para a apuração e [REVISAO-EDITORIAL.md](REVISAO-EDITORIAL.md) para o histórico.
