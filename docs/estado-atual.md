@@ -89,8 +89,8 @@ endereços e 18000 caracteres. Consulte as [APIs e regras](../packages/memora/sr
 
 - **Implementação:** HTML/CSS e módulos ES; núcleo sem DOM, controladores com
   relógio e apresentação por snapshots; publicação estática no GitHub Pages.
-- **Suítes atuais:** 78 testes Node e 93 cenários Chromium (46 Configurar,
-  32 Simular e 15 comparação). O PR #60 registra a execução completa de Chromium.
+- **Verificação de 09/11:** sintaxe, 78 testes Node, build e 98 cenários
+  Chromium, incluindo retorno pelo teclado, seleção histórica e contadores.
 - **Cores #61/#62:** sintaxe, 78 testes Node e build aprovados; sem nova execução
   visual em navegador. As capturas históricas não comprovam a nova paleta.
 - **Pesquisa:** 13 respostas sobre o Beto, coletadas de maio a junho; ver

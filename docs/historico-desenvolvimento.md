@@ -102,6 +102,9 @@ passaram. Os relatórios mantêm os registros originais.
 | Integração da comparação, PR #60 | 78 testes Node e 93 cenários Chromium (46 + 32 + 15), sintaxe e build | [Decisão 004](decisoes/004-analise-contextual.md) e [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60) |
 | Cores dos botões, PRs #61/#62 | Sintaxe, 78 testes Node e build; nova inspeção visual da paleta pendente | [PR #61](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/61) e [#62](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/62) |
 
+A revisão de 09/11 passou pela sintaxe, 78 testes Node, build e 98 cenários
+Chromium. O teste do retorno verificou o foco e a preservação das métricas.
+
 Firefox/Safari e avaliação com participantes não são comprovados por esses
 testes Chromium. O [guia de contribuição](../CONTRIBUTING.md) descreve como
 executar as suítes e registrar novas verificações separadamente.
