@@ -14,8 +14,10 @@ integradas em 14/10 e permanecem como referência histórica. O [Memora online](
 Node e build. O Beto em `docs/` continua disponível para comparação local.
 
 O [artigo em LaTeX](../tcc/README.md) reúne a implementação, o levantamento de
-13 respostas sobre o Beto e a avaliação exploratória do Memora com sete
-estudantes. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70)
+13 respostas sobre o Beto e a rodada original de avaliação do Memora.
+A consolidação dos sete estudantes está em revisão no
+[PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70)
 acompanha a reobservação do histórico. Consulte o [estado atual](estado-atual.md).
 
 ## Marcos e evidências
@@ -47,7 +49,7 @@ acompanha a reobservação do histórico. Consulte o [estado atual](estado-atual
 | 04/11 | Manual visual, botão Analisar e navegação com destaque | [PR #87](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/87) e [PR #89](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/89) |
 | 04/11 | Artigo SBC e apêndices organizados | PRs [#85](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/85), [#88](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/88) e [#90](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/90) |
 | 05/11 | Fichas complementares P04–P07 consolidadas | [PR #91](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/91) arquiva P01–P04. As issues #92–#94 registram os achados de P05–P07 |
-| 09/11 | Sete casos consolidados no artigo e retorno à cache destacado | [Apuração das fichas](../tcc/artigo/dados/PROVENIENCIA.md) e [reobservação do histórico](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) |
+| 09/11 | Consolidação dos sete casos e destaque do retorno propostos em PRs | [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96): artigo e apuração das fichas; [PR #95](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/95): retorno ao estado atual. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a reobservação com usuários |
 
 ## Comportamentos consolidados
 

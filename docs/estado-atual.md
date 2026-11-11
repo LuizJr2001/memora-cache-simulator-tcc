@@ -97,8 +97,10 @@ endereços e 18000 caracteres. Consulte as [APIs e regras](../packages/memora/sr
   [dados anonimizados](../research/survey-2026/README.md). Esse levantamento não
   é uma avaliação posterior do Memora.
 - **Avaliação funcional:** a [síntese das fichas](../research/evaluation-2026/README.md)
-  registra sete sessões exploratórias e relaciona os episódios às decisões de
-  interface. O [artigo](../tcc/README.md) reúne resultados e dados de apuração.
+  documenta os encaminhamentos de P01–P03. A consolidação dos sete casos,
+  das fichas complementares e dos dados de apuração do [artigo](../tcc/README.md)
+  está em revisão no [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+  A melhoria do retorno ao estado atual atende à sugestão de P06 registrada na #93.
 - **Próximas verificações:** descoberta da comparação e do retorno ao estado
   atual em sessão com versão registrada (#70). Inspeção com severidade,
   verificação em Firefox/Safari e estudo de aprendizagem permanecem em aberto.
