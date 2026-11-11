@@ -8,7 +8,10 @@ Iniciar simulação prepara uma entrada válida e abre a **Tela 2 — Simular**,
 estado inicial, sem executar acessos automaticamente. A Tela 2 implementa os
 três mapeamentos, FIFO/LRU/Random, controles, microetapas, histórico, revisão por
 snapshot e Decimal/Binário. A comparação antes/depois fica no cartão Memória
-cache e abre diretamente ao usar Analisar no histórico.
+cache e abre diretamente ao usar Analisar no histórico. Durante a revisão,
+**Voltar ao estado atual** aparece no cabeçalho de Memória cache. A ação
+fecha a comparação e devolve o foco ao título do cartão, com progresso e
+contadores preservados.
 O fluxo atual tem somente Configurar e Simular; a antiga Tela 3 foi integrada
 sem repetir a decomposição do endereço e o passo a passo.
 

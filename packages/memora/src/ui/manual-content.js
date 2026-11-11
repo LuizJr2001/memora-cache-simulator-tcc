@@ -38,12 +38,12 @@ export const MANUAL_PAGES = {
       markers: ['#sim-play', '#sim-next', '#sim-detailed', '#sim-speed', '#cache-heading', '#history-heading'],
     }, {
       image: image('comparacao.png'),
-      alt: 'Simulação com acesso 20 selecionado; marcadores 7 a 9 identificam a comparação e o retorno ao estado atual.',
+      alt: 'Simulação com acesso 20 selecionado; o marcador 9 indica o retorno no cabeçalho de Memória cache.',
       caption: 'No cenário LRU, analisar o acesso 20 evidencia a substituição do bloco 992–1007 pelo bloco 3040–3055.',
       steps: [
         ['Analisar a substituição', 'No histórico, clique em Analisar no acesso Nº 20. A comparação abre junto da memória cache, mostrando o acesso selecionado.'],
         ['Comparar antes e depois', 'Confira Sai da cache e Entra na cache e as tabelas Antes da substituição e Depois da substituição. Use Acesso anterior/seguinte para navegar entre registros.'],
-        ['Voltar ao estado atual', 'Clique em Voltar ao estado atual para sair da análise. O progresso, a cache e os totais da execução permanecem preservados.'],
+        ['Voltar ao estado atual', 'No cabeçalho de Memória cache, clique em Voltar ao estado atual para sair da análise e retomar a consulta da cache da execução. O progresso e os totais ficam preservados.'],
       ],
       markers: ['#history-table [data-review="20"]', '#access-comparison summary', '#show-live'],
       start: 7,

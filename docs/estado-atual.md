@@ -1,8 +1,8 @@
 # Memora — estado atual da aplicação
 
-Consolidação: **23/10/2026**, após os PRs #60, #61 e #62. Este documento
-descreve o código integrado à `main`. O Figma v2, as antigas três telas e os
-relatórios datados continuam como registros históricos.
+Consolidação: **09/11/2026**. O Figma v2, as antigas três telas e os relatórios
+datados registram as etapas anteriores. A publicação do Memora acompanha a
+branch `main`.
 
 ## Fluxo e recursos
 
@@ -10,8 +10,8 @@ relatórios datados continuam como registros históricos.
    dos campos e prepara uma entrada imutável ao clicar em Iniciar simulação.
    A preparação abre Simular em 0 acessos, sem iniciar a reprodução.
 2. **Simular:** mostra cache, células, validade, LRU quando aplicável, histórico,
-   decomposição e estatísticas. A comparação antes/depois fica recolhida no
-   cartão Memória cache e usa os snapshots do acesso selecionado.
+   decomposição e estatísticas. Analisar, no histórico, abre a comparação
+   antes/depois no cartão Memória cache com os snapshots do acesso selecionado.
 
 Analisar o histórico ou navegar pela comparação não processa acessos nem altera
 os contadores. A vítima Random permanece a mesma do registro original. Acesso
@@ -23,7 +23,7 @@ registra a incorporação da antiga etapa Analisar à simulação.
 | Controle/estado | Comportamento atual |
 |---|---|
 | Iniciar/Continuar/Pausar | Controla a reprodução automática |
-| Parar | Só fica habilitado durante reprodução automática; preserva o andamento |
+| Voltar ao estado atual | Durante a revisão, fecha a comparação e volta à cache da execução pelo cabeçalho de Memória cache. O progresso é preservado |
 | Reiniciar | Zera cache, histórico e contadores |
 | Próximo acesso | Conclui um acesso completo, inclusive se houver microetapa pendente |
 | Ir ao final | Conclui os acessos restantes e preserva os registros |
@@ -89,19 +89,23 @@ endereços e 18000 caracteres. Consulte as [APIs e regras](../packages/memora/sr
 
 - **Implementação:** HTML/CSS e módulos ES; núcleo sem DOM, controladores com
   relógio e apresentação por snapshots; publicação estática no GitHub Pages.
-- **Suítes atuais:** 78 testes Node e 93 cenários Chromium (46 Configurar,
-  32 Simular e 15 comparação). O PR #60 registra a execução completa de Chromium.
+- **Verificação de 09/11:** sintaxe, 78 testes Node, build e 98 cenários
+  Chromium, incluindo retorno pelo teclado, seleção histórica e contadores.
 - **Cores #61/#62:** sintaxe, 78 testes Node e build aprovados; sem nova execução
   visual em navegador. As capturas históricas não comprovam a nova paleta.
 - **Pesquisa:** 13 respostas sobre o Beto, coletadas de maio a junho; ver
   [dados anonimizados](../research/survey-2026/README.md). Esse levantamento não
   é uma avaliação posterior do Memora.
-- **Artigo:** [fonte LaTeX e pacote Overleaf](../tcc/README.md) atualizados com
-  decisões, implementação e evidências disponíveis até esta data.
-- **Pendente:** avaliação do Memora com estudantes, consolidação formal da
-  inspeção com severidade, verificação em Firefox/Safari e medição de resultados
-  de aprendizagem. Escrita, dirty bit, gráficos, exportação e comparação entre
-  configurações permanecem trabalhos futuros.
+- **Avaliação funcional:** a [síntese das fichas](../research/evaluation-2026/README.md)
+  documenta os encaminhamentos de P01–P03. A consolidação dos sete casos,
+  das fichas complementares e dos dados de apuração do [artigo](../tcc/README.md)
+  está em revisão no [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+  A melhoria do retorno ao estado atual atende à sugestão de P06 registrada na #93.
+- **Próximas verificações:** descoberta da comparação e do retorno ao estado
+  atual em sessão com versão registrada (#70). Inspeção com severidade,
+  verificação em Firefox/Safari e estudo de aprendizagem permanecem em aberto.
+  Escrita, dirty bit, gráficos, exportação e comparação entre configurações são
+  trabalhos futuros.
 
 O [histórico](historico-desenvolvimento.md) mantém a sequência dos marcos e a
 origem de cada execução. Mudanças documentais não encerram automaticamente as

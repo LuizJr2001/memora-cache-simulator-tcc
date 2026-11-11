@@ -1,6 +1,6 @@
 # Memora — histórico de desenvolvimento
 
-**Consolidação:** 23/10/2026. As datas usam o horário de Brasília
+**Consolidação:** 09/11/2026. As datas usam o horário de Brasília
 (`America/Sao_Paulo`, UTC−3). Atividades relatadas nas conversas são registradas
 pela data em que ocorreram; integração e publicação são conferidas no Git.
 O horário UTC do GitHub pode cair no dia seguinte.
@@ -13,10 +13,12 @@ integradas em 14/10 e permanecem como referência histórica. O [Memora online](
 é publicado pelo GitHub Pages, com atualização automática após sintaxe, testes
 Node e build. O Beto em `docs/` continua disponível para comparação local.
 
-O código funcional e as verificações técnicas estão documentados. O artigo
-em LaTeX incorpora a implementação e o levantamento de 13 respostas do Beto.
-A avaliação externa do Memora e a inspeção formal com severidade permanecem
-pendentes. Consulte o [estado atual](estado-atual.md) e o [artigo](../tcc/README.md).
+O [artigo em LaTeX](../tcc/README.md) reúne a implementação, o levantamento de
+13 respostas sobre o Beto e a rodada original de avaliação do Memora.
+A consolidação dos sete estudantes está em revisão no
+[PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70)
+acompanha a reobservação do histórico. Consulte o [estado atual](estado-atual.md).
 
 ## Marcos e evidências
 
@@ -43,6 +45,11 @@ pendentes. Consulte o [estado atual](estado-atual.md) e o [artigo](../tcc/README
 | 23/10 | Análise integrada à simulação | [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60) e [decisão 004](decisoes/004-analise-contextual.md): duas etapas, comparação recolhível, revisão sem execução e 16 ajudas |
 | 23/10 | Botões preenchidos em roxo | [PR #61](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/61) e [#62](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/62): `#75609A` e texto branco em todas as ações; a proposta de secundários com contorno foi substituída |
 | 23/10 | Consolidação documental e artigo | Atualização dos guias, decisões, resultados dos dois cenários e fonte LaTeX; questionário já coletado diferenciado da avaliação posterior do Memora |
+| 03/11 | Histórico e reprodução revistos após P01–P03 | [PR #71](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/71): ação textual, comparação aberta ao revisar e controles de reprodução unificados |
+| 04/11 | Manual visual, botão Analisar e navegação com destaque | [PR #87](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/87) e [PR #89](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/89) |
+| 04/11 | Artigo SBC e apêndices organizados | PRs [#85](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/85), [#88](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/88) e [#90](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/90) |
+| 05/11 | Fichas complementares P04–P07 consolidadas | [PR #91](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/91) arquiva P01–P04. As issues #92–#94 registram os achados de P05–P07 |
+| 09/11 | Consolidação dos sete casos e destaque do retorno propostos em PRs | [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96): artigo e apuração das fichas; [PR #95](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/95): retorno ao estado atual. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a reobservação com usuários |
 
 ## Comportamentos consolidados
 
@@ -61,11 +68,13 @@ pendentes. Consulte o [estado atual](estado-atual.md) e o [artigo](../tcc/README
   bits de conjunto. A arquitetura define a largura dos campos, que podem ter
   zero bits. A prévia usa o primeiro endereço de uma sequência válida.
 - **Simular:** modo detalhado avança uma das seis etapas; modo resumido avança
-  um acesso completo. Próximo acesso conclui um acesso nos dois modos; Parar só fica habilitado durante reprodução automática. O rótulo de velocidade indica passos/segundo ou
+  um acesso completo. Próximo acesso conclui um acesso nos dois modos. Iniciar,
+  Pausar e Continuar usam o mesmo botão desde o PR #71. O rótulo de velocidade indica passos/segundo ou
   acessos/segundo, com valor inicial 5. Cache e histórico têm rolagem local.
 - **Comparação em Simular:** snapshots reais permitem explicar a escolha sem repetir a
   execução ou sortear novamente uma vítima Random. Acerto e carga em via livre
-  recebem explicações próprias, sem inventar uma substituição.
+  recebem explicações próprias. Voltar ao estado atual fica no cabeçalho de
+  Memória cache durante a revisão e encerra a consulta com os contadores preservados.
 - **Origem:** o Memora aprimora o [Beto](https://github.com/leo150250/simuladorCache),
   simulador educacional de memória cache de Leandro Gabriel e colaboradores.
   MIT é a licença do código.
@@ -95,20 +104,21 @@ passaram. Os relatórios mantêm os registros originais.
 | Integração da comparação, PR #60 | 78 testes Node e 93 cenários Chromium (46 + 32 + 15), sintaxe e build | [Decisão 004](decisoes/004-analise-contextual.md) e [PR #60](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/60) |
 | Cores dos botões, PRs #61/#62 | Sintaxe, 78 testes Node e build; nova inspeção visual da paleta pendente | [PR #61](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/61) e [#62](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/62) |
 
+A revisão de 09/11 passou pela sintaxe, 78 testes Node, build e 98 cenários
+Chromium. O teste do retorno verificou o foco e a preservação das métricas.
+
 Firefox/Safari e avaliação com participantes não são comprovados por esses
 testes Chromium. O [guia de contribuição](../CONTRIBUTING.md) descreve como
 executar as suítes e registrar novas verificações separadamente.
 
 ## Pendências acadêmicas e de escopo
 
-- Consolidar o retorno da orientação e realizar/registrar a avaliação com
-  estudantes conforme [#33](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/33)
-  e a avaliação da versão funcional na [#23](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/23).
+- Consolidar o retorno da orientação sobre o protótipo (#33) e a versão
+  funcional (#64). Reobservar o histórico e o retorno à cache na #70.
 - Registrar a inspeção formal, dificuldades observadas e decisões decorrentes,
   sem tratar inspeções visuais ou testes automatizados como aprovação externa.
-- Revisar com a orientação o [artigo atualizado](../tcc/README.md) e incorporar
-  os resultados da avaliação externa quando existirem, conforme
-  [#24](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/24).
+- Revisar com a orientação o [artigo atualizado](../tcc/README.md) e preparar
+  a defesa conforme o [calendário](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22).
 - Manter leitura/escrita, políticas de escrita e dirty bit como trabalho futuro
   na [#32](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/32);
   exportação e comparação entre configurações não são funcionalidades entregues.
