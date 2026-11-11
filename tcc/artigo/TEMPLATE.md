@@ -38,7 +38,7 @@ A partir daqui, `tcc/artigo/` é a única fonte do PDF e de `tcc/tcc-atual.zip`.
 - Escrita/dirty bit (#32), gráficos da execução, exportação e comparação entre configurações são futuro; validade exibida já pertence à implementação.
 - As duas autocitações de produtos deste TCC foram removidas. Links e remissões internas substituem-nas sem remover trabalhos externos.
 
-## Entrevistas e limites
+## Entrevistas e limites na revisão de 04/11
 
 Conferidas as fichas P01 (versão 1 revisada), P02 e P03 disponíveis em 04/11/2026. Documentos identificados não são copiados para o Git. A matriz pública em `dados/avaliacao-rapida.csv` mantém apenas códigos anônimos. C/P/N/X são alternativas; SR é ausência de código, não X. Cada critério: C=1, P=N=X=0, SR=2, n=3. Não converter comentários em C.
 
@@ -46,13 +46,17 @@ Q1/Q2/Q4: três respostas; Q3: duas respostas específicas e uma ausência. Codi
 
 Rodada original P01–P03: versão/commit não registrados. A lacuna permanece explícita. PR 71 e alterações posteriores são intervenções de interface, não uma segunda rodada de evidência de uso. #64 e #70 acompanham avaliação e reobservação. Novas sessões precisam registrar data, versão, ambiente e ajuda sem reescrever as anteriores.
 
+## Consolidação de 09/11/2026
+
+A avaliação do artigo passa a abranger P01–P07. A revisão aproveita a versão Overleaf de 05/11, que já incluía P04 e P05, e acrescenta P06 e P07. A [proveniência](dados/PROVENIENCIA.md) registra a apuração atual, a resposta qualitativa de P07 em C4 e as diferenças na condução. O formato SBC e a organização dos apêndices seguem a decisão de 04/11.
+
 ## Destinos públicos
 
 Os quatro destinos (Memora, repositório Memora, Beto e repositório original) retornaram HTTP 200 na conferência de 04/11/2026. URLs completas aparecem em notas no artigo, com quebra via xurl.
 
 Compatibilidade: acrescentado ramo falso vazio ao `\@ifpackageloaded` do hook final de `sbc-template.sty`, para não consumir o próximo token nos hooks LaTeX atuais. Nenhuma regra visual foi alterada.
 
-## Verificação final
+## Verificação da revisão de 04/11
 
 - pdfLaTeX/BibTeX via latexmk: 29 páginas; corpo nas páginas físicas 1–25, referências 26–27 e apêndices 28–29. Mínimo SBC de 14 páginas atendido sem contar referências/apêndices.
 - Abstract com 7 linhas e Resumo com 8 linhas, ambos na primeira página. Um título em português. Fonte Times, uma coluna e margens do estilo SBC.

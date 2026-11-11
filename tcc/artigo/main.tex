@@ -25,10 +25,11 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-This work improves the usability of Beto through Memora, developed from its code base. The method combines technical comparison, a 13-response requirements survey, prototyping, incremental implementation and exploratory sessions with three students. The interface emphasizes validation, cache state and access history. Two participants needed guidance to discover history review. The findings informed interface changes that still require user evaluation; they do not establish superiority over Beto or learning gains.
+Memora extends Beto's code base with an interface for studying cache memory. Development combined technical comparison, a 13-response requirements survey, prototyping and incremental implementation. Seven students used Memora in exploratory sessions. Two initial cases needed help finding history review. In later sessions, one student found the before/after comparison independently, while another used it after the interviewer pointed out the access. Students highlighted access explanations and validation feedback. Five recorded complete fulfillment for each of the first three criteria and four did so for satisfaction. These observations describe usability and perceived usefulness within the sessions.
 \end{abstract}
+
 \begin{resumo}
-Este trabalho aprimora a usabilidade do Beto por meio do Memora, desenvolvido a partir de seu código-base. A metodologia combina comparação técnica, levantamento com 13 respostas, prototipação, implementação incremental e avaliação exploratória com três estudantes. A interface enfatiza validação, estado da cache e histórico de acessos. Dois participantes precisaram de indicação para descobrir a revisão do histórico. Os achados orientaram ajustes que ainda exigem avaliação com usuários; não demonstram superioridade sobre o Beto ou ganho de aprendizagem.
+O Memora parte do código do Beto e oferece uma interface para estudar memória cache. O desenvolvimento combinou comparação técnica, levantamento com 13 respostas, prototipação e implementação incremental. Sete estudantes usaram o Memora em sessões exploratórias. Dois casos iniciais precisaram de ajuda para encontrar a revisão do histórico. Nas sessões posteriores, um estudante encontrou o antes/depois por iniciativa própria e outro consultou a comparação após indicação do acesso. Os estudantes destacaram as explicações dos acessos e a validação. Cinco registraram atendimento completo em cada um dos três primeiros critérios e quatro em satisfação. Os achados descrevem usabilidade e utilidade percebida nas sessões.
 \end{resumo}
 
 \section{Introdução}
@@ -39,7 +40,7 @@ O simulador Beto foi desenvolvido com esse propósito: apoiar o ensino de memór
 
 Entretanto, o próprio repositório indica que o simulador ainda possui limitações de validação e atualização de configurações, por exemplo quando valores que deveriam ser potências de dois não são tratados adequadamente \cite{leogithub2026}. Assim, o presente TCC não pretende criar um simulador do zero, mas evoluir criticamente uma ferramenta existente, gratuita, web e de código aberto. A proposta concentra-se em diagnosticar lacunas do Beto, comparar suas funcionalidades com ferramentas relacionadas, implementar melhorias priorizadas e avaliar a experiência de uso da versão aprimorada com estudantes.
 
-O código-base do Beto serviu como ponto de partida para o desenvolvimento do Memora, nome adotado em setembro de 2026. A evolução preserva a atribuição aos autores e a licença MIT (Seção~\ref{sec:implementacao-memora}). O artigo apresenta o diagnóstico, a implementação e os resultados das sessões com três estudantes, incluindo as decisões de interface derivadas da observação.
+O código-base do Beto serviu como ponto de partida para o desenvolvimento do Memora, nome adotado em setembro de 2026. A evolução preserva a atribuição aos autores e a licença MIT (Seção~\ref{sec:implementacao-memora}). O artigo apresenta o diagnóstico, a implementação e os resultados das sessões com sete estudantes, incluindo as decisões de interface derivadas da observação.
 
 De modo específico, este estudo busca: (i) caracterizar recursos e limitações do Beto e de simuladores relacionados; (ii) identificar necessidades por meio de levantamento com estudantes; (iii) implementar uma interface de configuração, execução e revisão mais explícita; e (iv) investigar exploratoriamente a experiência de uso do Memora. Seguindo a organização de artigos de desenvolvimento e avaliação de software educacional, apresentam-se fundamentação, ferramentas relacionadas, metodologia, resultados do levantamento, implementação, avaliação, discussão e conclusões. Os instrumentos e registros visuais complementares permanecem nos apêndices.
 
@@ -304,7 +305,7 @@ A matriz preserva a análise documental inicial dos simuladores relacionados, na
 \section{Metodologia}
 \label{sec:metodo}
 
-O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A avaliação exploratória realizada com três estudantes é detalhada na Seção~\ref{sec:plano-avaliacao}. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação (Seção~\ref{sec:implementacao-memora}).
+O trabalho combina análise documental e técnica do Beto, levantamento descritivo de requisitos, prototipação iterativa e implementação incremental. A avaliação exploratória realizada com sete estudantes é detalhada na Seção~\ref{sec:plano-avaliacao}. A priorização considera as respostas dos participantes, as lacunas discutidas na literatura, os problemas observados durante o desenvolvimento e os refinamentos acompanhados pela orientação. O desenvolvimento foi registrado em \textit{issues}, decisões técnicas e \textit{pull requests}, com Kanban, GitHub Flow e Conventional Commits. Essa rastreabilidade relaciona evidência, decisão, implementação e verificação (Seção~\ref{sec:implementacao-memora}).
 
 O percurso foi organizado em seis etapas (Tabela~\ref{tab:etapas-metodo}). Como no estudo do MedSimples \cite{macedo2025medsimples}, separam-se a preparação da avaliação, sua execução com participantes e a análise dos registros. Essa aproximação é metodológica: o objetivo, a população e as tarefas do Memora são próprios deste trabalho. O estudo não incluiu experimento controlado de aprendizagem nem comparação simultânea entre Beto e Memora.
 
@@ -322,7 +323,7 @@ O percurso foi organizado em seis etapas (Tabela~\ref{tab:etapas-metodo}). Como 
 3 & Prototipação iterativa & Protótipo Figma v2 e ajustes de interação acompanhados pela orientação. \\
 4 & Implementação incremental & Código do Memora, decisões, \textit{issues}, \textit{pull requests} e registro de versões. \\
 5 & Verificação técnica & Testes de núcleo e interface e execução de cenários reproduzíveis. \\
-6 & Avaliação exploratória & Três sessões individuais com tarefas T1--T4, observação, entrevista e avaliação rápida. \\
+6 & Avaliação exploratória & Sete sessões individuais, com tarefas T1--T4, observação, entrevista e avaliação rápida. \\
 \bottomrule
 \end{tabular}
 \par\footnotesize Fonte: elaboração própria, com base nos instrumentos e no histórico de desenvolvimento.
@@ -418,7 +419,7 @@ A Figura~\ref{fig:memora-configurar-atual} documenta Configurar na versão atual
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/configurar.png}
 \caption{Memora atualizado: Configurar.}
 \label{fig:memora-configurar-atual}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, ilustrativa, sem vínculo documental com as versões das sessões P01--P07.
 \end{figure}
 
 \subsection{Execução, histórico e comparação contextual}
@@ -438,7 +439,7 @@ A Figura~\ref{fig:memora-simular-atual} documenta Simular na versão atual.
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/simular.png}
 \caption{Memora atualizado: Simular.}
 \label{fig:memora-simular-atual}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, ilustrativa, sem vínculo documental com as versões das sessões P01--P07.
 \end{figure}
 
 \subsection{Ajuda, navegação e identidade visual}
@@ -506,32 +507,36 @@ O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 li
 \subsection{Avaliação exploratória com estudantes}
 \label{sec:plano-avaliacao}
 
-O procedimento foi inspirado na avaliação do MedSimples de \citeonline{macedo2025medsimples}, que organiza a coleta em preparação, execução individual de tarefas, observação e avaliação posterior. O plano inicial previa tarefas equivalentes nas duas ferramentas. Nas três sessões documentadas nesta rodada, a execução observada ocorreu no Memora. O Beto foi abordado retrospectivamente por quem já o conhecia. As sessões avaliaram a interação com o simulador em tarefas de AOC.
+O procedimento seguiu a sequência de preparação, execução individual, observação e avaliação pós-uso descrita no estudo do MedSimples de \citeonline{macedo2025medsimples}. O plano inicial previa tarefas equivalentes nas duas ferramentas. Nas sete sessões documentadas, os participantes executaram tarefas no Memora. Os relatos sobre o Beto vieram de estudantes que já o haviam utilizado e descreveram experiências anteriores.
 
-A preparação reuniu um roteiro com objetivos observáveis e fichas de configuração; a execução registrou a interação com os controles e os tempos das tarefas; a análise examinou anotações e respostas abertas, sem transformar comentários em códigos da escala que não foram assinalados. As intervenções do entrevistador e a ausência de registro de versão em cada sessão constituem limites explícitos para a interpretação dos dados.
-
+Na preparação, o entrevistador definiu tarefas, fichas de configuração e perguntas pós-uso. Durante as sessões, anotou tempos, ações, intervenções e comentários. Na análise, distinguiu os episódios de uso, os relatos dos estudantes e as alternativas registradas na avaliação rápida. O Apêndice~\ref{ap:roteiro-memora} reúne os enunciados e a escala.
 
 \subsubsection{Método e participantes}
 
-Participaram três estudantes do quinto período de Engenharia de Computação, identificados como P01, P02 e P03. Era o primeiro uso do Memora para os três. P01 e P02 haviam usado o Beto no semestre anterior, enquanto P03 não tinha experiência prévia com o Beto.
+Participaram sete estudantes de Engenharia de Computação, em seu primeiro uso do Memora. Seis cursavam o quinto período e um estava em período avançado. As notas e a transcrição divergem quanto ao período exato de P07. Cinco tinham experiência anterior com o Beto. A Tabela~\ref{tab:perfil-participantes} apresenta essa experiência por participante.
 
 \begin{table}[H]
 \centering
-\caption{Perfil da rodada exploratória de avaliação, com identificadores anônimos.}
+\caption{Perfil dos participantes da avaliação exploratória.}
 \label{tab:perfil-participantes}
 \small
-\begin{tabular}{@{}P{1.6cm}P{4.0cm}P{5.9cm}@{}}
+\begin{tabular}{@{}P{1.6cm}P{3.4cm}P{8.3cm}@{}}
 \toprule
-\textbf{Código} & \textbf{Curso e período} & \textbf{Experiência prévia} \\
+\textbf{Código} & \textbf{Grupo de sessões} & \textbf{Experiência prévia com o Beto} \\
 \midrule
-P01 & Engenharia de Computação, 5º período & Beto no semestre anterior; primeiro uso do Memora. \\
-P02 & Engenharia de Computação, 5º período & Beto no semestre anterior; primeiro uso do Memora. \\
-P03 & Engenharia de Computação, 5º período & Sem uso prévio do Beto; primeiro uso do Memora. \\
+P01 & Original & Uso no semestre anterior. \\
+P02 & Original & Uso no semestre anterior. \\
+P03 & Original & Sem uso prévio. \\
+P04 & Complementar & Uso em Laboratório de Arquitetura e Organização de Computadores II (LAOC II). \\
+P05 & Complementar & Uso em disciplina de AOC e pouco contato em laboratório. \\
+P06 & Complementar & Sem uso prévio. \\
+P07 & Complementar & Uso em LAOC II. \\
 \bottomrule
 \end{tabular}
-\par\footnotesize Fonte: fichas anonimizadas de caracterização dos participantes.
+\par\footnotesize Fonte: fichas anonimizadas dos participantes. Todos usaram o Memora pela primeira vez.
 \end{table}
- As fichas consolidadas registram tempo, comportamento observado, intervenções e comentários. Esta é a rodada original P01--P03, anterior às mudanças do PR~71. O commit, o dispositivo e o navegador usados em cada sessão não foram registrados; não é possível atribuir retrospectivamente um hash à versão avaliada. Novas sessões devem registrar esses dados e ser analisadas separadamente, conforme as issues~64 e~70. Os participantes receberam fichas com parâmetros e sequências para as tarefas seguintes.
+
+As sessões originais (P01--P03) ocorreram em 28 e 29 de outubro de 2026, antes do PR~71. As fichas complementares (P04--P07) foram consolidadas em 5 de novembro de 2026. Essa é a data de referência de P05--P07. A data efetiva de P04 ficou sem registro. As fichas complementares registram interações com o histórico e, em P05--P07, com a ação \textit{Analisar}, mas os commits usados e as condições de ambiente ficaram sem documentação completa. Os grupos indicam o momento da coleta, sem definir duas versões de teste.
 
 \begin{enumerate}
 \item[\textbf{T1.}] Carregar o exemplo, configurar a sequência conforme a ficha A, conferir os parâmetros e localizar uma explicação da interface.
@@ -540,52 +545,66 @@ P03 & Engenharia de Computação, 5º período & Sem uso prévio do Beto; primei
 \item[\textbf{T4.}] Alterar a memória principal conforme a ficha C e observar seus efeitos na divisão do endereço.
 \end{enumerate}
 
+Em T2 de P04 e P05, o moderador orientou desativar as etapas detalhadas. Em T3 de P06, orientou o uso desse modo e indicou um acesso para consulta. P07 acompanhou a ficha B sem etapas detalhadas e comentou o recurso durante a exploração. Houve esclarecimentos sobre as fichas, indicações de ajuda e perguntas de confirmação. Em P04, registraram-se perguntas de formulação positiva e elogios do moderador. Essas diferenças de condução limitam a comparação de tempos e de autonomia.
+
 \subsubsection{Execução das tarefas e resultados observados}
 
 A Tabela~\ref{tab:tempos-entrevista} registra os tempos por participante e a Figura~\ref{fig:tempos-tarefas} os apresenta graficamente. A duração de T4 de P01 ficou sem registro. Para P02, há tempo anotado em T4, mas o registro descreve apenas parte do objetivo, incluindo um teste com valor inválido. Em T1, P01 avançou à simulação sob um enunciado impreciso. Os tempos contextualizam episódios de uso e devem ser lidos junto das anotações sobre ajuda e condução.
 
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering
-\caption{Tempos anotados nas tarefas, por participante.}
+\caption{Tempos anotados por participante; os subtotais excluem a entrevista.}
 \label{tab:tempos-entrevista}
-\begin{tabular}{lccc}
+\small
+\begin{tabular}{@{}llccccc@{}}
 \toprule
-\textbf{Tarefa} & \textbf{P01} & \textbf{P02} & \textbf{P03} \\
+\textbf{Código} & \textbf{Rodada} & \textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{Subtotal} \\
 \midrule
-T1 -- Configuração e ajuda & 1 min 34 s & 1 min & 1 min 57 s \\
-T2 -- Execução e resultados & 1 min 30 s & 1 min & 3 min 43 s \\
-T3 -- Outro mapeamento & 1 min & 30 s & 2 min \\
-T4 -- Divisão do endereço & Sem registro & 1 min$^{a}$ & 1 min 20 s \\
+P01 & Original & 1:34 & 1:30 & 1:00 & SR & 4:04$^{a}$ \\
+P02 & Original & 1:00 & 1:00 & 0:30 & 1:00$^{b}$ & 3:30$^{b}$ \\
+P03 & Original & 1:57 & 3:43 & 2:00 & 1:20 & 9:00 \\
+P04 & Complementar & 1:00 & 2:30 & 1:00 & 1:00 & 5:30 \\
+P05 & Complementar & 0:50 & 1:30 & 1:30 & 1:10 & 5:00 \\
+P06 & Complementar & 0:50 & 3:00 & 1:50 & 0:30 & 6:10 \\
+P07 & Complementar & 1:42 & 2:43 & 1:20 & 1:36 & 7:21 \\
 \bottomrule
 \end{tabular}
-\par\footnotesize Fonte: fichas anonimizadas das sessões. $^{a}$ Registro parcial da execução de T4.
+\par\footnotesize Fonte: fichas das sessões. Tempos em min:s; SR: sem registro. $^{a}$ Soma de T1 a T3. $^{b}$ Tempo anotado, com execução de T4 parcialmente documentada.
 \end{table}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{figuras/tempos-tarefas.pdf}
 \caption{Tempos registrados nas tarefas com o Memora.}
 \label{fig:tempos-tarefas}
-\par\footnotesize Fonte: elaboração própria com base nas fichas P01--P03. T4 de P01 sem registro.
+\par\footnotesize Fonte: elaboração própria com base nas fichas P01--P07. T4 de P01 sem registro e T4 de P02 com execução parcialmente documentada. Rodadas com diferenças de condução.
 \end{figure}
 
-Na configuração, os três casos documentam edição dos parâmetros ou da sequência e contato com a ajuda. Em T2, P01 acompanhou o passo a passo e destacou espontaneamente a descrição dos eventos. P02 utilizou reprodução, pausa, velocidade e avanço, mas perguntou o que diferenciava Parar de Pausar. P03 usou os controles e encontrou o antes/depois após explorar a interface. Em P02, há registro de abertura da revisão com indicação direta, mas a demonstração completa da troca não ficou documentada. P02 e P03 relataram que não perceberam que o marcador circular do histórico era um botão e conheceram esse caminho por indicação do entrevistador.
+Na configuração, os três casos originais documentam edição dos parâmetros ou da sequência e contato com a ajuda. Em T2, P01 acompanhou o passo a passo e destacou espontaneamente a descrição dos eventos. P02 utilizou reprodução, pausa, velocidade e avanço, mas perguntou o que diferenciava Parar de Pausar. P03 usou os controles e encontrou o antes/depois após explorar a interface. Em P02, há registro de abertura da revisão com indicação direta, mas a demonstração completa da troca não ficou documentada. P02 e P03 relataram que não perceberam que o marcador circular do histórico era um botão e conheceram esse caminho por indicação do entrevistador.
 
 Em T3, os registros descrevem retorno à configuração e execução de outro cenário. Em T4, P03 percebeu que a tela mudou ao alterar o total de células, mas precisou de direcionamento para identificar o que havia mudado. Os relatos sobre a organização da interface foram em geral favoráveis, com ressalvas localizadas na descoberta da revisão, na distinção entre comandos e na percepção das mudanças de parâmetros. Os comentários sobre o Beto em P01 e P02 refletem lembranças de uso anterior.
 
+
+Em T2, P04 localizou uma substituição e confirmou ter visto a comparação e os totais. P05 abriu \textit{Analisar} por iniciativa própria antes do fim da pergunta. Verbalizou dois acertos, seis faltas, taxa de 25\% e progresso finalizado. Esses valores vêm da fala registrada. P06 localizou \textit{Analisar} e usou a descrição do evento para explicar uma falta. O moderador perguntou pela comparação e pelos totais. O registro deixa imprecisos os valores e a identificação de uma troca específica. P07 reconheceu o botão e consultou o antes/depois após a indicação do acesso 3. A identificação dos blocos envolvidos e os totais numéricos de P07 ficaram sem registro claro.
+
+Em T3, P04 acompanhou as diferenças entre os cenários. P05 distinguiu a explicação de LRU e o uso de via livre sem remoção. P06 percebeu diferenças nas explicações das fichas A e B com orientação sobre a consulta. P07 acompanhou o segundo cenário sem o passo a passo. Em T4, os quatro alteraram o total de células de 4096 para 8192 e comentaram mudanças na interface. P05 e P07 testaram o valor zero a pedido do moderador. As falas e as perguntas de confirmação permitem descrever o que chamou a atenção dos estudantes, com precisão limitada sobre quais bits identificaram por conta própria.
 
 \subsubsection{Entrevista pós-uso e avaliação rápida}
 
 As perguntas abertas abordaram o acompanhamento dos acessos, a comparação entre mapeamentos, a divisão do endereço e as prioridades de melhoria. O Apêndice~\ref{ap:roteiro-memora} apresenta os enunciados do roteiro. Na comparação retrospectiva, P01 comentou: “é bem intuitivo e melhor que o Beto”. O entrevistador confirmou a anotação literal. A fala registra a impressão do participante com base na lembrança do uso anterior do Beto.
 
-Após receber a indicação de onde clicar, P02 comentou sobre a revisão do histórico: “se você não falar eu não teria visto isso aí”. P03 descreveu a dificuldade com o mesmo marcador: “Não sabia que era um botão”. Os dois trechos constam das transcrições fornecidas, sem conferência com o áudio original. Os relatos motivaram o botão \textit{Revisar} (PR~71), depois renomeado para \textit{Analisar} (PR~87), em versões posteriores às entrevistas.
+Após receber a indicação de onde clicar, P02 comentou sobre a revisão do histórico: “se você não falar eu não teria visto isso aí”. P03 descreveu a dificuldade com o mesmo marcador: “Não sabia que era um botão”. Os dois trechos constam das transcrições fornecidas, sem conferência com o áudio original. Os relatos motivaram o botão \textit{Revisar} (PR~71), depois renomeado para \textit{Analisar} (PR~87), em versões posteriores às entrevistas P01--P03.
 
-A Tabela~\ref{tab:avaliacao-rapida} apresenta a opção registrada para P01 e sintetiza os relatos qualitativos de P02 e P03.
+P04 valorizou o histórico descritivo, os blocos e a comparação, sem sugerir uma melhoria prioritária. Sobre a satisfação, afirmou: “Superou minhas expectativas, mano.” P05 destacou a possibilidade de configurar exercícios e revisar conteúdo, além de explorar e elogiar manual, exemplo, glossário e ajuda rápida. Entretanto, observou: “eu acho que essa velocidade podia ser menor tipo assim no dois ele ainda é muito rápido”. Sugeriu editar endereços em blocos interativos para prevenir erros de digitação, relativizando a relevância da ideia. Esses trechos provêm das transcrições recebidas, sem conferência com o áudio original.
 
-\begin{table}[!htbp]
+P06 valorizou a separação entre memória principal e cache e a explicação por acesso. Ao revisar o acesso 19, perguntou como retornar ao estado atual. O moderador indicou o botão de retorno e a seleção do último acesso como caminhos. P06 sugeriu aproximar a ação da tabela da cache. Nas palavras do participante, “Talvez dá pra deixar esse botão mais mais aparente.” P07 valorizou o alinhamento de linha e via e o retorno durante o preenchimento. Sobre a validação, disse: “Ele te corrige em tempo real né digamos assim”. Também associou o uso à revisão de conteúdo: “só com esse simulador eu consigo relembrar o conteúdo sabe”. Esses trechos provêm da transcrição recebida. O redimensionamento da janela citado por P07 ocorreu fora da visualização compartilhada.
+
+A Tabela~\ref{tab:avaliacao-rapida} preserva os relatos qualitativos da rodada original. P04--P06 registraram C nos quatro critérios, conforme as anotações consolidadas. As alternativas de P04 em C3 e de P05 em C2/C4 se apoiam nas notas, pois a transcrição isolada é menos explícita. P07 registrou C em C1--C3 e avaliou a satisfação como “Muito positiva”, em texto. Essa resposta aparece como SR na matriz da escala (Tabela~\ref{tab:matriz-rapida}).
+
+\begin{table}[H]
 \centering
-\caption{Avaliação rápida após o uso do Memora.}
+\caption{Registros originais: código de P01 e relatos qualitativos de P02/P03.}
 \label{tab:avaliacao-rapida}
 \small
 \begin{tabular}{@{}P{2.8cm}P{0.9cm}P{4.45cm}P{4.45cm}@{}}
@@ -601,9 +620,9 @@ C4 -- Satisfação & C & Avaliou favoravelmente o uso por iniciantes com apoio d
 \par\footnotesize Fonte: fichas anonimizadas. C indica “atende completamente”. As fichas de P02 e P03 contêm comentários sem código de resposta registrado.
 \end{table}
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering
-\caption{Matriz de apuração da avaliação rápida, rodada original.}
+\caption{Matriz de apuração da avaliação rápida nas duas rodadas.}
 \label{tab:matriz-rapida}
 \begin{tabular}{lcccc}
 \toprule
@@ -612,43 +631,47 @@ Participante & C1 & C2 & C3 & C4 \\
 P01 & C & C & C & C \\
 P02 & SR & SR & SR & SR \\
 P03 & SR & SR & SR & SR \\
+P04 & C & C & C & C \\
+P05 & C & C & C & C \\
+P06 & C & C & C & C \\
+P07 & C & C & C & SR$^{a}$ \\
 \bottomrule
 \end{tabular}
-\par\footnotesize C: atende completamente; P: parcialmente; N: não atende; X: não conseguiu avaliar; SR: sem código registrado. P, N e X têm contagem zero em cada critério. SR não equivale a X ou a insatisfação.
+\par\footnotesize C: atende completamente; P: parcialmente; N: não atende; X: não conseguiu avaliar; SR: sem código registrado. $^{a}$ P07 respondeu a C4 em texto (“Muito positiva”). P, N e X têm contagem zero em cada critério.
 \end{table}
 
-A Figura~\ref{fig:avaliacao-rapida} usa como denominador os três participantes em cada critério: uma resposta C (33,3\%) e duas sem código (66,7\%). A cobertura da escala é de 1/3 por critério. Embora C corresponda a 100\% dos códigos válidos, esse resultado se refere a uma única pessoa e não representa unanimidade dos três estudantes. Os comentários de P02 e P03 não foram convertidos em alternativas.
+A Figura~\ref{fig:avaliacao-rapida} usa sete participantes como denominador em cada critério. Em C1--C3, houve 5/7 respostas C (71,4\%) e 2/7 sem código (28,6\%). Em C4, houve 4/7 respostas C (57,1\%) e 3/7 sem código (42,9\%). A cobertura da escala corresponde a 5/7 em C1--C3 e 4/7 em C4. Todos os códigos registrados foram C. Os relatos de P02 e P03 e a satisfação de P07 permanecem em texto.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{figuras/avaliacao-rapida.pdf}
 \caption{Avaliação rápida: distribuição por critério e cobertura dos registros.}
 \label{fig:avaliacao-rapida}
-\par\footnotesize Fonte: elaboração própria a partir das fichas P01--P03. Base: três participantes por critério; nenhuma resposta P, N ou X registrada.
+\par\footnotesize Fonte: elaboração própria a partir das fichas P01--P07. Base: sete participantes por critério; nenhuma resposta P, N ou X registrada.
 \end{figure}
 
 \paragraph{Síntese das respostas abertas.}
-A unidade de análise é a resposta de cada participante à mesma pergunta (Q1--Q4), contada no máximo uma vez por tema. Não foram somados elogios de C1--C4, observações das tarefas e respostas pós-uso em uma única frequência. As sínteses abaixo são paráfrases das fichas; somente as falas entre aspas acima são transcrições literais, com a proveniência indicada.
+A análise considerou cada resposta por participante e pergunta (Q1--Q4). Os temas podem ocorrer na mesma resposta. As perguntas abertas complementam a escala e a observação das tarefas.
 
-Em Q1 (uso, textos e eventos; três respostas), P01 destacou a organização e a descrição dos eventos, percebida espontaneamente; P02 considerou o uso intuitivo, mas a descrição foi discutida após solicitação; P03 valorizou simplicidade, padrão visual, ajuda e validação. A dificuldade de descobrir a revisão reapareceu em P02 e P03 (2/3, 66,7\%). Esse tema converge, mas os recursos destacados como auxílio são distintos; não se estabelece um ranking do que mais ajudou.
+Em Q1, apareceram como pontos favoráveis a organização das informações, as descrições dos eventos e a ajuda. P05 valorizou a sequência configurável para reproduzir exercícios, mas considerou rápida a velocidade 2, sobretudo no mapeamento direto. P06 destacou a navegação por acesso e sugeriu ajudas breves sobre LRU e mapeamento. P07 citou o realce ao passar o mouse e os avisos durante o preenchimento.
 
-Em Q2 (mapeamentos; três respostas), os três relataram facilidade para acompanhar mudanças e reconhecer campos habilitados ou bloqueados (3/3, 100\% de relatos, sem medida de desempenho). Em Q3 (divisão do endereço), há duas respostas específicas: P01 relatou facilidade e P03 avaliou favoravelmente após direcionamento; P02 não tem resposta específica à mudança de 4096 para 8192 células. A cobertura de Q3 é, portanto, 2/3, com experiências diferentes, discutidas sem agregá-las como sucesso autônomo.
+Em Q2, os participantes relataram diferenças entre as configurações. P04 e P05 destacaram a indisponibilidade de opções no mapeamento direto. P06 e P07 também comentaram campos que ficaram indisponíveis ao trocar o mapeamento. Em Q3, houve registro específico da mudança de parâmetro para seis participantes. P02 tem registro parcial de T4, sem resposta específica ao aumento do total de células. Os relatos da mudança variam em precisão e em necessidade de orientação.
 
-Em Q4 (prioridade; três respostas), P01 não apontou ajuste, enquanto P02 e P03 indicaram a descoberta da revisão (2/3, 66,7\%). P02 também questionou Parar/Pausar; P03 sugeriu incremento por unidade e espaço, sem identificar o controle ou região. A síntese textual preserva essas diferenças em vez de criar gráficos de categorias não comparáveis. A comparação retrospectiva com Beto restringe-se a P01/P02; não se aplica a P03.
+Em Q4, P01, P04 e P07 ficaram sem indicação de ajuste prioritário. P02 e P03 comentaram a descoberta da revisão. P05 sugeriu editar endereços em blocos e recomendou manter o manual. P06 sugeriu destacar o retorno ao estado atual. P06 e P07 avaliaram o manual depois de o moderador indicar o botão. As comparações retrospectivas com o Beto vieram de P01, P02, P04, P05 e P07, com experiências prévias distintas.
 
 \subsubsection{Ajustes derivados dos achados}
 
-Os episódios de interação orientaram as decisões da Tabela~\ref{tab:achados-ajustes}. A revisão foi implementada no PR~71 e atualizada no PR~87. A Figura~\ref{fig:memora-revisao} apresenta a versão ajustada, posterior às entrevistas P01--P03. A versão intermediária está no Apêndice~\ref{ap:capturas-complementares} (Figura~\ref{fig:memora-revisao-historica}).
+A Tabela~\ref{tab:achados-ajustes} relaciona observações a decisões e propostas. O PR~71 implementou a ação textual de revisão, renomeada para \textit{Analisar} no PR~87. O Apêndice~\ref{ap:capturas-complementares} preserva uma captura intermediária (Figura~\ref{fig:memora-revisao-historica}). A dificuldade relatada por P06 motivou a mudança de \textit{Voltar ao estado atual} para o cabeçalho de Memória cache no PR~95. A Figura~\ref{fig:memora-revisao} ilustra o ajuste, cuja reobservação com estudantes é acompanhada na issue~70.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/comparacao.png}
 \caption{Memora atualizado: comando Analisar e comparação dos blocos antes/depois do acesso 20.}
 \label{fig:memora-revisao}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria em Chromium/Playwright da revisão de 09/11/2026 (issue~70). Cenário ilustrativo, posterior às sessões.
 \end{figure}
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering
 \caption{Relação entre observações e encaminhamentos de interface.}
 \label{tab:achados-ajustes}
@@ -661,6 +684,9 @@ P02 e P03 não reconheceram a ação no marcador do histórico. & Botão textual
 P03 demorou a localizar o antes/depois em T2. & Abertura direta da comparação ao revisar, com destaque aos blocos que saem e entram (issue~68). \\
 P02 questionou a diferença entre Parar e Pausar. & Unificação do controle de reprodução, com Reiniciar como ação separada (issue~69). \\
 P03 precisou de direcionamento em T4 e sugeriu ajustes de incremento e espaço. & Reavaliar a leitura da divisão do endereço e identificar os controles ou regiões referidos (issue~70). \\
+P05 considerou rápida a reprodução em velocidade 2, sobretudo no direto. & Avaliar velocidades mais lentas e o tempo mínimo de leitura por acesso; proposta ainda não validada com usuários. \\
+P05 sugeriu editar endereços em blocos. & Investigar uma entrada estruturada que preserve a validação. \\
+P06 pediu ajuda para sair da revisão de um acesso anterior. & A ação \textit{Voltar ao estado atual} recebeu destaque no cabeçalho de Memória cache. A issue~70 acompanha a reobservação. \\
 \bottomrule
 \end{tabular}
 \par\footnotesize Fonte: elaboração própria a partir das fichas e do registro de desenvolvimento.
@@ -670,21 +696,25 @@ P03 precisou de direcionamento em T4 e sugeriu ajustes de incremento e espaço. 
 
 \section{Discussão e limitações}
 
-O levantamento inicial apontou demanda por informação de recência e por auxílio na interface. A implementação tornou observáveis a validade, o estado LRU e a evolução da cache a cada acesso. Na avaliação exploratória, os participantes conseguiram usar controles e localizar parte das informações, mas o acesso à revisão exigiu intervenção em dois casos. O resultado justifica dar mais visibilidade ao comando e ligar a seleção do acesso diretamente à comparação. A percepção da mudança na decomposição do endereço permanece uma questão a observar em novas sessões.
+O levantamento inicial indicou demanda por informações de recência e por ajuda na interface. As sessões exploratórias detalharam onde o fluxo de revisão exigia esforço. P02 e P03 precisaram de indicação para descobrir a ação do histórico. Nas sessões complementares, P05 abriu a comparação espontaneamente e P07 reconheceu o botão, mas recebeu a indicação do acesso a examinar. P06 encontrou a ação de análise e pediu ajuda para retornar à execução. Em conjunto, os episódios distinguem três ações que podem exigir apoio em momentos diferentes: reconhecer o botão, localizar o acesso de interesse e sair da revisão.
 
-A amostra por conveniência, a experiência prévia desigual com o Beto, as intervenções e a incompletude de parte dos registros restringem a interpretação. A rodada descreve a experiência com o Memora. Uma comparação direta exigiria tarefas equivalentes nos dois simuladores em condições registradas. O estudo também não incluiu medidas de aprendizagem antes e depois do uso. A avaliação complementar da orientadora, a consolidação formal da inspeção heurística e a observação das alterações do PR~71 permanecem etapas posteriores. O protocolo comparativo originalmente previsto está preservado nos instrumentos do projeto.
+As descrições de eventos apoiaram a explicação de uma falta por P06. P05 valorizou a configuração de exercícios e P07 destacou a validação durante o preenchimento como apoio para revisar conteúdo. As sessões também registraram dificuldades localizadas junto a avaliações favoráveis. A observação de P05 sobre o ritmo da reprodução sugere investigar quanto tempo o estudante precisa para ler a explicação de cada acesso.
+
+A amostra por conveniência reúne sete estudantes do mesmo curso, com familiaridade desigual com o Beto. A condução variou entre sessões, incluindo instruções sobre o modo detalhado, indicação de acessos e perguntas de confirmação. As fichas têm lacunas sobre versão, ambiente e tempos. Por isso, os dados descrevem episódios de uso e percepções. Comparar eficiência ou atribuir mudanças de comportamento a uma versão exigiria condições de aplicação equivalentes e registro dos commits.
+
+O Beto foi discutido retrospectivamente. Uma comparação direta requer tarefas equivalentes nas duas ferramentas. O estudo não incluiu medidas de aprendizagem antes e depois das tarefas. A avaliação complementar com a orientadora, prevista no protocolo, não integra a amostra de estudantes. As falas apresentadas preservam o código de cada participante e a origem nas notas ou transcrições disponíveis.
 
 \Needspace{16\baselineskip}
 \section{Considerações finais}
 
 Este trabalho teve como objetivo avaliar e aprimorar o Beto como ferramenta educacional de apoio ao ensino de memória cache. A caracterização de simuladores relacionados e o levantamento de requisitos com 13 respostas orientaram a definição do escopo. O desenvolvimento resultou no Memora, uma aplicação web com validação de parâmetros, decomposição de endereços, visualização de validade e recência LRU, execução por etapas e histórico que permite examinar a cache antes e depois de um acesso.
 
-As três sessões com estudantes complementaram a verificação técnica ao revelar dificuldades que os testes do software não mediam, especialmente a descoberta da revisão no histórico e a distinção entre comandos de execução. Os achados foram registrados e convertidos em alterações rastreáveis. A contribuição do trabalho consiste na evolução de um simulador aberto em português e na documentação do percurso entre diagnóstico, prototipação, implementação e avaliação exploratória.
+As sete sessões complementaram a verificação técnica. Os primeiros casos apontaram dificuldades para localizar a revisão e distinguir comandos de execução. As sessões complementares detalharam a utilidade percebida das explicações, do antes/depois e da validação durante a configuração. Elas também revelaram necessidades específicas de leitura no ritmo da reprodução e de retorno à execução. A escala teve cinco registros de atendimento completo em cada um dos três primeiros critérios e quatro em satisfação. As respostas abertas complementam essa apuração e mostram em que situações a interface ajudou ou exigiu orientação.
 
 \subsection{Trabalhos futuros}
 \label{sec:futuros}
 
-A continuidade deve verificar a versão ajustada com novos participantes, realizar tarefas equivalentes no Beto e no Memora e investigar a aprendizagem em estudo específico. A avaliação retrospectiva disponível não substitui esses procedimentos.
+Uma próxima sessão pode pedir que o estudante encontre uma substituição e volte ao estado atual sem indicação do caminho. O registro do commit, do ambiente e da ajuda recebida permitirá contextualizar o resultado. Também cabe investigar o ritmo de reprodução, a edição de endereços em blocos e ajudas breves sobre os mapeamentos e a política LRU. Uma comparação direta com o Beto e a avaliação de aprendizagem requerem procedimentos próprios.
 
 Operações \textit{load/store}, políticas de escrita e \textit{dirty bit} permanecem propostas da issue~32. Em \textit{write-through}, a escrita atualiza também a memória principal; em \textit{write-back}, ela pode ser adiada até a remoção, com um bit indicando modificação pendente. Alocação ou não alocação em falta de escrita constitui outra decisão. ParaCache e Ripes oferecem referências para essas extensões \cite{paracacheweb2026,ripescache2026}, mas elas não compõem a versão avaliada do Memora. O bit de validade já exibido tem função distinta.
 
@@ -735,7 +765,7 @@ Os enunciados foram extraídos do cabeçalho do CSV anonimizado da pesquisa com 
 
 
 \textbf{Tarefas T1--T4}
-\begin{description}[leftmargin=0pt,style=nextline,itemsep=3pt]
+\begin{description}[style=nextline,labelindent=0pt,leftmargin=0pt,labelsep=0pt,itemsep=3pt]
 \item[\textbf{T1 --- Configuração e ajuda.}] \emph{Carregue o exemplo pronto e substitua a sequência de endereços pela sequência da ficha A. Confira os demais parâmetros da ficha. Antes de abrir a simulação, procure na própria tela uma explicação sobre um dos campos.}
 \item[\textbf{T2 --- Execução e histórico.}] \emph{Abra a simulação. Ative as etapas detalhadas e use velocidade 2. Inicie a reprodução, acompanhe um acesso, pause e conte o que a tela mostrou. Retome e depois vá ao final da execução. No histórico, localize uma troca de blocos e mostre antes/depois. Por fim, encontre os totais de acertos/faltas e a indicação de que terminou.}
 \item[\textbf{T3 --- Outros mapeamentos.}] Usar a ficha B para modificar o mapeamento e comparar a execução. \emph{(Síntese do objetivo registrado.)}
@@ -776,7 +806,7 @@ A sequência de endereços explicitamente registrada como comum às fichas A e B
 
 \textbf{Avaliação rápida}
 
-A escala previa C (atende completamente), P (atende parcialmente), N (não atende) e X (não conseguiu avaliar). Somente P01 possui códigos registrados; comentários de P02/P03 permanecem SR.
+A escala previa C (atende completamente), P (atende parcialmente), N (não atende) e X (não conseguiu avaliar). P01 e P04--P06 possuem códigos C nos quatro critérios. P07 tem C em C1--C3 e um relato qualitativo em C4. As fichas P02/P03 contêm comentários sem alternativa registrada. Em P04/P05, o moderador orientou desativar as etapas detalhadas em T2, o que alterou a instrução preservada acima.
 
 \begin{enumerate}
 \item[\textbf{C1.}] Facilidade para começar e utilizar os controles.
@@ -840,7 +870,7 @@ Os protótipos do Figma não representam o software funcional. A captura do PR~7
 \end{figure}
 
 \apendicemanual{Manual visual do Memora atualizado}{ap:manual-visual}
-Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, posteriores às entrevistas. O arquivo \texttt{packages/memora/src/assets/manual/metadata.json} identifica a revisão \texttt{3fede5c} e o cenário.
+As quatro capturas anotadas foram produzidas em Chromium/Playwright a 1600$\times$900. A captura de comparação foi atualizada em 09/11/2026 para mostrar o retorno no cabeçalho da cache. O arquivo \path{packages/memora/src/assets/manual/metadata.json} registra as revisões e o cenário ilustrativo.
 
 \subsection*{Configurar, passos 1--5}
 \begin{figure}[!htbp]
@@ -848,7 +878,7 @@ Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, po
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/configurar.png}
 \caption{Manual de Configurar: passos 1--5.}
 \label{fig:manual-configurar}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, ilustrativa, sem vínculo documental com as versões das sessões P01--P07.
 \end{figure}
 \begin{enumerate}
 \item Carregar exemplo didático.
@@ -865,7 +895,7 @@ Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, po
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/simular.png}
 \caption{Manual de Simular: passos 1--6.}
 \label{fig:manual-simular}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, ilustrativa, sem vínculo documental com as versões das sessões P01--P07.
 \end{figure}
 \begin{enumerate}
 \item Iniciar, pausar e continuar.
@@ -883,12 +913,12 @@ Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, po
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/comparacao.png}
 \caption{Manual: comparação do acesso 20, passos 7--9.}
 \label{fig:manual-comparacao}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria em Chromium/Playwright da revisão de 09/11/2026 (issue~70). Cenário ilustrativo, posterior às sessões.
 \end{figure}
 \begin{enumerate}
 \item Selecionar Analisar no acesso 20.
 \item Comparar a saída do bloco 992--1007 com a entrada do bloco 3040--3055.
-\item Voltar ao estado atual sem alterar contadores.
+\item No cabeçalho de Memória cache, escolher Voltar ao estado atual. A ação fecha a comparação e preserva os contadores.
 \end{enumerate}
 
 \clearpage
@@ -898,7 +928,7 @@ Quatro capturas anotadas produzidas em Chromium/Playwright a 1600$\times$900, po
 \includegraphics[width=\linewidth,height=0.39\textheight,keepaspectratio]{figuras/manual/conclusao.png}
 \caption{Manual: conclusão 21/21, passo 10.}
 \label{fig:manual-conclusao}
-\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, não correspondente às sessões P01--P03.
+\par\footnotesize Fonte: captura própria do Memora via Chromium/Playwright, posterior ao PR~87, ilustrativa, sem vínculo documental com as versões das sessões P01--P07.
 \end{figure}
 O histórico e os totais permanecem disponíveis após o progresso chegar a 21/21.
 
