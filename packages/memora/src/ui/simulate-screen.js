@@ -56,7 +56,7 @@ export function mountSimulateScreen(document, { onChange = () => {}, onReview = 
     root.classList.toggle('is-detailed', state.detailed);
     byId('sim-detailed').checked = state.detailed; byId('sim-speed').value = state.speed;
     const unit = state.detailed ? (state.speed === 1 ? 'passo' : 'passos') : (state.speed === 1 ? 'acesso' : 'acessos');
-    const speedLabel = `${state.speed} ${unit}/segundo`;
+    const speedLabel = `${number(state.speed)} ${unit}/segundo`;
     text('sim-speed-label', `Velocidade (${speedLabel})`);
     byId('sim-speed').setAttribute('aria-valuetext', speedLabel);
     for (const format of ['decimal', 'binary']) {

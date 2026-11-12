@@ -57,7 +57,22 @@ test('reiniciar zera dados e preserva preferências; descartar cancela callbacks
 test('controles rejeitam preferências e acessos inexistentes', () => {
   const { controller: c } = setup();
   assert.throws(() => c.setSpeed(0), RangeError); assert.throws(() => c.setSpeed(11), RangeError);
+  for (const invalid of [NaN, Infinity, '0.25', 0.1, 0.3]) assert.throws(() => c.setSpeed(invalid), RangeError);
   assert.throws(() => c.setFormat('hex'), TypeError); assert.throws(() => c.selectAccess(1), RangeError);
+});
+
+test('ritmo de 0,25 preserva um único relógio, cancela callbacks antigos e mantém o resultado', () => {
+  const { controller: c, tasks, tick } = setup();
+  c.setDetailed(false); c.play();
+  const stale = tasks.values().next().value.fn;
+  c.setSpeed(0.25);
+  assert.equal(tasks.size, 1); assert.equal(tasks.values().next().value.delay, 4000);
+  const before = c.view(); stale(); assert.deepEqual(c.view(), before);
+  tick(); assert.equal(c.view().statistics.processed, 2);
+  c.pause(); assert.equal(tasks.size, 0);
+  c.play(); assert.equal(c.view().done, true);
+  assert.equal(c.view().statistics.hits, 1); assert.equal(c.view().statistics.misses, 2);
+  c.restart(); assert.equal(c.view().speed, 0.25);
 });
 
 test('velocidade inicial é 5 etapas por segundo e reprograma o relógio ao ajustar', () => {

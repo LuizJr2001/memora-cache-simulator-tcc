@@ -10,6 +10,11 @@ export const EXAMPLE_ADDRESSES = Object.freeze([
   0, 1, 16, 17, 32, 33, 48, 49, 64, 65, 992, 993, 2016, 2017, 2, 18, 34, 994, 2018, 3044, 96,
 ]);
 
+// Preserva itens vazios separados por vírgulas, inclusive no editor em blocos.
+export function addressTokens(text) {
+  return text.split(',').flatMap(part => part.trim() ? part.trim().split(/\s+/) : ['']);
+}
+
 export function validateAddresses(text, memoryCells) {
   const errors = [];
   const addresses = [];
@@ -24,7 +29,7 @@ export function validateAddresses(text, memoryCells) {
     return { ok: false, errors: [{ position: 1, value: '', message: 'Informe pelo menos um endereço' }], addresses: [] };
   }
   // Vírgulas preservam itens vazios; espaços e quebras de linha separam itens sem criar vazios.
-  const tokens = text.split(',').flatMap(part => part.trim() ? part.trim().split(/\s+/) : ['']);
+  const tokens = addressTokens(text);
   if (tokens.length > MAX_ADDRESSES) {
     return { ok: false, errors: [{ message: `Use no máximo ${MAX_ADDRESSES} endereços por sequência` }], addresses: [] };
   }

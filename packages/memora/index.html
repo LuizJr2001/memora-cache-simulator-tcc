@@ -90,7 +90,7 @@
           </fieldset>
         </section>
         <section class="panel sequence-panel" aria-labelledby="sequence-heading">
-          <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe por vírgula, espaço ou quebra de linha</p></div></div>
+          <div class="panel-heading"><div><h2 id="sequence-heading">Sequência de endereços</h2><p>Separe por vírgula, espaço ou quebra de linha</p></div><button class="compact" type="button" id="open-address-editor">Editar em blocos</button></div>
           <div class="field sequence-field">
             <div class="field-heading sequence-field-heading">
               <label for="sequence">Endereços a acessar</label>
@@ -142,7 +142,7 @@
             <section class="simulation-controls" aria-label="Controles da simulação">
               <div class="playback-actions"><button type="button" id="sim-play" aria-describedby="playback-help">▶ Iniciar</button><button type="button" id="sim-restart" aria-describedby="playback-help" title="Voltar ao início e zerar cache, histórico e contadores">↻ Reiniciar</button><button type="button" id="sim-next">Próximo acesso</button><button type="button" id="sim-finish">Ir ao final</button></div>
               <p id="playback-help" class="sr-only">Pausar preserva o ponto da execução para continuar. Reiniciar volta ao início e zera a cache, o histórico e os contadores.</p>
-              <div class="playback-preferences"><label class="detailed-control"><input type="checkbox" id="sim-detailed" aria-describedby="sim-mode-description" checked><span>Etapas detalhadas <span id="sim-mode-description" class="simulation-mode-description">(mostra o passo a passo e explica cada decisão)</span></span></label><label class="speed-control" for="sim-speed"><span aria-hidden="true" title="Diminuir velocidade">−</span><input type="range" id="sim-speed" min="1" max="10" value="5" aria-valuetext="5 passos por segundo" aria-describedby="speed-direction"><span aria-hidden="true" title="Aumentar velocidade">+</span><span id="sim-speed-label">Velocidade (5 passos/segundo)</span></label><span id="speed-direction" class="sr-only">Mova para a esquerda para diminuir a velocidade ou para a direita para aumentar.</span></div>
+              <div class="playback-preferences"><label class="detailed-control"><input type="checkbox" id="sim-detailed" aria-describedby="sim-mode-description" checked><span>Etapas detalhadas <span id="sim-mode-description" class="simulation-mode-description">(mostra o passo a passo e explica cada decisão)</span></span></label><label class="speed-control" for="sim-speed"><span aria-hidden="true" title="Diminuir velocidade">−</span><input type="range" id="sim-speed" min="0.25" max="10" step="0.25" value="5" aria-valuetext="5 passos por segundo" aria-describedby="speed-direction"><span aria-hidden="true" title="Aumentar velocidade">+</span><span id="sim-speed-label">Velocidade (5 passos/segundo)</span></label><span id="speed-direction" class="sr-only">Mova para a esquerda para diminuir a velocidade ou para a direita para aumentar. O mínimo de 0,25 equivale a um passo ou acesso a cada quatro segundos.</span></div>
             </section>
             <p id="sim-status" class="sr-only" role="status" aria-live="polite">Pronto para iniciar · nenhum acesso foi processado</p>
             <section class="simulation-address simulation-card" aria-labelledby="current-address-heading">

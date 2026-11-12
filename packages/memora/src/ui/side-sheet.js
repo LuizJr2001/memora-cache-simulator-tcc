@@ -188,7 +188,7 @@ export function createSideSheet(document) {
       }
       const note = document.createElement('p');
       note.className = 'manual-footnote';
-      note.textContent = 'Capturas de cenário didático, geradas com Chromium na versão desta interface. Os marcadores são complementados por instruções em texto; Glossário e Ajuda rápida continuam disponíveis na barra superior.';
+      note.textContent = 'Capturas ilustrativas de cenário didático. As instruções em texto também explicam a edição em blocos e as velocidades mais lentas. Glossário e Ajuda rápida continuam disponíveis na barra superior.';
       parent.append(note);
     }, true);
   }

@@ -129,6 +129,11 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .cache-group legend { float: left; width: 100%; margin-bottom: 14px; }
 .cache-group .fields-grid { clear: both; margin-top: 0; }
 .sequence-panel { display: flex; flex-direction: column; }
+#open-address-editor { flex-shrink: 0; white-space: normal; padding-inline: 12px; font-size: 12px; }
+.address-blocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-block: 20px; }
+.address-block { display: grid; gap: 6px; min-width: 0; }
+.address-block .compact { justify-self: start; }
+.address-editor-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 /* Sem alteração da distribuição para telas pequenas. */
 .sequence-bottom { display: contents; }
 .sequence-field { margin-top: 24px; }

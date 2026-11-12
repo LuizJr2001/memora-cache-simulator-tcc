@@ -2,6 +2,7 @@ import { DEFAULT_CONFIGURATION } from '../core/configuration.js';
 import { DEFAULT_GENERATION_COUNT, MAX_ADDRESSES } from '../core/addresses.js';
 import { createConfigurationController } from './configuration-controller.js';
 import { createSideSheet } from './side-sheet.js';
+import { openAddressEditor } from './address-editor.js';
 
 const number = value => new Intl.NumberFormat('pt-BR').format(value);
 const bits = value => `${value} ${value === 1 ? 'bit' : 'bits'}`;
@@ -64,7 +65,12 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
     feedback('memoryCells', l ? `${bits(l.addressBits)} de endereço` : 'O total de células define o intervalo de endereços', errors.memoryCells);
     feedback('cellsPerBlock', l ? `${bits(l.offsetBits)} para deslocamento` : 'Defina a memória', errors.cellsPerBlock);
     feedback('cacheLines', l ? 'Capacidade compatível' : 'Defina a capacidade da cache', errors.cacheLines);
-    feedback('mapping', '', errors.mapping);
+    const mappingHint = {
+      direct: 'Cada bloco tem uma única linha possível',
+      'fully-associative': 'Cada bloco pode ocupar qualquer linha da cache',
+      'set-associative': 'Cada bloco pode ocupar qualquer via do seu conjunto',
+    };
+    feedback('mapping', mappingHint[raw.mapping] ?? '', errors.mapping);
     const wayHint = c ? c.mapping === 'direct' ? '1 via · valor fixo' :
       c.mapping === 'fully-associative' ? `${c.ways} vias · 1 conjunto · valor fixo` :
       `${c.ways} vias · ${l.setCount} conjuntos · valor ajustável` : 'Revise os parâmetros';
@@ -141,6 +147,16 @@ export function mountConfigureScreen(document, { random = Math.random, onPrepare
   byId('load-example').addEventListener('click', () => {
     sequenceEdited = true; controller.loadExample(); render();
     setText('action-status', 'Exemplo didático carregado com 21 endereços');
+  });
+  byId('open-address-editor').addEventListener('click', () => {
+    openAddressEditor(document, sheet, {
+      sequence: controller.view().sequence,
+      memoryCells: controller.view().parameters.configuration?.memoryCells,
+      onApply(sequence) {
+        sequenceEdited = true; controller.setSequence(sequence); render();
+        setText('action-status', 'Sequência atualizada pelo editor em blocos');
+      },
+    });
   });
   form.addEventListener('submit', event => {
     event.preventDefault(); sequenceEdited = true;

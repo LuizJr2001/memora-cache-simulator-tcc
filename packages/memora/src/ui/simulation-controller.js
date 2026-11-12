@@ -60,7 +60,9 @@ export function createSimulationController(input, {
       return emit();
     },
     setSpeed(value) {
-      if (!Number.isInteger(value) || value < 1 || value > 10) throw new RangeError('Velocidade deve estar entre 1 e 10');
+      if (!Number.isFinite(value) || value < 0.25 || value > 10 || !Number.isInteger(value * 4)) {
+        throw new RangeError('Velocidade deve estar entre 0,25 e 10, em intervalos de 0,25');
+      }
       stopClock(); speed = value; queue(); return emit();
     },
     setDetailed(value) { detailed = Boolean(value); return emit(); },
