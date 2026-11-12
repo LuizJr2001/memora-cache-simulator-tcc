@@ -1,7 +1,8 @@
 {
-  "revision": "26dfa52d992084912eeb6cb65e269cf8a0990e58",
-  "viewport": "1600x900",
-  "browser": "Chromium / Playwright",
+  "revision": "40fcdfacbbf3fde3b68bb0d4e9302be9d33daefe",
+  "capturedAt": "2026-11-12T01:41:32.621Z",
+  "viewport": "1363x936",
+  "browser": "Chromium / CUA",
   "scenario": "EXAMPLE_CONFIGURATION + EXAMPLE_ADDRESSES; mapeamento por conjunto, 2 vias, LRU, 21 acessos",
   "files": [
     "configurar.png",
@@ -10,5 +11,229 @@
     "conclusao.png"
   ],
   "annotations": "1–5 Configurar; 1–6 Simular; 7–9 Comparação; 10 Conclusão",
-  "comparisonRevision": "da1d69bef716c05f74b5244fb693adf93fa54753"
+  "captureMethod": "Capturas reais do build de produção por CUA; marcadores SVG compostos a partir de geometria DOM, sem alterar a interface ou os dados.",
+  "verification": "42 verificações manuais CUA aprovadas; 101 casos Playwright coletados, não executados integralmente nesta sessão.",
+  "captures": [
+    {
+      "file": "configurar.png",
+      "sha256": "bcea7124599a7e1a37444d031c98c612a30f4fd4c1909899180d38b3013d5a72",
+      "sourceScreenshotSha256": "5d10d740825db44cacb81be8fd57153719c5a648ad2c47a9d7d99af500df4290",
+      "height": 936,
+      "scrollHeight": 936,
+      "scrollWidth": 1363,
+      "targets": [
+        {
+          "height": 36.1875,
+          "left": 1089.453125,
+          "selector": "#load-example",
+          "top": 117,
+          "width": 248
+        },
+        {
+          "height": 204.1875,
+          "left": 42.546875,
+          "selector": ".memory-group",
+          "top": 259,
+          "width": 535.8125
+        },
+        {
+          "height": 44,
+          "left": 318.453125,
+          "selector": "#mapping",
+          "top": 548.1875,
+          "width": 259.90625
+        },
+        {
+          "height": 238,
+          "left": 644.359375,
+          "selector": "#sequence",
+          "top": 285,
+          "width": 676.09375
+        },
+        {
+          "height": 44,
+          "left": 644.359375,
+          "selector": "#prepare-input",
+          "top": 784,
+          "width": 676.09375
+        }
+      ],
+      "width": 1363,
+      "first": 1,
+      "badges": [
+        [
+          1210,
+          85
+        ],
+        [
+          310,
+          430
+        ],
+        [
+          450,
+          450
+        ],
+        [
+          1270,
+          450
+        ],
+        [
+          1240,
+          850
+        ]
+      ]
+    },
+    {
+      "file": "simular.png",
+      "sha256": "3603f84a8c338e85ed1b95387f69898a5087287c6180f70e09fe9c057a464d0d",
+      "sourceScreenshotSha256": "71ef419ae0c3d100236b764c590f2bcaf57694b4a01e78eee89954189b3fc69b",
+      "height": 936,
+      "scrollHeight": 936,
+      "scrollWidth": 1363,
+      "targets": [
+        {
+          "height": 34,
+          "left": 38.546875,
+          "selector": "#sim-play",
+          "top": 264,
+          "width": 196.765625
+        },
+        {
+          "height": 34,
+          "left": 441,
+          "selector": "#sim-next",
+          "top": 264,
+          "width": 217.171875
+        },
+        {
+          "height": 16,
+          "left": 38.546875,
+          "selector": "#sim-detailed",
+          "top": 305,
+          "width": 16
+        },
+        {
+          "height": 6,
+          "left": 486.1875,
+          "selector": "#sim-speed",
+          "top": 310,
+          "width": 94
+        },
+        {
+          "height": 22,
+          "left": 42.546875,
+          "selector": "#cache-heading",
+          "top": 507,
+          "width": 132.515625
+        },
+        {
+          "height": 22,
+          "left": 894.609375,
+          "selector": "#history-heading",
+          "top": 197,
+          "width": 178.84375
+        }
+      ],
+      "width": 1363,
+      "first": 1,
+      "badges": [
+        [
+          20,
+          280
+        ],
+        [
+          550,
+          360
+        ],
+        [
+          245,
+          345
+        ],
+        [
+          780,
+          345
+        ],
+        [
+          435,
+          510
+        ],
+        [
+          1130,
+          180
+        ]
+      ]
+    },
+    {
+      "file": "comparacao.png",
+      "sha256": "7c69264b1aca91d1ef57056eb289aac51c5f9ab92b86d9a20dd9afaafab47c05",
+      "sourceScreenshotSha256": "909557c9089f8e844f89ac04436b9391e2f48f5e0095e77b0f10f91179bb60e4",
+      "height": 936,
+      "scrollHeight": 936,
+      "scrollWidth": 1363,
+      "targets": [
+        {
+          "height": 28,
+          "left": 901.609375,
+          "selector": "#history-table [data-review=\"20\"]",
+          "top": 380.5,
+          "width": 68
+        },
+        {
+          "height": 34,
+          "left": 42.546875,
+          "selector": "#access-comparison summary",
+          "top": 562,
+          "width": 788.0625
+        },
+        {
+          "height": 34,
+          "left": 672.546875,
+          "selector": "#show-live",
+          "top": 524,
+          "width": 168.0625
+        }
+      ],
+      "width": 1363,
+      "first": 7,
+      "badges": [
+        [
+          880,
+          350
+        ],
+        [
+          435,
+          540
+        ],
+        [
+          715,
+          505
+        ]
+      ]
+    },
+    {
+      "file": "conclusao.png",
+      "sha256": "fe9df3826af40131db1859048d0091eac6662b6a7b7ca479d6d2c211ad4b4a55",
+      "sourceScreenshotSha256": "b2fe4be666ff42f5539864b098836df954934687aa0a30f49dc28f78ef545b85",
+      "height": 936,
+      "scrollHeight": 936,
+      "scrollWidth": 1363,
+      "targets": [
+        {
+          "height": 22,
+          "left": 38.546875,
+          "selector": "#sim-progress",
+          "top": 210,
+          "width": 130.8125
+        }
+      ],
+      "width": 1363,
+      "first": 10,
+      "badges": [
+        [
+          62,
+          180
+        ]
+      ]
+    }
+  ]
 }

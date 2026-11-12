@@ -93,9 +93,9 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos; `test` executa os testes com o runner
-nativo do Node. A versão integrada contém **78 testes Node** de
+nativo do Node. A versão integrada contém **81 testes Node** de
 configuração/entradas, controladores, execução, políticas, estatísticas e
-snapshots, explicações e apresentação da cache. A interface tem **93 cenários Chromium**, executados separadamente:
+snapshots, explicações e apresentação da cache. A interface tem **101 cenários Playwright** em cinco arquivos, executados separadamente:
 
 ```bash
 npx playwright install chromium
@@ -106,6 +106,11 @@ O servidor é iniciado pela suíte. `MEMORA_CHROMIUM_PATH` aceita um Chromium
 já instalado; `MEMORA_SCREENSHOT_DIR`, `MEMORA_SIMULATION_SCREENSHOT_DIR` e
 `MEMORA_ANALYSIS_SCREENSHOT_DIR` definem pastas opcionais para capturas de
 Configurar, Simular e Analisar. Registre resultados locais separadamente da CI.
+
+Em 11/11, 42 verificações manuais no Chromium/CUA e quatro capturas atualizadas
+complementaram os testes Node. A suíte de 101 casos foi apenas coletada nessa
+sessão: o resultado manual não deve ser reportado como aprovação integral do
+Playwright. Consulte o [registro](docs/verificacoes/2026-11-11-manual/README.md).
 
 As [APIs e limites](packages/memora/src/core/README.md) orientam a integração.
 Entregas parciais usam `Refs #N`; `Closes #N` exige todos os critérios atendidos.

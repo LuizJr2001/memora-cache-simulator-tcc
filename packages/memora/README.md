@@ -56,7 +56,7 @@ npm test
 ```
 
 `check` verifica a sintaxe dos módulos em `scripts`, `src`, `tests`, `browser` e da configuração Playwright. `test`
-executa **78 testes Node** de configuração/entradas, controladores, execução,
+executa **81 testes Node** de configuração/entradas, controladores, execução,
 explicações e apresentação da cache. A suíte cobre vítimas, contadores,
 snapshots imutáveis, Random controlado, limites, relógio e troca de modo.
 
@@ -67,8 +67,8 @@ npx playwright install chromium
 npm run test:ui --workspace @memora/simulator
 ```
 
-A versão integrada contém **93 cenários Chromium**: 46 Configurar,
-32 Simular e 15 de comparação contextual. A regressão da Tela 1 inclui
+A versão integrada contém **101 cenários Playwright em cinco arquivos**, incluindo
+Configurar, Simular, comparação, manual e os fluxos complementares. A regressão da Tela 1 inclui
 três mapeamentos, exemplo, validações/bloqueio, geração e preparação de entrada,
 11 ajudas, teclado/foco, limites, composição responsiva e estados inválidos.
 Também mede largura e altura em **801 × 720, 1024 × 768, 1180 × 720,
@@ -294,3 +294,7 @@ Para o roteiro reproduzível, as capturas para o artigo e a versão do código u
 ## Sugestões complementares — 11/11/2026
 
 Editar em blocos abre um rascunho da sequência no painel lateral. Aplicar sequência usa a mesma validação e atualiza o texto; fechar descarta o rascunho. O seletor de mapeamento tem explicações curtas. O mínimo de velocidade 0,25 equivale a um pulso a cada quatro segundos. Ver [decisão 005](../../docs/decisoes/005-entrevistas-complementares.md) e #97. A validação com usuários continua na #70.
+
+## Verificação manual após os PRs #99 e #100
+
+Na revisão de 11/11, 81 testes Node, sintaxe e build passaram na `main` integrada. Foram aprovadas 42 verificações manuais no Chromium/CUA e atualizadas as quatro imagens do manual. A suíte Playwright de 101 casos foi coletada, mas não executada integralmente nesta sessão. Veja o [registro completo](../../docs/verificacoes/2026-11-11-manual/README.md). As figuras do artigo preservam suas capturas e datas anteriores; estas novas imagens pertencem ao manual da aplicação.
