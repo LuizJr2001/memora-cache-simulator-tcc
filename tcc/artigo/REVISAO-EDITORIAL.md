@@ -1,6 +1,12 @@
+# Situação editorial vigente
+
+A revisão docente de 11/11 está detalhada em [REVISAO-POLIANA-10-11.md](REVISAO-POLIANA-10-11.md). A decisão de modelo foi reaberta pelo comentário C01: a base SBC recebeu os ajustes explícitos solicitados, mas depende de conferência com o arquivo exato do Moodle. Consulte [TEMPLATE.md](TEMPLATE.md) antes de afirmar conformidade.
+
+---
+
 # Revisão editorial do artigo Memora — SBC e referência MedSimples
 
-Esta versão mantém o template SBC de uma coluna utilizado anteriormente: `sbc-template.sty`, `sbc.bst`, classe `article` A4 e bibliografia BibTeX. Não é uma mudança para ABNT, monografia ou duas colunas.
+Registro histórico: a versão anterior manteve o template SBC de uma coluna: `sbc-template.sty`, `sbc.bst`, classe `article` A4 e bibliografia BibTeX. Não é uma mudança para ABNT, monografia ou duas colunas.
 
 O artigo de André Guilherme de Almeida Macedo sobre o MedSimples (2025) foi usado como **referência de organização acadêmica**, sem transcrever sua redação: introdução/objetivos, fundamentação, trabalhos relacionados, metodologia, desenvolvimento, avaliação de usuários e conclusão, com instrumentos nos apêndices.
 
@@ -38,3 +44,17 @@ A base desta revisão é o pacote SBC de 04/11/2026. Foram incorporadas as ficha
 - Os gráficos são gerados a partir dos CSVs. O critério de satisfação conserva a resposta qualitativa de P07 em texto.
 - A análise do histórico separa reconhecer a ação, encontrar o acesso e retornar à execução.
 - Os instrumentos e o levantamento anterior sobre o Beto mantêm suas datas e bases.
+
+
+## Atualização de 11/11/2026 — PDF de Poliana
+
+- Título limitado à memória cache; autoras e notas identificadas; Resumo/Abstract reescritos e reordenados.
+- Introdução com contexto, problema, objetivo geral/específicos e remissões às nove seções.
+- Fundamentação em software educacional (2.1), cache (2.2) e IHC (2.3), sem descrições das ferramentas na teoria.
+- Ferramentas em texto fluido e comparação concentrada ao final; matriz transposta sem alterar seus valores.
+- Seleção e justificativa da base como primeira subseção da metodologia.
+- Referências solicitadas acrescentadas com metadados conferidos e URLs efetivamente impressas.
+- Palavra adotada no texto conceitual; transcrições históricas conservam célula e recebem explicação da equivalência.
+- Figuras numeradas por apêndice/anexo, com âncoras independentes.
+- Sete sessões, CSVs, escala, tempos e limites metodológicos preservados; corrigida uma menção residual a três sessões na tabela de escopo.
+- PR #99 tratado como proposta de interface, com verificação visual e reavaliação de uso pendentes.

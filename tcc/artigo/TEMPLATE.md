@@ -1,3 +1,17 @@
+# Situação vigente da formatação — 11/11/2026
+
+O comentário C01 do PDF `revPoliana10-11` informa que a abertura anterior não corresponde ao modelo obrigatório disponibilizado no Moodle. Essa orientação específica supera a conclusão operacional de 04/11 abaixo. O arquivo exato do modelo do Moodle ainda não integra os materiais disponíveis; portanto, a conformidade integral **não está confirmada**.
+
+Nesta revisão foram aplicados os requisitos explicitados por Poliana: inclusão da orientadora e coorientadora como autoras, notas de rodapé com vínculo e e-mail, Resumo antes de Abstract e ambos os títulos centralizados. O título foi limitado ao ensino de memória cache. As notas informam apenas dados conhecidos, sem inventar titulação acadêmica.
+
+`sbc-template.sty` e `sbc.bst` permanecem como base de composição. O pequeno arquivo `revisao-abertura.sty` isola as adequações da abertura, sem alterar o estilo de origem. A ordem dos elementos, o conteúdo de eventuais outros campos e a configuração final das notas devem ser confrontados com o modelo institucional quando ele estiver disponível. Não se afirma aprovação por Natália, Poliana ou Glívia.
+
+O corpo conserva uma coluna, fonte e margens da base SBC. As figuras dos apêndices usam letra e número próprios e as do anexo usam `Anexo A-1`, com destinos de hiperlink independentes. Veja `REVISAO-POLIANA-10-11.md` e `VALIDACAO-11-11.md`.
+
+---
+
+## Registro histórico de 04/11 (não substitui a pendência vigente)
+
 # Modelo de entrega e reconciliação — 04/11/2026 (#78–#81)
 
 ## Decisão

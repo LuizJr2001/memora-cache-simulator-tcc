@@ -1,5 +1,7 @@
 # Fechamento #84: figuras, apêndices e pacote Overleaf
 
+Revisão de 11/11: as figuras de cada apêndice usam letra e número próprios (por exemplo, C-1 e D-1); as do anexo usam Anexo A-1 e Anexo A-2, com destinos de hiperlink distintos. As divisões continuam começando em nova página. O corpo e a proveniência das imagens foram preservados.
+
 Base editorial: artigo SBC das issues #78–#81, consolidado no PR #85.
 Base visual: manual da interface atualizada das issues #82–#83, PR #87.
 

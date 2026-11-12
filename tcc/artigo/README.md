@@ -1,6 +1,6 @@
-# Artigo Memora — revisão de 09/11/2026
+# Artigo Memora — revisão docente de 11/11/2026
 
-O projeto usa o template SBC de uma coluna e a organização acadêmica inspirada no estudo MedSimples de André Macedo. Esta revisão integra as sete fichas P01–P07, com quatro casos complementares à rodada original. O levantamento anterior sobre o Beto tem 13 respostas e é analisado separadamente.
+O projeto mantém SBC como base de composição e aplica os ajustes de abertura explicitados no PDF de Poliana de 10/11. A conferência com o arquivo exato do modelo do Moodle permanece pendente; não há declaração de conformidade institucional integral. A organização acadêmica segue a referência MedSimples de André Macedo. Esta revisão integra as sete fichas P01–P07, com quatro casos complementares à rodada original. O levantamento anterior sobre o Beto tem 13 respostas e é analisado separadamente.
 
 ## Abrir no Overleaf
 
@@ -29,3 +29,9 @@ Na raiz do repositório, gere o pacote com `python3 tcc/empacotar_artigo.py`. O 
 - Os instrumentos preservam o planejamento. O artigo descreve o procedimento efetivamente documentado.
 
 Veja [dados/PROVENIENCIA.md](dados/PROVENIENCIA.md) para a apuração e [REVISAO-EDITORIAL.md](REVISAO-EDITORIAL.md) para o histórico.
+
+## Revisão de Poliana
+
+Os 75 comentários textuais foram rastreados em [REVISAO-POLIANA-10-11.md](REVISAO-POLIANA-10-11.md). A abertura, fundamentação e trabalhos relacionados foram reescritos; a escolha do Beto passou à primeira subseção metodológica. As duas tabelas comparativas foram reorganizadas e as figuras de apêndices/anexos receberam numeração própria. Os resultados dos sete participantes e o levantamento de 13 respostas permanecem separados e íntegros.
+
+As propostas de interface do PR #99 são identificadas como propostas ainda não integradas nem reavaliadas com estudantes. [VALIDACAO-11-11.md](VALIDACAO-11-11.md) registra a verificação desta revisão.
