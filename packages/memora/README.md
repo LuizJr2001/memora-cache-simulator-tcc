@@ -174,7 +174,7 @@ Iniciar/Continuar alterna com Pausar, que preserva o ponto atual; Reiniciar
 zera cache, histórico e contadores. Etapas detalhadas marcada avança uma das
 seis fases por pulso automático; desmarcada avança um acesso
 completo por pulso. Próximo acesso é o único avanço manual e termina a entrada
-pendente. Ir ao final conclui os restantes. A velocidade começa em 5 e varia de 1 a 10, com passos/segundo ou
+pendente. Ir ao final conclui os restantes. A velocidade começa em 5 e varia de 0,25 a 10, em intervalos de 0,25, com passos/segundo ou
 acessos/segundo no rótulo conforme o modo.
 Abrir ajuda ou revisar um acesso pausa a execução.
 
@@ -290,3 +290,7 @@ A barra superior agora oferece **Manual** em ambas as etapas. O painel lateral a
 No histórico, o botão **Analisar** abre detalhes e comparação da cache. **Voltar ao estado atual** encerra a consulta sem alterar a execução. A Ajuda rápida, as interrogações contextuais e o Glossário permanecem disponíveis.
 
 Para o roteiro reproduzível, as capturas para o artigo e a versão do código utilizada, consulte [Manual visual](docs/manual-visual.md). As capturas são regeneradas com `node packages/memora/scripts/capture-manual.js` (após instalar Playwright e Chromium).
+
+## Sugestões complementares — 11/11/2026
+
+Editar em blocos abre um rascunho da sequência no painel lateral. Aplicar sequência usa a mesma validação e atualiza o texto; fechar descarta o rascunho. O seletor de mapeamento tem explicações curtas. O mínimo de velocidade 0,25 equivale a um pulso a cada quatro segundos. Ver [decisão 005](../../docs/decisoes/005-entrevistas-complementares.md) e #97. A validação com usuários continua na #70.

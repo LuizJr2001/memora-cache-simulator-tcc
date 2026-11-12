@@ -29,7 +29,7 @@ registra a incorporação da antiga etapa Analisar à simulação.
 | Ir ao final | Conclui os acessos restantes e preserva os registros |
 | Etapas detalhadas | Reprodução em seis passos por acesso, com roteiro e explicações |
 | Sem detalhamento | Reprodução de um acesso completo por pulso |
-| Velocidade | De 1 a 10; inicial 5; passos/segundo ou acessos/segundo conforme o modo |
+| Velocidade | De 0,25 a 10, em intervalos de 0,25; inicial 5; passos/segundo ou acessos/segundo conforme o modo |
 | Conclusão | Reprodução desabilitada como ✓ Concluído; Progresso verde e finalizado |
 | Decimal/Binário | Altera apresentação na simulação e na comparação, sem reexecutar |
 
@@ -110,3 +110,7 @@ endereços e 18000 caracteres. Consulte as [APIs e regras](../packages/memora/sr
 O [histórico](historico-desenvolvimento.md) mantém a sequência dos marcos e a
 origem de cada execução. Mudanças documentais não encerram automaticamente as
 issues acadêmicas.
+
+## Revisão complementar proposta — 11/11/2026
+
+A [decisão 005](decisoes/005-entrevistas-complementares.md) registra a implementação proposta na #97: ritmo mínimo 0,25, explicações de mapeamento e edição opcional em blocos. O texto permanece disponível, com colagem e a validação original. Sintaxe, 81 testes Node e build passaram localmente; os novos cenários de navegador e as capturas ainda exigem execução em ambiente com Chromium disponível. A avaliação das sete fichas não foi refeita nesta versão.

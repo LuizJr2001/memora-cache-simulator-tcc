@@ -71,7 +71,7 @@ reinício, troca de tela ou descarte da simulação.
 - `restart` zera motor e seleção, preservando formato, velocidade e modo detalhado
 - `nextStep` avança uma fase no modo detalhado ou um acesso no resumido;
   `nextAccess` conclui somente o acesso pendente
-- `setSpeed` aceita inteiros de 1 a 10; cada pulso avança uma fase ou um acesso
+- `setSpeed` aceita múltiplos de 0,25 entre 0,25 e 10; cada pulso avança uma fase ou um acesso
   conforme `setDetailed`
 - `selectAccess` pausa e seleciona um registro existente; `showLive` retira a seleção
 - `setFormat` muda apresentação sem reexecutar dados; `dispose` cancela o relógio
@@ -209,3 +209,7 @@ entregas, não o estado de aprovação de toda revisão posterior.
 ## Manual visual — 04/11/2026
 
 O botão **Manual** abre o diálogo `#side-sheet` na etapa que está visível. `src/ui/manual-content.js` concentra imagens, textos numerados e cenários; `side-sheet.js` usa o mesmo ciclo de foco, fechamento por Escape e bloqueio de rolagem da ajuda contextual. A navegação interna do manual não troca a etapa de execução. Os quatro arquivos em `src/assets/manual/` são gerados e anotados por `scripts/capture-manual.js` e têm cenário/revisão registrados em `metadata.json`.
+
+### Editor opcional em blocos
+
+`address-editor.js` mantém o rascunho separado do controlador. Aplica somente uma sequência validada; fechar o painel não modifica a configuração. O fracionamento reutiliza `addressTokens` e a validação reutiliza `validateAddresses`. Cada campo aceita um único endereço e conserva ordem e repetições. Os limites globais são conferidos antes da abertura e da aplicação.
