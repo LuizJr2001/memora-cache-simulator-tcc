@@ -1,0 +1,260 @@
+{
+  "testedCommit": "40fcdfacbbf3fde3b68bb0d4e9302be9d33daefe",
+  "recordedAt": "2026-11-12T01:41:32.621Z",
+  "method": "Verificações manuais guiadas por CUA no Chromium, sobre build estático de produção",
+  "checks": [
+    {
+      "name": "Abertura pronta com 21 endereços",
+      "passed": true,
+      "details": "0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996"
+    },
+    {
+      "name": "Bloco rejeita dois endereços",
+      "passed": true,
+      "details": "Endereço 1: informe um único inteiro entre 0 e o limite da memória"
+    },
+    {
+      "name": "Escape descarta rascunho",
+      "passed": true,
+      "details": "0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996"
+    },
+    {
+      "name": "Bloco rejeita endereço fora da memória",
+      "passed": true,
+      "details": "Endereço 1: informe um único inteiro entre 0 e o limite da memória"
+    },
+    {
+      "name": "Adicionar move foco para o novo bloco",
+      "passed": true,
+      "details": "address-block-22"
+    },
+    {
+      "name": "Aplicar pelo teclado preserva ordem e remoção",
+      "passed": true,
+      "details": "2, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996, 3"
+    },
+    {
+      "name": "Aplicar devolve foco e mantém configuração válida",
+      "passed": true,
+      "details": "open-address-editor"
+    },
+    {
+      "name": "Limite do editor informa erro sem truncar",
+      "passed": true,
+      "details": "1001 endereços"
+    },
+    {
+      "name": "Fechar mantém sequência acima do limite",
+      "passed": true,
+      "details": "1001 endereços preservados"
+    },
+    {
+      "name": "Ajuda de mapeamento direct",
+      "passed": true,
+      "details": "Cada bloco tem uma única linha possível"
+    },
+    {
+      "name": "Ajuda de mapeamento fully-associative",
+      "passed": true,
+      "details": "Cada bloco pode ocupar qualquer linha da cache"
+    },
+    {
+      "name": "Ajuda de mapeamento set-associative",
+      "passed": true,
+      "details": "Cada bloco pode ocupar qualquer via do seu conjunto"
+    },
+    {
+      "name": "Velocidade mínima por teclado é 0,25",
+      "passed": true,
+      "details": "Velocidade (0,25 passos/segundo)"
+    },
+    {
+      "name": "Rótulo identifica passos detalhados",
+      "passed": true,
+      "details": "Velocidade (0,25 passos/segundo)"
+    },
+    {
+      "name": "Rótulo distingue acessos por segundo",
+      "passed": true,
+      "details": "Velocidade (0,25 acessos/segundo)"
+    },
+    {
+      "name": "Alterar modo e velocidade não processa acesso",
+      "passed": true,
+      "details": "0 / 21"
+    },
+    {
+      "name": "Pausar devolve comando Continuar",
+      "passed": true,
+      "details": "▶ Continuar"
+    },
+    {
+      "name": "Manual abre na etapa Simular",
+      "passed": true,
+      "details": "Seção contextual Simular"
+    },
+    {
+      "name": "Imagens do manual carregam",
+      "passed": true,
+      "details": [
+        {
+          "ok": true,
+          "src": "http://127.0.0.1:4173/src-2d30393b52f79058/assets/manual/simular.png"
+        },
+        {
+          "ok": true,
+          "src": "http://127.0.0.1:4173/src-2d30393b52f79058/assets/manual/comparacao.png"
+        },
+        {
+          "ok": true,
+          "src": "http://127.0.0.1:4173/src-2d30393b52f79058/assets/manual/conclusao.png"
+        }
+      ]
+    },
+    {
+      "name": "Manual fecha e devolve foco",
+      "passed": true,
+      "details": "open-manual"
+    },
+    {
+      "name": "Pausa e manual preservam progresso",
+      "passed": true,
+      "details": "6 / 21"
+    },
+    {
+      "name": "Próximo acesso avança uma unidade",
+      "passed": true,
+      "details": "7 / 21"
+    },
+    {
+      "name": "Reiniciar limpa progresso",
+      "passed": true,
+      "details": "0 / 21"
+    },
+    {
+      "name": "Cenário LRU preparado",
+      "passed": true,
+      "details": "Cada bloco pode ocupar qualquer via do seu conjunto"
+    },
+    {
+      "name": "Dois acessos manuais contabilizam um acerto e uma falta",
+      "passed": true,
+      "details": "2/21, 1 acerto, 1 falta"
+    },
+    {
+      "name": "Cenário LRU termina com os totais esperados",
+      "passed": true,
+      "details": {
+        "progress": "21 / 21",
+        "hits": "12",
+        "misses": "9"
+      }
+    },
+    {
+      "name": "Analisar abre comparação sem alterar totais",
+      "passed": true,
+      "details": "Acesso 20 de 21 · endereço 3044"
+    },
+    {
+      "name": "Antes e depois preservam vítima e novo bloco LRU",
+      "passed": true,
+      "details": {
+        "before": "Vias do conjunto consultado · antes do acesso\nVia\tVálido\tTag\tBloco armazenado\tLRU ?\tDecisão\n1\t1\t3\t992–1007\t2 · Menos recente\tSUBSTITUIR\n2\t1\t7\t2016–2031\t1 · Mais recente\tManter",
+        "after": "Vias do conjunto consultado · depois do acesso\nVia\tVálido\tTag\tBloco armazenado\tLRU ?\tDecisão\n1\t1\t11\t3040–3055\t1 · Mais recente\tInserida\n2\t1\t7\t2016–2031\t2 · Menos recente\tMantida"
+      }
+    },
+    {
+      "name": "Revisão navega apenas no histórico",
+      "passed": true,
+      "details": "Acesso 19 de 21 · endereço 2018"
+    },
+    {
+      "name": "Binário altera apresentação sem mudar totais",
+      "passed": true,
+      "details": "Acesso 20 de 21 · endereço 101111100100"
+    },
+    {
+      "name": "Retorno fecha comparação e devolve foco à cache",
+      "passed": true,
+      "details": "cache-heading"
+    },
+    {
+      "name": "Conclusão bloqueia reprodução e preserva histórico",
+      "passed": true,
+      "details": "21 / 21"
+    },
+    {
+      "name": "Simular não gera rolagem horizontal no desktop",
+      "passed": true,
+      "details": {
+        "h": 936,
+        "sh": 936,
+        "sw": 1363,
+        "w": 1363
+      }
+    },
+    {
+      "name": "Execução direct confere com gabarito",
+      "passed": true,
+      "details": {
+        "hits": "0",
+        "misses": "4"
+      }
+    },
+    {
+      "name": "Execução fully-associative confere com gabarito",
+      "passed": true,
+      "details": {
+        "hits": "1",
+        "misses": "3"
+      }
+    },
+    {
+      "name": "Execução set-associative confere com gabarito",
+      "passed": true,
+      "details": {
+        "hits": "1",
+        "misses": "3"
+      }
+    },
+    {
+      "name": "Parâmetro inválido bloqueia nova simulação",
+      "passed": true,
+      "details": "0"
+    },
+    {
+      "name": "Exemplo restaura configuração válida",
+      "passed": true,
+      "details": "4096"
+    },
+    {
+      "name": "Manual abre em Configurar com cinco passos",
+      "passed": true,
+      "details": "1 · Configurar"
+    },
+    {
+      "name": "Manual alterna para Simular com dez passos",
+      "passed": true,
+      "details": "2 · Simular"
+    },
+    {
+      "name": "Consultar manual não altera configuração",
+      "passed": true,
+      "details": "sequência original preservada"
+    },
+    {
+      "name": "Logs consultados sem erros atribuídos ao Memora",
+      "passed": true,
+      "details": {
+        "applicationErrors": [],
+        "excludedExtensionErrors": 202
+      }
+    }
+  ],
+  "consoleScopeCorrection": {
+    "initialBrowserWideAssertionFailed": true,
+    "reason": "As mensagens eram emitidas pela extensão do ambiente, não pela aplicação. A verificação foi delimitada por origem; não houve correção de código para ocultar erro do Memora.",
+    "observedExtensionErrors": 202
+  },
+  "automation": "Suíte Playwright de 101 casos coletada, mas não executada integralmente nesta sessão; não equivale aos testes manuais."
+}

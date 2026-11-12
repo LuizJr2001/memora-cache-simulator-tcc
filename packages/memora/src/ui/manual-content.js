@@ -1,4 +1,4 @@
-// Manual da interface: imagens geradas por scripts/capture-manual.js.
+// Manual da interface: capturas reais e marcadores técnicos; origem em assets/manual/metadata.json.
 // Usamos import.meta.url para manter as URLs válidas no build com assets versionados.
 const image = filename => new URL(`../assets/manual/${filename}`, import.meta.url).href;
 
