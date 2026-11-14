@@ -49,7 +49,9 @@ def bars(name, filename):
     fig,ax=plt.subplots(figsize=(6.3,h))
     ys=np.arange(len(values));pcts=[v['pct'] for v in values]
     ax.barh(ys,pcts,color=PURPLE,height=.61)
-    ax.set_yticks(ys,[textwrap.fill(v['short'],32) for v in values]);ax.invert_yaxis();ax.tick_params(axis='y',length=0,labelsize=9)
+    labels=[textwrap.fill(v['short'],32) for v in values]
+    labels=[label.replace('Tag', r'$\mathit{Tag}$').replace('dirty bit', r'$\mathit{dirty\ bit}$').replace('Dirty bit', r'$\mathit{Dirty\ bit}$').replace('load/store', r'$\mathit{load/store}$') for label in labels]
+    ax.set_yticks(ys,labels);ax.invert_yaxis();ax.tick_params(axis='y',length=0,labelsize=9)
     ax.set_xlim(0,100);ax.set_xticks([0,25,50,75,100]);ax.set_xlabel('Participantes (%)');ax.xaxis.grid(True,color='#e2e8f0',linewidth=.6);ax.set_axisbelow(True)
     for y,v in zip(ys,values):ax.text(v['pct']+1.3,y,fmt(v['n']),va='center',fontsize=8.5)
     fig.subplots_adjust(left=.39,right=.97,top=.98,bottom=.15 if h<3.2 else .11)

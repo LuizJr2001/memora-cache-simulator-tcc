@@ -1,6 +1,6 @@
 # Artigo do TCC — Memora
 
-A revisão de 13/11/2026 incorpora os comentários do PDF e dos seis áudios de orientação. O artigo usa abnTeX2 em modo artigo e reúne comparação técnica, levantamento de 13 respostas sobre o Beto, implementação e sete entrevistas individuais sobre o Memora em um único ciclo.
+A revisão de 14/11/2026 incorpora os comentários do PDF e dos seis áudios de orientação. O artigo usa abnTeX2 em modo artigo e reúne comparação técnica, levantamento de 13 respostas sobre o Beto, implementação e sete entrevistas individuais sobre o Memora em um único ciclo.
 
 ## Fontes e pacote para Overleaf
 
@@ -16,7 +16,7 @@ Edite o fonte em `tcc/artigo/`. Da raiz do repositório, execute:
 python3 tcc/empacotar_artigo.py
 ```
 
-O ZIP reúne os fontes, as figuras, os dados anonimizados e os instrumentos. O PDF compilado e os arquivos auxiliares ficam fora do pacote.
+O ZIP reúne os fontes, as figuras, os dados anonimizados e os instrumentos. O PDF compilado do artigo e os arquivos auxiliares ficam fora do pacote. O PDF em branco do questionário integra os instrumentos.
 
 ## Compilação
 
@@ -30,3 +30,11 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ## Avaliação e acompanhamento
 
 A [#64](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/64) registra o plano inicial e a execução exploratória efetiva. As tarefas observadas ocorreram no Memora e as referências ao Beto foram retrospectivas. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a descoberta da comparação e do retorno ao estado atual. A [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22) mantém o calendário do TCC.
+
+## Próximos prazos
+
+- Até **15/11 à noite**: envio à Glívia.
+- **16/11, a partir de 08h**: leitura pela coorientadora.
+- Até **18/11**: envio à banca.
+
+Datas de 2026, horário de Brasília, informadas pelo autor em 14/11. O registro no calendário não representa envio realizado.

@@ -1,0 +1,17 @@
+% Compilar a partir de tcc/artigo: latexmk -pdf instrumentos/questionario-aplicado.tex
+% Instrumento em branco: não contém respostas ou dados de participantes.
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{enumitem,needspace,tikz}
+\newcommand{\caixaOpcao}{\tikz[baseline=-.5ex]{\draw[line width=.4pt] (0,0) rectangle (.14,.14);}}
+\newcommand{\apendicemanual}[2]{\section*{#1}\label{#2}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.35em}
+\setlist[itemize]{leftmargin=*,itemsep=1pt,topsep=2pt}
+\begin{document}
+\input{secoes/questionario-apendice}
+\end{document}

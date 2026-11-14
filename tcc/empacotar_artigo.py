@@ -8,14 +8,14 @@ def main():
     base = Path(__file__).resolve().parent
     source = base / "artigo"
     output = base / "tcc-atual.zip"
-    extensions = {".tex", ".bib", ".md", ".txt", ".png", ".jpg", ".jpeg", ".svg", ".sty", ".bst", ".csv", ".py"}
+    extensions = {".tex", ".bib", ".md", ".txt", ".png", ".jpg", ".jpeg", ".svg", ".sty", ".bst", ".csv", ".json", ".py"}
     files = [
         path
         for path in sorted(source.rglob("*"))
         if path.is_file()
         and (
             path.suffix.lower() in extensions
-            or (path.suffix.lower() == ".pdf" and path.parent.name == "figuras")
+            or (path.suffix.lower() == ".pdf" and path.parent.name in {"figuras", "instrumentos"})
         )
     ]
     with ZipFile(output, "w", compression=ZIP_DEFLATED) as bundle:

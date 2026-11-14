@@ -1,3 +1,25 @@
+# Modelo institucional — situação vigente em 14/11/2026
+
+O autor confirmou em 14/11 que o PDF **TCC___Hugo_Barbosa__Atualizado_-1 (1).pdf**, de Hugo Barbosa Santana Silva, é a referência institucional desta entrega. A pendência de identificação do modelo está resolvida por essa indicação expressa. O artigo segue essa composição em abnTeX2, modo artigo.
+
+| Elemento | Conferência e adequação |
+| --- | --- |
+| Página e corpo | A4, margens nominais 3 cm superior/esquerda e 2 cm inferior/direita; Latin Modern 12 pt; corpo em uma coluna |
+| Título e autoria | Centralizados; título 17,28 pt, entrelinha aproximada de 16,2 pt; autor, orientadora e coorientadora com notas numeradas |
+| Rodapés | Natureza acadêmica, vínculos e e-mails; recuo suspenso das notas como na referência |
+| Resumos | RESUMO antes de ABSTRACT, títulos centralizados, palavras-chave nos dois idiomas |
+| Parágrafos e títulos | Recuo de 1,25 cm; seções principais em maiúsculas; subseções sem serifa |
+| Paginação | Canto superior direito em 12 pt; abertura sem número impresso |
+| Referências | Autor-data com abnTeX2cite, URL e data de acesso em campos próprios |
+| Datas | Macros de submissão/aprovação vazias até confirmação das datas efetivas; prazos do calendário não foram usados como essas datas |
+| Apêndices/anexo | Início em nova página e numeração própria das figuras |
+
+A conferência usa o PDF indicado, não um arquivo-fonte institucional. Isso não impede adotar a referência confirmada pelo autor e não equivale a afirmar aprovação editorial desta versão pelas docentes. O [registro da revisão](REVISAO-14-11.md) identifica o arquivo por SHA-256 e a [validação](VALIDACAO-14-11.md) documenta a geração final.
+
+---
+
+## Histórico anterior — não representa pendência vigente
+
 # Formatação do artigo - revisão de 13/11/2026
 
 A referência desta revisão é o PDF **TCC de Hugo Barbosa**, enviado por Poliana como exemplo de apresentação de artigo. O fonte passa a usar `abntex2` em modo `article`, fonte Latin Modern e bibliografia autor-data com `abntex2cite`. A composição deixou de depender de `sbc-template.sty`, `sbc.bst` e `revisao-abertura.sty`.
