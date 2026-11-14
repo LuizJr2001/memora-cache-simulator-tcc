@@ -35,6 +35,8 @@ O levantamento de requisitos e a avaliação com estudantes têm bases distintas
 
 As capturas da aplicação são ilustrativas e não representam a tela de cada entrevista. Os ajustes de reprodução, edição e ajuda integrados na evolução da aplicação ainda precisam ser reavaliados com estudantes.
 
+O Apêndice C reúne o roteiro, as fichas de parâmetros A/B/C e um modelo em branco de uma página, organizado a partir dos campos documentados nas fichas de registro. As sete [fichas preenchidas e anonimizadas](https://github.com/LuizJr2001/memora-cache-simulator-tcc/tree/main/research/evaluation-2026/fichas) estão disponíveis como material complementar, com link na seção de avaliação. A análise consolidada permanece no corpo do artigo.
+
 ## Conferência editorial
 
 - [Revisão dos novos comentários e áudios](REVISAO-POLIANA-AUDIOS-13-11.md).

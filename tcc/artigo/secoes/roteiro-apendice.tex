@@ -1,4 +1,4 @@
-\apendicemanual{Roteiro aplicado na avaliação do Memora}{ap:roteiro-memora}
+\apendicemanual{Roteiro e ficha de avaliação do Memora}{ap:roteiro-memora}
 
 \textbf{Perfil inicial}
 \begin{enumerate}
@@ -40,6 +40,7 @@ Política de substituição & Não se aplica & LRU & LRU \\
 
 As fichas A e B utilizam a sequência \texttt{0, 1, 512, 0, 1024, 512, 0, 1}. Não foi especificada uma sequência própria para C no material recuperado. Nos instrumentos, o termo ``célula'' corresponde à unidade ``palavra'' adotada no texto conceitual.
 
+\Needspace{3\baselineskip}
 \textbf{Entrevista após o uso}
 \begin{enumerate}
 \item O que mais ajudou ou dificultou usar o Memora e acompanhar o que acontecia nos acessos?
@@ -78,4 +79,6 @@ O cenário das ajudas e dos testes de substituição mantém 4096 palavras, bloc
 \end{quote}
 
 O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 linhas ocupadas. No acesso 20, o endereço 3044 seleciona a \textit{tag} 11, conjunto 14 e deslocamento 4; a via 1 troca 992--1007 por 3040--3055, enquanto a via 2 mantém 2016--2031. Esses resultados são verificações determinísticas da implementação, não medidas de desempenho real de hardware nem de aprendizagem.
+
+\input{secoes/ficha-avaliacao-modelo}
 
