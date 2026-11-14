@@ -1,6 +1,6 @@
-# Artigo Memora — revisão de 13/11/2026
+# Artigo Memora — revisão de 14/11/2026
 
-Esta versão incorpora o PDF `revPoliana13-11` e as orientações dos seis áudios. O artigo usa abnTeX2 em modo artigo, recomposto a partir do exemplo de Hugo Barbosa. O fonte exato do modelo do Moodle ainda deve ser confrontado com essa apresentação.
+Esta versão incorpora o PDF `revPoliana13-11` e as orientações dos seis áudios. O artigo usa abnTeX2 em modo artigo, recomposto a partir do exemplo de Hugo Barbosa. O autor confirmou esse PDF como o modelo institucional em 14/11; a apresentação foi conferida e ajustada a essa referência.
 
 ## Estrutura atual
 
@@ -39,7 +39,14 @@ As capturas da aplicação são ilustrativas e não representam a tela de cada e
 
 - [Revisão dos novos comentários e áudios](REVISAO-POLIANA-AUDIOS-13-11.md).
 - [Conferência anterior das 56 exclusões](REVISAO-POLIANA-13-11.md).
-- [Validação desta entrega](VALIDACAO-13-11.md).
+- [Revisão de modelo, questionário e itálicos](REVISAO-14-11.md).
+- [Validação desta entrega](VALIDACAO-14-11.md).
+- [Questionário em branco](instrumentos/questionario-aplicado.pdf) e [enunciados conferidos](instrumentos/questionario-aplicado.json).
+- [Validação histórica de 13/11](VALIDACAO-13-11.md).
 - [Organização dos apêndices](APENDICES.md) e [composição do modelo](TEMPLATE.md).
 
 As macros `datasubmissao` e `dataaprovacao` só devem receber datas confirmadas pela disciplina.
+
+## Prazos de revisão e entrega
+
+Até **15/11, domingo à noite**, encaminhar o artigo para Glívia. A leitura está prevista para **16/11, segunda-feira, a partir de 08h**. O prazo informado para encaminhar à banca é **18/11, quarta-feira**. Horário de Brasília; envios ainda precisam ser realizados. A [issue de calendário](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22) acompanha os marcos.

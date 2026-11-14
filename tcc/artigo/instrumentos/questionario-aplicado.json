@@ -1,0 +1,47 @@
+{
+  "titulo": "Levantamento de Requisitos para Aprimoramento do Simulador Beto",
+  "fonte_enunciados": "Cabeçalho do CSV original da coleta, conferido em 14/11/2026",
+  "respostas_coletadas": 13,
+  "campos": [
+    {
+      "enunciado": "Li as informações apresentadas acima e concordo em participar voluntariamente deste levantamento de requisitos, autorizando o uso anonimizado das minhas respostas para fins acadêmicos",
+      "tipo": "múltipla escolha"
+    },
+    {
+      "enunciado": "Insira seu e-mail para registro",
+      "tipo": "texto"
+    },
+    {
+      "enunciado": "Qual a sua familiaridade com o conteúdo de projeto de memória cache (normalmente visto nas disciplinas de AOC1 e AOC2)?",
+      "tipo": "múltipla escolha"
+    },
+    {
+      "enunciado": "Você está cursando Arquitetura e Organização de Computadores II, seja laboratório ou teórica, ou é ex-aluno(a) da(s) disciplina(s)?",
+      "tipo": "múltipla escolha"
+    },
+    {
+      "enunciado": "Durante a configuração de uma simulação no Beto, quais dificuldades você encontrou?",
+      "tipo": "múltipla seleção"
+    },
+    {
+      "enunciado": "Durante a simulação no Beto, quais informações você sentiu falta para entender melhor como cada endereço acessado era tratado pela memória cache?",
+      "tipo": "múltipla seleção"
+    },
+    {
+      "enunciado": "Quais problemas de usabilidade ou experiência de uso você percebeu ao usar o Beto?",
+      "tipo": "múltipla seleção"
+    },
+    {
+      "enunciado": "Considerando as dificuldades e problemas percebidos durante o uso do Beto, quais melhorias você considera mais importantes para uma nova versão da ferramenta? (Marque todas as opções que achar você achar ser essencial para compor uma ferramenta com o propósito do Beto)",
+      "tipo": "múltipla seleção"
+    },
+    {
+      "enunciado": "Além das opções marcadas anteriormente, há alguma melhoria que você considera importante para uma nova versão do Beto? Se sim, descreva brevemente",
+      "tipo": "texto longo"
+    },
+    {
+      "enunciado": "De 1 a 4, quão útil você considera o Beto para apoiar o entendimento de memória cache?",
+      "tipo": "escala 1–4"
+    }
+  ]
+}

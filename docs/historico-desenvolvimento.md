@@ -1,6 +1,6 @@
 # Memora — histórico de desenvolvimento
 
-**Consolidação:** 09/11/2026. As datas usam o horário de Brasília
+**Consolidação:** 14/11/2026. As datas usam o horário de Brasília
 (`America/Sao_Paulo`, UTC−3). Atividades relatadas nas conversas são registradas
 pela data em que ocorreram; integração e publicação são conferidas no Git.
 O horário UTC do GitHub pode cair no dia seguinte.
@@ -10,13 +10,12 @@ O horário UTC do GitHub pode cair no dia seguinte.
 O fluxo vigente é **Configurar → Simular**, com comparação antes/depois
 integrada ao cartão Memória cache pelo PR #60. As três telas anteriores foram
 integradas em 14/10 e permanecem como referência histórica. O [Memora online](https://luizjr2001.github.io/memora-cache-simulator-tcc/)
-é publicado pelo GitHub Pages, com atualização automática após sintaxe, testes
-Node e build. O Beto em `docs/` continua disponível para comparação local.
+é publicado pelo GitHub Pages, com fluxo previsto de atualização após sintaxe, testes
+Node e build. A execução remota permanecia bloqueada na última verificação; integração no Git não comprova publicação. O Beto em `docs/` continua disponível para comparação local.
 
 O [artigo em LaTeX](../tcc/README.md) reúne a implementação, o levantamento de
-13 respostas sobre o Beto e a rodada original de avaliação do Memora.
-A consolidação dos sete estudantes está em revisão no
-[PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+13 respostas sobre o Beto e sete entrevistas individuais de um ciclo de avaliação do Memora.
+Os PRs #95, #96, #99, #100 e #101 foram integrados à main. A revisão editorial de 13/11 reorganizou os resultados e a metodologia; em 14/11 o autor confirmou o modelo institucional e foi preparada a conferência do instrumento e dos itálicos.
 A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70)
 acompanha a reobservação do histórico. Consulte o [estado atual](estado-atual.md).
 
@@ -50,6 +49,9 @@ acompanha a reobservação do histórico. Consulte o [estado atual](estado-atual
 | 04/11 | Artigo SBC e apêndices organizados | PRs [#85](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/85), [#88](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/88) e [#90](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/90) |
 | 05/11 | Fichas complementares P04–P07 consolidadas | [PR #91](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/91) arquiva P01–P04. As issues #92–#94 registram os achados de P05–P07 |
 | 09/11 | Consolidação dos sete casos e destaque do retorno propostos em PRs | [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96): artigo e apuração das fichas; [PR #95](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/95): retorno ao estado atual. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a reobservação com usuários |
+| 13/11 | Artigo reorganizado a partir do PDF e áudios da orientação | Seis etapas, requisitos completos antes das prioridades, diagnóstico e sete entrevistas em um ciclo; fontes em `tcc/artigo/` |
+| 14/11 | Modelo institucional confirmado, questionário conferido e itálicos corrigidos | [Revisão editorial](../tcc/artigo/REVISAO-14-11.md) e [origem do instrumento](../research/survey-2026/QUESTIONARIO-APLICADO.md) |
+| 14/11 | Prazos finais atualizados pelo autor | Glívia até 15/11 à noite; leitura em 16/11 a partir de 08h; banca até 18/11; acompanhamento na #22 |
 
 ## Comportamentos consolidados
 

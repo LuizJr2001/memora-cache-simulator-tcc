@@ -32,3 +32,7 @@ substitui os enunciados aplicados, preservados no cabeçalho do CSV.
 
 A avaliação do Memora com estudantes permanece pendente; testes automatizados
 e alterações de interface não acrescentam novas respostas a este levantamento.
+
+## Instrumento aplicado — conferência de 14/11
+
+O [questionário em branco e a origem dos campos](QUESTIONARIO-APLICADO.md) estão versionados junto aos dados. O registro estruturado preserva os enunciados do cabeçalho original e a escala de utilidade 1–4. O PDF não contém respostas ou identificadores; o roteiro preliminar de 16/05 (escala 1–5) continua distinguido do instrumento aplicado.

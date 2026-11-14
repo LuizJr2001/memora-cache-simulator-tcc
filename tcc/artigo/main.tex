@@ -1,5 +1,5 @@
-% Artigo abnTeX2 recomposto a partir do PDF de referência de Hugo Barbosa.
-% Revisão de 13/11/2026: PDF revPoliana13-11, seis áudios e formatação.
+% Modelo institucional confirmado pelo autor em 14/11/2026: PDF de Hugo Barbosa.
+% Revisão: revPoliana13-11, seis áudios e conferência do instrumento aplicado.
 \documentclass[article,12pt,oneside,a4paper,english,brazil]{abntex2}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
@@ -24,20 +24,25 @@ Glívia Angélica Rodrigues Barbosa\thanks{Coorientadora do trabalho. Docente do
 \def\dataaprovacao{}
 \data{\ifx\datasubmissao\empty\else Submetido em: \datasubmissao\fi\ifx\dataaprovacao\empty\else\ifx\datasubmissao\empty\else\quad|\quad\fi Aprovado em: \dataaprovacao\fi}
 \renewcommand{\maketitlehookb}{}
-\pretitle{\begin{center}\Large\bfseries}
+\pretitle{\begin{center}\fontsize{17.28}{16.2}\selectfont\bfseries}
 \posttitle{\par\end{center}\vskip 1em}
 \preauthor{\begin{center}\normalsize\bfseries\begin{tabular}[t]{c}}
 \postauthor{\end{tabular}\par\end{center}}
 \predate{\begin{center}\small}
 \postdate{\par\end{center}}
 \thanksmarkseries{arabic}
-\setlength{\droptitle}{-2.3cm}
+\setlength{\thanksmarkwidth}{1.2em}
+\setlength{\thanksmarksep}{0em}
+\thanksmarkstyle{\textsuperscript{#1}\hfill}
+\setlength{\droptitle}{-2.1cm}
 \makeheadrule{abntheadings}{\textwidth}{0pt}
+\makeoddhead{abntheadings}{}{}{\normalfont\normalsize\thepage}
+\makeevenhead{abntheadings}{}{}{\normalfont\normalsize\thepage}
 
 \setlrmarginsandblock{3cm}{2cm}{*}
 \setulmarginsandblock{3cm}{2cm}{*}
 \checkandfixthelayout
-\setlength{\parindent}{1.3cm}
+\setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0.2cm}
 \SingleSpacing
 \setsecheadstyle{\normalfont\bfseries\normalsize\MakeUppercase}
