@@ -47,8 +47,8 @@ as cores de acerto, falta e erro não foram alteradas pelos PRs #61/#62.
 
 O contraste calculado branco/roxo é 5,39:1 no estado normal, 6,85:1 no hover e
 8,65:1 no ativo. Isso verifica os pares indicados, não a acessibilidade de toda
-a aplicação. A nova paleta ainda não recebeu uma inspeção visual em Chromium
-nesta sequência de revisões.
+a aplicação. A inspeção visual manual de 11/11 no Chromium/CUA conferiu a
+apresentação e os controles; ela não constitui uma auditoria completa de acessibilidade.
 
 ## Cenários reproduzíveis
 
@@ -91,15 +91,17 @@ endereços e 18000 caracteres. Consulte as [APIs e regras](../packages/memora/sr
   relógio e apresentação por snapshots; publicação estática no GitHub Pages.
 - **Verificação de 09/11:** sintaxe, 78 testes Node, build e 98 cenários
   Chromium, incluindo retorno pelo teclado, seleção histórica e contadores.
-- **Cores #61/#62:** sintaxe, 78 testes Node e build aprovados; sem nova execução
-  visual em navegador. As capturas históricas não comprovam a nova paleta.
+- **Verificação manual de 11/11:** sintaxe, 81 testes Node e build aprovados na
+  `main` após #99/#100; 42 verificações Chromium/CUA e quatro novas capturas.
+  A suíte Playwright de 101 casos foi coletada, mas não executada integralmente.
+  Ver [registro](verificacoes/2026-11-11-manual/README.md).
 - **Pesquisa:** 13 respostas sobre o Beto, coletadas de maio a junho; ver
   [dados anonimizados](../research/survey-2026/README.md). Esse levantamento não
   é uma avaliação posterior do Memora.
 - **Avaliação funcional:** a [síntese das fichas](../research/evaluation-2026/README.md)
   documenta os encaminhamentos de P01–P03. A consolidação dos sete casos,
   das fichas complementares e dos dados de apuração do [artigo](../tcc/README.md)
-  está em revisão no [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
+  foi integrada pelo [PR #96](https://github.com/LuizJr2001/memora-cache-simulator-tcc/pull/96).
   A melhoria do retorno ao estado atual atende à sugestão de P06 registrada na #93.
 - **Próximas verificações:** descoberta da comparação e do retorno ao estado
   atual em sessão com versão registrada (#70). Inspeção com severidade,
@@ -111,6 +113,6 @@ O [histórico](historico-desenvolvimento.md) mantém a sequência dos marcos e a
 origem de cada execução. Mudanças documentais não encerram automaticamente as
 issues acadêmicas.
 
-## Revisão complementar proposta — 11/11/2026
+## Revisão complementar integrada — 11/11/2026
 
-A [decisão 005](decisoes/005-entrevistas-complementares.md) registra a implementação proposta na #97: ritmo mínimo 0,25, explicações de mapeamento e edição opcional em blocos. O texto permanece disponível, com colagem e a validação original. Sintaxe, 81 testes Node e build passaram localmente; os novos cenários de navegador e as capturas ainda exigem execução em ambiente com Chromium disponível. A avaliação das sete fichas não foi refeita nesta versão.
+A [decisão 005](decisoes/005-entrevistas-complementares.md) registra a implementação da #97, integrada no PR #99: ritmo mínimo 0,25, explicações de mapeamento e edição opcional em blocos. O texto permanece disponível, com colagem e a validação original. Sintaxe, 81 testes Node e build passaram localmente. A continuação aprovou 42 verificações manuais no Chromium/CUA, cobrindo os três novos fluxos de navegador, e regenerou as quatro capturas. A suíte automatizada de 101 casos permanece sem execução integral nesta sessão. A avaliação das sete fichas não foi refeita nesta versão.

@@ -126,3 +126,7 @@ executar as suítes e registrar novas verificações separadamente.
 A existência da implementação e da publicação não fecha automaticamente as
 issues de pesquisa, avaliação ou regressão com critérios adicionais.
 
+
+## Verificação manual de 11/11 após os merges #99/#100
+
+A `main` `40fcdfac` passou por sintaxe, 81 testes Node e build. O build de produção foi aberto no Chromium/CUA pelo serviço de prévia gerenciada. Foram aprovadas 42 verificações manuais, incluindo edição em blocos, cancelamento, limites, teclado/foco, mapeamentos, velocidade, execução, comparação, retorno e manual. As quatro capturas foram regeneradas e receberam metadados de origem. A coleta da suíte Playwright encontrou 101 casos; ela não foi executada integralmente nesta sessão. O [registro](verificacoes/2026-11-11-manual/README.md) preserva os limites de verificação. A avaliação com estudantes e as fichas históricas não foram alteradas.
