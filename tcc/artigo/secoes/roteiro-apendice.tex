@@ -1,0 +1,81 @@
+\apendicemanual{Roteiro aplicado na avaliação do Memora}{ap:roteiro-memora}
+
+\textbf{Perfil inicial}
+\begin{enumerate}
+\item Qual curso e período você está cursando?
+\item Você já utilizou o Beto? Se sim, quando e para qual atividade?
+\item Você já utilizou o Memora antes?
+\end{enumerate}
+
+
+\textbf{Tarefas T1--T4}
+\begin{description}[style=nextline,labelindent=0pt,leftmargin=0pt,labelsep=0pt,itemsep=3pt]
+\item[\textbf{T1 --- Configuração e ajuda.}] \emph{Carregue o exemplo pronto e substitua a sequência de endereços pela sequência da ficha A. Confira os demais parâmetros da ficha. Antes de abrir a simulação, procure na própria tela uma explicação sobre um dos campos.}
+\item[\textbf{T2 --- Execução e histórico.}] \emph{Abra a simulação. Ative as etapas detalhadas e use velocidade 2. Inicie a reprodução, acompanhe um acesso, pause e conte o que a tela mostrou. Retome e depois vá ao final da execução. No histórico, localize uma troca de blocos e mostre antes/depois. Por fim, encontre os totais de acertos/faltas e a indicação de que terminou.}
+\item[\textbf{T3 --- Outros mapeamentos.}] Usar a ficha B para modificar o mapeamento e comparar a execução. \emph{(Síntese do objetivo registrado.)}
+\item[\textbf{T4 --- Divisão do endereço.}] Usar a ficha C para alterar a memória principal e observar a decomposição. \emph{(Síntese do objetivo registrado.)}
+\end{description}
+A Tabela~\ref{tab:fichas-abc} reproduz a ficha de parâmetros encaminhada para orientar as tarefas. As variações de condução e os limites dos registros são apresentados na Seção~\ref{sec:avaliacao}.
+
+\begin{table}[!htbp]
+\centering
+\caption{Parâmetros das fichas A, B e C recuperadas do material encaminhado para a avaliação.}
+\label{tab:fichas-abc}
+\small
+\begin{tabular}{@{}P{5.0cm}P{2.7cm}P{2.7cm}P{2.7cm}@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{A -- primeira} & \textbf{B -- comparação} & \textbf{C -- inspeção} \\
+\midrule
+Bytes por célula & 1 & 1 & 1 \\
+Total de células da memória principal & 4096 & 4096 & 8192 \\
+Células por bloco & 16 & 16 & 16 \\
+Linhas da cache & 32 & 32 & 32 \\
+Mapeamento & Direto & Por conjunto & Por conjunto \\
+Vias por conjunto & 1 & 2 & 2 \\
+Política de substituição & Não se aplica & LRU & LRU \\
+\bottomrule
+\end{tabular}
+\par\footnotesize Fonte: ficha de parâmetros encaminhada para a avaliação, sem dados pessoais.
+\end{table}
+
+As fichas A e B utilizam a sequência \texttt{0, 1, 512, 0, 1024, 512, 0, 1}. Não foi especificada uma sequência própria para C no material recuperado. Nos instrumentos, o termo ``célula'' corresponde à unidade ``palavra'' adotada no texto conceitual.
+
+\textbf{Entrevista após o uso}
+\begin{enumerate}
+\item O que mais ajudou ou dificultou usar o Memora e acompanhar o que acontecia nos acessos?
+\item Depois de mudar o mapeamento, o que você conseguiu perceber na organização da cache ou no histórico? A interface ajudou ou dificultou comparar as duas execuções?
+\item Como a tela mostrou o efeito de aumentar a quantidade de células da memória principal? A apresentação ajudou ou dificultou perceber a relação com a divisão do endereço?
+\item O que você mudaria primeiro no Memora? Por quê? Para quem já usou o Beto e se lembrava dele, o roteiro acrescentou: comparado ao que você lembra do Beto, o que ficou mais fácil, mais difícil ou igual? Há algo de lá que gostaria de manter?
+\end{enumerate}
+
+\textbf{Avaliação rápida}
+
+A escala previa C (atende completamente), P (atende parcialmente), N (não atende) e X (não conseguiu avaliar). P01 e P04--P06 possuem códigos C nos quatro critérios. P07 tem C em C1--C3 e um relato qualitativo em C4. As fichas P02/P03 contêm comentários sem alternativa registrada. Em P04/P05, o moderador orientou desativar as etapas detalhadas em T2, o que alterou a instrução preservada acima.
+
+\begin{enumerate}
+\item[\textbf{C1.}] Facilidade para começar e utilizar os controles.
+\item[\textbf{C2.}] Clareza e organização das informações na tela.
+\item[\textbf{C3.}] Apoio para visualizar efeitos dos mapeamentos e parâmetros.
+\item[\textbf{C4.}] Satisfação com a experiência de uso.
+\end{enumerate}
+
+
+
+
+\subsection*{Cenários de verificação técnica}
+Os dois cenários a seguir foram utilizados para verificar a implementação. O primeiro corresponde ao exemplo de abertura do Beto e usa 1 byte por palavra, 4096 palavras, blocos de 16, 32 linhas e mapeamento direto, com uma via. FIFO permanece como preferência visual desabilitada, pois não há escolha de vítima no direto. A sequência é:
+
+\begin{quote}\small
+0, 1, 6, 7, 8, 9, 992, 993, 994, 481, 482, 0, 1, 2, 996, 224, 225, 2017, 2018, 4064, 996.
+\end{quote}
+
+Esse cenário termina em 21 acessos, 13 acertos, 8 faltas, taxa de 61,9\% e 3 das 32 linhas ocupadas. Seu endereço de 12 bits se divide em 3 bits de \textit{tag}, 5 de linha e 4 de deslocamento. Carregar exemplo didático restaura exatamente esse cenário, inclusive após uma edição inválida.
+
+O cenário das ajudas e dos testes de substituição mantém 4096 palavras, blocos de 16 e 32 linhas, mas usa mapeamento por conjunto, duas vias e LRU. Sua sequência é:
+
+\begin{quote}\small
+0, 1, 16, 17, 32, 33, 48, 49, 64, 65, 992, 993, 2016, 2017, 2, 18, 34, 994, 2018, 3044, 96.
+\end{quote}
+
+O resultado desse segundo cenário é 12 acertos, 9 faltas, 57,1\% e 8 das 32 linhas ocupadas. No acesso 20, o endereço 3044 seleciona a \textit{tag} 11, conjunto 14 e deslocamento 4; a via 1 troca 992--1007 por 3040--3055, enquanto a via 2 mantém 2016--2031. Esses resultados são verificações determinísticas da implementação, não medidas de desempenho real de hardware nem de aprendizagem.
+

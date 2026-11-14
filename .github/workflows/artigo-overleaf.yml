@@ -1,4 +1,4 @@
-name: Artigo SBC e Overleaf (#84)
+name: Artigo abnTeX2 e Overleaf (#84)
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ jobs:
       - name: Instalar TeX e utilitários
         run: |
           sudo apt-get update
-          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-lang-portuguese texlive-fonts-recommended texlive-bibtex-extra poppler-utils
+          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-lang-portuguese texlive-fonts-recommended texlive-bibtex-extra texlive-publishers texlive-humanities poppler-utils
       - name: Gerar pacote Overleaf
         run: python3 tcc/empacotar_artigo.py
       - name: Compilar artigo
@@ -52,7 +52,7 @@ jobs:
               print(name,indices)
           with ZipFile('tcc/tcc-atual.zip') as z:
               got=set(z.namelist())
-              required={'main.tex','referencias.bib','sbc-template.sty','sbc.bst',
+              required={'main.tex','referencias.bib','secoes/metodologia.tex','secoes/avaliacao.tex',
               'figuras/manual/configurar.png','figuras/manual/simular.png',
               'figuras/manual/comparacao.png','figuras/manual/conclusao.png','figuras/avaliacao-rapida.pdf'}
               assert required<=got, f'ZIP incompleto: {required-got}'

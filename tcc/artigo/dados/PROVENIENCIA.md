@@ -1,11 +1,11 @@
 # Proveniência dos dados de avaliação
 
-A análise cruza as sete [fichas públicas](../../../research/evaluation-2026/fichas/README.md) com as anotações e transcrições consolidadas. O pacote de 05/11/2026 já incorporava P04 e P05. A revisão de 09/11/2026 incorpora P06 e P07 e sincroniza as sete fichas com o fonte no GitHub.
+A análise cruza as sete [fichas públicas](../../../research/evaluation-2026/fichas/README.md) com as anotações e transcrições consolidadas. A avaliação consistiu em um único ciclo de sete entrevistas individuais. Os rótulos históricos `original` e `complementar`, preservados nos CSVs, indicam a consolidação dos registros no artigo; não definem rodadas, condições experimentais ou duas amostras.
 
-| Grupo | Casos | Observações sobre o registro |
+| Consolidação histórica | Casos | Observações sobre o registro |
 | --- | --- | --- |
-| Original | P01–P03 | Sessões anteriores ao PR #71. T4 de P01 sem tempo anotado. T4 de P02 tem tempo e descrição parcial. |
-| Complementar | P04–P07 | Fichas consolidadas em 05/11. Data de referência de P05–P07 registrada nas fichas. A data efetiva de P04 ficou sem registro. |
+| `original` | P01–P03 | Primeiros registros incorporados ao artigo. T4 de P01 sem tempo anotado. T4 de P02 tem tempo e descrição parcial. |
+| `complementar` | P04–P07 | Incorporação posterior das fichas ao texto. A data efetiva de P04 ficou sem registro. |
 
 ## Tempos e intervenções
 
@@ -28,3 +28,9 @@ P01 e P04–P06 têm C nos quatro critérios. As alternativas de P04 em C3 e de 
 ## Respostas abertas
 
 A unidade de leitura é participante por pergunta (Q1–Q4). Uma resposta pode conter mais de um tema. As sínteses distinguem ação observada, relato, intervenção e sugestão. As falas diretas vêm das notas ou transcrições indicadas no artigo. A comparação com o Beto é retrospectiva e a utilidade para estudar é uma percepção dos participantes.
+
+## Levantamento de requisitos do Beto
+
+`levantamento-beto.csv` é uma cópia íntegra do CSV anonimizado de `research/survey-2026/respostas-anonimizadas.csv`. Contém 13 respostas, sem e-mail e sem horário. Os seis gráficos do levantamento são gerados por `scripts/gerar_levantamento.py`; cada alternativa é contabilizada uma vez por respondente e o denominador é 13. As perguntas de múltipla seleção podem somar mais de 100%. O gráfico de melhorias inclui as 15 alternativas verificadas no instrumento; o de configuração inclui também a resposta livre registrada em Outro. Respostas abertas são discutidas qualitativamente.
+
+O questionário no Apêndice A reproduz os enunciados e as alternativas verificadas no CSV, nos gráficos agregados e no material de revisão do formulário. A escala efetivamente aplicada foi 1–4. A minuta de instrumento em `instrumentos/` é histórica e não substitui essa versão. O formulário web está fechado; a reconstrução é textual e não uma captura integral da interface original.

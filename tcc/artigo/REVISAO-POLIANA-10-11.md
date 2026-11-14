@@ -1,3 +1,5 @@
+> Registro da revisão de 11/11, complementado em 13/11. A formatação SBC provisória foi substituída por abnTeX2; as 56 exclusões têm conferência própria em [REVISAO-POLIANA-13-11.md](REVISAO-POLIANA-13-11.md).
+
 # Revisão dos apontamentos de Poliana — PDF de 10/11/2026
 
 Base: `main` após PRs #95 e #96 (`38408d36`). O PDF anotado foi confrontado com o fonte atual; algumas sugestões se referem a uma versão anterior com menos entrevistas. Os sete casos P01–P07, os CSVs e as fichas públicas foram preservados.

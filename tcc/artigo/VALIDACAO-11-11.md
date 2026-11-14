@@ -1,3 +1,5 @@
+> Registro da revisão anterior. A organização e os resultados desta entrega são atualizados em [REVISAO-POLIANA-AUDIOS-13-11.md](REVISAO-POLIANA-AUDIOS-13-11.md) e [VALIDACAO-13-11.md](VALIDACAO-13-11.md).
+
 # Verificação da revisão docente — 11/11/2026
 
 Base Git: `38408d36b17d128ecb817ebe9c6a51f1cc6eef77`, após PRs #95 e #96. Proposta de interface separada no PR #99, não integrada a esta base.
