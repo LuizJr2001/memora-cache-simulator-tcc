@@ -1,0 +1,32 @@
+\section{Metodologia}
+\label{sec:metodo}
+
+Este trabalho combina a análise do simulador Beto com a proposição e a implementação de melhorias em uma nova versão, denominada Memora. O percurso foi organizado em seis etapas, apresentadas na Figura~\ref{fig:etapas-metodo}. A organização da descrição metodológica e a relação entre requisitos, projeto, implementação e avaliação tomaram como referência os trabalhos de \citeonline{macedo2025medsimples} e \citeonline{chaves2026tutorandcoder}, respeitando as particularidades do ensino de memória cache.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[etapa/.style={draw=violetaMemora,fill=fundoMemora,rounded corners=3pt,text width=4.1cm,minimum height=1.3cm,align=center,font=\sffamily\small,inner sep=6pt},fluxo/.style={-{Stealth[length=2.2mm]},draw=gray,line width=.8pt}]
+\node[etapa] (e1) at (0,0) {\textbf{1. Análise comparativa}\\Caracterização das ferramentas};
+\node[etapa] (e2) at (5,0) {\textbf{2. Requisitos}\\Levantamento e priorização};
+\node[etapa] (e3) at (10,0) {\textbf{3. Inspeção de usabilidade}\\Exame da interface};
+\node[etapa] (e4) at (10,-2.2) {\textbf{4. Prototipação}\\Projeto e revisão por docentes};
+\node[etapa] (e5) at (5,-2.2) {\textbf{5. Implementação}\\Desenvolvimento e testes};
+\node[etapa] (e6) at (0,-2.2) {\textbf{6. Avaliação}\\Tarefas e entrevista com usuários};
+\draw[fluxo] (e1)--(e2);\draw[fluxo] (e2)--(e3);\draw[fluxo] (e3)--(e4);\draw[fluxo] (e4)--(e5);\draw[fluxo] (e5)--(e6);
+\end{tikzpicture}
+\caption{Etapas do desenvolvimento e da avaliação do Memora.}
+\label{fig:etapas-metodo}
+\par\footnotesize Fonte: elaboração própria; organização metodológica apoiada em \citeonline{macedo2025medsimples} e \citeonline{chaves2026tutorandcoder}.
+\end{figure}
+
+Na primeira etapa, foram identificados e caracterizados simuladores relacionados à memória cache. A comparação considerou as formas de acesso, a disponibilidade de código, o idioma, a finalidade educacional e os recursos de simulação. Essa análise forneceu subsídios para escolher o Beto como base de evolução e distinguir melhorias de interface de ampliações do modelo simulado.
+
+Na segunda etapa, foi elaborado e aplicado um questionário a estudantes de Engenharia de Computação, com o intuito de compreender dificuldades no uso do Beto e identificar melhorias consideradas relevantes. Foram analisados o perfil dos respondentes, as alternativas selecionadas e as respostas abertas. Esses resultados, em conjunto com os objetivos e o prazo do trabalho, orientaram a definição das prioridades de implementação.
+
+Na terceira etapa, foi realizada uma inspeção qualitativa de usabilidade, orientada pelas heurísticas de Nielsen. Foram examinadas a organização dos campos e das informações, a compreensão dos termos, a comunicação dos estados, a prevenção de erros e a identificação dos controles. Os problemas e as necessidades identificados foram relacionados às decisões de projeto da nova interface.
+
+Na quarta etapa, foram elaboradas representações das telas e de seus estados em um protótipo de alta fidelidade. O projeto foi revisado por docentes das áreas de Arquitetura de Computadores e de Interação Humano-Computador. Os comentários recebidos orientaram refinamentos na navegação, na diferenciação dos componentes e na apresentação das ajudas antes e durante a implementação.
+
+Na quinta etapa, o Memora foi implementado incrementalmente, preservando a base de simulação do Beto e reorganizando a interface. Foram desenvolvidos os fluxos de configuração, execução e revisão de acessos, acompanhados de testes da lógica de simulação e das interações. As principais tecnologias e decisões de implementação são apresentadas na Seção~\ref{sec:implementacao-memora}.
+
+Na sexta etapa, foi realizada uma avaliação exploratória com estudantes, por meio de tarefas, observação, entrevista e uma escala de apreciação da experiência de uso. Os registros foram analisados para identificar facilidades, dificuldades e oportunidades de melhoria. A avaliação corresponde a um único ciclo de entrevistas individuais; não incluiu experimento controlado de aprendizagem nem comparação simultânea entre Beto e Memora.

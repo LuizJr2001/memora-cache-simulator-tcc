@@ -1,12 +1,12 @@
 # Artigo do TCC — Memora
 
-A revisão de 09/11/2026 consolida sete sessões exploratórias com estudantes, de P01 a P07. O artigo preserva o formato SBC de uma coluna e reúne a comparação técnica, o levantamento de 13 respostas sobre o Beto, a implementação do Memora e os resultados da avaliação funcional.
+A revisão de 13/11/2026 incorpora os comentários do PDF e dos seis áudios de orientação. O artigo usa abnTeX2 em modo artigo e reúne comparação técnica, levantamento de 13 respostas sobre o Beto, implementação e sete entrevistas individuais sobre o Memora em um único ciclo.
 
 ## Fontes e pacote para Overleaf
 
 - [Fonte LaTeX](artigo/main.tex) e [bibliografia](artigo/referencias.bib).
 - [Pacote para importar no Overleaf](tcc-atual.zip), com `main.tex` na raiz.
-- [Guia do artigo](artigo/README.md) e [decisão do template SBC](artigo/TEMPLATE.md).
+- [Guia do artigo](artigo/README.md) e [composição do modelo abnTeX2](artigo/TEMPLATE.md).
 - [Dados, proveniência e critérios de apuração](artigo/dados/PROVENIENCIA.md).
 - [Síntese da avaliação](../research/evaluation-2026/README.md) e [fichas públicas](../research/evaluation-2026/fichas/README.md).
 

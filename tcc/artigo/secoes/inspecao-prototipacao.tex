@@ -1,0 +1,34 @@
+\subsection{Inspeção de usabilidade}
+\label{sec:inspecao-usabilidade}
+
+A inspeção teve caráter qualitativo e utilizou as heurísticas de Nielsen como referência para examinar a interface, articulando o uso do Beto às dificuldades registradas no levantamento de requisitos. O exame percorreu a configuração dos parâmetros, a leitura da divisão do endereço, o acompanhamento da execução e a interpretação da memória cache. Em cada parte, foram considerados a informação necessária para a tarefa, a ação oferecida e o retorno comunicado ao usuário.
+
+Entre os princípios examinados estão visibilidade do estado, correspondência entre os termos e os conceitos da disciplina, controle do usuário, consistência, prevenção de erros, reconhecimento, flexibilidade, concisão, recuperação de erros e ajuda \cite{nielsen1994heuristics}. Por exemplo, ao configurar uma memória, verificou-se se as restrições dos valores eram compreensíveis e se uma entrada incompatível recebia orientação; durante a execução, examinou-se como eram apresentados o acesso atual, o resultado e a escolha de uma linha ou via.
+
+O diagnóstico foi consolidado nos aspectos apresentados na Tabela~\ref{tab:inspecao-usabilidade}. O levantamento com estudantes e a inspeção se complementaram: o primeiro registrou dificuldades relatadas, enquanto a inspeção relacionou essas dificuldades aos elementos da interface e às possibilidades de reformulação. O procedimento foi descritivo, sem atribuição de pontuações numéricas de severidade.
+
+\begin{longtable}{@{}P{3.0cm}P{5.7cm}P{5.1cm}@{}}
+\caption{Aspectos do diagnóstico de usabilidade e decisões para a nova interface.}\label{tab:inspecao-usabilidade}\\
+\toprule\textbf{Aspecto examinado} & \textbf{Problema ou necessidade identificada} & \textbf{Decisão de projeto}\\\midrule\endfirsthead
+\toprule\textbf{Aspecto examinado} & \textbf{Problema ou necessidade identificada} & \textbf{Decisão de projeto}\\\midrule\endhead
+Organização das informações & A concentração de parâmetros, detalhamento e execução dificultava distinguir as atividades. Heurísticas: estética e concisão; reconhecimento. & Agrupar parâmetros e sequência; separar Configurar e Simular; apresentar explicações conforme o contexto.\\\midrule
+Termos e ajuda & Dificuldades para compreender campos e resultados indicaram necessidade de apoio junto à informação. Heurísticas: correspondência com os conceitos; ajuda e documentação. & Ajuda contextual, Glossário e exemplos que relacionam parâmetros ao cenário simulado.\\\midrule
+Validação e recuperação & Os relatos de entradas incompatíveis e contagens fracionárias de bits indicaram retorno insuficiente na configuração. Heurísticas: prevenção e recuperação de erros. & Validar durante o preenchimento e informar, próximo ao campo, o problema e a correção esperada.\\\midrule
+Visibilidade dos estados & A interpretação das substituições exigia explicitar a recência LRU e a relação entre o endereço e a cache. Heurísticas: visibilidade; reconhecimento. & Mostrar decomposição, linha/conjunto, validade e recência quando aplicável; explicar cada acesso.\\\midrule
+Controle da execução & Acompanhar os acessos requer distinguir preparação, reprodução, pausa, avanço e conclusão. Heurísticas: controle e liberdade; flexibilidade. & Controles de reprodução e avanço, velocidade ajustável e indicação explícita de término.\\\midrule
+Histórico & Os relatos solicitaram explicações e acompanhamento de estados anteriores, além dos totais finais. Heurísticas: visibilidade; reconhecimento. & Histórico por acesso e comparação da cache antes e depois, sem repetir a execução.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Prototipação e revisão por docentes}
+\label{sec:prototipacao}
+
+O protótipo foi elaborado a partir dos requisitos priorizados e do diagnóstico de usabilidade. Utilizou-se o Figma, ferramenta de projeto de interfaces que permite organizar telas, componentes e estados visuais e compartilhar o trabalho para revisão \cite{figmaDesign2026}. Foram representados os campos de configuração, os três mapeamentos, os estados de erro, os controles da execução, a memória cache, o histórico e os painéis de ajuda. Essas representações permitiram discutir a apresentação antes de implementar todos os comportamentos.
+
+Adotou-se como referência o \textit{Simple Design System} (SDS), um sistema de projeto disponibilizado pelo Figma que reúne padrões de componentes, estilos e variáveis visuais \cite{figmaSds2026}. No Memora, essa referência orientou a padronização de campos, botões, cartões, espaçamentos e tipografia. As cores associadas a endereço, resultado e estado da cache foram adaptadas aos conceitos apresentados pelo simulador.
+
+O projeto passou por revisão com a orientação e a coorientação, envolvendo docentes de Arquitetura de Computadores e de IHC. Os registros dessa revisão apontaram ajustes na organização das telas e na identificação das ações. As abas passaram a ter aparência semelhante à de um navegador, com destaque para a etapa selecionada. Campos de entrada e botões receberam formas distintas e controles de mesma função passaram a compartilhar aparência e posição coerentes.
+
+As ajudas também foram simplificadas. Foram retirados cabeçalhos e balões redundantes, as explicações passaram a usar linguagem dirigida ao estudante e os conteúdos foram organizados em descrição e exemplo didático. A redução de caixas repetidas e a padronização dos fundos procuraram facilitar a leitura sem eliminar regras e exemplos necessários à compreensão.
+
+As representações de Configurar e Analisar estão no Apêndice~\ref{ap:capturas-complementares}, nas Figuras~\ref{fig:figma-configurar} e~\ref{fig:figma-analisar}. O protótipo previa três etapas: Configurar, Simular e Analisar. Durante a implementação, a comparação antes/depois passou a integrar a etapa Simular, como ação do histórico. Essa alteração preservou a análise do acesso e reduziu a repetição de informações entre telas.

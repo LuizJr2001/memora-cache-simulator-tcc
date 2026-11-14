@@ -1,3 +1,25 @@
+# Formatação do artigo - revisão de 13/11/2026
+
+A referência desta revisão é o PDF **TCC de Hugo Barbosa**, enviado por Poliana como exemplo de apresentação de artigo. O fonte passa a usar `abntex2` em modo `article`, fonte Latin Modern e bibliografia autor-data com `abntex2cite`. A composição deixou de depender de `sbc-template.sty`, `sbc.bst` e `revisao-abertura.sty`.
+
+| Elemento | Composição atual |
+| --- | --- |
+| Abertura | Título em português e nota sobre a natureza do artigo; autor, orientadora e coorientadora centralizados |
+| Vínculos | Notas de rodapé com informações acadêmicas e e-mails conhecidos |
+| Resumos | RESUMO antes de ABSTRACT, títulos centralizados e palavras-chave nos dois idiomas |
+| Corpo | Uma coluna, fonte de 12 pt, recuo de parágrafo e seções principais em maiúsculas |
+| Referências | Autor-data e lista bibliográfica em abnTeX2; URL e data de acesso em campos próprios |
+| Apêndices e anexo | Início em nova página; remissões por letra e figuras com numeração própria |
+| Submissão/aprovação | Macros vazias no preâmbulo; nenhuma data foi inventada |
+
+A apresentação foi recomposta a partir do PDF, não do arquivo-fonte do aluno. O ZIP exato do modelo do Moodle não consta nos materiais disponíveis. Esta revisão não declara identidade com esse arquivo nem aprovação institucional. Quando ele estiver disponível, conferir sobretudo margens, campos de submissão/aprovação, titulações e regras específicas de referências.
+
+A revisão inicial conferiu as 133 anotações de `revPoliana10-11`, incluindo 56 exclusões. A versão atual incorpora também o PDF `revPoliana13-11` (186 objetos, incluindo 72 exclusões) e as orientações dos seis áudios. O acompanhamento dessas marcações consta em [REVISAO-POLIANA-13-11.md](REVISAO-POLIANA-13-11.md). As exclusões valem para os trechos e contextos marcados: uma palavra riscada em uma frase não proíbe seu uso técnico no restante do artigo.
+
+## Histórico anterior, preservado para rastreabilidade
+
+As decisões abaixo pertencem às revisões anteriores e foram superadas pela orientação de 12/11 e pelo exemplo de Hugo. Não definem o template corrente.
+
 # Situação vigente da formatação — 11/11/2026
 
 O comentário C01 do PDF `revPoliana10-11` informa que a abertura anterior não corresponde ao modelo obrigatório disponibilizado no Moodle. Essa orientação específica supera a conclusão operacional de 04/11 abaixo. O arquivo exato do modelo do Moodle ainda não integra os materiais disponíveis; portanto, a conformidade integral **não está confirmada**.

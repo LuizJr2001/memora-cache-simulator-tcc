@@ -1,6 +1,6 @@
-# Situação editorial vigente
+# Situação editorial vigente — 13/11/2026
 
-A revisão docente de 11/11 está detalhada em [REVISAO-POLIANA-10-11.md](REVISAO-POLIANA-10-11.md). A decisão de modelo foi reaberta pelo comentário C01: a base SBC recebeu os ajustes explícitos solicitados, mas depende de conferência com o arquivo exato do Moodle. Consulte [TEMPLATE.md](TEMPLATE.md) antes de afirmar conformidade.
+A revisão atual usa abnTeX2, considera o PDF `revPoliana13-11` e seis áudios e reorganiza método, desenvolvimento e avaliação. Há um único ciclo de sete entrevistas individuais. Consulte [REVISAO-POLIANA-AUDIOS-13-11.md](REVISAO-POLIANA-AUDIOS-13-11.md), [VALIDACAO-13-11.md](VALIDACAO-13-11.md) e [TEMPLATE.md](TEMPLATE.md). Os registros abaixo são históricos e não definem o estado atual.
 
 ---
 

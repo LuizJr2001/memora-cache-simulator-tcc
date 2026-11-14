@@ -1,37 +1,45 @@
-# Artigo Memora — revisão docente de 11/11/2026
+# Artigo Memora — revisão de 13/11/2026
 
-O projeto mantém SBC como base de composição e aplica os ajustes de abertura explicitados no PDF de Poliana de 10/11. A conferência com o arquivo exato do modelo do Moodle permanece pendente; não há declaração de conformidade institucional integral. A organização acadêmica segue a referência MedSimples de André Macedo. Esta revisão integra as sete fichas P01–P07, com quatro casos complementares à rodada original. O levantamento anterior sobre o Beto tem 13 respostas e é analisado separadamente.
+Esta versão incorpora o PDF `revPoliana13-11` e as orientações dos seis áudios. O artigo usa abnTeX2 em modo artigo, recomposto a partir do exemplo de Hugo Barbosa. O fonte exato do modelo do Moodle ainda deve ser confrontado com essa apresentação.
 
-## Abrir no Overleaf
+## Estrutura atual
 
-Importe `tcc-atual.zip` como projeto. Selecione `main.tex` e o compilador pdfLaTeX. A bibliografia usa BibTeX. Veja [APENDICES.md](APENDICES.md) para a organização de figuras e instrumentos e [TEMPLATE.md](TEMPLATE.md) para a decisão do modelo.
+1. Introdução, fundamentação e descrição dos trabalhos relacionados.
+2. Metodologia: diagrama de seis etapas e explicação de cada uma.
+3. Desenvolvimento: comparação e escolha do Beto, levantamento de 13 respostas com todos os resultados, prioridades numeradas, inspeção qualitativa e protótipo revisado por docentes.
+4. Implementação: HTML/CSS/JavaScript, organização da aplicação, funcionalidades e verificação técnica em alto nível.
+5. Avaliação do Memora: preparação, sete entrevistas individuais de um único ciclo, análise dos resultados e ajustes de interface.
+6. Discussão, conclusão, referências, apêndices e anexo.
 
-Compilação local neste diretório:
+## Overleaf e compilação
+
+Importe o ZIP como projeto, selecione `main.tex` e use pdfLaTeX com BibTeX. Os arquivos de `secoes/` compõem o artigo e devem ser mantidos no projeto. Em uma instalação TeX Live completa:
 
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-Regeneração dos gráficos, com Python e matplotlib:
+Para regenerar os gráficos com Python e matplotlib:
 
 ```bash
-python3 scripts/gerar_avaliacao_rapida.py
+python3 scripts/gerar_levantamento.py
 python3 scripts/gerar_tempos_tarefas.py
+python3 scripts/gerar_avaliacao_rapida.py
 ```
 
-Na raiz do repositório, gere o pacote com `python3 tcc/empacotar_artigo.py`. O workflow do artigo compila o PDF e prepara o ZIP como artefatos do GitHub Actions.
+Da raiz do repositório, `python3 tcc/empacotar_artigo.py` sincroniza o ZIP, incluindo dados anonimizados, figuras, bibliografia e fontes. Os arquivos auxiliares e o PDF compilado ficam fora do pacote.
 
-## Dados da avaliação
+## Dados e fontes
 
-- C1–C3 têm cinco respostas C em sete participantes. C4 tem quatro respostas C em sete. A satisfação de P07 foi registrada em texto.
-- Os tempos descrevem as tarefas. As sessões diferiram em condução e tiveram lacunas de versão e ambiente.
-- As fichas públicas estão indexadas em `research/evaluation-2026/fichas/` no repositório. O ZIP contém matrizes e gráficos anonimizados.
-- Os instrumentos preservam o planejamento. O artigo descreve o procedimento efetivamente documentado.
+O levantamento de requisitos e a avaliação com estudantes têm bases distintas: 13 respostas sobre o Beto e sete entrevistas sobre o Memora. Os tempos e códigos das entrevistas foram preservados. Os rótulos `original`/`complementar` nos CSVs são históricos da consolidação documental, sem representar duas rodadas de teste. Consulte [dados/PROVENIENCIA.md](dados/PROVENIENCIA.md).
 
-Veja [dados/PROVENIENCIA.md](dados/PROVENIENCIA.md) para a apuração e [REVISAO-EDITORIAL.md](REVISAO-EDITORIAL.md) para o histórico.
+As capturas da aplicação são ilustrativas e não representam a tela de cada entrevista. Os ajustes de reprodução, edição e ajuda integrados na evolução da aplicação ainda precisam ser reavaliados com estudantes.
 
-## Revisão de Poliana
+## Conferência editorial
 
-Os 75 comentários textuais foram rastreados em [REVISAO-POLIANA-10-11.md](REVISAO-POLIANA-10-11.md). A abertura, fundamentação e trabalhos relacionados foram reescritos; a escolha do Beto passou à primeira subseção metodológica. As duas tabelas comparativas foram reorganizadas e as figuras de apêndices/anexos receberam numeração própria. Os resultados dos sete participantes e o levantamento de 13 respostas permanecem separados e íntegros.
+- [Revisão dos novos comentários e áudios](REVISAO-POLIANA-AUDIOS-13-11.md).
+- [Conferência anterior das 56 exclusões](REVISAO-POLIANA-13-11.md).
+- [Validação desta entrega](VALIDACAO-13-11.md).
+- [Organização dos apêndices](APENDICES.md) e [composição do modelo](TEMPLATE.md).
 
-As propostas de interface do PR #99 são identificadas como propostas ainda não integradas nem reavaliadas com estudantes. [VALIDACAO-11-11.md](VALIDACAO-11-11.md) registra a verificação desta revisão.
+As macros `datasubmissao` e `dataaprovacao` só devem receber datas confirmadas pela disciplina.
