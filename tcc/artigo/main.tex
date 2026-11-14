@@ -31,9 +31,13 @@ Glívia Angélica Rodrigues Barbosa\thanks{Coorientadora do trabalho. Docente do
 \predate{\begin{center}\small}
 \postdate{\par\end{center}}
 \thanksmarkseries{arabic}
+% O hyperref desativa os links automáticos dentro de \maketitle.
+% Os hooks do memoir ligam cada sobrescrito à sua própria nota de autoria.
+\newcommand{\linknotaautoria}[1]{\hyperlink{nota-autoria.#1}{#1}}
+\thanksheadextra{\linknotaautoria}{}
 \setlength{\thanksmarkwidth}{1.2em}
 \setlength{\thanksmarksep}{0em}
-\thanksmarkstyle{\textsuperscript{#1}\hfill}
+\thanksmarkstyle{\hypertarget{nota-autoria.#1}{\textsuperscript{#1}}\hfill}
 \setlength{\droptitle}{-2.1cm}
 \makeheadrule{abntheadings}{\textwidth}{0pt}
 \makeoddhead{abntheadings}{}{}{\normalfont\normalsize\thepage}

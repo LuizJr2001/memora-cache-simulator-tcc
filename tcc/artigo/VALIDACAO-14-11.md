@@ -15,7 +15,7 @@
 
 ## Arquivos entregues
 
-SHA-256 do PDF do artigo: `746fb9474325162ddf726e65e8062e4883055f44097cf357e2d0a98d33a3fe85`.
+SHA-256 do PDF do artigo: `a91b64024c4945780db945c93e1a34bcae97a240395f1243279b48581626378f`.
 
 SHA-256 do questionário em branco: `993289cb728c75f9046525bc1097def30a8dd5fc480afc698666c327aa641dad`.
 
@@ -24,3 +24,9 @@ SHA-256 do questionário em branco: `993289cb728c75f9046525bc1097def30a8dd5fc480
 O modelo de referência está identificado por confirmação expressa do autor. Isso não equivale a aprovação desta versão por Poliana ou Glívia. O PDF do questionário é uma reprodução textual conferida com os arquivos da coleta; não foi recuperada uma captura integral do formulário web e sua configuração visual. A origem está documentada em `research/survey-2026/QUESTIONARIO-APLICADO.md`.
 
 A validação foi local. O workflow foi atualizado para regenerar o questionário antes de montar o ZIP, mas sua execução no GitHub depende das condições da conta. A integração do PR e os envios à Glívia e à banca são etapas distintas.
+
+## Complemento — hiperlinks das notas de abertura
+
+Os quatro sobrescritos do título e da autoria agora usam links internos com destinos próprios nas respectivas notas. A configuração utiliza os hooks de marcas do memoir e comandos do hyperref; não altera a numeração das notas do corpo.
+
+Validação da recompilação: 41 páginas, texto extraído idêntico em todas as páginas ao PDF anterior, quatro novas ações GoTo com destinos distintos conferidos nas notas 1–4 e todos os 195 links anteriores preservados (tolerância geométrica de 0,01 pt). A primeira página foi renderizada e inspecionada; os quatro números aparecem em azul. Log sem referências/citações indefinidas, caracteres ausentes, caixas excedentes/insuficientes ou destinos duplicados. O ZIP foi recomposto a partir dos mesmos fontes; a cópia extraída em pasta limpa foi recompilada e seus quatro links também foram conferidos.

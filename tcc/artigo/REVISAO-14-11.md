@@ -32,3 +32,7 @@ As ocorrências de tag, hit, miss e plurais no Apêndice A receberam itálico, a
 | Terça-feira, 24/11, 09h30 | Defesa online | Agendamento anterior preservado na issue de calendário |
 
 As datas são acompanhadas na issue #22. O envio de arquivos às docentes ou à banca não faz parte das ações realizadas neste PR.
+
+## Complemento — navegação nas notas da abertura
+
+Após a integração do PR #103, foram adicionados hiperlinks aos quatro números sobrescritos do título e da autoria. Cada número leva à nota de rodapé correspondente na primeira página, como no modelo indicado. A correção contorna a desativação dos hiperlinks automáticos pelo hyperref durante maketitle usando as marcas de autoria do memoir e destinos nomeados exclusivos. Os links do corpo e o texto do artigo foram preservados.
