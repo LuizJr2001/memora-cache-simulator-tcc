@@ -1,8 +1,14 @@
+# Revisão editorial da avaliação — 16/11/2026
+
+O artigo organiza os resultados em execução de tarefas e entrevista pós-teste. A [matriz de conclusão](../../tcc/artigo/dados/conclusao-tarefas.csv) acrescenta indicadores analíticos com justificativa e página de origem, sem alterar os sete PDFs das fichas. Dificuldade, mediação e lacuna documental são distinguidas; falta de registro não é erro nem não conclusão. A [proveniência](../../tcc/artigo/dados/PROVENIENCIA.md) apresenta as regras e os limites. Os tempos brutos e os códigos da escala permanecem íntegros.
+
+Os registros históricos abaixo mantêm os encaminhamentos de cada momento da consolidação.
+
 # Avaliação funcional do Memora
 
 ## Consolidação de 09/11/2026
 
-O [artigo](../../tcc/README.md) integra os sete casos P01–P07. As sessões P01–P03 compõem a rodada inicial e P04–P07 são complementares. Os sete estudantes usaram o Memora pela primeira vez. Cinco conheciam o Beto. As referências à ferramenta anterior descrevem lembranças de uso.
+O [artigo](../../tcc/README.md) integra os sete casos P01–P07. As sete sessões individuais compõem um único ciclo; P01–P03 e P04–P07 distinguem momentos de consolidação documental, sem constituir rodadas experimentais. Os sete estudantes usaram o Memora pela primeira vez. Cinco conheciam o Beto. As referências à ferramenta anterior descrevem lembranças de uso.
 
 | Evidência | Resultado ou encaminhamento |
 | --- | --- |
@@ -84,14 +90,14 @@ As respostas qualitativas não foram convertidas em C. SR é diferente de X.
 
 O [registro editorial](../../tcc/artigo/TEMPLATE.md) documenta a codificação por
 pergunta, as fontes das falas e a ausência de versão/ambiente nas sessões.
-O artigo preserva a rodada original; não atribui a ela um commit presumido nem
+O artigo preserva a conjunto inicial de registros; não atribui a ela um commit presumido nem
 considera as alterações do PR #71 uma validação com participantes. O PR #71 já
 foi integrado; a reobservação com usuários permanece vinculada à #70.
 
 ## Arquivo das fichas — 05/11/2026
 
 Foram arquivadas as versões públicas de P01–P04 em [`fichas/`](fichas/README.md).
-P04 é um registro adicional à rodada P01–P03 analisada acima. Seu arquivamento
+P04 é um registro adicional à conjunto de registros P01–P03 analisada acima. Seu arquivamento
 não atualiza automaticamente a matriz, os gráficos nem os resultados do artigo.
 As cópias mantêm os tempos, respostas, intervenções e lacunas documentadas;
 os nomes foram removidos do conteúdo e os metadados dos PDFs foram revisados.

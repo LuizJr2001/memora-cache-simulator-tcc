@@ -1,4 +1,4 @@
-"""Gera o gráfico de cobertura e respostas da avaliação rápida."""
+"""Gera o gráfico de cobertura e respostas aos critérios da entrevista pós-teste."""
 
 import csv
 from pathlib import Path
