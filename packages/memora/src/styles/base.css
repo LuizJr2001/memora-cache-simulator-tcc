@@ -573,3 +573,18 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
 .manual-steps p { margin-top: 4px; }
 .manual-footnote { font-size: 12px; margin-top: 20px; }
 @media (max-width: 480px) { .manual-frame { margin-block: 12px 20px; } .manual-title { font-size: 17px; } .manual-steps { padding-left: 24px; } }
+
+/* O editor compartilha a linha do título em desktops estreitos; a orientação
+   usa a largura completa sem criar uma segunda linha de botão. */
+@media (min-width: 801px) and (max-width: 1050px) {
+  .sequence-panel .panel-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px 12px;
+  }
+  .sequence-panel .panel-heading > div { display: contents; }
+  .sequence-panel .panel-heading h2 { grid-column: 1; grid-row: 1; }
+  .sequence-panel .panel-heading #open-address-editor { grid-column: 2; grid-row: 1; }
+  .sequence-panel .panel-heading p { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
+}
