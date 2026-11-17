@@ -1,3 +1,11 @@
+# Verificação complementar — 17/11/2026
+
+O PR #108 corrige o encaixe de Configurar em 801 × 720. Os **101 casos Playwright passaram integralmente** no commit `8338835`, no [workflow 44191343998](https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/44191343998), job `134421254081`. As quatro capturas do manual foram regeneradas pelo workflow. Sintaxe de 38 arquivos, 81 testes Node e build passaram localmente. [Matriz e limites](verificacoes/CONSOLIDACAO-17-11.md).
+
+A execução de 17/11 supera a pendência técnica de 101 casos apenas coletados em 11/11. Isso não acrescenta sessões de estudantes nem certifica o formulário original. Reobservação continua na #70 e conferência integral do Forms na #98. Os registros datados abaixo permanecem históricos.
+
+---
+
 # Memora — estado atual da aplicação
 
 Consolidação: **09/11/2026**. O Figma v2, as antigas três telas e os relatórios
