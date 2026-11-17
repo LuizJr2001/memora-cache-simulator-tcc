@@ -30,8 +30,10 @@ sem supor que os percentuais somem 100%. A escala de utilidade efetivamente
 aplicada vai de 1 a 4. O roteiro preliminar guardado no material do artigo não
 substitui os enunciados aplicados, preservados no cabeçalho do CSV.
 
-A avaliação do Memora com estudantes permanece pendente; testes automatizados
-e alterações de interface não acrescentam novas respostas a este levantamento.
+A avaliação exploratória do Memora com sete estudantes está consolidada em
+`research/evaluation-2026/`. A reobservação após os últimos ajustes permanece na
+#70; testes automatizados não acrescentam respostas a este levantamento nem novas
+sessões de estudantes.
 
 ## Instrumento aplicado — conferência de 14/11
 
