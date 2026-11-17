@@ -10,6 +10,8 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:5173',
     viewport: { width: 1280, height: 720 },
     headless: true,
+    screenshot: 'only-on-failure',
+    trace: 'retain-on-failure',
     launchOptions: process.env.MEMORA_CHROMIUM_PATH ? { executablePath: process.env.MEMORA_CHROMIUM_PATH } : {},
   },
   webServer: {
