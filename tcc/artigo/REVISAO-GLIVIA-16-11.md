@@ -1,12 +1,14 @@
 # Revisão de Glívia e conciliação com Poliana — 16/11/2026
 
+Atualização de **17/11/2026**: Poliana concordou com os comentários de Glívia e autorizou a reorganização antes pendente na #105. Os encaminhamentos estruturais abaixo foram atualizados; o estado de 16/11 e a razão da preservação anterior ficam registrados no histórico do Git. Os complementos e a revisão para nova leitura estão em [REVISAO-POLIANA-17-11.md](REVISAO-POLIANA-17-11.md).
+
 Base: `main` em `3fa38257fa41255feccc5c17a0641a00778a7b15`, após a integração dos PRs #103 e #104. Foram lidas as 100 anotações internas de `Memora_Artigo_RevGARB_16-11-2026(1).pdf`: 72 possuem texto e 28 são marcações sem comentário textual. A transcrição dos áudios foi fornecida pelo autor; não se declara conferência auditiva independente. A seção 8 do texto final de Antônio José Peixoto Chaves, especialmente as Figuras 7 e 8, orientou a organização dos resultados. Não foram copiados resultados nem dados do outro TCC.
 
 ## Decisões de conciliação
 
 | Ponto | Encaminhamento |
 | --- | --- |
-| Estrutura da fundamentação | Preservadas as três subseções pedidas por Poliana. A proposta de Glívia de mudar a ordem e remover a subseção isolada de IHC fica condicionada à decisão de Poliana na [#105](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/105). Definições, remissões e referências foram melhoradas. |
+| Estrutura da fundamentação | Aprovada por Poliana em 17/11 e aplicada: memória cache antes de software educacional; retirada da subseção isolada de IHC; importância da usabilidade ao final de software educacional; métodos definidos e referenciados nos locais de aplicação. Decisão na [#105](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/105). |
 | Gráficos do levantamento | Mantidos os seis solicitados por Poliana. Foi adotada a alternativa admitida por Glívia: texto interpretativo que acrescenta análise, em vez de repetir números. Barras de múltipla seleção ordenadas por frequência, sem grade; escala de utilidade explicada. |
 | Desenvolvimento e requisitos | Preservada a sequência exigida por Poliana: comparação, levantamento, resultados completos, prioridades, inspeção e protótipo. O título da seção 5 passa a explicitar escopo e requisitos, distinguindo-a da implementação. |
 | Avaliação | Mantido um único ciclo de sete sessões. Tarefas e entrevista pós-teste substituem o termo “avaliação rápida”. A tabela e o gráfico de tempos saem do corpo; os CSVs originais são preservados. |
@@ -18,7 +20,7 @@ Base: `main` em `3fa38257fa41255feccc5c17a0641a00778a7b15`, após a integração
 
 - Resumo e abstract consistentes em objetivo, método, resultados e contribuições, ambos na primeira página.
 - Introdução com sequência contexto → Beto → problemas → objetivo → resultados e contribuições; uso de “apresentar” para a ferramenta concluída.
-- Fundamentação com citações e remissões; IHC preservada enquanto se aguarda #105. Nielsen e Barbosa/Silva também são citados nos procedimentos em que os métodos são utilizados.
+- Fundamentação com citações e remissões, reorganizada após a decisão de 17/11 na #105. Nielsen e Barbosa/Silva sustentam a explicação dos procedimentos em que os métodos são utilizados.
 - Trabalhos relacionados em prosa, nomes destacados e parágrafo de diferenciação, preservando a comparação na seção seguinte.
 - Metodologia genérica em seis etapas, com diagrama e referências, conforme Poliana.
 - Levantamento com dificuldades reunidas, sugestões fechadas e abertas conectadas, escala explicada e análise dos seis gráficos antes das prioridades.
@@ -36,7 +38,7 @@ Os CSVs originais, os sete PDFs das fichas, o instrumento aplicado e os 105 valo
 
 ## Rastreabilidade das 100 anotações
 
-As páginas e os objetos abaixo se referem ao PDF comentado, antes da recompaginação. “Aplicado” inclui reescrita equivalente, não necessariamente adoção literal. As três anotações de mudança estrutural permanecem pendentes; a contagem não representa aprovação das docentes.
+As páginas e os objetos abaixo se referem ao PDF comentado, antes da recompaginação. “Aplicado” inclui reescrita equivalente, não necessariamente adoção literal. As três anotações de mudança estrutural foram aplicadas após a concordância de Poliana em 17/11. Essa concordância com os ajustes não representa liberação da nova versão para a banca, que depende de nova leitura.
 
 | Objeto | Página | Tipo | Orientação ou marcação | Encaminhamento |
 | --- | ---: | --- | --- | --- |
@@ -57,12 +59,12 @@ As páginas e os objetos abaixo se referem ao PDF comentado, antes da recompagin
 | 329 | 3 | Highlight | Marcação sem texto: Highlight | Remissões e definições referenciadas; licença transferida para implementação. |
 | 1011 | 3 | Highlight | colocar entre parenteses (Subseção XX), depois de cada item que está mencionando que vai apresentar … | Remissões e definições referenciadas; licença transferida para implementação. |
 | 1013 | 3 | Highlight | Você faz um paragrafo inteiro, definindo software educacional e não cita uma referência para isto? É… | Remissões e definições referenciadas; licença transferida para implementação. |
-| 1015 | 3 | Highlight | Sugiro uma mudança aqui, para validar com a Poliana (e prevalecer o que ela decidir) O foco do seu t… | PENDENTE #105: estrutura/remoção de IHC exige decisão de Poliana; conteúdo preservado. |
+| 1015 | 3 | Highlight | Sugiro uma mudança aqui, para validar com a Poliana (e prevalecer o que ela decidir) O foco do seu t… | Aplicado em 17/11 após concordância de Poliana: cache antes de software educacional; #105. |
 | 1017 | 3 | StrikeOut | remover | Parágrafo redundante retirado; referência de Araújo/Freitas preservada na definição. |
-| 1019 | 3 | Highlight | Considerando meu comentário sobre discutir com a Poliana rever a ordem da seção, este trecho aqui re… | Trecho específico de cache retirado da subseção de software; ordem estrutural pendente na #105. |
+| 1019 | 3 | Highlight | Considerando meu comentário sobre discutir com a Poliana rever a ordem da seção, este trecho aqui re… | Aplicado: cache concentrada em 2.1; software educacional em 2.2, após decisão de 17/11 na #105. |
 | 1021 | 3 | Highlight | Incluir referência | Mantida a referência de Patterson/Hennessy para localidade temporal e espacial. |
-| 1023 | 4 | StrikeOut | remover não precisa falar de IHC, só porque o trabalho tem desenvolvimento com avaliação junto ao us… | PENDENTE #105: estrutura/remoção de IHC exige decisão de Poliana; conteúdo preservado. |
-| 1025 | 5 | StrikeOut | Marcação sem texto: StrikeOut | PENDENTE #105: estrutura/remoção de IHC exige decisão de Poliana; conteúdo preservado. |
+| 1023 | 4 | StrikeOut | remover não precisa falar de IHC, só porque o trabalho tem desenvolvimento com avaliação junto ao us… | Aplicado em 17/11: subseção isolada de IHC retirada; métodos explicados na inspeção e na avaliação. |
+| 1025 | 5 | StrikeOut | Marcação sem texto: StrikeOut | Aplicado em 17/11 com o complemento de Poliana: usabilidade ao final de software educacional. |
 | 1027 | 5 | Highlight | Essa frase ficou solta Depois entendi que, mais para frente você compara as ferramentas que vai apre… | Abertura dos relacionados limitada à apresentação das ferramentas. |
 | 1029 | 8 | Text | Incluir um parágrafo que diferencia o seu trabalho, dos relacionados. Ver a última dos trabalhos rel… | Diferenciação dos relacionados e abertura metodológica reescritas. |
 | 1107 | 8 | Ink | Marcação sem texto: Ink | Diferenciação dos relacionados e abertura metodológica reescritas. |
