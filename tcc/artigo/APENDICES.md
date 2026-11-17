@@ -1,4 +1,4 @@
-> Atualização de 16/11/2026: consultar [REVISAO-GLIVIA-16-11.md](REVISAO-GLIVIA-16-11.md) e [VALIDACAO-16-11.md](VALIDACAO-16-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. A fundamentação mantém três subseções enquanto se aguarda a decisão da Poliana na #105. Os registros anteriores abaixo são históricos.
+> Atualização de 17/11/2026: consultar [REVISAO-POLIANA-17-11.md](REVISAO-POLIANA-17-11.md) e [VALIDACAO-17-11.md](VALIDACAO-17-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. Poliana autorizou a reorganização da fundamentação em memória cache e software educacional; a subseção isolada de IHC foi retirada, com métodos explicados onde utilizados. Os agradecimentos encerram o documento. Os registros anteriores abaixo são históricos.
 
 # Figuras e apêndices — revisão de 13/11/2026
 

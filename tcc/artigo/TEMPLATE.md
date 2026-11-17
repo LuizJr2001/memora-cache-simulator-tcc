@@ -1,4 +1,4 @@
-> Atualização de 16/11/2026: consultar [REVISAO-GLIVIA-16-11.md](REVISAO-GLIVIA-16-11.md) e [VALIDACAO-16-11.md](VALIDACAO-16-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. A fundamentação mantém três subseções enquanto se aguarda a decisão da Poliana na #105. Os registros anteriores abaixo são históricos.
+> Atualização de 17/11/2026: Poliana concordou com a reorganização proposta por Glívia. A fundamentação passa a reunir memória cache e software educacional, com usabilidade ao final desta última; os métodos ficam explicados nas seções de inspeção e avaliação. Agradecimentos em página final, com título centralizado sem número, seguem a disposição do PDF de Hugo e incluem declaração do uso de IA. Consulte [REVISAO-POLIANA-17-11.md](REVISAO-POLIANA-17-11.md) e [VALIDACAO-17-11.md](VALIDACAO-17-11.md). Preservados o modelo institucional e os apêndices. Os registros anteriores abaixo são históricos.
 
 # Modelo institucional — situação vigente em 14/11/2026
 
