@@ -588,3 +588,11 @@ label { font-size: 13px; font-weight: 600; line-height: 18px; }
   .sequence-panel .panel-heading #open-address-editor { grid-column: 2; grid-row: 1; }
   .sequence-panel .panel-heading p { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
 }
+
+/* Na faixa mais estreita, a sequência reserva duas linhas de edição e mantém
+   espaço para a quebra dos rótulos sem empurrar o rodapé. */
+@media (min-width: 801px) and (max-width: 900px) and (max-height: 850px) {
+  #configure-form #sequence { flex-basis: 64px; min-height: 64px; }
+  .sequence-panel .configuration-summary { margin-top: 4px; }
+  .sequence-panel .sequence-bottom .sequence-actions + .information-note { margin-top: 4px; }
+}
