@@ -10,8 +10,14 @@ registros de estudantes, os dados do levantamento ou os fontes LaTeX.
 - Playwright: tentativa dos 101 casos terminou em falha de inicialização do Chromium
   156.0.8078.79. Mensagem: `socket() failed: Operation not permitted (1)`.
   Nenhuma asserção de interface foi executada com sucesso nessa tentativa.
-- A execução remota e suas capturas devem ser consultadas no PR #108. Seu resultado
-  é independente do bloqueio local; não atribuir capturas antigas à revisão atual.
+- Execução remota 44190339195: 100 aprovados e 1 falha em 101 casos. Falha real:
+  a página de Configurar em 801 × 720 atingiu 764 px de altura. O botão Editar em
+  blocos quebrava o cabeçalho. A correção usa grade para manter título e botão
+  na mesma linha e a orientação abaixo, sem ocultar conteúdo nem reduzir fontes.
+- Foram inspecionadas as capturas remotas de Configurar em 1280 × 720,
+  Simular em 1280 × 720 e comparação em 390 px. Os elementos e estados examinados
+  permanecem legíveis; tabelas pequenas usam rolagem local. A nova execução do
+  PR #108 deve confirmar o ajuste de 801 px. Isso não é aceite estético docente.
 
 ## Matriz de critérios técnicos e acadêmicos
 
@@ -47,3 +53,29 @@ em branco, incluindo todas as seções, alternativas e regras de ramificação.
 
 Os gráficos/CSV e o roteiro preliminar não foram promovidos a fonte integral.
 Não houve nova coleta, envio de convite, nova aprovação docente ou alteração do artigo.
+
+## Encaminhamento dos critérios visuais
+
+A opção de trocar FALTA por laranja não foi adotada: mantém-se o âmbar vigente,
+com rótulo e símbolo, sem confundir falta com erro de entrada. A recência é
+comunicada por texto e estado de linha; não se acrescenta outra paleta nessa
+correção. Essas opções históricas não são defeitos novos nem condicionam a
+verificação técnica. A avaliação qualitativa completa permanece na #33; a
+reobservação após ajustes permanece na #70. Nenhuma dessas decisões equivale
+a aprovação das docentes ou a observação por novos participantes.
+
+## Execução integral aprovada após a correção
+
+O workflow de capturas existente executou a suíte integral no commit
+`833883527fa38c1de081e3d58d5cec987d9bb038` e aprovou **101/101 casos**,
+sem casos ignorados, em aproximadamente 1,5 minuto. Execução:
+https://github.com/LuizJr2001/memora-cache-simulator-tcc/actions/runs/44191343998
+Job `134421254081`, etapa “Validar interface com Playwright”.
+
+A correção final também compacta apenas a área de edição e espaços entre cartões
+na faixa 801–900 px de largura e até 850 px de altura. As asserções originais de
+altura, largura, controles visíveis e erros navegáveis foram preservadas.
+Distribuição: 17 comparação, 3 complementares, 46 configuração, 3 manual e
+32 simulação. O workflow regenerou as quatro imagens do manual e seus metadados
+em `f666de0`; os registros anteriores permanecem no histórico Git. O artigo e suas
+figuras históricas não foram alterados.
