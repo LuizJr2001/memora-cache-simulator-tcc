@@ -1,3 +1,5 @@
+> Atualização de 16/11/2026: consultar [REVISAO-GLIVIA-16-11.md](REVISAO-GLIVIA-16-11.md) e [VALIDACAO-16-11.md](VALIDACAO-16-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. A fundamentação mantém três subseções enquanto se aguarda a decisão da Poliana na #105. Os registros anteriores abaixo são históricos.
+
 # Situação editorial vigente — 13/11/2026
 
 A revisão atual usa abnTeX2, considera o PDF `revPoliana13-11` e seis áudios e reorganiza método, desenvolvimento e avaliação. Há um único ciclo de sete entrevistas individuais. Consulte [REVISAO-POLIANA-AUDIOS-13-11.md](REVISAO-POLIANA-AUDIOS-13-11.md), [VALIDACAO-13-11.md](VALIDACAO-13-11.md) e [TEMPLATE.md](TEMPLATE.md). Os registros abaixo são históricos e não definem o estado atual.

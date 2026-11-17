@@ -27,7 +27,12 @@ jobs:
       - name: Instalar TeX e utilitários
         run: |
           sudo apt-get update
-          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-lang-portuguese texlive-fonts-recommended texlive-bibtex-extra texlive-publishers texlive-humanities poppler-utils
+          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-lang-portuguese texlive-fonts-recommended texlive-bibtex-extra texlive-publishers texlive-humanities poppler-utils python3-matplotlib
+      - name: Regenerar gráficos a partir dos dados anonimizados
+        run: |
+          python3 tcc/artigo/scripts/gerar_levantamento.py
+          python3 tcc/artigo/scripts/gerar_conclusao_tarefas.py
+          python3 tcc/artigo/scripts/gerar_avaliacao_rapida.py
       - name: Compilar questionário em branco
         working-directory: tcc/artigo
         run: |
@@ -61,9 +66,12 @@ jobs:
               'instrumentos/questionario-aplicado.tex','instrumentos/questionario-aplicado.json',
               'instrumentos/questionario-aplicado.pdf',
               'figuras/manual/configurar.png','figuras/manual/simular.png',
-              'figuras/manual/comparacao.png','figuras/manual/conclusao.png','figuras/avaliacao-rapida.pdf'}
+              'figuras/manual/comparacao.png','figuras/manual/conclusao.png','figuras/avaliacao-rapida.pdf',
+              'figuras/conclusao-tarefas.pdf','dados/conclusao-tarefas.csv','scripts/gerar_conclusao_tarefas.py'}
               assert required<=got, f'ZIP incompleto: {required-got}'
               print('ZIP',len(got),'arquivos')
+          opening=check_output(['pdftotext','-f','1','-l','1','-layout',str(pdf),'-']).decode(errors='replace')
+          assert 'RESUMO' in opening and 'ABSTRACT' in opening and 'Keywords:' in opening
           print('PDF',len(pages)-1,'páginas')
           PY
       - name: Entregar PDF e ZIP

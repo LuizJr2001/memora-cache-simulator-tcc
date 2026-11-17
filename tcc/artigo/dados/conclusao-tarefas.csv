@@ -1,0 +1,29 @@
+participante,tarefa,indicador,pagina_ficha,evidencia
+P01,T1,R,1,SE na ficha; ressalva analítica pela instrução imprecisa e avanço à simulação.
+P01,T2,C,1,Conclusão informada pelo entrevistador; consulta aos controles e estados relatada; subpassos não descritos isoladamente.
+P01,T3,C,1,"Retornou, alterou valores e observou efeitos sem dificuldade operacional relatada."
+P01,T4,C,1,Conclusão SE relatada; alterou memória e localizou divisão; tempo ausente não altera a evidência de conclusão.
+P02,T1,C,1,"Conferiu valores, editou sequência e abriu ajuda sem erro relatado."
+P02,T2,I,3,Revisão com ajuda direta; troca antes/depois e totais/término não confirmados integralmente.
+P02,T3,C,1,"Retorno, ajuste e nova execução relatados; percebeu mudanças na interface."
+P02,T4,I,3,Não há registro da alteração 4096 para 8192 prevista na ficha C.
+P03,T1,R,1,Enunciado esclarecido; entrevistador indicou a inserção da sequência em Endereços a acessar.
+P03,T2,R,1,Dificuldade para localizar antes/depois; encontrou comparação após explorar e confirmou troca e totais.
+P03,T3,R,1,Ficha B executada; revisão por marcador circular apresentada pelo entrevistador.
+P03,T4,R,1,Memória alterada; identificar o significado da mudança exigiu direcionamento.
+P04,T1,R,1,Preparou ficha A; esclarecimentos sobre coluna e sequência preservados como ressalva de condução.
+P04,T2,R,1,"Consultou troca, antes/depois e totais; desativou etapas detalhadas por orientação, variando o roteiro."
+P04,T3,C,1,Ficha B executada; mudanças e explicações acompanhadas sem ressalva operacional específica.
+P04,T4,R,1,Memória alterada e mudança percebida; houve perguntas direcionadas sobre a mudança.
+P05,T1,R,1,Configuração e ajuda consultadas; moderador esclareceu onde inserir os endereços.
+P05,T2,R,3,Analisar espontâneo e totais verbalizados; etapas detalhadas desativadas por instrução e ritmo considerado rápido.
+P05,T3,C,1,"Ficha B executada; distinguiu explicações de LRU, mapeamento e via livre."
+P05,T4,C,1,Memória alterada e atualização percebida imediatamente; não se pontua a identificação conceitual exata dos bits.
+P06,T1,C,1,Parâmetros e sequência conferidos; ajuda consultada conforme a tarefa; notas registram que correu bem.
+P06,T2,I,3,Usou descrição e controles; troca específica e resposta sobre totais não são confirmadas na transcrição.
+P06,T3,R,1,Ficha B configurada; orientação sobre modo detalhado e indicação do acesso 5.
+P06,T4,R,1,Memória alterada; percepção da mudança confirmada após perguntas do moderador.
+P07,T1,R,1,Configuração e ajuda consultadas; orientação para ajustar o número de linhas antes de simular.
+P07,T2,R,3,Analisar reconhecido e comparação consultada após indicação do acesso 3; totais localizados conforme relato.
+P07,T3,C,1,Ficha B configurada e acompanhada; sem ressalva operacional específica ao objetivo.
+P07,T4,R,2,Memória alterada e mudanças percebidas; identificação precisa das partes do endereço não fica confirmada e houve orientação.

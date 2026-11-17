@@ -1,9 +1,11 @@
 \section{Implementação do Memora}
 \label{sec:implementacao-memora}
 
+Esta seção apresenta as tecnologias e a organização da aplicação, seus principais fluxos e a verificação técnica. A implementação da versão funcional e seus refinamentos foram realizados em aproximadamente um mês, entre outubro e novembro de 2026, após a elaboração e a revisão do protótipo.
+
 \subsection{Tecnologias e organização da aplicação}
 
-O Memora foi implementado com HTML, CSS e JavaScript, a partir do código do Beto, de Leandro Gabriel e colaboradores \cite{gabriel2022beto}. HTML estrutura os elementos da interface, CSS define sua apresentação e JavaScript controla a configuração, a simulação e as interações. A aplicação executa no navegador e é disponibilizada como um site estático, sem exigir instalação pelo estudante. A licença MIT e a atribuição ao código de origem foram preservadas.
+O Memora foi implementado com HTML, CSS e JavaScript, a partir do código do Beto, de Leandro Gabriel e colaboradores \cite{gabriel2022beto}. HTML estrutura os elementos da interface, CSS define sua apresentação e JavaScript controla a configuração, a simulação e as interações. A aplicação executa no navegador e é disponibilizada como um site estático, sem exigir instalação pelo estudante. A licença MIT e a atribuição ao código de origem foram preservadas. Essa licença, também conhecida como X11, permite usar, modificar e distribuir o código mediante preservação do aviso de copyright e da licença \cite{mitlicense}.
 
 A implementação separa a interface da lógica da simulação. A interface recebe os parâmetros, comunica erros, controla a reprodução e apresenta resultados. O núcleo interpreta os endereços, aplica o mapeamento e a política de substituição e produz o estado da cache e as estatísticas. Para cada acesso concluído, são conservadas cópias do estado anterior e do posterior, permitindo consultar o histórico sem alterar a execução.
 
@@ -11,11 +13,11 @@ Foram preservados os três mapeamentos e as políticas FIFO, LRU e aleatória j�
 
 \subsection{Configuração e prevenção de erros}
 
-A etapa Configurar reúne os parâmetros da memória principal e da cache e a sequência de endereços. A validação ocorre durante a edição e é repetida antes de iniciar a simulação. Cada endereço representa uma palavra da memória principal; o rótulo herdado da interface utiliza o termo ``célula'' para essa unidade. Uma memória com 4096 palavras, por exemplo, possui endereços de 0 a 4095. O tamanho em bytes de cada palavra altera a capacidade, mas não a quantidade de endereços nesse modelo.
+A interface da etapa Configurar é apresentada na Figura~\ref{fig:memora-configurar-atual}. Ela permite carregar o exemplo didático (1), definir a memória principal (2), escolher o mapeamento e os parâmetros da cache (3), informar a sequência de endereços (4) e iniciar a simulação (5). A validação ocorre durante a edição e é repetida antes de iniciar a simulação. Cada endereço representa uma palavra da memória principal; o rótulo herdado da interface utiliza o termo ``célula'' para essa unidade. Uma memória com 4096 palavras, por exemplo, possui endereços de 0 a 4095. O tamanho em bytes de cada palavra altera a capacidade, mas não a quantidade de endereços nesse modelo.
 
 Os parâmetros de quantidade de palavras, palavras por bloco, linhas e vias devem ser potências de dois compatíveis entre si. Entradas inválidas recebem mensagens próximas dos campos, explicando o que precisa ser corrigido. Os valores não são substituídos silenciosamente. A sequência aceita até 1000 endereços; o gerador de endereços aleatórios utiliza os limites da memória configurada e informa que substituirá a sequência editada. Também é possível carregar um exemplo pronto.
 
-A prévia apresenta os campos do endereço conforme o mapeamento escolhido: \textit{tag}, linha ou conjunto e deslocamento. Ao selecionar Iniciar simulação, os dados são preparados e a etapa Simular é aberta com zero acessos processados, aguardando uma ação de reprodução ou avanço. A Figura~\ref{fig:memora-configurar-atual} apresenta essa organização.
+A prévia apresenta os campos do endereço conforme o mapeamento escolhido: \textit{tag}, linha ou conjunto e deslocamento. Ao selecionar Iniciar simulação, os dados são preparados e a etapa Simular é aberta com zero acessos processados, aguardando uma ação de reprodução ou avanço.
 
 \begin{figure}[!htbp]\centering
 \includegraphics[width=\linewidth,height=.39\textheight,keepaspectratio]{figuras/manual/configurar.png}
@@ -25,9 +27,9 @@ A prévia apresenta os campos do endereço conforme o mapeamento escolhido: \tex
 
 \subsection{Execução, histórico e comparação de estados}
 
-A etapa Simular permite executar a sequência automaticamente ou avançar manualmente. Com as etapas detalhadas ativadas, cada acesso percorre decomposição, consulta, determinação do resultado, seleção da via, atualização da cache e conclusão. No modo resumido, cada avanço conclui um acesso. O controle de velocidade ajusta o ritmo de reprodução; o avanço para o final conclui os acessos restantes, e Reiniciar permite recomeçar o cenário.
+A Figura~\ref{fig:memora-simular-atual} apresenta a etapa Simular. Os marcadores identificam reprodução e pausa (1), avanço manual (2), etapas detalhadas (3), velocidade (4), memória cache (5) e histórico de acessos (6). A sequência pode ser executada automaticamente ou por avanços manuais. Com as etapas detalhadas ativadas, cada acesso percorre decomposição, consulta, determinação do resultado, seleção da via, atualização da cache e conclusão. No modo resumido, cada avanço conclui um acesso. O controle de velocidade ajusta o ritmo de reprodução; o avanço para o final conclui os acessos restantes, e Reiniciar permite recomeçar o cenário.
 
-A cache apresenta validade, \textit{tag}, blocos e palavras, além da recência LRU quando aplicável. A posição 1 indica a via mais recente e não deve ser confundida com o número da via. A indicação de progresso e os totais de acertos e faltas permanecem visíveis durante a execução. Ao final, o progresso recebe indicação de conclusão. A Figura~\ref{fig:memora-simular-atual} mostra os controles e as informações reunidos nessa etapa.
+A cache apresenta validade, \textit{tag}, blocos e palavras, além da recência LRU quando aplicável. A posição 1 indica a via mais recente e não deve ser confundida com o número da via. A indicação de progresso e os totais de acertos e faltas permanecem visíveis durante a execução. Ao final, o progresso recebe indicação de conclusão.
 
 \begin{figure}[!htbp]\centering
 \includegraphics[width=\linewidth,height=.39\textheight,keepaspectratio]{figuras/manual/simular.png}
@@ -48,4 +50,4 @@ Os botões utilizam preenchimento roxo e texto branco, enquanto os painéis info
 
 A verificação registrada durante o desenvolvimento incluiu 78 testes da lógica e dos controladores no ambiente Node e 94 cenários de interação em Chromium. Foram examinados mapeamentos, substituições, validação, estados históricos, uso por teclado e diferentes dimensões de tela. Os testes da aplicação e a geração do site apoiaram a integração incremental das alterações.
 
-Foram usados cenários com resultados conhecidos para verificar a interpretação dos endereços e a atualização da cache. Um cenário direto com 21 acessos termina em 13 acertos e 8 faltas. Outro, associativo por conjunto com duas vias e LRU, termina em 12 acertos e 9 faltas e permite examinar uma substituição. Seus parâmetros e sequências estão no Apêndice~\ref{ap:roteiro-memora}. A verificação técnica complementa a análise da experiência de uso com estudantes, apresentada a seguir.
+Foram usados cenários com resultados conhecidos para verificar a interpretação dos endereços e a atualização da cache. Seus parâmetros e sequências estão no Apêndice~\ref{ap:roteiro-memora}. A avaliação com estudantes, apresentada a seguir, complementa essa verificação ao examinar a interação com a ferramenta.

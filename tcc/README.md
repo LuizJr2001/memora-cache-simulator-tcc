@@ -31,10 +31,12 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 A [#64](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/64) registra o plano inicial e a execução exploratória efetiva. As tarefas observadas ocorreram no Memora e as referências ao Beto foram retrospectivas. A [#70](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/70) acompanha a descoberta da comparação e do retorno ao estado atual. A [#22](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/22) mantém o calendário do TCC.
 
-## Próximos prazos
+## Revisão de 16/11 e próximos prazos
 
-- Até **15/11 à noite**: envio à Glívia.
-- **16/11, a partir de 08h**: leitura pela coorientadora.
-- Até **18/11**: envio à banca.
+O retorno da Glívia recebido em 16/11 foi incorporado ao texto, com análise das tarefas e entrevista pós-teste, preservando as orientações da Poliana. A [conferência das anotações](artigo/REVISAO-GLIVIA-16-11.md) explica as decisões e a [#105](https://github.com/LuizJr2001/memora-cache-simulator-tcc/issues/105) mantém pendente a decisão sobre a estrutura da fundamentação.
 
-Datas de 2026, horário de Brasília, informadas pelo autor em 14/11. O registro no calendário não representa envio realizado.
+- **15/11**: envio anterior à Glívia, confirmado na correspondência.
+- **16/11**: recebimento dos comentários e revisão do artigo.
+- Até **18/11**: encaminhamento à banca, ainda sem registro de novo envio nesta execução.
+
+Datas de 2026, horário de Brasília. Consulte [VALIDACAO-16-11.md](artigo/VALIDACAO-16-11.md) para a verificação do PDF e do pacote.

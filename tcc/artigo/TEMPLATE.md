@@ -1,3 +1,5 @@
+> Atualização de 16/11/2026: consultar [REVISAO-GLIVIA-16-11.md](REVISAO-GLIVIA-16-11.md) e [VALIDACAO-16-11.md](VALIDACAO-16-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. A fundamentação mantém três subseções enquanto se aguarda a decisão da Poliana na #105. Os registros anteriores abaixo são históricos.
+
 # Modelo institucional — situação vigente em 14/11/2026
 
 O autor confirmou em 14/11 que o PDF **TCC___Hugo_Barbosa__Atualizado_-1 (1).pdf**, de Hugo Barbosa Santana Silva, é a referência institucional desta entrega. A pendência de identificação do modelo está resolvida por essa indicação expressa. O artigo segue essa composição em abnTeX2, modo artigo.

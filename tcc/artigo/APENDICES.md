@@ -1,3 +1,5 @@
+> Atualização de 16/11/2026: consultar [REVISAO-GLIVIA-16-11.md](REVISAO-GLIVIA-16-11.md) e [VALIDACAO-16-11.md](VALIDACAO-16-11.md). Preservados o modelo institucional e os apêndices; a figura de indicadores de tarefas substitui os tempos no corpo. A fundamentação mantém três subseções enquanto se aguarda a decisão da Poliana na #105. Os registros anteriores abaixo são históricos.
+
 # Figuras e apêndices — revisão de 13/11/2026
 
 Os apêndices aparecem na ordem da primeira remissão no corpo e começam em nova página. Cada um possui numeração própria de figuras e destinos de hiperlink independentes.
