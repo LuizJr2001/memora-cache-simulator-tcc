@@ -94,9 +94,9 @@ This work presents Memora, an educational cache memory simulator developed from 
 \section{Introdução}
 \label{sec:introducao}
 
-A disponibilização de softwares educacionais oferece aos estudantes recursos para explorar conteúdos e experimentar conceitos por meio de atividades interativas. A contribuição desses recursos depende da relação entre o conteúdo, as atividades propostas e as condições de uso da interface; por isso, sua avaliação deve considerar aspectos pedagógicos e a experiência de quem os utiliza \cite{godoi2009avaliacao,araujo2017protocolo}.
-
 Em Arquitetura e Organização de Computadores (AOC), o estudo da memória cache demanda compreender simultaneamente endereçamento, organização em blocos, mapeamento e políticas de substituição. A relação entre um endereço solicitado pelo processador e sua localização na cache exige acompanhar estados internos durante a execução \cite{patterson2014computer}. Nesse contexto, os simuladores permitem observar esses estados e explorar o efeito de diferentes configurações, oferecendo representações que apoiam o ensino do conteúdo \cite{gabriel2022beto}.
+
+Esses simuladores integram o conjunto de softwares educacionais, que oferecem recursos para explorar conteúdos e experimentar conceitos por meio de atividades interativas. A contribuição desses recursos depende da relação entre o conteúdo, as atividades propostas e as condições de uso da interface; por isso, sua avaliação deve considerar aspectos pedagógicos e a experiência de quem os utiliza \cite{godoi2009avaliacao,araujo2017protocolo}.
 
 A literatura apresenta simuladores com diferentes finalidades, desde a análise de desempenho até o apoio ao ensino de arquitetura de computadores \cite{brais2020survey}. Entre essas ferramentas está o \textbf{Beto}\footnote{Disponível em: \url{https://simuladorcache.leandrogabriel.net/}.}, utilizado por estudantes das disciplinas de AOC do CEFET-MG, conforme o levantamento deste trabalho. Desenvolvido como um simulador educacional de memória cache com visualizações interativas e animadas, o Beto permite configurar memória principal, blocos, linhas, mapeamento e política de substituição, além de executar os acessos em tempo real ou passo a passo \cite{gabriel2022beto,betoweb2026}. Seu acesso web em português, a disponibilidade do código e a licença MIT permitiram utilizá-lo como base para os aprimoramentos \cite{leogithub2026}; os critérios dessa escolha são detalhados na Seção~\ref{sec:desenvolvimento}.
 
@@ -111,14 +111,7 @@ Este artigo está organizado da seguinte forma: a Seção~\ref{sec:visao-geral-c
 \section{Fundamentação teórica}
 \label{sec:visao-geral-cache}
 
-Esta seção apresenta os conceitos de software educacional (Subseção~\ref{sec:software-educacional}), memória cache (Subseção~\ref{sec:conceitos-cache}) e Interação Humano-Computador (IHC), usabilidade e experiência do usuário (Subseção~\ref{sec:conceitos-ihc}). Esses fundamentos apoiam a delimitação do conteúdo simulado e a análise da qualidade de uso de interfaces destinadas ao ensino.
-
-\subsection{Software educacional e qualidade de uso}
-\label{sec:software-educacional}
-
-O software educacional reúne recursos computacionais destinados a apoiar atividades de ensino e aprendizagem, articulando conteúdo, representações e possibilidades de interação. Sua qualidade envolve tanto a adequação pedagógica quanto a facilidade de utilização, conforme discutem \citeonline{godoi2009avaliacao} e \citeonline{araujo2017protocolo}. Assim, disponibilizar conteúdos corretos precisa ser acompanhado de instruções compreensíveis e ações coerentes com a atividade proposta.
-
-\citeonline{godoi2009avaliacao} defendem a avaliação de materiais didáticos digitais centrada no usuário, considerando instrumentos de avaliação e o contexto de uso por professores. Essa perspectiva relaciona o valor educacional do recurso às condições em que ele pode ser utilizado: clareza das informações, navegação e retorno das ações participam da experiência de exploração do conteúdo.
+Esta seção apresenta os conceitos de memória cache (Subseção~\ref{sec:conceitos-cache}) e software educacional (Subseção~\ref{sec:software-educacional}). Esses fundamentos delimitam o conteúdo simulado e situam a importância da usabilidade de interfaces destinadas ao ensino. Os métodos de inspeção e avaliação são explicados nas seções em que foram empregados.
 
 \subsection{Memória cache}
 \label{sec:conceitos-cache}
@@ -137,16 +130,14 @@ Os metadados permitem interpretar o estado das linhas. O bit de validade informa
 
 A taxa de acertos é a razão entre acertos e acessos; a taxa de faltas é a razão entre faltas e acessos. Para uma sequência não vazia, essas proporções são complementares. A avaliação de desempenho também pode considerar o tempo de acesso à cache e a penalidade de falta, isto é, o custo adicional de buscar um bloco ausente \cite{sonia2021cache,barbhuiya2024cache}.
 
-\subsection{Interação Humano-Computador, usabilidade e experiência do usuário}
-\label{sec:conceitos-ihc}
+\subsection{Software educacional}
+\label{sec:software-educacional}
 
-A IHC estuda o projeto, a implementação e a avaliação de sistemas interativos, considerando as pessoas, suas atividades e o contexto em que a interação ocorre \cite{barbosa2010ihc}. O projeto de uma interface exige compreender objetivos e dificuldades dos usuários, elaborar alternativas de interação e avaliar se as representações e os comandos permitem realizar as tarefas pretendidas. A análise ultrapassa a disposição visual dos elementos: envolve o significado comunicado e as consequências das ações.
+O software educacional reúne recursos computacionais destinados a apoiar atividades de ensino e aprendizagem, articulando conteúdo, representações e possibilidades de interação. Sua qualidade envolve tanto a adequação pedagógica quanto a facilidade de utilização, conforme discutem \citeonline{godoi2009avaliacao} e \citeonline{araujo2017protocolo}. Assim, disponibilizar conteúdos corretos precisa ser acompanhado de instruções compreensíveis e ações coerentes com a atividade proposta.
 
-A usabilidade reúne atributos relacionados à facilidade de aprendizagem, eficiência de uso, memorização, erros e satisfação \cite{nielsen1993usability}. Esses atributos dependem de tarefas e condições de uso definidas. A experiência do usuário amplia a análise ao considerar percepções e respostas associadas ao contato com o sistema \cite{hassenzahl2013ux,norman1998definition}. Assim, concluir uma tarefa, compreender seu resultado e relatar satisfação são evidências relacionadas, mas não equivalentes.
+\citeonline{godoi2009avaliacao} defendem a avaliação de materiais didáticos digitais centrada no usuário, considerando instrumentos de avaliação e o contexto de uso por professores. Essa perspectiva relaciona o valor educacional do recurso às condições em que ele pode ser utilizado: clareza das informações, navegação e retorno das ações participam da experiência de exploração do conteúdo.
 
-As heurísticas de Nielsen oferecem princípios gerais para examinar interfaces, incluindo visibilidade do estado, correspondência com o mundo real, controle e liberdade, consistência, prevenção de erros, reconhecimento em lugar de memorização, flexibilidade, apresentação concisa, apoio à recuperação de erros e ajuda \cite{nielsen1994heuristics}. Por exemplo, comunicar o efeito de uma ação favorece a compreensão do estado, enquanto mensagens que identificam o problema e indicam como corrigi-lo apoiam a recuperação.
-
-A avaliação heurística é um método de inspeção em que avaliadores examinam a interface com base nesses princípios, registram problemas e podem classificá-los por severidade. Ela se diferencia do teste com usuários, no qual participantes executam tarefas e fornecem evidências de dificuldades observadas em uso \cite{barbosa2010ihc,barbosaSlidesAvalHeuristica}. A inspeção identifica potenciais problemas; a observação contextualiza como eles afetam atividades concretas. A revisão de protótipos e a implementação iterativa permitem incorporar os achados ao projeto, desde que se documente qual procedimento foi efetivamente realizado.
+Nesse contexto, a usabilidade é importante para que o estudante consiga explorar o recurso e se concentrar no conteúdo. Ela abrange facilidade de aprendizagem da interface, eficiência de uso, memorização, erros e satisfação, em tarefas e condições de uso definidas \cite{nielsen1993usability}. Em um simulador educacional, compreender os campos, reconhecer os controles e interpretar o retorno das ações são condições relevantes para acompanhar o fenômeno representado. Por isso, o projeto e a avaliação devem considerar as dificuldades de interação junto da adequação do conteúdo e das atividades propostas \cite{barbosa2010ihc,godoi2009avaliacao}.
 
 \section{Trabalhos relacionados}
 \label{sec:relacionados}
@@ -290,5 +281,17 @@ As imagens pertencem à documentação de Ripes e SMPCache. Suas fontes originai
 \label{fig:rel-smp}
 \par\footnotesize Fonte: \textit{Getting Started with SMPCache 2.0}, Figura 17 \cite{smpcacheManual2026}.
 \end{figure}
+
+\clearpage
+\begingroup
+\setsecheadstyle{\centering\normalfont\bfseries\normalsize}
+\section*{Agradecimentos}
+\addcontentsline{toc}{section}{Agradecimentos}
+\label{sec:agradecimentos}
+\endgroup
+
+Agradeço à professora Poliana Aparecida Corrêa de Oliveira pela orientação, à professora Glívia Angélica Rodrigues Barbosa pela coorientação e pelas contribuições ao projeto e à avaliação da interface, aos estudantes que participaram das pesquisas e ao CEFET-MG pelo suporte à formação acadêmica. Agradeço também aos autores do Beto pela disponibilização do simulador e de seu código-fonte, que serviram de base para o desenvolvimento do Memora.
+
+Registro e agradeço o apoio de ferramentas de inteligência artificial generativa, incluindo ChatGPT e Codex, utilizadas na organização e revisão da redação deste artigo, no apoio à implementação e revisão de código do Memora e na elaboração de documentação e verificações técnicas. A seleção das sugestões, a interpretação dos dados e a responsabilidade pelo conteúdo e pelos resultados apresentados permanecem com o autor.
 
 \end{document}
