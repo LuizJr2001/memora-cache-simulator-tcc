@@ -1,0 +1,74 @@
+1
+00:00:00,000 --> 00:00:07,000
+Configurar
+Parâmetros e sequência de endereços em uma etapa própria.
+
+2
+00:00:07,000 --> 00:00:17,000
+Validar antes de executar
+Zero células por bloco gera orientação e impede a execução.
+
+3
+00:00:17,000 --> 00:00:27,000
+Preparar o cenário LRU
+4096 células, blocos de 16, 32 linhas e duas vias por conjunto.
+
+4
+00:00:27,000 --> 00:00:35,000
+Selecionar o mapeamento
+Por conjunto, com duas vias e política de substituição LRU.
+
+5
+00:00:35,000 --> 00:00:43,000
+Conferir a decomposição
+O endereço de 12 bits se divide em tag, conjunto e deslocamento.
+
+6
+00:00:43,000 --> 00:00:51,000
+Iniciar o acompanhamento
+A cache começa vazia. Os controles permitem avançar um acesso.
+
+7
+00:00:51,000 --> 00:01:01,000
+Acesso 1: falta
+O endereço 0 carrega o bloco 0–15 em uma via livre.
+
+8
+00:01:01,000 --> 00:01:11,000
+Acesso 2: acerto
+O endereço 1 pertence ao bloco 0–15, que já está na cache.
+
+9
+00:01:11,000 --> 00:01:19,000
+Concluir a sequência
+21 acessos: 12 acertos, 9 faltas e taxa de acerto de 57,1%.
+
+10
+00:01:19,000 --> 00:01:29,000
+Revisar o histórico
+Analisar seleciona o acesso 20, sem mudar os totais da execução.
+
+11
+00:01:29,000 --> 00:01:43,000
+Antes da substituição
+A via 1 do conjunto 14 contém 992–1007, o bloco menos recente.
+
+12
+00:01:43,000 --> 00:01:57,000
+Depois da substituição
+O bloco 3040–3055 ocupa a via 1. A via 2 permanece no conjunto.
+
+13
+00:01:57,000 --> 00:02:07,000
+Voltar ao estado atual
+O retorno destacado permite continuar a consultar a cache final.
+
+14
+00:02:07,000 --> 00:02:20,000
+Reconfigurar o cenário
+Totalmente associativo: 8 bits de tag e nenhum bit de conjunto.
+
+15
+00:02:20,000 --> 00:02:30,000
+Explorar outras configurações
+A mudança dos parâmetros atualiza a divisão do endereço antes da execução.
