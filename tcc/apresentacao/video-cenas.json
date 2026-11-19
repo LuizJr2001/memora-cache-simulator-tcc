@@ -1,0 +1,162 @@
+[
+  {
+    "imagem": "demo-01.jpg",
+    "segundos": 7,
+    "recorte": null,
+    "titulo": "Configurar",
+    "legenda": "Parâmetros e sequência de endereços em uma etapa própria."
+  },
+  {
+    "imagem": "demo-02.jpg",
+    "segundos": 10,
+    "recorte": [
+      15,
+      165,
+      605,
+      370
+    ],
+    "titulo": "Validar antes de executar",
+    "legenda": "Zero células por bloco gera orientação e impede a execução."
+  },
+  {
+    "imagem": "demo-04.jpg",
+    "segundos": 10,
+    "recorte": null,
+    "titulo": "Preparar o cenário LRU",
+    "legenda": "4096 células, blocos de 16, 32 linhas e duas vias por conjunto."
+  },
+  {
+    "imagem": "demo-04.jpg",
+    "segundos": 8,
+    "recorte": [
+      18,
+      495,
+      595,
+      394
+    ],
+    "titulo": "Selecionar o mapeamento",
+    "legenda": "Por conjunto, com duas vias e política de substituição LRU."
+  },
+  {
+    "imagem": "demo-04.jpg",
+    "segundos": 8,
+    "recorte": [
+      625,
+      565,
+      715,
+      313
+    ],
+    "titulo": "Conferir a decomposição",
+    "legenda": "O endereço de 12 bits se divide em tag, conjunto e deslocamento."
+  },
+  {
+    "imagem": "demo-05.jpg",
+    "segundos": 8,
+    "recorte": null,
+    "titulo": "Iniciar o acompanhamento",
+    "legenda": "A cache começa vazia. Os controles permitem avançar um acesso."
+  },
+  {
+    "imagem": "demo-06.jpg",
+    "segundos": 10,
+    "recorte": [
+      20,
+      110,
+      1315,
+      795
+    ],
+    "titulo": "Acesso 1: falta",
+    "legenda": "O endereço 0 carrega o bloco 0–15 em uma via livre."
+  },
+  {
+    "imagem": "demo-07.jpg",
+    "segundos": 10,
+    "recorte": [
+      20,
+      110,
+      1315,
+      795
+    ],
+    "titulo": "Acesso 2: acerto",
+    "legenda": "O endereço 1 pertence ao bloco 0–15, que já está na cache."
+  },
+  {
+    "imagem": "demo-08.jpg",
+    "segundos": 8,
+    "recorte": [
+      15,
+      110,
+      1335,
+      795
+    ],
+    "titulo": "Concluir a sequência",
+    "legenda": "21 acessos: 12 acertos, 9 faltas e taxa de acerto de 57,1%."
+  },
+  {
+    "imagem": "demo-09.jpg",
+    "segundos": 10,
+    "recorte": [
+      883,
+      175,
+      450,
+      450
+    ],
+    "titulo": "Revisar o histórico",
+    "legenda": "Analisar seleciona o acesso 20, sem mudar os totais da execução."
+  },
+  {
+    "imagem": "demo-09.jpg",
+    "segundos": 14,
+    "recorte": [
+      20,
+      496,
+      840,
+      395
+    ],
+    "titulo": "Antes da substituição",
+    "legenda": "A via 1 do conjunto 14 contém 992–1007, o bloco menos recente."
+  },
+  {
+    "imagem": "demo-10.jpg",
+    "segundos": 14,
+    "recorte": [
+      20,
+      496,
+      840,
+      395
+    ],
+    "titulo": "Depois da substituição",
+    "legenda": "O bloco 3040–3055 ocupa a via 1. A via 2 permanece no conjunto."
+  },
+  {
+    "imagem": "demo-11.jpg",
+    "segundos": 10,
+    "recorte": [
+      20,
+      110,
+      1315,
+      795
+    ],
+    "titulo": "Voltar ao estado atual",
+    "legenda": "O retorno destacado permite continuar a consultar a cache final."
+  },
+  {
+    "imagem": "demo-12.jpg",
+    "segundos": 13,
+    "recorte": [
+      625,
+      566,
+      715,
+      313
+    ],
+    "titulo": "Reconfigurar o cenário",
+    "legenda": "Totalmente associativo: 8 bits de tag e nenhum bit de conjunto."
+  },
+  {
+    "imagem": "demo-12.jpg",
+    "segundos": 10,
+    "recorte": null,
+    "titulo": "Explorar outras configurações",
+    "legenda": "A mudança dos parâmetros atualiza a divisão do endereço antes da execução."
+  }
+]
