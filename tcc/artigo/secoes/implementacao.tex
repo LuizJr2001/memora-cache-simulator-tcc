@@ -7,9 +7,22 @@ Esta seção apresenta as tecnologias e a organização da aplicação, seus pri
 
 O Memora foi implementado com HTML, CSS e JavaScript, a partir do código do Beto, de Leandro Gabriel e colaboradores \cite{gabriel2022beto}. HTML estrutura os elementos da interface, CSS define sua apresentação e JavaScript controla a configuração, a simulação e as interações. A aplicação executa no navegador e é disponibilizada como um site estático, sem exigir instalação pelo estudante. A licença MIT e a atribuição ao código de origem foram preservadas. Essa licença, também conhecida como X11, permite usar, modificar e distribuir o código mediante preservação do aviso de copyright e da licença \cite{mitlicense}.
 
-A implementação separa a interface da lógica da simulação. A interface recebe os parâmetros, comunica erros, controla a reprodução e apresenta resultados. O núcleo interpreta os endereços, aplica o mapeamento e a política de substituição e produz o estado da cache e as estatísticas. Para cada acesso concluído, são conservadas cópias do estado anterior e do posterior, permitindo consultar o histórico sem alterar a execução.
+A configuração, a decomposição dos endereços e as rotinas de execução foram extraídas do código JavaScript do Beto e adaptadas em módulos independentes dos elementos da página. A interface do Memora envia os parâmetros e a sequência de endereços ao núcleo. Para cada acesso, o núcleo aplica as regras de mapeamento e substituição e registra os estados anterior e posterior da cache. A interface consulta esses registros para apresentar o histórico e a comparação (Figura~\ref{fig:beto-memora}).
 
 Foram preservados os três mapeamentos e as políticas FIFO, LRU e aleatória já existentes no Beto. O desenvolvimento concentrou-se em validação, organização dos campos, explicações, visibilidade dos metadados e controle da execução. O Memora\footnote{Disponível em: \url{https://luizjr2001.github.io/memora-cache-simulator-tcc/}.} e seu código-fonte\footnote{Disponível em: \url{https://github.com/LuizJr2001/memora-cache-simulator-tcc}.} estão disponíveis para consulta. O processo foi acompanhado por Kanban e registros de requisitos, decisões e alterações, de modo a relacionar os problemas às mudanças realizadas.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[bloco/.style={draw=violetaMemora,rounded corners,align=center,text width=5.4cm,inner sep=5pt,font=\small},seta/.style={-{Stealth},thick}]
+\node[bloco] (b) at (0,0) {\textbf{Código de origem (Beto)}\\Configuração, endereçamento e execução dos três mapeamentos};
+\node[bloco,fill=fundoMemora] (n) at (0,-2.1) {\textbf{Núcleo adaptado (Memora)}\\Cálculo por acesso, estatísticas e registro dos estados da cache};
+\node[bloco,fill=fundoMemora] (u) at (7,-2.1) {\textbf{Interface do Memora}\\Validação e ajuda na configuração, controles e revisão do histórico};
+\draw[seta] (b) -- node[right,font=\footnotesize]{adaptação} (n);
+\draw[seta] (n.east) -- (u.west);
+\end{tikzpicture}
+\caption{Origem do núcleo e apresentação dos estados no Memora.}
+\label{fig:beto-memora}
+\end{figure}
 
 \subsection{Configuração e prevenção de erros}
 

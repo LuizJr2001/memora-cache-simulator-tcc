@@ -27,32 +27,32 @@ QtMips & Código aberto, GPL-3.0 & C++/Qt; CPU MIPS, \textit{pipeline} e cache. 
 
 
 \centering
-\caption{Funcionalidades identificadas na documentação das ferramentas.}
+\caption{Funcionalidades dos simuladores e da versão implementada do Memora.}
 \label{tab:matriz-funcionalidades}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}P{5.1cm}*{7}{c}@{}}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}P{4.35cm}*{8}{c}@{}}
 \toprule
-\textbf{Recurso} & \textbf{Beto} & \textbf{ParaCache} & \textbf{Ripes} & \textbf{SMP} & \textbf{Dinero} & \textbf{Python} & \textbf{QtMips} \\
+\textbf{Recurso} & \textbf{Beto} & \textbf{Memora} & \textbf{ParaCache} & \textbf{Ripes} & \textbf{SMP} & \textbf{Dinero} & \textbf{Python} & \textbf{QtMips} \\
 \midrule
-Mapeamento direto & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
-Totalmente associativo & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
-Associativo por conjunto & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
-FIFO & \tem & \tem & \parcial & \tem & \tem & \nao & \parcial \\
-LRU & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
-Aleatória & \tem & \tem & \parcial & \tem & \parcial & \nao & \nao \\
-LFU/MRU ou política adicional & \nao & \nao & \parcial & \tem & \parcial & \tem & \nao \\
-Operações \textit{load/store} & \nao & \tem & \tem & \tem & \tem & \parcial & \tem \\
-Políticas de escrita & \nao & \tem & \tem & \tem & \tem & \nao & \parcial \\
-Bit de validade & \parcial & \tem & \tem & \tem & \parcial & \parcial & \parcial \\
-\textit{Dirty bit} & \nao & \tem & \tem & \tem & \parcial & \nao & \parcial \\
-Estado LRU visível & \nao & \nao & \tem & \parcial & \nao & \nao & \nao \\
-Decomposição do endereço & \parcial & \tem & \tem & \parcial & \parcial & \tem & \parcial \\
-Histórico/rastro por acesso & \parcial & \tem & \tem & \tem & \tem & \tem & \parcial \\
-Estatística/gráfico/exportação & \parcial & \tem & \tem & \tem & \tem & \parcial & \parcial \\
+Mapeamento direto & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
+Totalmente associativo & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
+Associativo por conjunto & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
+FIFO & \tem & \tem & \tem & \parcial & \tem & \tem & \nao & \parcial \\
+LRU & \tem & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
+Aleatória & \tem & \tem & \tem & \parcial & \tem & \parcial & \nao & \nao \\
+LFU/MRU ou política adicional & \nao & \nao & \nao & \parcial & \tem & \parcial & \tem & \nao \\
+Operações \textit{load/store} & \nao & \nao & \tem & \tem & \tem & \tem & \parcial & \tem \\
+Políticas de escrita & \nao & \nao & \tem & \tem & \tem & \tem & \nao & \parcial \\
+Bit de validade & \parcial & \tem & \tem & \tem & \tem & \parcial & \parcial & \parcial \\
+\textit{Dirty bit} & \nao & \nao & \tem & \tem & \tem & \parcial & \nao & \parcial \\
+Estado LRU visível & \nao & \tem & \nao & \tem & \parcial & \nao & \nao & \nao \\
+Decomposição do endereço & \parcial & \tem & \tem & \tem & \parcial & \parcial & \tem & \parcial \\
+Histórico/rastro por acesso & \parcial & \tem & \tem & \tem & \tem & \tem & \tem & \parcial \\
+Estatística/gráfico/exportação & \parcial & \parcial & \tem & \tem & \tem & \tem & \parcial & \parcial \\
 \bottomrule
 \end{tabular}
-\par\footnotesize SMP: SMPCache; Python: Cache Simulator. \tem{}: identificado; \parcial{}: parcial/a confirmar; \nao{}: não identificado. Fonte: síntese da documentação das ferramentas apresentada na Seção~\ref{sec:relacionados}.
+\par\footnotesize SMP: SMPCache; Python: Cache Simulator. \tem{}: identificado; \parcial{}: parcial/a confirmar; \nao{}: não identificado. O Memora apresenta totais de acertos e faltas. Gráficos e exportação permanecem como extensões futuras. Fonte: síntese da documentação das ferramentas e da implementação do Memora. As ferramentas externas são descritas na Seção~\ref{sec:relacionados}.
 \end{table}
 
 O comparativo evidencia diferenças de finalidade. \textbf{Dinero IV} concentra-se na análise por rastros e não oferece interface gráfica; \textbf{Ripes} e \textbf{QtMips} articulam cache e execução de instruções. \textbf{ParaCache} reúne recursos de escrita em ambiente web, e \textbf{SMPCache} inclui coerência em multiprocessadores, mas não foi identificado código público dessas duas ferramentas. \textbf{Ripes}, por sua vez, combina recursos de análise com código aberto. Portanto, quantidade de funcionalidades e disponibilidade do código são dimensões distintas, que não permitem ordenar as ferramentas por uma única medida de qualidade.
@@ -140,14 +140,23 @@ A ordem de desenvolvimento partiu da configuração válida dos cenários, neces
 As operações de leitura e escrita foram indicadas por sete estudantes (53,8\%) e o bit de modificação e políticas de escrita por oito (61,5\%). Sua implementação exigiria ampliar o modelo de operações e a atualização da memória principal, além da interface. Considerando o prazo do TCC e o objetivo de melhorar a experiência de uso da base existente, essa ampliação foi reservada para trabalhos futuros. O levantamento, portanto, orientou tanto as melhorias escolhidas quanto a explicitação das demandas que ficaram fora desta entrega.
 
 \begingroup\small
-\begin{longtable}{@{}P{2.15cm}P{4.0cm}P{3.85cm}P{3.6cm}@{}}
+\begin{longtable}{@{}P{1.75cm}P{8cm}P{4.3cm}@{}}
 \caption{Prioridades definidas para o desenvolvimento do Memora.}\label{tab:escopo-memora}\\
-\toprule\textbf{Prioridade} & \textbf{Requisitos agrupados} & \textbf{Evidências do levantamento} & \textbf{Encaminhamento}\\\midrule\endfirsthead
-\toprule\textbf{Prioridade} & \textbf{Requisitos agrupados} & \textbf{Evidências do levantamento} & \textbf{Encaminhamento}\\\midrule\endhead
-1 & Validar entradas, explicar erros e limitar solicitações excessivas. & Mensagens didáticas: 7/13; validação: 4/13; relatos de travamento e parâmetros incompatíveis. & Implementar antes da execução e durante a edição.\\\midrule
-2 & Reorganizar informações e oferecer ajuda, Glossário e explicação dos termos. & Ajuda: 9/13; termos: 7/13; excesso de informação: 8/13. & Implementar no fluxo de configuração e simulação.\\\midrule
-3 & Explicitar decomposição, validade e recência LRU. & LRU: 10/13; decomposição: 2/13; validade: 2/13 nas melhorias. & Apresentar o estado utilizado pelo modelo existente.\\\midrule
-4 & Oferecer histórico e comparação por acesso, controles claros e exemplos. & Exemplos: 6/13; histórico ausente: 3/13; relatos sobre término, reinício e explicações. & Implementar o acompanhamento e a revisão da simulação.\\
+\toprule\textbf{Prioridade} & \textbf{Como estudante, quero\ldots} & \textbf{Evidência do levantamento}\\\midrule\endfirsthead
+\toprule\textbf{Prioridade} & \textbf{Como estudante, quero\ldots} & \textbf{Evidência do levantamento}\\\midrule\endhead
+1 & Receber a indicação do campo inválido durante a edição para corrigir o valor antes de iniciar. & Validação: 4/13.\\
+1 & Entender por que dois parâmetros são incompatíveis para escolher uma combinação válida. & Mensagens didáticas: 7/13.\\
+1 & Ser avisado quando a entrada exceder o limite para reduzir a sequência antes de executar. & Relatos de travamento.\\
+2 & Encontrar os parâmetros da etapa atual para configurar o exercício sem procurar entre controles de execução. & Excesso de informação: 8/13.\\
+2 & Consultar a ajuda junto ao campo para entender o valor solicitado. & Ajuda interna: 9/13.\\
+2 & Consultar um termo no glossário para interpretar o vocabulário da simulação. & Explicação dos termos: 7/13.\\
+3 & Ver a divisão do endereço para relacionar seus bits ao mapeamento escolhido. & Decomposição: 2/13.\\
+3 & Identificar se uma linha contém um bloco válido para interpretar seu estado. & Validade: 2/13.\\
+3 & Consultar a recência das vias para explicar a escolha da vítima em LRU. & Recência LRU: 10/13.\\
+4 & Carregar um exemplo para começar a simular a partir de parâmetros compatíveis. & Exemplos: 6/13.\\
+4 & Controlar o avanço dos acessos para acompanhar cada etapa no meu ritmo. & Relatos sobre os controles.\\
+4 & Localizar um acesso concluído para retomar um evento anterior. & Ausência de histórico: 3/13.\\
+4 & Comparar a linha antes e depois do acesso para explicar uma substituição. & Relatos sobre o histórico e as explicações.\\
 \bottomrule
 \end{longtable}
 \endgroup
